@@ -1,0 +1,100 @@
+Tjo gossar!
+Jag har lagt upp ett par länkar i beskrivningen. Den första är läsvärd för att förstå sig på git lite djupare, och cheat-sheeten är guld att ha med i bakfickan. Jag misstänker att kommandona är samma för både linuxterminalen och Powershell, men då jag i sammanhanget är exklusiv linuxanvändare förbehåller jag mig rätten att stanna vid att anta det. ;) Men, jag tänkte ta och sammanfatta det hela lite snabbt, inte minst för att vi ska kunna komma igång med det på ett smidigt sätt utan att behöva läsa hur mycket som helst.
+
+Github är en molntjänst. Git är ett versionshanteringssystem. Github använder sig av Git, men Git är oberoende utav Github. Git är enkelt sett ett verktyg för att skapa "snap-shots" av ett filsystem och jag tänker guida er igenom det hela genom några exempelövningar som inte borde ta många minuter att köra genom. Märk väl att '$' visar på att det är ett user-kommando som följer, och således inte är en del av kommandot i sig. ;)
+Det kommer säkerligen komma förfrågningar på användarnamn och lösenord - vilket går att sätta upp så att man slipper slå in stup i kvarten, se bl.a. cheat-sheeten.
+
+
+Vi börjar med att gå in på github och skapa oss ett repo i lämplig webbläsare. När det väl är skapat klonar vi det till vår hårddisk och går in i dess mapp:
+$ git clone https://github.com/username/Foo
+$ cd Foo
+
+/*
+	Det går utmärkt att skapa repon via terminalen, men det är för tillfället överkurs. ;)
+*/
+
+Gå gärna in på repot i webbläsaren och håll koll på vad som händer där allt eftersom vi gör ändringar.
+
+Vi har nu skapat en mapp (~/Foo) som tillika är vår hemmapp för vårt repo.
+
+/*
+	Således kan ni för projektet klona in projektet med följande kommandon:
+	$ cd ~/path/to/where/we/want/the/project/
+	$ git clone https://github.com/oscpe262/TDDI02
+	$ cd TDDI02
+*/
+
+I ~/Foo skapar vi nu en enkel textfil och lägger till lite text i den:
+$ echo "Lite första text" >> text.txt
+
+Vi kör nu en statuskoll på det hela och ser att vi har gjort lokala ändringar som inte gjorts någon snap-shot på:
+$ git status
+
+Nu gör vi en snap-shot på vår tillagda fil:
+$ git add text.txt
+
+Vi har nu en snap-shot av filsystemet, men vi vill gärna spara den för framtida bruk, utifall att vi skulle göra något vi ångrar:
+$ git commit -m "Added our first file"
+
+Nu är vi redo att ladda upp våra ändringar till Github, så låt oss göra det genom följande:
+$ git push
+
+Nu har vi pushat våra uppdateringar till master-grenen av repot. Låt oss nu lägga till lite text i filen:
+$ echo "Lite mer text" >> text.txt
+
+Vi kan nu kolla skillnaden mellan vad vi har och jobbar med och senaste speglingen genom:
+$ git diff --staged
+
+Det är sällan vi vill ändra saker i master-branchen när vi är fler som jobbar med samma projekt, så nu verkar det rätt så dumt att ha gjort den där ändringen. Vi gör den först och främst ogjord genom att gå tillbaka till den snapshot vi gjorde tidigare:
+$ git reset --hard <autotab ger oss tillgängliga snaps, vi väljer "master" i det här fallet för att ta oss till det vi pushat till Github>
+
+Vi skapar oss nu en egen gren för att slippa hamna i ett läge där master-grenen är okompilerbar för alla. Vi ser dessutom till att växla till den grenen:
+$ git branch NyGren
+$ git checkout NyGren
+
+Om vi nu kör "$ git status" ser vi att vi är i grenen NyGren. Det finns rätt så bra tillägg till BaSH, ZSH m.fl. som visar status, gren etc. direkt i prompten, vilket kan vara smidigt att lägga till på sin egen burk åtminstone, men det är en parentes.
+
+Vi lägger nu till lite text i vår fil och pushar den till vår branch:
+$ echo "Lite mer text" >> text.txt
+$ git add text.txt
+$ git commit -m "Added some text"
+$ git push --set-upstream origin NyGren
+
+/*
+	--set-upstream origin NyGren behöver bara användas när vi först skapar en gren. När den väl är skapad
+	används helt enkelt "$ git push" medan man är aktiv i den grenen.
+*/
+
+Vi har nu två olika versioner uppladdade på Github. Låt oss nu simulera att någon annan pushat något till "master" medan vi suttit och gjort våra ändringar.
+$ git checkout master
+$ echo "Ninjaändring" >> text.txt
+$ git add text.txt
+$ git commit -m "Ninja text"
+$ git push
+$ git checkout NyGren
+
+Med git diff kan vi även jämföra ändringar mellan grenar:
+$ git diff master NyGren
+
+Vi ser då vad som ändrats (+/- text) och på vilka rader (@@ antal rader/rad nr @@),
+
+Vi försöker nu för skojs skull att slå ihop NyGren och master:
+$ git merge master
+
+Vi får ett meddelande om en konflikt. För att göra det riktigt jäkligt har vi dessutom fått ändringar i vår NyGren/text.txt.
+
+Vi får gå in och fixa till det hela. Vi kan rulla tillbaka till vår senaste snapshot om vi vill, men för enkelhetens skull öppnar vi nu textfilen som den är i lämplig texteditor.
+"<<<<<<< HEAD" visar var ändringen ska in.
+"======= \n <text> \n >>>>>>> master" visar vad det är som ska in ovan.
+
+Vi fixar det som ska fixas och uppdaterar grenen.
+$ git add text.txt && git commit -m "test" && git push
+
+Därefter tar vi en titt i webbläsaren och ser att vi kan jämföra och göra en pull request nu när commithistoriken är i fas. Låt oss göra det. Vi ber då om klartecken för att slå ihop de två till en ny master. Lämpligen fyller vi i något vettigt om vad vi gjort.
+Gå tillbaka till master-grenen i Foo i webbläsaren så ser vi att vi har en Pull request till höger. Klickar vi på den kommer vi tillbaka dit vi var nyss. ;) Vi kollar att det ser bra ut och väljer "Merge pull request". Kommandoradsalternativet kan visas genom länken bredvid. Välj "Confirm" så är master up-to-date med NyGren.
+
+Som vi ser så kan det rätt så snabbt bli bökigt att hålla koll på att allt är up to date, så se till att hålla de lokala grenarna så uppdaterade som möjligt gentemot master och lek gärna runt med fler grenar för att bli bekanta med de problem som garanterat kommer att uppstå.
+
+Jag rekommenderar även att läsa genom kapitel fem i första länken för att få koll på workflow.
+
+Jag är själv rätt så ny på git i skrivande stund, så det är långt ifrån säkert att jag kan reda ut allt, men ser vi till att skriva saker modulärt i separata filer och håller tungan rätt i mun så ska det nog fungera hyfsat smärtfritt. Vi får helt enkelt lära oss på vägen. :)
