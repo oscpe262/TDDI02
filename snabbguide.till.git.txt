@@ -78,7 +78,7 @@ $ git diff master NyGren
 
 Vi ser då vad som ändrats (+/- text) och på vilka rader (@@ antal rader/rad nr @@),
 
-Vi försöker nu slå ihop NyGren med master:
+Vi försöker nu för skojs skull att slå ihop NyGren och master:
 $ git merge master
 
 Vi får ett meddelande om en konflikt. För att göra det riktigt jäkligt har vi dessutom fått ändringar i vår NyGren/text.txt.
@@ -90,7 +90,7 @@ Vi får gå in och fixa till det hela. Vi kan rulla tillbaka till vår senaste s
 Vi fixar det som ska fixas och uppdaterar grenen.
 $ git add text.txt && git commit -m "test" && git push
 
-Därefter tar vi en titt i webbläsaren och ser att vi kan jämföra och göra en pull request. Låt oss göra det. Vi ber då om klartecken för att slå ihop de två till en ny master. Lämpligen fyller vi i något vettigt om vad vi gjort.
+Därefter tar vi en titt i webbläsaren och ser att vi kan jämföra och göra en pull request nu när commithistoriken är i fas. Låt oss göra det. Vi ber då om klartecken för att slå ihop de två till en ny master. Lämpligen fyller vi i något vettigt om vad vi gjort.
 Gå tillbaka till master-grenen i Foo i webbläsaren så ser vi att vi har en Pull request till höger. Klickar vi på den kommer vi tillbaka dit vi var nyss. ;) Vi kollar att det ser bra ut och väljer "Merge pull request". Kommandoradsalternativet kan visas genom länken bredvid. Välj "Confirm" så är master up-to-date med NyGren.
 
 Som vi ser så kan det rätt så snabbt bli bökigt att hålla koll på att allt är up to date, så se till att hålla de lokala grenarna så uppdaterade som möjligt gentemot master och lek gärna runt med fler grenar för att bli bekanta med de problem som garanterat kommer att uppstå.
