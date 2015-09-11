@@ -1,11 +1,13 @@
-\documentclass[10pt,a4paper]{report}
-\usepackage[utf8]{inputenc}
+% Document props and library inclusions
+\documentclass[10pt,a4paper]{report} 
+\usepackage[utf8]{inputenc} 
 \usepackage[swedish]{babel}
 \usepackage{mathtools,tikz,textcomp,fixltx2e,color,fullpage,graphicx,afterpage,float,parskip,xfrac,gensymb,titlesec,etoolbox,pdfpages,hyperref}
 \usetikzlibrary{calc,matrix,positioning,arrows,shapes,trees,plotmarks,decorations.markings}
 \usepackage[font={small,it}]{caption}
 \usepackage[europeancurrents,europeanvoltages,europeanresistors,europeaninductors,smartlabels]{circuitikz}
-\setcounter{secnumdepth}{0}
+
+\setcounter{secnumdepth}{0} % Levels enumerated
 
 % PDF props
 \hypersetup{
@@ -31,42 +33,17 @@
 
 \begin{document}
 
-\section{Kravspecifikation}
+\section{Kravspecifikation - MatLabb}
+  \subsection{Bakgrund}
+  \input{./tex/bakgrund.tex}
 
-\subsection{Bakgrund}
+  \subsection{Krav}
+  \input{./tex/krav.tex}
 
-Projektets syfte är att skapa en interaktiv recept-databas med grafiskt användargränssnitt för att hjälpa användaren med organisering av recept med smarta sökfunktioner och för att underlätta matlagningsprocessen genom att tillåta portions-skalning och enhetsomvandling. För att hjälpa användaren att hålla koll på både sin vikt och ekonomi kommer recepten även innehålla information om näringsinnehåll och pris.
-\subsection{Krav}
-\begin{itemize}
-\item Varje recept skall innehålla information om:
-  \begin{itemize}
-    \item Titel
-    \item En lista över ingredienser samt mängd av varje
-    \item Portionspris
-    \item Kalorimängd
-    \item En beskrivning av tillvägagångssättet
-    \item Betyg
-  \end{itemize}
-\item Användaren skall via gränsnittet kunna läsa ett valt recepts ingredienser, tillagningssätt samt betyg.
-\item Användaren skall kunna lägga in egna recept i databasen via gränssnittet genom att välja vilka ingredienser som ingår, ange mängd samt skriva en beskrivning.
-\item Användaren skall kunna lägga till nya ingredienser i databasen via gränssnittet genom att ange namn, pris samt kalorimängd.
-\item Användaren skall kunna justera en ingrediens kalorimängd samt pris via gränssnittet
-\item Användaren skall med hjälp av gränssnittet kunna ändra ett recepts betyg på en femgradig skala
-\item Recept skall med hjälp av gränsnittet kunna filtreras med hjälp av följande filter:
-  \begin{itemize}
-    \item Titel
-    \item Vilka ingredienser som ingår
-    \item Kostnad
-    \item Kalorimängd
-    \item Allergier
-  \end{itemize}
-\item Användaren skall kunna skala om ett recept till valt antal portioner
-\item Ingrediensmängden skall kunna enhetsomvandlas.
-\end{itemize}
+  \subsection{Gränssnitt}
+  \input{./tex/gui.tex}
 
-\subsection{Gränssnitt}
-Gränsnittet skall bestå av ett sökfält med sökfilter där en lista över berörda recept visas med ca 20 recept per sida. Det skall finnas en receptvy där användaren kan läsa valt recept, skala om antalet portioner samt enhetsomvandla. Det skall finnas en ”lägg-till”-vy där nya recept kan fyllas i samt nya ingredienser kan föras in i databasen.
-\subsection{Databasen}
-Databasen skall inehålla två entiteter recept och ingredienser recept skall ha fält för namn, betyg och en lista över vilka ingredienser som ingår och i vilket antal. Ingredienserna skall ha fält för pris, kalorimängd och allergener.
+  \subsection{Databasen}
+  \input{./tex/databasen.tex}
 
 \end{document}
