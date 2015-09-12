@@ -78,7 +78,7 @@ $ git diff master NyGren
 
 Vi ser då vad som ändrats (+/- text) och på vilka rader (@@ antal rader/rad nr @@),
 
-Vi försöker nu för skojs skull att slå ihop NyGren och master:
+Vi försöker nu för skojs skull att slå ihop NyGren och master (Nygren <= Master):
 $ git merge master
 
 Vi får ett meddelande om en konflikt. För att göra det riktigt jäkligt har vi dessutom fått ändringar i vår NyGren/text.txt.
@@ -96,5 +96,20 @@ Gå tillbaka till master-grenen i Foo i webbläsaren så ser vi att vi har en Pu
 Som vi ser så kan det rätt så snabbt bli bökigt att hålla koll på att allt är up to date, så se till att hålla de lokala grenarna så uppdaterade som möjligt gentemot master och lek gärna runt med fler grenar för att bli bekanta med de problem som garanterat kommer att uppstå.
 
 Jag rekommenderar även att läsa genom kapitel fem i första länken för att få koll på workflow.
+
+
+===================
+Så, en liten sammanfattning av de viktigaste kommandona som ni _ska_ ha koll på:
+
+git clone <path>			 klona repo
+git checkout <branch>			 byt branch
+git status   				 statuskoll
+git add <files>				 lägg till vilka filer som ska uppdateras
+git commit				 uppdatera, -m "<foo>" lägger till snabb enradskommentar
+git push				 skicka ändringarna till github
+git merge <branch1>			 lägg till förändringar från branch1 till aktuell branch
+git pull  				 hämta hem senaste ändringarna från github
+
+===================
 
 Jag är själv rätt så ny på git i skrivande stund, så det är långt ifrån säkert att jag kan reda ut allt, men ser vi till att skriva saker modulärt i separata filer och håller tungan rätt i mun så ska det nog fungera hyfsat smärtfritt. Vi får helt enkelt lära oss på vägen. :)
