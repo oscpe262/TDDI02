@@ -1,27 +1,31 @@
-\begin{itemize}
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+
+\begin{enumerate}
 \item Varje recept skall innehålla information om:
-  \begin{itemize}
+  \begin{enumerate}
     \item Titel
     \item En lista över ingredienser samt åtgång av dessa
     \item Portionspris
     \item Energiinnehåll
     \item En beskrivning av tillagningsproceduren
     \item Betyg
-  \end{itemize}
+  \end{enumerate}
 \item Användaren skall via gränsnittet kunna läsa ett valt recepts ingredienser, tillagningsprocedur samt betyg.
 \item Användaren skall kunna lägga in egna recept i databasen via gränssnittet genom att välja vilka ingredienser som ingår, ange mängd samt skriva en beskrivning.
 \item Användaren skall kunna lägga till nya ingredienser i databasen via gränssnittet genom att ange namn, pris samt energiinnehåll.
 \item Användaren skall kunna justera pris och energiinnehåll hos en ingrediens via gränssnittet
 \item Användaren skall med hjälp av gränssnittet kunna ändra ett recepts betyg på en femgradig skala
 \item Recept skall med hjälp av gränsnittet kunna filtreras med hjälp av följande filter:
-  \begin{itemize}
+  \begin{enumerate}
     \item Titel
     \item Ingående ingredienser
     \item Kostnad
     \item Energiinnehåll
     \item Allergier
-  \end{itemize}
+  \end{enumerate}
 \item Användaren skall kunna skala om ett recept till valt antal portioner
 \item Ingrediensmängden skall kunna enhetsomvandlas.
-\end{itemize}
-
+\item Recept skall kunna länkas till relaterade recept.
+  \item Recept skall kunna läsas in från, och skrivas till, en standardiserad filstruktur.
+\end{enumerate}
