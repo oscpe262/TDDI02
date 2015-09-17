@@ -6,6 +6,7 @@
 \usetikzlibrary{calc,matrix,positioning,arrows,shapes,trees,plotmarks,decorations.markings}
 \usepackage[font={small,it}]{caption}
 \usepackage[europeancurrents,europeanvoltages,europeanresistors,europeaninductors,smartlabels]{circuitikz}
+\usepackage[font={small,it}]{caption} %% Italics in captions
 
 \setcounter{secnumdepth}{0} % Levels enumerated
 
@@ -31,19 +32,52 @@
 }
 \urlstyle{same}
 
+%% First Page Information
+\author{Matteus Laurent, Johan Levinsson, Oscar Petersson, Erik Peyronsson}
+\title{MatLabb}
+\date{\today}
+\newcommand{\course}{Programmeringsprojekt, HT15}
+\newcommand{\coursenumber}{TDDI02, Linköpings universitet}
+\newcommand{\programme}{Högskoleingenjörsutbildning i datateknik, 180 hp}
+\newcommand{\examiner}{Johan Frimodig}
+\newcommand{\institution}{Institutionen för datavetenskap}
+\newcommand{\reptype}{Kravspecifikation}
+
+\newcommand{\includelogo}{\includegraphics[width=48 mm]{LiTH_sigill_sv.pdf}\makeatletter\begin{center}\vskip 4.5cm}
+\newcommand{\excludelogo}{\makeatletter\begin{center}~\vfill}
+
 \begin{document}
 
-\section{Kravspecifikation - MatLabb}
-  \subsection{Bakgrund}
-  \input{./tex/bakgrund.tex}
+\pagestyle{empty}
+%\includelogo
+ \excludelogo
+  \Large{\@author}\vskip .3cm
+  \textbf{\LARGE{\@title}}\vskip .2cm
+  \large{\programme}
+  \vfill
+\end{center}
+\reptype{} - \@date\hfill Handledare:\\
+\textbf{\course}\hfill\examiner\\
+\coursenumber\hfill\institution
+\makeatother
+\newpage
 
-  \subsection{Krav}
-  \input{./tex/krav.tex}
+%% Table of Contents
+%\addtocontents{toc}{\protect\hypertarget{toc}{}}
+%\tableofcontents\label{sec:toc}
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\cleardoublepage
 
-  \subsection{Gränssnitt}
-  \input{./tex/gui.tex}
+\section{Bakgrund}
+\input{./tex/bakgrund.tex}
 
-  \subsection{Databasen}
-  \input{./tex/databasen.tex}
+\section{Krav}
+\input{./tex/krav.tex}
+
+\section{Gränssnitt}
+\input{./tex/gui.tex}
+
+\section{Databasen}
+\input{./tex/databasen.tex}
 
 \end{document}
