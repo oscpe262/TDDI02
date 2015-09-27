@@ -1,0 +1,111 @@
+%% Doc Props
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[swedish]{babel}
+
+% Packages
+\usepackage{
+  titlesec,  tikz,  textcomp,  fixltx2e,  color,  fullpage,  graphicx,  afterpage,  float,  parskip,  xfrac,  gensymb,  titlesec,  mathtools, pdfpages, etoolbox, hyperref
+}
+\usepackage[europeancurrents,europeanvoltages,europeanresistors,europeaninductors,smartlabels]{circuitikz}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.12}
+\usetikzlibrary{calc,matrix,positioning,arrows,shapes,trees,plotmarks,decorations.markings}
+\usepackage[font={small,it}]{caption} %% Italics in captions
+
+
+% PDF props
+\hypersetup{
+  bookmarks=true,              % show bookmarks bar?
+  bookmarkstype=toc,
+  bookmarksopenlevel=\maxdimen
+  unicode=true,                % non-Latin characters in Acrobat’s bookmarks
+  pdftoolbar=true,             % show Acrobat’s toolbar?
+  pdfmenubar=true,             % show Acrobat’s menu?
+  pdffitwindow=false,          % window fit to page when opened
+  pdfstartview={FitH},         % fits the width of the page to the window
+  pdftitle={Design Specification},         % title
+  pdfauthor={Petersson, Oscar}, % author
+  pdfsubject={TDDI02},          % subject of the document
+  pdfkeywords={TDDI02}          % list of keywords
+  pdfnewwindow=true,           % links in new window
+  hidelinks,                   % hide links (removing color and border)
+  linktocpage=true,
+  linktoc=all,                 % parts of TOC made into links
+  pdfdisplaydoctitle=true      %display document title instead of file name in title bar
+}
+\urlstyle{same}
+
+% More Props
+\graphicspath{{./fig/}}
+
+% Add Bibliography to ToC
+\apptocmd{\thebibliography}{\csname phantomsection\endcsname\addcontentsline{toc}{chapter}{\bibname}}{}{}
+
+% Comfy Command Redefinitions
+\newcommand{\bve}{\begin{verbatim}}
+\newcommand{\itb}{\begin{itemize}}
+\newcommand{\ite}{\end{itemize}}
+\newcommand{\tb}{\textbackslash}
+\newcommand{\citep}[1]{\emph{Datablad \cite{#1}}}
+\renewcommand{\contentsname}{Innehållsförteckning}
+
+%% First Page Information
+\author{Matteus Laurent, Johan Levinsson, Oscar Petersson, Erik Peyronsson}
+\title{MatLabb - Designspecifikation}
+\date{\today}
+\newcommand{\course}{Programmeringsprojekt, HT15}
+\newcommand{\coursenumber}{TDDI02, Linköpings universitet}
+\newcommand{\programme}{Högskoleingenjörsutbildning i datateknik, 180 hp}
+\newcommand{\examiner}{Johan Frimodig}
+\newcommand{\institution}{Institutionen för datavetenskap}
+\newcommand{\reptype}{Designspecifikation}
+
+%\newcommand{\includelogo}{\includegraphics[width=48 mm]{LiTH_sigill_sv.pdf}\makeatletter\begin{center}\vskip 4.5cm}
+\newcommand{\excludelogo}{\makeatletter\begin{center}~\vfill}
+
+%% Remove chapter ``chapter'', keep chapter number
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  \vspace*{50 pt}%
+          {\setlength{\parindent}{0pt} \raggedright \normalfont
+            \bfseries\Huge
+            \ifnum \value{secnumdepth}>1
+            \if@mainmatter\thechapter.\ \fi%
+            \fi
+            #1\par\nobreak\vspace{40 pt}}}
+\makeatother
+
+
+%%% Document %%%
+\begin{document}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+%% Custom titlepage, empty backside, do not use with \maketitle
+\pagestyle{empty}
+%\includelogo
+ \excludelogo
+  \Large{\@author}\vskip .3cm
+  \textbf{\LARGE{\@title}}\vskip .2cm
+  \large{\programme}
+  \vfill
+\end{center}
+\reptype{} - \@date\hfill Handledare:\\
+\textbf{\course}\hfill\examiner\\
+\coursenumber\hfill\institution
+\makeatother
+\newpage
+\afterpage{\null\newpage}
+\thispagestyle{empty}
+
+%% Table of Contents
+\addtocontents{toc}{\protect\hypertarget{toc}{}}
+\tableofcontents\label{sec:toc}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\cleardoublepage
+
+\input{./tex/main.tex}
+
+\end{document}
