@@ -1,0 +1,40 @@
+Då all receptinforamtion behöver sparas mellan körningar av programmet
+behöver den lagras externy. I det här programmet kommer en databas
+användas med hjälp av MySQL. Databasen kan överskådas i
+EER-diagramet i \ref{fig:erdiagram}. Den del som ligger innom de streckade området hör
+till funktionalitet som endast kommer implementeras i mån av tid.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.35]{erdiagram.png}
+        \caption{Entity-Relationship diagram}}
+        \label{fig:erdiagram}
+\end{figure}
+
+Databasen kommer bestå av fem entiteter \verb+Recipie+ som innehåller
+information unik för ett enskilt recept. \verb+Ingridient+ som är en lista
+över de olika ingredienser som databasen innehåller, \verb+Allergy+
+som är en lista över allergier, \verb+Tool+ som är en lista över allergier samt
+\verb+Comment+ som är en lista över kommentarer till varje recept
+
+Entiteten \verb+recipie+ är den entiteten som lagrar namn, beskrivning, bild
+tillagningsmetod, då recept skall ha unika namn för att särskilja dem åt är det
+receptets namn som agerar primärnyckel.
+
+\verb+recipie+ har en m-n relation till\verb+ingredient+ vilket ger oss en
+lista på ingredienser till vajre recept. Genom att ha attributen \verb+kcal+ och \verb+price+
+på entiteten \verb+ingredients+ istället för \verb+recipie+ behöver unik information om
+portionspris och närings-inehåll till varje recept inte sparas utan kan räknas ut beroende på vilka
+ingredienser som ingår. Genom att tillföra attributet \verb+amount+ behöver varje ingrediens
+endast lagras en gång per recept och enhetsomvandling och portionsskalning kommer vara möjlig.
+
+För att hålla ordning på de vanligaste matallergierna(samt kött mejeri och fisk för
+veganer/veganer) finns entiteten \verb+Allergy+. Den har även en 1-n relation till \verb+Comment
+vilket resulterar i att alla recept får en lista med komentarer skrivna av användaren. samt en
+m-n relation till \verb+Tool+ som ger en lista över de redskaps som behövs.
+
+Genom att utforma databasen enligt sagda model kommer programmet kunna utföra sökningar olika
+sökningar och filtreringar på ingredienser som ingår, inte ingår eventuella allergener etc.
+
+
+
