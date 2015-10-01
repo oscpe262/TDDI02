@@ -32,6 +32,8 @@
 *.log
 *.out
 *.toc
+*.fdb_latexmk
+*.fls
 
 # Local
 hemtentor/
