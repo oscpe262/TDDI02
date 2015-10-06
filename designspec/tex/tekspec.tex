@@ -5,7 +5,7 @@ Programmet MatLabb har i stort tre delsystem:
 \item \verb+Shell+, eller, det inre skalet som håller centrala objekt och variabler, t.ex. aktivt recept och portionskalning.
 \item \verb+Lookup+, som tillhandahåller relevanta verktyg för kommunikation med databasen.
 \end{enumerate}
-\verb+GUI+ ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vya} - \ref{fig:vyd}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
+\verb+GUI+ ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vy1} - \ref{fig:vy4}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
 
 \section{Shell}
 \verb+Shell+ innehåller objekt av klasserna \verb+Recipe+, \verb+InfoIngredient+ och \verb+Lookup+ som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller \verb+Shell+ publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, funktionerna listade i figur \ref{fig:tekfunklist} (s. \pageref{fig:tekfunklist}).
@@ -48,7 +48,7 @@ Objekt av klasserna \verb+Recipe+ och \verb+InfoIngredient+ kommer endast att ex
 \end{itemize}
 %end
 %
-\verb+InfoIngredient+ och \verb+RecipeIngredient+ är för övrigt syskonklasser härledda från en abstrakt \verb+Ingredient+-klass, enligt figur \ref{fig:classes}.
+\verb+InfoIngredient+ och \verb+RecipeIngredient+ är för övrigt syskonklasser härledda från en abstrakt \verb+Ingredient+-klass, enligt figur \ref{fig:classes}. %va faen!!1!
 
 \begin{itemize}
 \item \verb+InfoIngredient+ representerar en ingrediens i sin egen existens. Utöver det gemensamma arvet så utökas \verb+InfoIngredient+ med ett stycke set-funktioner för att vid sparning i databasen kunna redigera en ingrediens' attribut. 
@@ -131,7 +131,7 @@ returnerar en sammanslagen lista
 \begin{figure}[h]
 \centering
 \includegraphics[width=16cm]{klass-schema.png}
-\label{fig:classes}
 \caption{Klass-schema}
+\label{fig:classes}
 \end{figure}
 
