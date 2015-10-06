@@ -1,29 +1,36 @@
 Programmet MatLabb har i stort tre delsystem:
 
- * GUI, Det grafiska användargränssnittet
- * Shell, eller, det inre skalet som håller centrala objekt och variabler, t.ex. aktivt recept och portionskalning.
- * Lookup, som tillhandahåller relevanta verktyg för kommunikation med databasen.
+\begin{enumerate}
+\item \verb+GUI+, Det grafiska användargränssnittet
+\item \verb+Shell+, eller, det inre skalet som håller centrala objekt och variabler, t.ex. aktivt recept och portionskalning.
+\item \verb+Lookup+, som tillhandahåller relevanta verktyg för kommunikation med databasen.
+\end{enumerate}
+\verb+GUI+ ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vy1} - \ref{fig:vy4}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
 
-GUI ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (referens till sektion med bilder). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer dels designas i klienten Qt Creator.
+Shell innehåller objekt av klasserna \verb+Recipe+, \verb+IngredientInfo+ och \verb+Lookup+ som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller \verb+Shell+ publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, funktionerna listade i figur \ref{fig:tekfunklist} (s. \pageref{fig:tekfunklist}).
 
-Shell innehåller objekt av klasserna Recipe, Ingredient och Lookup som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller Shell publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, följande:
+\begin{figure}[h]
+\caption{Funktioner för användarinputs}
+\begin{tabular}{p{5.5cm}|p{8cm}}
+\verb+addRecipe(string+) & Konstruerar ett nytt tomt \verb+Recipe+-objekt för datamedlemmen \verb+currentRecipe_+. Ett defaultargument av datatypen string existerar för att potentiellt tilldela ett namn. \\[1.2mm]
+\verb+editRecipe()+ & Kallar på \verb+currentRecipe_.editRecipe()+ för att kunna ändra på dess datamedlemmar.\\[1.2mm]
+\verb+importTxt(string)+ & Importering från textfil. Konstruerar ett nytt \verb+Recipe+-objekt och försöker fylla i dess datamedlemmar enligt en standardmodell.\\[1.2mm]
+\verb+exportTxt()+ & Kallar på \verb+currentRecipe_.exportTxt(string)+ för att exportera till .txt. Kan modifieras för att först hämta ett annat recept från databasen för exportering.\\[1.2mm]
+\verb+addIngredient(string)+ & Motsvarande \verb+addRecipe+. \\[1.2mm]
+\verb+editIngredient(string)+ &  Motsvarande \verb+addIngredient+. \\[1.2mm]
+\verb++&\\[1.2mm]
+\verb+matchRecipe(string)+ & Levererar en sträng till \verb+Lookup+-objektet för att slå i databasen för exakt matchning. \\[1.2mm]
+\verb+matchIngredient(string)+ &  Motsvarande \verb+matchRecipe+. \\[1.2mm]
+\verb+searchRecipe(cont<SearchTerm*>)+ & Levererar söktermer i en godtycklig container till \verb+Lookup+. \verb+recipeSearchResults_+ tilldelas det resultat som \verb+Lookup+ ger.  \\[1.2mm]
+\verb++&\\[1.2mm]
+\verb++& get-funktioner som används av GUI:t och returnerar relevant data. 
+\end{tabular}
+\label{fig:tekfunklist}
+\end{figure}
 
- * addRecipe(string) // Konstruerar ett nytt tomt Recipe-objektet för datamedlemmen currentRecipe\_. Ett defaultargument av datatypen string existerar för att potentiellt tilldela ett namn.
- * editRecipe() // Kallar på currentRecipe\_.editRecipe() för att kunna ändra på dess datamedlemmar.
- * importTxt(string) // Importering från textfil. Konstruerar ett nytt Recipe-objekt och försöker fylla i dess datamedlemmar enligt en standardmodell.
- * exportTxt() // Kallar på currentRecipe\_.exportTxt(string) för att exportera till .txt. Kan modifieras för att först hämta ett annat recept från databasen för exportering.
- * addIngredient(string)
- * editIngredient(string)
+Objekt av klasserna \verb+Recipe+ och \verb+IngredientInfo+ kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen \verb+Shell+. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klasserna \verb+Recept+ och \verb+IngredientInfo+ innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av \verb+Shell+s ``användarfunktioner'', t.ex. åtkomst och redigering.
 
- * matchRecipe(string) // Levererar en sträng till Lookup-objektet för att slå i databasen för exakt matchning.
- * matchIngredient(string)
- * searchRecipe(cont<SearchTerm*>) // Levererar söktermer i en godtycklig container till Lookup. recipeSearchResults\_ tilldelas det resultat som Lookup ger.
-
- * get-funktioner som används av GUI:t och returnerar relevant data.
-
-Objekt av klasserna Recipe och Ingredient kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen Shell. Nya objekt skapas antingen i samband med t.ex. funktionen addRecipe(string) eller byggs upp och returneras av Lookup som resultat av en matchning i databasen. Klasserna Recept och Ingredient innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av Shell's ``användarfunktioner'', t.ex. åtkomst och redigering.
-
-Endast ett objekt av klassen Lookup existerar i programmet och då som datamedlem av Shell. Lookup ska inte hålla koll på några värden, utan fyller istället uppgiften att avgränsa funktionalitet och samla funktioner som har att göra med databaskommunikation på ett ställe.
+Endast ett objekt av klassen \verb+Lookup+ existerar i programmet och då som datamedlem av \verb+Shell+. \verb+Lookup+ ska inte hålla koll på några värden, utan fyller istället uppgiften att avgränsa funktionalitet och samla funktioner som har att göra med databaskommunikation på ett ställe.
 
  // Lookupfunktioner?
 
