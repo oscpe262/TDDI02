@@ -1,0 +1,119 @@
+Egna datatyper/klasser:
+
+MatLabbGUI		// Skal
+Recipe			// Klass som innehåller alla hämtad information om ett recept
+RecipeIngredient	// Strukt som håller namn på ingrediens och dess kvantitet i ett särskilt recept
+RelatedRecipe		// Relaterat recept - strukt håller ett receptnamn och en bool som bör vara true endast om det relaterade receptet i databasen har samma relation med Receptet
+MiniRecipe		// strukt som håller nerskalad information om ett recept - används (kanske?) för att implentera en längre lista av sökresultat
+
+
+~matlabb~	// out-fil
+
+	~matlabb.cc~		*****
+	{
+	   MatLabbGUI mlgui;	// eller, MatLabbShell
+	   
+	   try
+	   {
+	      mlgui.run();
+	   }
+	   catch ...
+	   ...
+	}
+
+	~MatLabbGUI.h~		*****	// headerfil för klass "MatLabb-skal"
+	{
+	   class MatLabbGUI
+	   {
+	   public:
+	      defaultkonstruktor
+
+	      x kopieringskonstruktor
+	      x kopieringstilldelningsoperator
+
+	      void run();
+
+	   private:
+
+	      Recipe		currentRecipe_;
+	      Ingredient	currentIngredient_;
+	      cont<MiniRecipe>	recipeSearchResults_;
+	      cont<string>	ingredientFullList_;
+	      double		scaling_;
+	      cont<SearchTerm*>	searchTerms_;
+	      
+	      
+	      void		addRecipe(string, ...);
+	      void		addRecipeFromTxt(string, ...); // används även vid kommandoradsargument
+	      void		editRecipe();
+	      cont<MiniRecipe>	searchRecipe(cont<SearchTerm*>);
+	   }
+	      
+	}
+
+	
+	~Recipe.h~		*****
+	{
+	
+	   struct RecipeIngredient
+	   {
+	      Ingredient	ingredient_;
+	      double		amount_;
+	      "unittype"	unit_;
+	   }
+	   
+	   struct RelatedRecipe
+	   {
+	      explicit RelatedRecipe ( const string& name, string relatedName ) // etc, deleta kopiering
+
+	      const string&	name_;
+	      string		relatedName_;
+	      bool		isRelated_ {false}; // default false?
+	   }
+
+	   struct MiniRecipe	// om klassen Recipe är för komplicerad/stor för att lista många sökresultat
+	   {
+	      string		name_;
+	      int 		minutesTime_;
+	      double		grade_;
+	      int		Kcal_; // kanske skippa denna för enkelhetens skull då vi ej hämtar information om ingredienser.
+	   }
+
+	   class Recipe
+	   {
+	   public:
+	      konstruktorer/tilldelningsoperatorer
+		MatLabbGUI.addRecipe(string, ...) skapar ett recept
+	      
+	      double		getPrice(double scaling);
+	      int		getKcal(double scaling);
+	      void		exportToTxt(string name = name + ".txt");
+	      void		editRecipe();
+	      
+	   private:
+	      
+	      string			name_;
+	      string			description_;
+	      int			minutesTime_;
+	      cont<string>		comments_;
+	      "reftoimage"		image_;
+	      double			grade_;
+	      cont<RecipeIngredient>	ingredients_;
+	      cont<RelatedPair>		relatedRecipes_; // RelatedPair är en datatyp vars objekt endast ska kunna existera om det hänvisar till ett recept i databasen som kan hänvisa tillbaka till oss. Dvs, inga enkelriktade relationer.
+
+	      
+
+	   }	
+	}
+
+	~Ingredient.h~		*****
+	{
+	   class Ingredient
+	   {
+	   public:
+	      
+	      
+	   private:
+	      
+	   }
+	}
