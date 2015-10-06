@@ -5,7 +5,7 @@ Programmet MatLabb har i stort tre delsystem:
 \item \verb+Shell+, eller, det inre skalet som håller centrala objekt och variabler, t.ex. aktivt recept och portionskalning.
 \item \verb+Lookup+, som tillhandahåller relevanta verktyg för kommunikation med databasen.
 \end{enumerate}
-\verb+GUI+ ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vy1} - \ref{fig:vy4}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
+\verb+GUI+ ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vya} - \ref{fig:vyd}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
 
 \section{Shell}
 \verb+Shell+ innehåller objekt av klasserna \verb+Recipe+, \verb+InfoIngredient+ och \verb+Lookup+ som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller \verb+Shell+ publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, funktionerna listade i figur \ref{fig:tekfunklist} (s. \pageref{fig:tekfunklist}).
@@ -48,7 +48,7 @@ Objekt av klasserna \verb+Recipe+ och \verb+InfoIngredient+ kommer endast att ex
 \end{itemize}
 %end
 %
-\verb+InfoIngredient+ och \verb+RecipeIngredient+ är för övrigt syskonklasser härledda från en abstrakt \verb+Ingredient+-klass, enligt ***REF DIAGRAM***.
+\verb+InfoIngredient+ och \verb+RecipeIngredient+ är för övrigt syskonklasser härledda från en abstrakt \verb+Ingredient+-klass, enligt figur \ref{fig:classes}.
 
 \begin{itemize}
 \item \verb+InfoIngredient+ representerar en ingrediens i sin egen existens. Utöver det gemensamma arvet så utökas \verb+InfoIngredient+ med ett stycke set-funktioner för att vid sparning i databasen kunna redigera en ingrediens' attribut. 
@@ -90,7 +90,7 @@ inte något returvärde.
 \item   \verb+query_ingredient_list_explicit()+ samma som ovan fast för recept som
         \emph{endast} innehåller sagda ingredienser i \verb+list_db_+  
    
-\item   \verb+query_alergy_list()+ tar en allergen som parameter och läser in alla 
+\item   \verb+query_allergy_list()+ tar en allergen som parameter och läser in alla 
         recept innehållande sagda allergen i \verb+list_db_+  
 
 \item   \verb+query_price_list()+ tar ett prisintervall som parameter och läser in
@@ -107,12 +107,12 @@ För datatillgång finns följande funktioner
 \item   \verb+get_list()+ levererar en lista över receptnamn som finns i \verb+list_db_+
 
 \item   \verb+get_recipie()+ tar ett receptnamn som parameter och returnerar ett 
-        objekt av typen recipie
+        objekt av typen \verb+recipe+
 
 \item   \verb+get_info_ingredient()+ tar ett ingrediensnamn som parameter och returnerar 
-        ett objekt av typen info\_ingredient
+        ett objekt av typen \verb+info_ingredient+
 
-\item   \verb+get_recepie_ingredient()+ hjälpfunktion till \verb+get_recipie+
+\item   \verb+get_recipe_ingredient()+ hjälpfunktion till \verb+get_recipe+
 \end{itemize}
 
 \verb+LookUp+ kommer alltså inte att klara av alla olika kombinationer av
