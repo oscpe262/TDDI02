@@ -1,6 +1,7 @@
 Egna datatyper/klasser:
 
-MatLabbGUI		// Skal
+MatLabbGUI		// Användargränssnitt, Qt, ???
+Shell			// Inre skal
 Recipe			// Klass som innehåller alla hämtad information om ett recept
 RecipeIngredient	// Strukt som håller namn på ingrediens och dess kvantitet i ett särskilt recept
 RelatedRecipe		// Relaterat recept - strukt håller ett receptnamn och en bool som bör vara true endast om det relaterade receptet i databasen har samma relation med Receptet
@@ -11,7 +12,7 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 
 	~matlabb.cc~		*****
 	{
-	   MatLabbGUI mlgui;	// eller, MatLabbShell
+	   MatLabbGUI mlgui;	// den klass som innehåller .run()
 	   
 	   try
 	   {
@@ -21,9 +22,9 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	   ...
 	}
 
-	~MatLabbGUI.h~		*****	// headerfil för klass "MatLabb-skal"
+	~Shell.h~		*****	// headerfil för klass "MatLabb-skal"
 	{
-	   class MatLabbGUI
+	   class Shell
 	   {
 	   public:
 	      defaultkonstruktor
@@ -31,7 +32,18 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	      x kopieringskonstruktor
 	      x kopieringstilldelningsoperator
 
-	      void run();
+	      void run(); // bör ligga i GUI om det är yttre skalet
+
+	      void		addRecipe(string, ...);
+	      void		editRecipe();
+	      void		importTxt(string, ...); // används även vid kommandoradsargument om aktuellt
+	      void		exportTxt();	  	// kalla på currentRecipe.exportTxt()
+	      
+	      void		matchRecipe(string);
+	      void		matchIngredient(string);
+	      void		searchRecipe(cont<SearchTerm*>);
+
+	      relevantdatatyp	getfunktioner()		// Används av GUI för rendering
 
 	   private:
 
@@ -43,10 +55,7 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	      cont<SearchTerm*>	searchTerms_;
 	      
 	      
-	      void		addRecipe(string, ...);
-	      void		addRecipeFromTxt(string, ...); // används även vid kommandoradsargument
-	      void		editRecipe();
-	      cont<MiniRecipe>	searchRecipe(cont<SearchTerm*>);
+	      
 	   }
 	      
 	}
@@ -83,11 +92,11 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	   {
 	   public:
 	      konstruktorer/tilldelningsoperatorer
-		MatLabbGUI.addRecipe(string, ...) skapar ett recept
+		MatLabbGUI.addRecipe(string, ...) // skapar ett recept, potentiellt från textfil
 	      
 	      double		getPrice(double scaling);
 	      int		getKcal(double scaling);
-	      void		exportToTxt(string name = name + ".txt");
+	      void		exportTxt(string name = name + ".txt");
 	      void		editRecipe();
 	      
 	   private:

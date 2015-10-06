@@ -1,0 +1,33 @@
+Programmet MatLabb har i stort tre delsystem:
+
+ * GUI, Det grafiska användargränssnittet
+ * Shell, eller, det inre skalet som håller centrala objekt och variabler, t.ex. aktivt recept och portionskalning.
+ * Lookup, som tillhandahåller relevanta verktyg för kommunikation med databasen.
+
+GUI ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (referens till sektion med bilder). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer dels designas i klienten Qt Creator.
+
+Shell innehåller objekt av klasserna Recipe, Ingredient och Lookup som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller Shell publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, följande:
+
+ * addRecipe(string) // Konstruerar ett nytt tomt Recipe-objektet för datamedlemmen currentRecipe\_. Ett defaultargument av datatypen string existerar för att potentiellt tilldela ett namn.
+ * editRecipe() // Kallar på currentRecipe\_.editRecipe() för att kunna ändra på dess datamedlemmar.
+ * importTxt(string) // Importering från textfil. Konstruerar ett nytt Recipe-objekt och försöker fylla i dess datamedlemmar enligt en standardmodell.
+ * exportTxt() // Kallar på currentRecipe\_.exportTxt(string) för att exportera till .txt. Kan modifieras för att först hämta ett annat recept från databasen för exportering.
+ * addIngredient(string)
+ * editIngredient(string)
+
+ * matchRecipe(string) // Levererar en sträng till Lookup-objektet för att slå i databasen för exakt matchning.
+ * matchIngredient(string)
+ * searchRecipe(cont<SearchTerm*>) // Levererar söktermer i en godtycklig container till Lookup. recipeSearchResults\_ tilldelas det resultat som Lookup ger.
+
+ * get-funktioner som används av GUI:t och returnerar relevant data.
+
+Objekt av klasserna Recipe och Ingredient kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen Shell. Nya objekt skapas antingen i samband med t.ex. funktionen addRecipe(string) eller byggs upp och returneras av Lookup som resultat av en matchning i databasen. Klasserna Recept och Ingredient innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av Shell's ``användarfunktioner'', t.ex. åtkomst och redigering.
+
+Endast ett objekt av klassen Lookup existerar i programmet och då som datamedlem av Shell. Lookup ska inte hålla koll på några värden, utan fyller istället uppgiften att avgränsa funktionalitet och samla funktioner som har att göra med databaskommunikation på ett ställe.
+
+ // Lookupfunktioner?
+
+
+
+    
+
