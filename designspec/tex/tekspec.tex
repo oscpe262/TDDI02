@@ -60,20 +60,20 @@ receptnamn utifrån sökningarna. Det finns även funktionalitet för att
 ta ut snitt union och komplement för att kunna kombinera sökresultat.
 
 \verb+lookup+ har följande datamedlemmar
-\begin(itemize)
+\begin{itemize}
 \item   \verb+list_db_+ ett objekt av typen QsqlQuerie som används
         för att söka i databasen samt att hålla datan.
 \item   \verb+ingredient_db+ enligt ovan men används endast för
         att skapa recept objekt.
 \item   \verb+list_pos_+ Heltal som anger hur många recept som tidigare
         har hämtats i databasen av \verb+query_list+
-\end(itemize)
+\end{itemize}
 
 Följande funktioner kommer användas för att göra uppslagningar,
 samtliga använder \verb+lookup+'s datamedlem DB\_ och har således 
 inte något returvärde. 
 
-\begin(itemize)
+\begin{itemize}
 \item   \verb+query_list+ inga parametrar, läser in 20 recept i \verb+list_db_+ 
         och updaterar \verb+list_pos_+
 
@@ -92,12 +92,12 @@ inte något returvärde.
 
 \item   \verb+query_calory_list+ tar ett kaloriintervall som parameter och läser in
         alla recept i givet intervall i \verb+list_db_+  
-\end(itemize)
+\end{itemize}
  
 
 För datatillgång finns följande funktioner
 
-\begin(itemize)
+\begin{itemize}
 \item   \verb+get_list()+ levererar en lista över receptnamn som finns i \verb+list_db_+
 
 \item   \verb+get_recipie()+ tar ett receptnamn som parameter och returnerar ett 
@@ -107,7 +107,7 @@ För datatillgång finns följande funktioner
         ett objekt av typen info\_ingredient
 
 \item   \verb+get_recepie_ingredient()+ hjälpfunktion till \verb+get_recipie+
-\end(itemize)
+\end{itemize}
 
 Lookup kommer alltså inte att klara av alla olika kombinationer av
 sökningar på egen hand då detta skulle vara komplicerat att implementera utan
@@ -116,11 +116,11 @@ av följande funktioner slå ihop listor för att nå fram till det
 resultat som önskas. Samtliga tar två listor som parametrar och
 returnerar en sammanslagen lista
 
-\begin(itemize)
+\begin{itemize}
 \item   \verb+union()+ returnerar ihop unionen av två listor
 \item   \verb+intersect()+ Returnerar snittet av två listor
 \item   \verb+complement()+ returnerar två listors komplement
-
+\end{itemize}
 
     
 
