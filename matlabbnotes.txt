@@ -1,4 +1,4 @@
-Egna datatyper/klasser:
+﻿Egna datatyper/klasser:
 
 MatLabbGUI		// Användargränssnitt, Qt, ???
 Shell			// Inre skal
@@ -87,7 +87,6 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	      string		name_;
 	      int 		minutesTime_;
 	      double		grade_;
-	      int		Kcal_; // kanske skippa denna för enkelhetens skull då vi ej hämtar information om ingredienser.
 	   }
 
 	   class Recipe
