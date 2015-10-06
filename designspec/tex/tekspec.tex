@@ -28,11 +28,32 @@ Shell innehåller objekt av klasserna \verb+Recipe+, \verb+IngredientInfo+ och \
 \label{fig:tekfunklist}
 \end{figure}
 
-Objekt av klasserna \verb+Recipe+ och \verb+IngredientInfo+ kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen \verb+Shell+. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klasserna \verb+Recept+ och \verb+IngredientInfo+ innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av \verb+Shell+s ``användarfunktioner'', t.ex. åtkomst och redigering.
+Objekt av klasserna \verb+Recipe+ och \verb+IngredientInfo+ kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen \verb+Shell+. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klasserna \verb+Recept+ och \verb+IngredientInfo+ innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av \verb+Shell+s ``användarfunktioner'', t.ex. åtkomst och redigering. Lista över datamedlemmar i klassen Recipe:
+ 
+\begin{itemize}
+\item \verb+string name_+ - \emph{Namn på receptet}
+\item \verb+string description_+ - \emph{Beskrivning/utförande}
+\item \verb+int minutesTime_+ - \emph{Tidsåtgång i minuter}
+\item \verb+cont<string> comments_+ - \emph{Kommentarer i godtycklig container}
+\item \verb+"referens" image_+ - \emph{Någon typ av referens för implentering av tillhörande bilder}
+\item \verb+double grade_+ - \emph{Betyg}
+\end{itemize}
+
+\begin{itemize}
+\item \verb+cont<RecipeIngredient> ingredients_+ - \emph{Ingredienser som ingår}
+\item \verb+cont<RelatedRecipe> relatedRecipes_+ - \emph{Besläktade recept}
+\end{itemize}
+
+\verb+InfoIngredient+ och \verb+RecipeIngredient+ är för övrigt syskonklasser härledda från en abstrakt \verb+Ingredient+-klass, enligt ***REF DIAGRAM***.
+
+\begin{itemize}
+\item \verb+InfoIngredient+ representerar en ingrediens i sin egen existens. Utöver det gemensamma arvet så utökas \verb+InfoIngredient+ med ett stycke set-funktioner för att vid sparning i databasen kunna redigera en ingrediens' attribut. 
+\item \verb+RecipeIngredient+ representerar en ingrediens som del av ett recept. Den klassen utökar sitt arv med två datamedlemmar, \verb+double amount_+ och "unittype" unit_, för att hantera två ytterligare funktioner: \verb+getKcal(double scaling)+ och \verb+getPrice(double scaling)+.
+\end{itemize}
+ 
+\verb+RelatedRecipe+ är en särskild post med vissa särskilda krav, vars funktionalitet är avsedd för att agera datatyp för släktskap. Ett objekt av typen \verb+RelatedRecipe+ ska endast hänvisa släktskap med ett recept som hänvisar släktskap med det recept som objektet själv tillhör. Tanken är att strikt hålla kontroll så att inga enkelriktade släktskap ska kunna förekomma i databasen när vi väl tillför eller ändrar denna typ av information.
 
 Endast ett objekt av klassen \verb+Lookup+ existerar i programmet och då som datamedlem av \verb+Shell+. \verb+Lookup+ ska inte hålla koll på några värden, utan fyller istället uppgiften att avgränsa funktionalitet och samla funktioner som har att göra med databaskommunikation på ett ställe.
-
- // Lookupfunktioner?
 
 
 

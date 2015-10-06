@@ -64,11 +64,13 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	~Recipe.h~		*****
 	{
 	
-	   struct RecipeIngredient
+	   struct RecipeIngredient // SKA ÄNDRAS TILL KLASSARV FRÅN Ingredient. SYSKON MED InfoIngredient
 	   {
 	      Ingredient	ingredient_;
 	      double		amount_;
 	      "unittype"	unit_;
+		  getKcal(double scaling)
+		  getPrice(double scaling)
 	   }
 	   
 	   struct RelatedRecipe
@@ -108,7 +110,7 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	      "reftoimage"		image_;
 	      double			grade_;
 	      cont<RecipeIngredient>	ingredients_;
-	      cont<RelatedPair>		relatedRecipes_; // RelatedPair är en datatyp vars objekt endast ska kunna existera om det hänvisar till ett recept i databasen som kan hänvisa tillbaka till oss. Dvs, inga enkelriktade relationer.
+	      cont<RelatedRecipe>		relatedRecipes_; // RelatedPair är en datatyp vars objekt endast ska kunna existera om det hänvisar till ett recept i databasen som kan hänvisa tillbaka till oss. Dvs, inga enkelriktade relationer.
 
 	      
 
@@ -126,3 +128,8 @@ MiniRecipe		// strukt som håller nerskalad information om ett recept - används
 	      
 	   }
 	}
+	
+	
+	KOMMENTARER:
+	
+	1. RecipeIngredient bör kanske vara härledd från Ingredient???
