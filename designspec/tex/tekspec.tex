@@ -7,7 +7,8 @@ Programmet MatLabb har i stort tre delsystem:
 \end{enumerate}
 \verb+GUI+ ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vy1} - \ref{fig:vy4}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
 
-Shell innehåller objekt av klasserna \verb+Recipe+, \verb+InfoIngredient+ och \verb+Lookup+ som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller \verb+Shell+ publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, funktionerna listade i figur \ref{fig:tekfunklist} (s. \pageref{fig:tekfunklist}).
+\section{Shell}
+\verb+Shell+ innehåller objekt av klasserna \verb+Recipe+, \verb+InfoIngredient+ och \verb+Lookup+ som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller \verb+Shell+ publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, funktionerna listade i figur \ref{fig:tekfunklist} (s. \pageref{fig:tekfunklist}).
 
 \begin{figure}[h]
 \caption{Funktioner för användarinputs}
@@ -28,8 +29,10 @@ Shell innehåller objekt av klasserna \verb+Recipe+, \verb+InfoIngredient+ och \
 \label{fig:tekfunklist}
 \end{figure}
 
+\subsection{Recipe \& InfoIngredient}
 Objekt av klasserna \verb+Recipe+ och \verb+InfoIngredient+ kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen \verb+Shell+. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klasserna \verb+Recept+ och \verb+InfoIngredient+ innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av \verb+Shell+s ``användarfunktioner'', t.ex. åtkomst och redigering. Lista över datamedlemmar i klassen \verb+Recipe+:
  
+%Figure: tabular
 \begin{itemize}
 \item \verb+string name_+ - \emph{Namn på receptet}
 \item \verb+string description_+ - \emph{Beskrivning/utförande}
@@ -43,7 +46,8 @@ Objekt av klasserna \verb+Recipe+ och \verb+InfoIngredient+ kommer endast att ex
 \item \verb+cont<RecipeIngredient> ingredients_+ - \emph{Ingredienser som ingår}
 \item \verb+cont<RelatedRecipe> relatedRecipes_+ - \emph{Besläktade recept}
 \end{itemize}
-
+%end
+%
 \verb+InfoIngredient+ och \verb+RecipeIngredient+ är för övrigt syskonklasser härledda från en abstrakt \verb+Ingredient+-klass, enligt ***REF DIAGRAM***.
 
 \begin{itemize}
@@ -51,17 +55,19 @@ Objekt av klasserna \verb+Recipe+ och \verb+InfoIngredient+ kommer endast att ex
 \item \verb+RecipeIngredient+ representerar en ingrediens som del av ett recept. Den klassen utökar sitt arv med två datamedlemmar, \verb+double amount_+ och \verb+"unittype" unit_+, för att hantera två ytterligare funktioner: \verb+getKcal(double scaling)+ och \verb+getPrice(double scaling)+.
 \end{itemize}
  
+\subsubsection{RelatedRecipe}
 \verb+RelatedRecipe+ är en särskild post med vissa särskilda krav, vars funktionalitet är avsedd för att agera datatyp för släktskap. Ett objekt av typen \verb+RelatedRecipe+ ska endast hänvisa släktskap med ett recept som hänvisar släktskap med det recept som objektet själv tillhör. Tanken är att strikt hålla kontroll så att inga enkelriktade släktskap ska kunna förekomma i databasen när vi väl tillför eller ändrar denna typ av information.
 
-Endast ett objekt av klassen Lookup existerar i programmet och då som
-datamedlem av Shell. Lookups funktion är att skapa recept-objekt och
-ingredient\_info objekt samt att utföra sökningar och skapa listor av
+\section{LookUp}
+Endast ett objekt av klassen \verb+LookUp+ existerar i programmet och då som
+datamedlem av \verb+Shell+. \verb+LookUp+s funktion är att skapa \verb+Recipe+-objekt och
+\verb+ingredient_info+-objekt samt att utföra sökningar och skapa listor av
 receptnamn utifrån sökningarna. Det finns även funktionalitet för att
 ta ut snitt union och komplement för att kunna kombinera sökresultat.
 
 \verb+lookup+ har följande datamedlemmar
 \begin{itemize}
-\item   \verb+list_db_+ ett objekt av typen QsqlQuerie som används
+\item   \verb+list_db_+ ett objekt av typen QsqlQuery som används
         för att söka i databasen samt att hålla datan.
 \item   \verb+ingredient_db+ enligt ovan men används endast för
         att skapa recept objekt.
@@ -70,19 +76,19 @@ ta ut snitt union och komplement för att kunna kombinera sökresultat.
 \end{itemize}
 
 Följande funktioner kommer användas för att göra uppslagningar,
-samtliga använder \verb+lookup+'s datamedlem DB\_ och har således 
+samtliga använder \verb+LookUp+s datamedlem \verb+DB_+ och har således 
 inte något returvärde. 
 
 \begin{itemize}
 \item   \verb+query_list+ inga parametrar, läser in 20 recept i \verb+list_db_+ 
-        och updaterar \verb+list_pos_+
+        och uppdaterar \verb+list_pos_+
 
 \item   \verb+query_ingredient_list()+ tar en vektor med ingredienser som
         parameter sparar namnet på alla recept som innehåller sagda ingredienser
         i \verb+list_db_+  
 
-\item   \verb+query_ingredient_list_expicit()+ samma som ovan fast för recept som
-        ENDAST innehåller sagda ingredienser i \verb+list_db_+  
+\item   \verb+query_ingredient_list_explicit()+ samma som ovan fast för recept som
+        \emph{endast} innehåller sagda ingredienser i \verb+list_db_+  
    
 \item   \verb+query_alergy_list()+ tar en allergen som parameter och läser in alla 
         recept innehållande sagda allergen i \verb+list_db_+  
@@ -109,7 +115,7 @@ För datatillgång finns följande funktioner
 \item   \verb+get_recepie_ingredient()+ hjälpfunktion till \verb+get_recipie+
 \end{itemize}
 
-Lookup kommer alltså inte att klara av alla olika kombinationer av
+\verb+LookUp+ kommer alltså inte att klara av alla olika kombinationer av
 sökningar på egen hand då detta skulle vara komplicerat att implementera utan
 kommer istället utgå från de sökningar som finns och sedan med hjälp
 av följande funktioner slå ihop listor för att nå fram till det
