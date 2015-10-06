@@ -28,7 +28,7 @@ Shell innehåller objekt av klasserna \verb+Recipe+, \verb+IngredientInfo+ och \
 \label{fig:tekfunklist}
 \end{figure}
 
-Objekt av klasserna \verb+Recipe+ och \verb+IngredientInfo+ kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen \verb+Shell+. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klasserna \verb+Recept+ och \verb+IngredientInfo+ innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av \verb+Shell+s ``användarfunktioner'', t.ex. åtkomst och redigering. Lista över datamedlemmar i klassen Recipe:
+Objekt av klasserna \verb+Recipe+ och \verb+IngredientInfo+ kommer endast att existera i stabilt tillstånd som datamedlemmar i klassen \verb+Shell+. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klasserna \verb+Recept+ och \verb+IngredientInfo+ innehåller främst fullständig data om ett specifikt recept/ingrediens, men även funktioner för implementeringen av \verb+Shell+s ``användarfunktioner'', t.ex. åtkomst och redigering. Lista över datamedlemmar i klassen \verb+Recipe+:
  
 \begin{itemize}
 \item \verb+string name_+ - \emph{Namn på receptet}
@@ -48,7 +48,7 @@ Objekt av klasserna \verb+Recipe+ och \verb+IngredientInfo+ kommer endast att ex
 
 \begin{itemize}
 \item \verb+InfoIngredient+ representerar en ingrediens i sin egen existens. Utöver det gemensamma arvet så utökas \verb+InfoIngredient+ med ett stycke set-funktioner för att vid sparning i databasen kunna redigera en ingrediens' attribut. 
-\item \verb+RecipeIngredient+ representerar en ingrediens som del av ett recept. Den klassen utökar sitt arv med två datamedlemmar, \verb+double amount_+ och "unittype" unit_, för att hantera två ytterligare funktioner: \verb+getKcal(double scaling)+ och \verb+getPrice(double scaling)+.
+\item \verb+RecipeIngredient+ representerar en ingrediens som del av ett recept. Den klassen utökar sitt arv med två datamedlemmar, \verb+double amount_+ och \verb+"unittype" unit_+, för att hantera två ytterligare funktioner: \verb+getKcal(double scaling)+ och \verb+getPrice(double scaling)+.
 \end{itemize}
  
 \verb+RelatedRecipe+ är en särskild post med vissa särskilda krav, vars funktionalitet är avsedd för att agera datatyp för släktskap. Ett objekt av typen \verb+RelatedRecipe+ ska endast hänvisa släktskap med ett recept som hänvisar släktskap med det recept som objektet själv tillhör. Tanken är att strikt hålla kontroll så att inga enkelriktade släktskap ska kunna förekomma i databasen när vi väl tillför eller ändrar denna typ av information.
