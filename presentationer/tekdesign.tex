@@ -1,0 +1,27 @@
+% Document props and library inclusions
+\documentclass{beamer} 
+\usetheme{Ilmenau}
+\usecolortheme{seagull}
+\usepackage[utf8]{inputenc} 
+\usepackage[swedish]{babel}
+\usepackage{mathtools,tikz,textcomp,fixltx2e,color,graphicx,afterpage,float,parskip,xfrac,gensymb,etoolbox}
+\usetikzlibrary{calc,matrix,positioning,arrows,shapes,trees,plotmarks,decorations.markings}
+\usepackage[font={small,it}]{caption}
+\usepackage[europeancurrents,europeanvoltages,europeanresistors,europeaninductors,smartlabels]{circuitikz}
+\usepackage[font={small,it}]{caption} %% Italics in captions
+
+\setcounter{secnumdepth}{0} % Levels enumerated
+\setcounter{tocdepth}{0} % ToC levels enumerated
+
+\graphicspath{{../designspec/fig/}} % including pictures from here
+
+\title{MatLabb}
+\subtitle{Teknisk design}
+\author{Matteus Laurent, Johan Levinsson, Oscar Petersson,\\ Erik Peyronson}
+
+\begin{document}
+
+\frame{\titlepage}
+\input{./tex/tekdesign.main.tex}
+
+\end{document}
