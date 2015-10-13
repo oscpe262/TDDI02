@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Filstruktur:
+%
+%	../tekdesign.tex
+%	  << tekdesign.main.tex
+%	     << intro.tex
+%	     << arkitektur.tex
+%	     << shell.tex
+%	     << lookup.tex
+%	     << gui.tex
+%	     << databas.tex
+%
+% Kompilera ../tekdesign.tex med en av följande:
+% 	    $> pdflatex tekdesign.tex && pdflatex tekdesign.tex
+%	    $> ../latexmk.pl -pvc -pdf tekdesign.tex
+%
+% Den senare är autokompilatorn.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
