@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Dokumenttypen Beamer låter oss skapa slides m.h.a. LaTeX
 %
 % I stort sett allt fungerar som ni är vana vid när det kommer till  formatering, men
@@ -12,4 +12,24 @@
 %
 % Full dokumentation återfinns på:
 % http://ftp.acc.umu.se/mirror/CTAN/macros/latex/contrib/beamer/doc/beameruserguide.pdf
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+####################################################################################################################################################################################
+#
+# Ert team ingår i en större programutvecklingsorganisation, där kollegor i andra team ägnar sig åt andra projekt.
+# Detta innebär att alla har samma 'bas' i fråga om kunskaper och vokabulär, men att man inte är bekant med andra teams problemställning.
+# Uppgiften för ert team är att under ca 15 minuter presentera problemet, och lösningsidéerna i den design teamet håller på att framställa.
+# Detta ska göras så pass grundligt att alla andra förstår. Därefter lämnas ordet till ett granskande team.
+#
+#
+# Beskriv på ett övertygande sätt bl.a.:
+#
+#	Uppgiften - Vad är det för problem ert system löser?
+#	Designens stora drag - Vilka delsystem finns - och varför är det upplagt så?
+#	Kritiska delar - Vad är viktigast?
+#	Att detta är realiserbart - Visa att systemet går att skapa!
+#
+# Låt presentationen bilda en röd tråd; inledning och avslutning knyter liksom ihop det hela. Tänk på att inte slänga ur er påståenden
+# utan att visa publiken varför det är så - om det inte är baskunskap förstås. Er presentationen tar 15 minuter, tänk på att prata långsamt och tydligt.
+#
+####################################################################################################################################################################################
