@@ -35,6 +35,8 @@
 *.fdb_latexmk
 *.fls
 *.synctex.gz
+*.nav
+*.snm
 
 # Local
 hemtentor/
