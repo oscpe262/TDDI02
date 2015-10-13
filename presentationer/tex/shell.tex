@@ -11,8 +11,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-  \frametitle{foo}
-  \begin{block}{Meep}
-    Burp!
-  \end{block}
+  \frametitle{Shell}
+  \framesubtitle{Datamedlemmar och funktioner, översikt}
+  \begin{itemize}
+    \item Objekt av \texttt{Recipe, InfoIngredient} och \texttt{Lookup} som datamedlemmar
+    \item<2-> Tillhandahåller utåt de funktioner som motsvarar avsedd användarinput, exempelvis:
+    \item<2-> \texttt{
+      addRecipe(string), editRecipe(),
+      addIngredient(string), editIngredient(),
+      importTxt(string), exportTxt(),
+      matchRecipe(string), matchIngredient(string),
+      searchRecipe(cont<SearchTerm*>)
+    }
+  \end{itemize} 
 \end{frame}
+
+\begin{frame}
+  \frametitle{Shell}
+  \framesubtitle{Objekt: Recipe}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Shell}
+  \framesubtitle{Objekt: InfoIngredient} 
+\end{frame}
+
+% Ev. RelatedRecipe, är den essentiell nog att ta upp i presentationen?

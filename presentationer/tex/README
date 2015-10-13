@@ -4,12 +4,7 @@
 %
 %	../tekdesign.tex
 %	  << tekdesign.main.tex
-%	     << intro.tex
-%	     << arkitektur.tex
-%	     << shell.tex
-%	     << lookup.tex
-%	     << gui.tex
-%	     << databas.tex
+%	  << övriga tex-dokument, se tekdesign.main.tex
 %
 % Kompilera ../tekdesign.tex med en av följande:
 % 	    $> pdflatex tekdesign.tex && pdflatex tekdesign.tex
