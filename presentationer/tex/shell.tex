@@ -28,12 +28,42 @@
 
 \begin{frame}
   \frametitle{Shell}
-  \framesubtitle{Objekt: Recipe}
+  \framesubtitle{Klass: Recipe}
+  \begin{itemize}
+  \item Ett \texttt{Recipe}-objekt innehåller all information om ett specifikt recept.
+  \item \texttt{Shell}s datamedlem currentRecipe\_ motsvarar det aktiva sådant
+    \begin{itemize}
+    \item Används av exempelvis \texttt{editRecipe()} och \texttt{exportTxt()}
+    \end{itemize}
+  \item \texttt{MiniRecipe} är en nerbantad datatyp av \texttt{Recipe}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Shell}
-  \framesubtitle{Objekt: InfoIngredient} 
+  \framesubtitle{Klass: Ingredient}
+  \begin{itemize}
+  \item Abstrakt klass med två arv: \texttt{InfoIngredient} och \texttt{RecipeIngredient}
+    \begin{itemize}
+    \item \texttt{InfoIngredient} visar data och kan redigeras
+    \item \texttt{RecipeIngredient} används av \texttt{Recipe} och har kvantitet
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Shell}
+  \framesubtitle{Klass: Lookup}
+  \begin{itemize}
+  \item \texttt{Lookup} - modul och klass för kommunikation med databasen
+  \item Datamedlem i \texttt{Shell}, \texttt{**searchEngine\_}
+  \item Exempel på \texttt{Shell}-funktioner som använder \texttt{Lookup}:
+    \begin{itemize}
+    \item \texttt{matchRecipe(string)}
+    \item \texttt{searchRecipe(cont<SearchTerm*>)}
+    \item Resultat uppdaterar \texttt{Shell}s datamedlemmar
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 % Ev. RelatedRecipe, är den essentiell nog att ta upp i presentationen?
