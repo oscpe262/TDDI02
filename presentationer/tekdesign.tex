@@ -1,6 +1,33 @@
 % Document props and library inclusions
-\documentclass{beamer} 
-\usetheme{Ilmenau}
+\documentclass[t]{beamer} 
+% \usetheme{
+%  Antibes
+%  Bergen
+%  Berkeley
+%  Berlin
+%  Copenhagen
+%  Darmstadt
+%  Dresden
+%  Frankfurt
+%  Goettingen
+%  Hannover
+%  Ilmenau
+%  JuanLesPins
+%  Luebeck
+%  Madrid
+%  Malmoe
+%  Marburg
+%  Montpellier
+%  PaloAlto
+%  Pittsburgh
+%  Rochester
+%  Singapore
+%  Szeged
+%  Warsaw
+%  boxes
+%  default
+%  CambridgeUS
+%}
 \usecolortheme{seagull}
 \usepackage[utf8]{inputenc} 
 \usepackage[swedish]{babel}
@@ -19,11 +46,57 @@
 \subtitle{Teknisk design}
 \author{Matteus Laurent, Johan Levinsson, Oscar Petersson,\\ Erik Peyronson}
 
-\setbeamerfont{page number in head/foot}{size=\normalsize}
-\setbeamertemplate{footline}[frame number]
+\def\swidth{1.8cm}
+\setbeamersize{sidebar width left=\swidth}
+\setbeamertemplate{sidebar left}
+{
+  {\usebeamerfont{title in sidebar}%
+    \vskip1.5em%
+    \usebeamercolor[fg]{title in sidebar}%
+    \insertshorttitle[width=\swidth,center,respectlinebreaks]\par%
+    \vskip1.25em%
+  }%
+  {%
+    \usebeamercolor[fg]{author in sidebar}%
+    \usebeamerfont{author in sidebar}%
+    \insertshortauthor[width=\swidth,left,respectlinebreaks]\par%
+    \vskip1.25em%
+  }%
+  \hbox to2cm{\hss\insertlogo\hss}
+  \vskip1.25em%
+  \insertverticalnavigation{\swidth}%
+  \vfill
+  \hbox to2cm{\hskip0.6cm\usebeamerfont{subsection in
+      sidebar}\strut\usebeamercolor[fg]{subsection in
+      sidebar}\insertframenumber/\inserttotalframenumber\hfill}%
+  \vskip3pt%
+}%
+
+\def\theight{1.8cm}
+
+\setbeamertemplate{headline}
+{%
+  \begin{beamercolorbox}{section in head/foot}
+    \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+  \end{beamercolorbox}%
+}
+
+ \setbeamertemplate{frametitle}
+{
+  \nointerlineskip
+  \begin{beamercolorbox}[sep=0.3cm,ht=3em,wd=\paperwidth]{frametitle}
+    \vbox{}\vskip-2ex%
+    \strut\insertframetitle\vskip.8pt\insertframesubtitle\strut
+    \vskip-0.8ex%
+  \end{beamercolorbox}
+}
+\beamertemplatenavigationsymbolsempty
+
+%\setbeamerfont{page number in head/foot}{size=\normalsize}
+%\setbeamertemplate{footline}[frame number]
 
 \begin{document}
-
+\addtocounter{framenumber}{-1}
 \frame{\titlepage}
 \input{./tex/tekdesign.main.tex}
 
