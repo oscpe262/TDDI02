@@ -16,13 +16,15 @@
   \begin{itemize}
     \item Objekt av \texttt{Recipe, InfoIngredient} och \texttt{Lookup} som datamedlemmar
     \item<2-> Tillhandahåller utåt de funktioner som motsvarar avsedd användarinmatning, exempelvis:
-    \item<2-> \texttt{
-      addRecipe(string), editRecipe(),
-      addIngredient(string), editIngredient(),
-      importTxt(string), exportTxt(),
-      matchRecipe(string), matchIngredient(string),
-      searchRecipe(cont<SearchTerm*>)
+      \begin{itemize}
+      \item<2-> \texttt{
+        addRecipe(string), editRecipe(),
+        addIngredient(string), editIngredient(),
+        importTxt(string), exportTxt(),
+        matchRecipe(string), matchIngredient(string),
+        searchRecipe(cont<SearchTerm*>)
     }
+      \end{itemize}
   \end{itemize} 
 \end{frame}
 
@@ -31,7 +33,7 @@
   \framesubtitle{Klass: Recipe}
   \begin{itemize}
   \item Ett \texttt{Recipe}-objekt innehåller all information om ett specifikt recept
-  \item<2-> \texttt{Shell}s datamedlem currentRecipe\_ motsvarar det aktuella receptet
+  \item<2-> \texttt{Shell}s datamedlem \texttt{currentRecipe\_} motsvarar det aktuella receptet
     \begin{itemize}
     \item Används av exempelvis \texttt{editRecipe()} och \texttt{exportTxt()}
     \end{itemize}
