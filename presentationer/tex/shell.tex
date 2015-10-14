@@ -15,7 +15,7 @@
   \framesubtitle{Datamedlemmar och funktioner, översikt}
   \begin{itemize}
     \item Objekt av \texttt{Recipe, InfoIngredient} och \texttt{Lookup} som datamedlemmar
-    \item<2-> Tillhandahåller utåt de funktioner som motsvarar avsedd användarinput, exempelvis:
+    \item<2-> Tillhandahåller utåt de funktioner som motsvarar avsedd användarinmatning, exempelvis:
     \item<2-> \texttt{
       addRecipe(string), editRecipe(),
       addIngredient(string), editIngredient(),
@@ -28,12 +28,40 @@
 
 \begin{frame}
   \frametitle{Shell}
-  \framesubtitle{Objekt: Recipe}
+  \framesubtitle{Klass: Recipe}
+  \begin{itemize}
+  \item Ett \texttt{Recipe}-objekt innehåller all information om ett specifikt recept
+  \item<2-> \texttt{Shell}s datamedlem currentRecipe\_ motsvarar det aktuella receptet
+    \begin{itemize}
+    \item Används av exempelvis \texttt{editRecipe()} och \texttt{exportTxt()}
+    \end{itemize}
+  \item<3-> \texttt{MiniRecipe} är en nerbantad datatyp av \texttt{Recipe}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Shell}
-  \framesubtitle{Objekt: InfoIngredient} 
+  \framesubtitle{Klass: Ingredient}
+  \begin{itemize}
+  \item \texttt{Ingredient} - abstrakt klass med två arv: \texttt{InfoIngredient} och \texttt{RecipeIngredient}
+  \item<2-> \texttt{InfoIngredient} visar data och kan redigeras
+  \item<3-> \texttt{RecipeIngredient} används av \texttt{Recipe} och har kvantitet
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Shell}
+  \framesubtitle{Klass: Lookup}
+  \begin{itemize}
+  \item \texttt{Lookup} - modul och klass för kommunikation med databasen
+  \item<2-> Datamedlem i \texttt{Shell}: \texttt{**lookUp\_}
+  \item<3-> Exempel på \texttt{Shell}-funktioner som använder \texttt{Lookup}:
+    \begin{itemize}
+    \item \texttt{matchRecipe(string)}
+    \item \texttt{searchRecipe(cont<SearchTerm*>)}
+    \item Resultat uppdaterar \texttt{Shell}s datamedlemmar
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 % Ev. RelatedRecipe, är den essentiell nog att ta upp i presentationen?
