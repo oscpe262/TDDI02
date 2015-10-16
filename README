@@ -1,11 +1,12 @@
 # TDDI02 - MatLabb
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Programmeringsprojekt HT16
 %
 % LaTeX-guide tillgänglig i rotmappen
 % 
-% Git Cheat Sheet: https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf
+% Git Cheat Sheet:
+% https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf
 % Om Git: https://git-scm.com/book/en/v2/Getting-Started-Git-Basics
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
