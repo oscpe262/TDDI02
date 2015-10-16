@@ -6,51 +6,23 @@
 \label{fig:overview}
 \end{figure}
 
-MatLabb har tre centrala moduler: 
+MatLabb har tre centrala delsystem samt en databas vilka initialt kan betraktas på följande sätt: 
 \begin{enumerate}
-\item En databas som lagrar all receptrelaterad information.
-\item En receptmodul (\verb=Recipe=) som genom hjälpmoduler hämtar, skriver och behandlar databasens information.
-\item Ett användargränssnitt (\verb=GUI=) som hjälper användaren att på ett intuitivt och välbekant sätt interagerar med receptmodulen, och i förlängningen databasen.
-
-I detta kapitel ges en överblick över funktionaliteten hos modulerna i första ``lagret'' och hur dessa interagerar.
+  \item Ett användargränssnitt (\verb=GUI=), baserat på biblioteket QT, som hjälper användaren att på ett intuitivt och välbekant sätt interagerar med receptmodulen, och i förlängningen databasen.
+  \item \Shell - ett lager som närmast kan kallas för MatLabbs styrsystem.
+  \item \Lookup - ett lager som huvudsakligen sköter kommunikationen mellan \Shell och databasen. 
+  \item En databas som lagrar all receptrelaterad information.
 \end{enumerate}
+I detta kapitel ges en överblick över funktionaliteten hos dessa delsystem och hur dessa interagerar.
 
-\section{Databas}\label{sec:ark.databas)}
+%\section{Databas}\label{sec:ark.databas)}
 Databasen utgörs av en MySQL-databas där recept, ingredienser och relaterad data lagras. Exakt data som lagras framgår i kravspecifikationen, samt i kapitel \ref{cha:tekspec} - \emph{Detaljerad teknisk specifikation}.
 
-\section{Recipe}\label{sec:ark.recipe}
-\verb=Recipe= utgör det primära navet mellan databasen och användargränssnittet (\verb=GUI=). Här behandlas aktuellt recept enligt de instruktioner som mottas via GUI:t. Modulen interagerar direkt med samtliga moduler förutom \verb=SearchEngine=, \verb=Ingredient= och \verb=LookUpIngr=.
+%\section{Shell}\label{sec:ark.shell}
+\Shell utgör det primära navet mellan databasen och användargränssnittet (\verb=GUI=). Här behandlas aktuellt recept enligt de instruktioner som mottas via GUI:t. Modulen interagerar direkt med \verb=GUI= och \Lookup och indirekt med databasen via \Lookup
 
-\section{GUI}\label{sec:ark.gui}
-\verb=GUI= är en abstraktion av det grafiska användargränssnittet och i förlängningen användaren. ``Modulen'' kommunicerar med tre olika grenar av MatLabb:
-\begin{itemize}
-  \item \verb=SearchEngine= - för sökning av recept
-  \item \verb=Recipe= - för interaktion med recept
-  \item \verb=Ingredient= - för interaktion med enskilda ingredienser.
-\end{itemize}
+%\section{GUI}\label{sec:ark.gui}
+\verb=GUI= är en abstraktion av det grafiska användargränssnittet och i förlängningen användaren. ``Modulen'' kommunicerar med \Shell.
 
-\section{SearchEngine}\label{sec:ark.search}
-\verb=SearchEngine= är MatLabbs sökmodul för recept. Den sköter direkta receptnamnssökningar genom \verb=LookUp=.
-
-\section{Unit}\label{sec:ark.unit}
-\verb=Unit= är en modul vars syfte är att konvertera enheter. Den ska kunna hantera prefixbaserade enheter (ex. deciliter $\leftrightarrow$ liter) och bör kunna hantera ``köksmått'' (ex. matsked $\leftrightarrow$ tesked). Modulen ska inte kunna hantera omvandling mellan volymenheter och viktenheter då detta förutsätter känd densitet för ingredienserna i fråga, något som sällan är tillgängligt och av föga intresse.
-
-\verb=Unit= används utav \verb=Recipe= i samspel med \verb=PortionScale=, samt i samspel med \verb=CalculatePrice=.
-
-\section{Comment}\label{sec:ark.comment}
-\verb=Comment= är en modul vars syfte är att hantera receptkommentarer. Modulen används utav \verb=Recipe= för att vidarebefodra relevant information till \verb=EditDB=.
-
-\section{CalculatePrice}\label{sec:ark.calcprice}
-\verb=CalculatePrice= är en modul som med hjälp av prisdata beräknar portionspriset för aktuellt recept. Modulen används utav \verb=Recipe= i samspel med \verb=PortionScale=.
-
-\section{PortionScale}\label{sec:ark.portscale}
-\verb=PortionScale= är en modul som behandlar inmatad portionsskalning. Modulen används utav \verb=Recipe= i samspel med \verb=Unit= och \verb=CalculatePrice=.
-
-\section{Ingredient}\label{sec:ark. Ingredient}
-\verb=Ingredient= kontrollerar ingredienshantering. Den hämtar information från databasen via \verb=LookUpIngr= och redigerar databasposterna via \verb=EditDB=.
-
-\section{LookUp, LookUpIngr}\label{sec:ark.lookup}
-Dessa två moduler är närbesläktade och kan möjligtvis slås ihop till en. Deras syfte är att navigera databasen och leverera hämtad information till den modul som behöver den (\verb=SearchEngine=, \verb=Recipe= eller \verb=Ingredient=).
-
-\section{EditDB}\label{sec:ark.editdb}
-\verb=EditDB= styr skrivning till databasen. Den används utav \verb=Recipe=, \verb=Comment= och \verb=Ingredient=.
+%\section{Lookup}\label{sec:lookup}
+\Lookup{}= ingår egentligen i \Shell{}, men betraktat som en separat modul sköter den kommunikationen mellan databasen och \Shell{}s övriga interna submoduler.
