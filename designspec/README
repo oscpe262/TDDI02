@@ -1,0 +1,18 @@
+# TDDI02 - MatLabb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%									       %
+% Designspecifikation					       		       %	       
+% 									       %
+% Figurer i ./fig/							       %
+% Text i respektive tex-fil i ./tex/					       %
+%      	 	    	      						       %
+% Manuell kompilering (kör minst 2 gånger):				       %
+% $> pdflatex designspec.tex						       %
+% Starta autokompilering:						       %
+% $> latexmk.pl -pvc -pdf designspec.tex				       %
+%									       %
+%									       %
+% LaTeX-guide tillgänglig i rotmappen					       %
+% 	      		    						       %
+%									       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
