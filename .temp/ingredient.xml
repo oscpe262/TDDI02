@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ingredient>
+  <name>köttfärs</name>
+  <stdunit>kg</stdunit>
+  <energy>1910</energy>
+  <price>89</price>
+  <egg>0</egg>
+  <milk>0</milk>
+  <celiac>0</celiac>
+  <nuts>0</nuts>
+  <animalic>1</animalic>
+</ingredient>
