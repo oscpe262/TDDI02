@@ -32,7 +32,7 @@ I detta kapitel tar vi ett steg ifrån modulbegreppen och detaljerar istället d
     \verb++&\\[1.2mm]
     \verb+matchRecipe(string)+ & Levererar en sträng till \verb+Lookup+-objektet för att slå i databasen för exakt matchning. \\[1.2mm]
     \verb+matchIngredient(string)+ &  Motsvarande \verb+matchRecipe+. \\[1.2mm]
-    \verb+searchRecipe(cont<SearchTerm*>)+ & Levererar söktermer i en godtycklig container till \verb+Lookup+. \verb+recipeSearchResults_+ tilldelas det resultat som \verb+Lookup+ ger.  \\[1.2mm]
+    \verb+searchRecipe(SearchTerm)+ & Levererar söktermer i en godtycklig container till \verb+Lookup+. \verb+recipeSearchResults_+ tilldelas det resultat som \verb+Lookup+ ger.  \\[1.2mm]
     \verb++&\\[1.2mm]
     \verb++& get-funktioner som används av GUI:t och returnerar relevant data. 
   \end{tabular}
@@ -40,7 +40,7 @@ I detta kapitel tar vi ett steg ifrån modulbegreppen och detaljerar istället d
 \end{figure}
 
 \section{Recipe}
-Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som datamedlem i klassen \Shell. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+SearchDB+ som resultat av en matchning i databasen. Klassen \Recipe{} innehåller främst fullständig data om ett specifikt recept, men även funktioner för implementeringen av \Shell{}s ``användarfunktioner'', t.ex. åtkomst och redigering och för att hämta samt beräkna pris och kalorivärden. Lista över datamedlemmar i klassen \Recipe:
+Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som datamedlem i klassen \Shell. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+SearchDB+ som resultat av en matchning i databasen. Klassen \Recipe{} innehåller främst fullständig data om ett specifikt recept, men även funktioner för implementeringen av \Shell{}s ``användarfunktioner'', t.ex. åtkomst och redigering och för att hämta samt beräkna pris och kalorivärden (\verb=getKcal(double scaling)= och \verb=getPrice(double scaling)=. Lista över datamedlemmar i klassen \Recipe:
  
   \begin{itemize}
     \item \verb+string name_+ - \emph{Namn på receptet}
@@ -76,25 +76,25 @@ Då en väldigt generell sökning kan tänkas generera resultat som motsvarar en
 
 %HÄR BÖRJADE DU ATT ÄNDRA ERIK
 
-\section{SerchDB}
-Endast ett objekt av klassen \verb+SerchDB+ existerar i programmet och då som
-datamedlem av \Shell. \verb+SerchDB+'s funktion är att skapa \Recipe-objekt
+\section{SearchDB}
+Endast ett objekt av klassen \verb+SearchDB+ existerar i programmet och då som
+datamedlem av \Shell. \verb+SearchDB+'s funktion är att skapa \Recipe-objekt
 och \InfoIngredient-objekt, samt att utföra sökningar och skapa listor av
 receptnamn utifrån sökningarna. Det finns även funktionalitet för att ta ut
-snitt union och komplement för att kunna kombinera sökresultat.
+snitt, union eller komplement för att kunna kombinera sökresultat.
 
-\verb+SerchDB+ har följande datamedlemmar
+\verb+SearchDB+ har följande datamedlemmar:
   \begin{itemize}
     \item \verb+list_db_+ ett objekt av typen QsqlQuery som används för att söka
       i databasen samt att hålla datan.
     \item \verb+ingredient_db+ enligt ovan men används endast för att skapa
-      recept objekt.
+      receptobjekt.
     \item \verb+list_pos_+ Heltal som anger hur många recept som tidigare har
-      hämtats i databasen av \verb+query_list+
+      hämtats i databasen av \verb+query_list+.
   \end{itemize}
 
-Följande funktioner kommer användas för att göra uppslagningar, samtliga
-använder \verb+SerchDB+s datamedlem \verb+DB_+ och har således inte något
+Följande funktioner kommer användas för att göra uppslagningar, där samtliga
+använder \verb+SearchDB+s datamedlem \verb+db_+ och har således inte något
 returvärde.
 
   \begin{itemize}
@@ -114,23 +114,19 @@ returvärde.
   \end{itemize}
  
 
-För datatillgång finns följande funktioner
+För datatillgång finns följande funktioner:
 
 \begin{itemize}
 \item \verb+get_list()+ levererar en lista över receptnamn som finns i
   \verb+list_db_+
-\item \verb+get_recipie()+ tar ett receptnamn som parameter och returnerar ett
+\item \verb+get_recipe()+ tar ett receptnamn som parameter och returnerar ett
   objekt av typen \verb+recipe+.
 \item \verb+get_info_ingredient()+ tar ett ingrediensnamn som parameter och
   returnerar ett objekt av typen \verb+info_ingredient+.
 \item \verb+get_recipe_ingredient()+ hjälpfunktion till \verb+get_recipe+.
 \end{itemize}
 
-\verb+SearchDB+ kommer alltså inte att klara av alla olika kombinationer av sökningar på
-egen hand då detta skulle vara komplicerat att implementera utan kommer istället
-utgå från de sökningar som finns och sedan med hjälp av följande funktioner slå
-ihop listor för att nå fram till det resultat som önskas. Samtliga tar två
-listor som parametrar och returnerar en sammanslagen lista.
+\verb+SearchDB+ kommer alltså inte att klara av alla olika kombinationer av sökningar på egen hand då detta skulle vara komplicerat att implementera utan kommer istället utgå från de sökningar som finns och sedan med hjälp av följande funktioner slå ihop listor för att nå fram till det resultat som önskas. Samtliga tar två listor som parametrar och returnerar en sammanslagen lista.
 
 \begin{itemize}
 \item \verb+union()+ returnerar ihop unionen av två listor.
@@ -143,18 +139,18 @@ listor som parametrar och returnerar en sammanslagen lista.
 
 \verb+EditDB+ är den klass som används för att skriva data till databasen. Den
 skall kunna hantera tilläggning och borttagning av ingredienser samt recept. Den
-skall även kunna Lägga till kommentarer till ett recept samt lägga till redskap
+skall även kunna lägga till kommentarer till ett recept samt lägga till redskap
 i databasen.
 
-För att klara detta använder den sig av följande funktioner för insättning
+För att klara detta använder den sig av följande funktioner för insättning:
 
 %Lista över funktioner för tillägning
 \begin{itemize}
-\item \verb+add_recipe()+ Tar emot ett \verb+recipie+-objekt som parameter och
+\item \verb+add_recipe()+ Tar emot ett \verb+Recipe+-objekt som parameter och
   updaterar databasen ifall receptet fanns sedan innan eller lägger till ifall
   det inte fanns.
 
-\item \verb+add_ingredient()+ Tar emot ett \verb+ingredient+-objekt som
+\item \verb+add_ingredient()+ Tar emot ett \verb+InfoIngredient+-objekt som
   parameter och updatera databasen om ingrediensen fann sedan innan eller lägger
   till om det inte fanns.
 
@@ -166,7 +162,7 @@ För att klara detta använder den sig av följande funktioner för insättning
 
 \end{itemize}
 
-Och följande funktioner för borttagning
+Och följande funktioner för borttagning:
 
 %Lista över funktioner för borttagning.
 \begin{itemize}
@@ -193,13 +189,9 @@ används för att sköta kontakten med databasen
 %HÄR ÄR DET NYTT
 \section{SearchTerm}
 
-\verb+SerchTerm+ är en klass som sparar information om och utför en kombinerade sökningar i
-databasen. När en sökning skall genomföras skapas ett \verb+SearchTerm+objekt
-och de medlemsfunktioner som krävs för de delsökningar som skall genomföras anropas. Därefter
-kallar \verb+SearchTerm+ på de sök- och sammanslagningsfunktioner SearchDB
-erbjuder för att kombinera ihop ett sökresultat. 
+\verb+SearchTerm+ är en klass som sparar information om och utför kombinerade sökningar i databasen. När en sökning skall genomföras skapas ett \verb+SearchTerm+-objekt och de medlemsfunktioner som krävs för utförandet av delsökningarna anropas sedan. Därefter kallar \verb+SearchTerm+ på de sök- och sammanslagningsfunktioner \verb+SearchDB+ erbjuder för att kombinera ihop ett sökresultat. 
 
-följande datamedlemmar finns:
+Följande datamedlemmar finns:
 
 \begin{itemize}
 \item \verb+ingredients_+ En vektor innehållande de ingredienser som skall ingå.
@@ -248,8 +240,8 @@ Och följande medlemsfunktioner för dataåtkomst finns:
 
 
 \item \verb+get_result()+ Hämtar relevant data från databasen med avseende på
-  datamedlemmarnas innehåll och sammanställer en lista  med hjälp av SearchDB och
-  returnerar en vektor av \verb+mini_recipie+. 
+  datamedlemmarnas innehåll och sammanställer en lista med hjälp av SearchDB och
+  returnerar en container av \verb+MiniRecipe+s. 
 
 \end{itemize}
 
