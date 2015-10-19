@@ -76,45 +76,66 @@ Då en väldigt generell sökning kan tänkas generera resultat som motsvarar en
 
 %HÄR BÖRJADE DU ATT ÄNDRA ERIK
 
-\section{Lookup}
-Endast ett objekt av klassen \Lookup{} existerar i programmet och då som datamedlem av \Shell. \Lookup{}s funktion är att skapa \Recipe-objekt och\InfoIngredient-objekt, samt att utföra sökningar och skapa listor av receptnamn utifrån sökningarna. Det finns även funktionalitet för att ta ut snitt union och komplement för att kunna kombinera sökresultat.
+\section{SerchDB}
+Endast ett objekt av klassen \verb+SerchDB+ existerar i programmet och då som
+datamedlem av \Shell. \verb+SerchDB+'s funktion är att skapa \Recipe-objekt
+och \InfoIngredient-objekt, samt att utföra sökningar och skapa listor av
+receptnamn utifrån sökningarna. Det finns även funktionalitet för att ta ut
+snitt union och komplement för att kunna kombinera sökresultat.
 
-\Lookup har följande datamedlemmar
+\verb+SerchDB+ har följande datamedlemmar
   \begin{itemize}
-    \item   \verb+list_db_+ ett objekt av typen QsqlQuery som används för att söka i databasen samt att hålla datan.
-    \item   \verb+ingredient_db+ enligt ovan men används endast för att skapa recept objekt.
-    \item   \verb+list_pos_+ Heltal som anger hur många recept som tidigare har hämtats i databasen av \verb+query_list+
+    \item \verb+list_db_+ ett objekt av typen QsqlQuery som används för att söka
+      i databasen samt att hålla datan.
+    \item \verb+ingredient_db+ enligt ovan men används endast för att skapa
+      recept objekt.
+    \item \verb+list_pos_+ Heltal som anger hur många recept som tidigare har
+      hämtats i databasen av \verb+query_list+
   \end{itemize}
 
-Följande funktioner kommer användas för att göra uppslagningar,
-samtliga använder \verb+Lookup+s datamedlem \verb+DB_+ och har således 
-inte något returvärde. 
+Följande funktioner kommer användas för att göra uppslagningar, samtliga
+använder \verb+SerchDB+s datamedlem \verb+DB_+ och har således inte något
+returvärde.
 
   \begin{itemize}
-    \item   \verb+query_list+ inga parametrar, läser in 20 recept i \verb+list_db_+ och uppdaterar \verb+list_pos_+.
-    \item   \verb+query_ingredient_list()+ tar en vektor med ingredienser som parameter sparar namnet på alla recept som innehåller sagda ingredienser i \verb+list_db_+.
-    \item   \verb+query_ingredient_list_explicit()+ samma som ovan fast för recept som \emph{endast} innehåller sagda ingredienser i \verb+list_db_+.
-    \item   \verb+query_allergy_list()+ tar en allergen som parameter och läser in alla recept innehållande sagda allergen i \verb+list_db_+.
-    \item   \verb+query_price_list()+ tar ett prisintervall som parameter och läser in alla recept i givet intervall i \verb+list_db_+.
-    \item   \verb+query_calory_list+ tar ett kaloriintervall som parameter och läser in alla recept i givet intervall i \verb+list_db_+.
+    \item \verb+query_list+ inga parametrar, läser in 20 recept i
+      \verb+list_db_+ och uppdaterar \verb+list_pos_+.
+    \item \verb+query_ingredient_list()+ tar en vektor med ingredienser som
+      parameter sparar namnet på alla recept som innehåller sagda ingredienser i
+      \verb+list_db_+.
+    \item \verb+query_ingredient_list_explicit()+ samma som ovan fast för recept
+      som \emph{endast} innehåller sagda ingredienser i \verb+list_db_+.
+    \item \verb+query_allergy_list()+ tar en allergen som parameter och läser in
+      alla recept innehållande sagda allergen i \verb+list_db_+.
+    \item \verb+query_price_list()+ tar ett prisintervall som parameter och
+      läser in alla recept i givet intervall i \verb+list_db_+.
+    \item \verb+query_calory_list+ tar ett kaloriintervall som parameter och
+      läser in alla recept i givet intervall i \verb+list_db_+.
   \end{itemize}
  
 
 För datatillgång finns följande funktioner
 
 \begin{itemize}
-\item   \verb+get_list()+ levererar en lista över receptnamn som finns i \verb+list_db_+
-\item   \verb+get_recipie()+ tar ett receptnamn som parameter och returnerar ett objekt av typen \verb+recipe+.
-\item   \verb+get_info_ingredient()+ tar ett ingrediensnamn som parameter och returnerar ett objekt av typen \verb+info_ingredient+.
-\item   \verb+get_recipe_ingredient()+ hjälpfunktion till \verb+get_recipe+.
+\item \verb+get_list()+ levererar en lista över receptnamn som finns i
+  \verb+list_db_+
+\item \verb+get_recipie()+ tar ett receptnamn som parameter och returnerar ett
+  objekt av typen \verb+recipe+.
+\item \verb+get_info_ingredient()+ tar ett ingrediensnamn som parameter och
+  returnerar ett objekt av typen \verb+info_ingredient+.
+\item \verb+get_recipe_ingredient()+ hjälpfunktion till \verb+get_recipe+.
 \end{itemize}
 
-\Lookup kommer alltså inte att klara av alla olika kombinationer av sökningar på egen hand då detta skulle vara komplicerat att implementera utan kommer istället utgå från de sökningar som finns och sedan med hjälp av följande funktioner slå ihop listor för att nå fram till det resultat som önskas. Samtliga tar två listor som parametrar och returnerar en sammanslagen lista.
+\verb+SearchDB+ kommer alltså inte att klara av alla olika kombinationer av sökningar på
+egen hand då detta skulle vara komplicerat att implementera utan kommer istället
+utgå från de sökningar som finns och sedan med hjälp av följande funktioner slå
+ihop listor för att nå fram till det resultat som önskas. Samtliga tar två
+listor som parametrar och returnerar en sammanslagen lista.
 
 \begin{itemize}
-\item   \verb+union()+ returnerar ihop unionen av två listor.
-\item   \verb+intersect()+ returnerar snittet av två listor.
-\item   \verb+complement()+ returnerar två listors komplement.
+\item \verb+union()+ returnerar ihop unionen av två listor.
+\item \verb+intersect()+ returnerar snittet av två listor.
+\item \verb+complement()+ returnerar två listors komplement.
 \end{itemize}
 
 
@@ -129,13 +150,13 @@ För att klara detta använder den sig av följande funktioner för insättning
 
 %Lista över funktioner för tillägning
 \begin{itemize}
-\item \verb+add_recipe()+ Tar emot ett \verb+recipie+-objekt som parameter och updaterar
-  databasen ifall receptet fanns sedan innan eller lägger till ifall det inte
-  fanns.
-
-\item \verb+add_ingredient()+ Tar emot ett \verb+ingredient+-objekt som parameter
-  och updatera databasen om ingrediensen fann sedan innan eller lägger till om
+\item \verb+add_recipe()+ Tar emot ett \verb+recipie+-objekt som parameter och
+  updaterar databasen ifall receptet fanns sedan innan eller lägger till ifall
   det inte fanns.
+
+\item \verb+add_ingredient()+ Tar emot ett \verb+ingredient+-objekt som
+  parameter och updatera databasen om ingrediensen fann sedan innan eller lägger
+  till om det inte fanns.
 
 \item \verb+add_comment()+ Tar emot ett receptnamn och en kommentar som
   parametrar och lägger till kommentaren till motsvarande recept
@@ -144,7 +165,6 @@ För att klara detta använder den sig av följande funktioner för insättning
   databasen.
 
 \end{itemize}
-
 
 Och följande funktioner för borttagning
 
@@ -168,10 +188,70 @@ Och följande funktioner för borttagning
 Endast en datamedlem finns och är av typen QsqlQuery vid namn \verb+db_+ och
 används för att sköta kontakten med databasen
 
+%Klassen search term
+
+%HÄR ÄR DET NYTT
+\section{SearchTerm}
+
+\verb+SerchTerm+ är en klass som sparar information om och utför en kombinerade sökningar i
+databasen. När en sökning skall genomföras skapas ett \verb+SearchTerm+objekt
+och de medlemsfunktioner som krävs för de delsökningar som skall genomföras anropas. Därefter
+kallar \verb+SearchTerm+ på de sök- och sammanslagningsfunktioner SearchDB
+erbjuder för att kombinera ihop ett sökresultat. 
+
+följande datamedlemmar finns:
+
+\begin{itemize}
+\item \verb+ingredients_+ En vektor innehållande de ingredienser som skall ingå.
+
+\item \verb+not_ingredients_+ en vektor av ingredienser som inte får ingå.
+
+\item \verb+allergies_+ en vektor av de allergier som inte får ingå.
+
+\item \verb+price_+ en struct av typen Price innehållande undre och övre gräns på pris
+
+\item \verb+cal_+ en struct av typen Cal innehållande undre och övre gräns på kaloriinehåll.
+
+\item \verb+time_+ en struct av typen Time innehållande undre och övre gräns på tidsåtgång.
+
+\item \verb+serch_result_+ en vector av mini-recipies motsvarande resultatet.
+
+\end{itemize}
+
+Och följande medlemsfunktioner för dataåtkomst finns:
+
+\begin{itemize}
+\item \verb+set_ingredients()+ Tar en vektor av ingredienssträngar och lagrar
+  dom i \verb+ingredients_+.
+
+\item \verb+set_not_ingredients()+ Tar en vektor av ingredienssträngar och lagrar
+  dom i \verb+not_ingredients_+.
+
+\item \verb+set_price()+ Tar en struct av typen Price och lagrar den i
+  \verb+price_+.
+
+\item \verb+set_cal()+ Tar en struct av typen Calory och lagrar den i \verb+cal_+.
+
+\item \verb+set_time()+ Tar en stryct av typen Time och lagrar den i
+  \verb+time_+.
+
+\item \verb+set_allergy()+ Tar en vector av allergisträngar och lagrar den i
+  \verb+allergies_+
+
+\item \verb+push_ingredient()+ Tar emot en sträng och lägger till den i
+  \verb+ingredients_+
+
+\item \verb+push_not_ingredient()+ Tar emot en sträng och lägger till den i
+  \verb+not_ingredient_+
+
+\item \verb+push_allergy()+ Tar emot en sträng och lägger till den i \verb+allergies_+
 
 
+\item \verb+get_result()+ Hämtar relevant data från databasen med avseende på
+  datamedlemmarnas innehåll och sammanställer en lista  med hjälp av SearchDB och
+  returnerar en vektor av \verb+mini_recipie+. 
 
-%HÄR SLUTADE DU SKRIVA ERIK
+\end{itemize}
 
 \begin{figure}[h]
 \centering
@@ -179,5 +259,3 @@ används för att sköta kontakten med databasen
 \caption{Klass-schema}
 \label{fig:classes}
 \end{figure}
-
-
