@@ -36,7 +36,7 @@ Programmet MatLabb har i stort tre delsystem:
   \label{fig:tekfunklist}
 \end{figure}
 
-\subsection{Recipe}
+\section{Recipe}
 Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som datamedlem i klassen \Shell. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klassen \Recipe{} innehåller främst fullständig data om ett specifikt recept, men även funktioner för implementeringen av \Shell{}s ``användarfunktioner'', t.ex. åtkomst och redigering och för att hämta samt beräkna pris och kalorivärden. Lista över datamedlemmar i klassen \Recipe:
  
   \begin{itemize}
@@ -53,17 +53,21 @@ Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som 
     \item \verb+cont<RelatedRecipe> relatedRecipes_+ - \emph{Besläktade recept}
   \end{itemize}
 
+\subsection{MiniRecipe}
+Posten \verb+MiniRecipe+ har en begränsad men viktig uppgift; objekt av denna typ representerar en nerbantad version av ett specifikt recept och existerar för att påskynda framförandet av sökresultat. När \Shell{} anropar \verb+Lookup::get_list(...)+ förväntar den sig en container innehållande \verb+MiniRecipe+s som returvärde, vilken den sparar i sin datamedlem \verb+searchResults_+.
 
-\subsection{Ingredient}
+Då en väldigt generell sökning kan tänkas generera resultat som motsvarar en majoritet av recepten i databasen, så hjälper det om programmet begränsar sig till endast den information som för stunden är relevant. Därav innehåller ett \verb+MiniRecipe+-objekt endast information om namn, tidsåtgång och betyg. Notera att inget släktskap existerar mellan \verb+MiniRecipe+ och \Recipe.
+
+\section{Ingredient}
 \Ingredient{} är en abstrakt klass ur vilken \InfoIngredient{} och \RecipeIngredient{} är härledda enligt figur \ref{fig:classes}.
 
-\subsubsection{InfoIngredient}
+\subsection{InfoIngredient}
 \InfoIngredient representerar en enskild ingrediens. Utöver det gemensamma arvet så utökas \InfoIngredient med set-funktioner för att kunna redigera ingrediensens attribut.
 
-\subsubsection{RecipeIngredient}
+\subsection{RecipeIngredient}
 \RecipeIngredient{} representerar en enskild ingrediens som del av ett recept. Klassen utökar sitt arv med två datamedlemmar -- \verb=double amount_= och \verb=''unittype'' unit_= -- för att hantera två ytterligare funktioner: \verb+getKcal(double scaling)+ och \verb+getPrice(double scaling)+.
  
-\subsubsection{RelatedRecipe}
+\subsection{RelatedRecipe}
 \verb+RelatedRecipe+ är en struct med vissa särskilda krav, vars funktionalitet är avsedd för att agera datatyp för släktskap. Ett objekt av typen \verb+RelatedRecipe+ ska endast hänvisa släktskap med ett recept som hänvisar släktskap med det recept som objektet själv tillhör. Tanken är att strikt hålla kontroll så att inga enkelriktade släktskap ska kunna förekomma i databasen när vi väl tillför eller ändrar denna typ av information.
 
 
