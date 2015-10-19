@@ -4,13 +4,13 @@ Detta avsnitt utgör ett exempel på användarinmatning och vad som händer bako
   \item Användaren står i sökfönstervyn (fig. \ref{fig:vy1}) och klickar på \emph{``Lägg till''.}
   \item Vyn ändras till redigeringsvyn (fig. \ref{fig:vy3}). 
   \item Användarinmatning av receptdetaljer i respektive fält. Avslutar med \emph{``Spara recept''.}
-  \item Skapa tomt \Recipe-objekt och anropa dess \verb=Recipe:editRecipe=-funktion med fältenas värden som argument.
+  \item Skapa tomt \Recipe-objekt och anropa dess \verb=Recipe::editRecipe()=-funktion med fältenas värden som argument.
   \item Ett anrop \verb=Shell::addRecipe(Recipe)= görs.
-  \item Anrop: \verb=EditDB::addRecipe(Recipe)=
+  \item Anrop: \verb=EditDB::addRecipe(Recipe)=.
   \item \verb=EditDB= använder receptets namn och slår i databasen. Om det redan existerar skrivs informationen över. Om inte så läggs raden till i tabellen med recept.
   \item Returvärde returneras beroende av utfall.
   \item Nivå \Shell: \verb=currentRecipe_= uppdateras, returvärdet ovan returneras uppåt.
-  \item Nivå GUI: GUI ger feedback baserat på returvärde (recept \{tillagt,uppdaterat\}).
+  \item Nivå \verb=GUI=: \verb=GUI= ger feedback baserat på returvärde (recept \{tillagt,uppdaterat\}).
 \item Byt vy till receptvy (fig. \ref{fig:vy2}).
 \end{enumerate}
 
