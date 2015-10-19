@@ -11,9 +11,9 @@
   <ingredient>salt<amount>1<unit>tsk</unit></amount></ingredient>
   <ingredient>svartpeppar<amount>1<unit>krm</unit></amount></ingredient>
   <ingredient>olja<amount>2<unit>msk</unit></amount></ingredient>
-  <instruction>Blanda ströbröd och grädde. Låt svälla 10 min. Lägg i färs, lök, ägg, salt
-  och peppar. Rör till en jämn smet. Forma färsen till jämna bullar. Stek dem i smör-&amp;
-  rapsolja på medelvärme 3-5 min.</instruction>
+  <instruction>Blanda ströbröd och grädde. Låt svälla 10 min. Lägg i färs, lök, ägg, 
+  salt och peppar. Rör till en jämn smet. Forma färsen till jämna bullar. Stek dem i
+  smör-&amp; rapsolja på medelvärme 3-5 min.</instruction>
   <time>40</time>
   <tool>stekpanna</tool>
   <energy>375</energy>
