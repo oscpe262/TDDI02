@@ -66,6 +66,9 @@ Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som 
 \subsubsection{RelatedRecipe}
 \verb+RelatedRecipe+ är en struct med vissa särskilda krav, vars funktionalitet är avsedd för att agera datatyp för släktskap. Ett objekt av typen \verb+RelatedRecipe+ ska endast hänvisa släktskap med ett recept som hänvisar släktskap med det recept som objektet själv tillhör. Tanken är att strikt hålla kontroll så att inga enkelriktade släktskap ska kunna förekomma i databasen när vi väl tillför eller ändrar denna typ av information.
 
+
+%HÄR BÖRJADE DU ATT ÄNDRA ERIK
+
 \section{Lookup}
 Endast ett objekt av klassen \Lookup{} existerar i programmet och då som datamedlem av \Shell. \Lookup{}s funktion är att skapa \Recipe-objekt och\InfoIngredient-objekt, samt att utföra sökningar och skapa listor av receptnamn utifrån sökningarna. Det finns även funktionalitet för att ta ut snitt union och komplement för att kunna kombinera sökresultat.
 
@@ -96,7 +99,7 @@ För datatillgång finns följande funktioner
 \item   \verb+get_list()+ levererar en lista över receptnamn som finns i \verb+list_db_+
 \item   \verb+get_recipie()+ tar ett receptnamn som parameter och returnerar ett objekt av typen \verb+recipe+.
 \item   \verb+get_info_ingredient()+ tar ett ingrediensnamn som parameter och returnerar ett objekt av typen \verb+info_ingredient+.
-\item   \verb+get_recipe_ingredient()+ hjälpfunktion till \verb+get_recipe+
+\item   \verb+get_recipe_ingredient()+ hjälpfunktion till \verb+get_recipe+.
 \end{itemize}
 
 \Lookup kommer alltså inte att klara av alla olika kombinationer av sökningar på egen hand då detta skulle vara komplicerat att implementera utan kommer istället utgå från de sökningar som finns och sedan med hjälp av följande funktioner slå ihop listor för att nå fram till det resultat som önskas. Samtliga tar två listor som parametrar och returnerar en sammanslagen lista.
@@ -107,10 +110,67 @@ För datatillgång finns följande funktioner
 \item   \verb+complement()+ returnerar två listors komplement.
 \end{itemize}
 
+
+\section{EditDB}
+
+\verb+EditDB+ är den klass som används för att skriva data till databasen. Den
+skall kunna hantera tilläggning och borttagning av ingredienser samt recept. Den
+skall även kunna Lägga till kommentarer till ett recept samt lägga till redskap
+i databasen.
+
+För att klara detta använder den sig av följande funktioner för insättning
+
+%Lista över funktioner för tillägning
+\begin{itemize}
+\item \verb+add_recipe()+ Tar emot ett \verb+recipie+-objekt som parameter och updaterar
+  databasen ifall receptet fanns sedan innan eller lägger till ifall det inte
+  fanns.
+
+\item \verb+add_ingredient()+ Tar emot ett \verb+ingredient+-objekt som parameter
+  och updatera databasen om ingrediensen fann sedan innan eller lägger till om
+  det inte fanns.
+
+\item \verb+add_comment()+ Tar emot ett receptnamn och en kommentar som
+  parametrar och lägger till kommentaren till motsvarande recept
+
+\item \verb+add_tool()+ Tar emot ett namn på ett redskap och lägger till det i
+  databasen.
+
+\end{itemize}
+
+
+Och följande funktioner för borttagning
+
+%Lista över funktioner för borttagning.
+\begin{itemize}
+
+\item \verb+remove_recipe()+ Tar emot ett receptnamn som parameter och raderar
+  motsvarande recept ur databasen.
+
+\item \verb+remove_ingredient()+ Tar emot ett ingrediensnamn som parameter och
+  raderar motsvarande ingrediens ur databasen.
+
+\item \verb+remove_tool()+ Tar emot ett redskapsnamn och tar bort motsvarande
+  redskap i databasen.
+
+\item \verb+remove_comment()+ Tar emot ett kommentars-id och tar bort
+  motsvarande kommentar.
+  
+\end{itemize}
+
+Endast en datamedlem finns och är av typen QsqlQuery vid namn \verb+db_+ och
+används för att sköta kontakten med databasen
+
+
+
+
+%HÄR SLUTADE DU SKRIVA ERIK
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=16cm]{klass-schema.png}
 \caption{Klass-schema}
 \label{fig:classes}
 \end{figure}
+
 
