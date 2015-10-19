@@ -8,9 +8,9 @@
 
 MatLabb har tre centrala delsystem samt en databas vilka initialt kan betraktas på följande sätt: 
 \begin{enumerate}
-  \item Ett användargränssnitt (\verb=GUI=), baserat på biblioteket QT, som hjälper användaren att på ett intuitivt och välbekant sätt interagerar med receptmodulen, och i förlängningen databasen.
-  \item \Shell - ett lager som närmast kan kallas för MatLabbs styrsystem.
-  \item \Lookup - ett lager som huvudsakligen sköter kommunikationen mellan \Shell och databasen. 
+  \item Ett användargränssnitt (\textbf{GUI}), baserat på biblioteket QT, som hjälper användaren att på ett intuitivt och välbekant sätt interagerar med receptmodulen, och i förlängningen databasen.
+  \item \textbf{Shell} - ett lager som närmast kan kallas för MatLabbs styrsystem.
+  \item \textbf{Lookup} - ett lager som huvudsakligen sköter kommunikationen mellan \textbf{Shell} och databasen. 
   \item En databas som lagrar all receptrelaterad information.
 \end{enumerate}
 I detta kapitel ges en överblick över funktionaliteten hos dessa delsystem och hur dessa interagerar.
@@ -19,10 +19,10 @@ I detta kapitel ges en överblick över funktionaliteten hos dessa delsystem och
 Databasen utgörs av en MySQL-databas där recept, ingredienser och relaterad data lagras. Exakt data som lagras framgår i kravspecifikationen, samt i kapitel \ref{cha:tekspec} - \emph{Detaljerad teknisk specifikation}.
 
 %\section{Shell}\label{sec:ark.shell}
-\Shell utgör det primära navet mellan databasen och användargränssnittet (\verb=GUI=). Här behandlas aktuellt recept enligt de instruktioner som mottas via GUI:t. Modulen interagerar direkt med \verb=GUI= och \Lookup och indirekt med databasen via \Lookup
+\textbf{Shell} utgör det primära navet mellan databasen och användargränssnittet (\textbf{GUI}). Här behandlas aktuellt recept enligt de instruktioner som mottas via GUI:t. Modulen interagerar direkt med \textbf{GUI}och \textbf{Lookup} och indirekt med databasen via \textbf{Lookup}.
 
 %\section{GUI}\label{sec:ark.gui}
-\verb=GUI= är en abstraktion av det grafiska användargränssnittet och i förlängningen användaren. ``Modulen'' kommunicerar med \Shell.
+\textbf{GUI} är en abstraktion av det grafiska användargränssnittet och i förlängningen användaren. ``Modulen'' kommunicerar med \textbf{Shell}.
 
 %\section{Lookup}\label{sec:lookup}
-\Lookup{}= ingår egentligen i \Shell{}, men betraktat som en separat modul sköter den kommunikationen mellan databasen och \Shell{}s övriga interna submoduler.
+\textbf{Lookup} ingår egentligen i \textbf{Shell}, men betraktat som en separat modul sköter den kommunikationen mellan databasen och \textbf{Shell}s övriga interna submoduler.

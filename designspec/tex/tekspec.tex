@@ -1,11 +1,14 @@
 Programmet MatLabb har i stort tre delsystem:
 
 \begin{enumerate}
-\item \verb+GUI+, Det grafiska användargränssnittet
-\item \Shell, eller, det inre skalet som håller centrala objekt och variabler, t.ex. aktivt recept och portionskalning.
-\item \Lookup, som tillhandahåller relevanta verktyg för kommunikation med databasen.
+\item \textbf{GUI}, det grafiska användargränssnittet. Implementeras av klassen \texttt{GUI}.
+\item \textbf{Shell}, eller, det inre skalet som håller centrala objekt och variabler, t.ex. aktivt recept och portionskalning. Motsvarar i stort klassen \Shell.
+\item \textbf{Lookup}, som tillhandahåller relevanta verktyg för kommunikation med databasen. Uppbygd av klasserna \verb=SearchDB= och \verb=EditDB=.
 \end{enumerate}
-\verb+GUI+ ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vy1} - \ref{fig:vy4}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
+
+I detta kapitel tar vi ett steg ifrån modulbegreppen och detaljerar istället de klasser som bygger upp programmet MatLabb.
+
+\texttt{GUI} ansvarar för att skriva ut data från det inre systemet på skärmen i grafisk tappning. Användaren styr även systemet genom att interagera med menyer, knappar och strängfält snarare än att ge skriftliga hänvisningar till kommandoprompten. Information presenteras enligt konceptbilderna i (figur \ref{fig:vy1} - \ref{fig:vy4}). Det grafiska gränssnittet implementeras med hjälp av biblioteket Qt och kommer delvis designas i klienten Qt Creator.
 
 \begin{figure}[h]
   \centering
@@ -15,7 +18,7 @@ Programmet MatLabb har i stort tre delsystem:
 \end{figure}
 
 \section{Shell}
-\Shell{} innehåller objekt av klasserna \Recipe{}, \InfoIngredient{} och \Lookup{} som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller \Shell publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, funktionerna listade i figur \ref{fig:tekfunklist} (s. \pageref{fig:tekfunklist}).
+\Shell{} innehåller objekt av klasserna \Recipe{}, \InfoIngredient{}, \verb=SearchDB och \verb=EditDB= som datamedlemmar, där de två förstnämnda reflekterar det aktuella receptet och ingrediensen som vårt program interagerar med. Utåt tillhandahåller \Shell{} publikt endast funktioner som kan tänkas motsvara alla möjliga handlingar från användaren. Denna grupp av funktioner inkluderar, men är ej begränsade till, funktionerna listade i figur \ref{fig:tekfunklist} (s. \pageref{fig:tekfunklist}).
 
 \begin{figure}[h]
   \caption{Funktioner för användarinputs}
@@ -37,7 +40,7 @@ Programmet MatLabb har i stort tre delsystem:
 \end{figure}
 
 \section{Recipe}
-Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som datamedlem i klassen \Shell. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+Lookup+ som resultat av en matchning i databasen. Klassen \Recipe{} innehåller främst fullständig data om ett specifikt recept, men även funktioner för implementeringen av \Shell{}s ``användarfunktioner'', t.ex. åtkomst och redigering och för att hämta samt beräkna pris och kalorivärden. Lista över datamedlemmar i klassen \Recipe:
+Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som datamedlem i klassen \Shell. Nya objekt skapas antingen i samband med t.ex. funktionen \verb+addRecipe(string)+ eller byggs upp och returneras av \verb+SearchDB+ som resultat av en matchning i databasen. Klassen \Recipe{} innehåller främst fullständig data om ett specifikt recept, men även funktioner för implementeringen av \Shell{}s ``användarfunktioner'', t.ex. åtkomst och redigering och för att hämta samt beräkna pris och kalorivärden. Lista över datamedlemmar i klassen \Recipe:
  
   \begin{itemize}
     \item \verb+string name_+ - \emph{Namn på receptet}
@@ -54,7 +57,7 @@ Objekt av klassen \Recipe{} kommer endast att existera i stabilt tillstånd som 
   \end{itemize}
 
 \subsection{MiniRecipe}
-Posten \verb+MiniRecipe+ har en begränsad men viktig uppgift; objekt av denna typ representerar en nerbantad version av ett specifikt recept och existerar för att påskynda framförandet av sökresultat. När \Shell{} anropar \verb+Lookup::get_list(...)+ förväntar den sig en container innehållande \verb+MiniRecipe+s som returvärde, vilken den sparar i sin datamedlem \verb+searchResults_+.
+Posten \verb+MiniRecipe+ har en begränsad men viktig uppgift; objekt av denna typ representerar en nerbantad version av ett specifikt recept och existerar för att påskynda framförandet av sökresultat. När \Shell{} anropar \verb+SearchDB::get_list(...)+ förväntar den sig en container innehållande \verb+MiniRecipe+s som returvärde, vilken den sparar i sin datamedlem \verb+searchResults_+.
 
 Då en väldigt generell sökning kan tänkas generera resultat som motsvarar en majoritet av recepten i databasen, så hjälper det om programmet begränsar sig till endast den information som för stunden är relevant. Därav innehåller ett \verb+MiniRecipe+-objekt endast information om namn, tidsåtgång och betyg. Notera att inget släktskap existerar mellan \verb+MiniRecipe+ och \Recipe.
 
@@ -62,7 +65,7 @@ Då en väldigt generell sökning kan tänkas generera resultat som motsvarar en
 \Ingredient{} är en abstrakt klass ur vilken \InfoIngredient{} och \RecipeIngredient{} är härledda enligt figur \ref{fig:classes}.
 
 \subsection{InfoIngredient}
-\InfoIngredient representerar en enskild ingrediens. Utöver det gemensamma arvet så utökas \InfoIngredient med set-funktioner för att kunna redigera ingrediensens attribut.
+\InfoIngredient{} representerar en enskild ingrediens. Utöver det gemensamma arvet så utökas \InfoIngredient{} med set-funktioner för att kunna redigera ingrediensens attribut.
 
 \subsection{RecipeIngredient}
 \RecipeIngredient{} representerar en enskild ingrediens som del av ett recept. Klassen utökar sitt arv med två datamedlemmar -- \verb=double amount_= och \verb=''unittype'' unit_= -- för att hantera två ytterligare funktioner: \verb+getKcal(double scaling)+ och \verb+getPrice(double scaling)+.
