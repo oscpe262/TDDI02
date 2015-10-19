@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- ingredient.xml -->
 <ingredient>
   <name>köttfärs</name>
   <stdunit>kg</stdunit>
@@ -10,3 +11,4 @@
   <nuts>0</nuts>
   <animalic>1</animalic>
 </ingredient>
+<!-- EOF -->
