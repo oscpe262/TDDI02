@@ -6,5 +6,5 @@ Class InfoIngredient : public Ingredient
   
 };
 
-#include "InfoIngredient.cc"
+
 #endif

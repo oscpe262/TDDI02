@@ -6,5 +6,4 @@ Class Ingredient
   
 };
 
-#include "Ingredient.cc"
 #endif

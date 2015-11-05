@@ -1,7 +1,8 @@
 #ifndef EDITDB_H
 #define EDITDB_H
-#include <QtSql>
-#include <QSqlDatabase>
+#include <iostream>
+//#include <QtSql>
+//#include <QSqlDatabase>
 
 class EditDB{
  public:
@@ -21,6 +22,5 @@ class EditDB{
   
 };
 
-#include "EditDB.cc"
 #endif
 

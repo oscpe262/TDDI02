@@ -4,9 +4,19 @@ skapar en configfil med filändelsen .pro enligt följande mönster
 
 Min_konfig.pro
 
-#START FIL
+#START FIL BÖRJA KOPIERA HÄR
 
 #Rader som börjar med # är kommentarer
+
+#Includepath anger vart kompilatorn att utgå när den letar inkluderingar
+#alla inkluderingar måste således utgå från src mappen exempelvis
+#include "classes/headers/EditDB.h"
+#Ligger filen i samma mapp som din nuvarande fil inkluderar du som vanligt
+#exempelvis att använda klasser i klasser
+
+INCLUDEPATH += "$$PWD/../src"
+
+#$$PWD är en variabel som anger mappen .pro filen ligger i
 
 #Filer som används av programmet HEADERS för .h filer SOURCES för .cc
 HEADERS += SearchDB.h
@@ -15,13 +25,13 @@ SOURCES += SearchDB.cc
 SOURCES += EditDB.cc
 SOURCES += test_db.cc
 
-#Namn på filen som kompileras
-TARGET = test_db
+#Namn och sökväg på filen som kompileras
+TARGET = $$PWD/../test_db
 
 #QT moduler som används
 QT += sql
 
-#SLUT FIL
+#SLUT FIL SLUTA KOPIERA HÄR
 
 
 Efter detta körs kommandot:

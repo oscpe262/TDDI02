@@ -6,5 +6,4 @@ Class RecipeIngredient : public Ingredient
   
 };
 
-#include "RecipeIngredient.cc"
 #endif

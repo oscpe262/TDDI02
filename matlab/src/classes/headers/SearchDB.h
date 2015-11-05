@@ -3,7 +3,7 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <vector>
-#include <"Recipe.h">
+#include "Recipe.h"
 
 using namespace std;
 using namespace QSql;

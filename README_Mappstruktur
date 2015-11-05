@@ -1,0 +1,15 @@
+Mappstrukturen ser ut som följande
+
+Matlab
+  |- src
+  | | - classes
+  | | |- headers
+  |- make
+  |- exe
+
+i src hamnar all källkod orelaterad till klasserna, testprogram huvudprogram etc
+
+i "classes" hamnar alla .cc filer till klasserna och i "headers" .h filerna
+
+i "make" alla .pro och Makefiles och i "exe" alla körbara filer som inte skall
+pushas till git.

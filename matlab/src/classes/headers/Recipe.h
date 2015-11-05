@@ -1,15 +1,14 @@
 #ifndef RECIPE_H
 #define RECIPE_H
-#include <string>
+//#include <string>
 
 struct MiniRecipie
 {
-  string name;  
+  //string name;  
 };
 
 class Recipe{
   
 };
 
-#include "Recipe.cc"
 #endif
