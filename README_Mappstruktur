@@ -2,7 +2,7 @@ Mappstrukturen ser ut som följande
 
 Matlab
   |- src
-  | | - classes
+  | |- classes
   | | |- headers
   |- make
   |- exe
