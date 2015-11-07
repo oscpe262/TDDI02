@@ -3,7 +3,7 @@
 
   kontouppgifter till databasen:
   User:              Password:             Databas:
-  TDDI02_HT15_01     TDDI02_HT15_0177a3    TDDI02_HT15_01
+  TDDI02_HT15_02     TDDI02_HT15_02b957
  */
 
 #ifndef EDITDB_H
@@ -11,19 +11,17 @@
 #include <iostream>
 #include <QtSql>
 #include <QSqlDatabase>
+#include <QSqlError>
+#include <iostream>
 
 class EditDB{
  public:
-  EditDB()
-    {
-      db_ = QSqlDatabase::addDatabase("QMYSQL");
-      db_.setHostName("db-und.ida.liu.se");
-      db_.setDatabaseName("TDDI02_HT15_01");
-      db_.setUserName("TDDI02_HT15_01");
-      db_.setPassword("TDDI02_HT15_0177a3");
-    }
+  EditDB();
   
-  void create_db();
+  void create_db();               //Creates database
+  void clear_db();                //Clears database
+  void print_tables();            
+  void last_query(QSqlQuery q);   //prints last query on cout
   
   bool add_recipe();
   bool add_ingredient();
@@ -37,6 +35,7 @@ class EditDB{
  private:
   QSqlDatabase db_;
   QSqlQuery    query_;
+  QSqlError    db_error_;
 
   
   
