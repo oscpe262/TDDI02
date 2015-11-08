@@ -50,9 +50,11 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../src/classes/EditDB.cc \
 		../src/classes/Ingredient.cc \
+		../src/classes/DB.cc \
 		../src/EditDB_test.cc 
 OBJECTS       = EditDB.o \
 		Ingredient.o \
+		DB.o \
 		EditDB_test.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -110,8 +112,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		EditDB_test.pro ../src/classes/headers/SearchDB.h \
 		../src/classes/headers/EditDB.h \
-		../src/classes/headers/Ingredient.h ../src/classes/EditDB.cc \
+		../src/classes/headers/Ingredient.h \
+		../src/classes/headers/DB.h ../src/classes/EditDB.cc \
 		../src/classes/Ingredient.cc \
+		../src/classes/DB.cc \
 		../src/EditDB_test.cc
 QMAKE_TARGET  = EditDB_test
 DESTDIR       = ../exe/#avoid trailing-slash linebreak
@@ -275,8 +279,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/classes/headers/SearchDB.h ../src/classes/headers/EditDB.h ../src/classes/headers/Ingredient.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/classes/EditDB.cc ../src/classes/Ingredient.cc ../src/EditDB_test.cc $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/classes/headers/SearchDB.h ../src/classes/headers/EditDB.h ../src/classes/headers/Ingredient.h ../src/classes/headers/DB.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/classes/EditDB.cc ../src/classes/Ingredient.cc ../src/classes/DB.cc ../src/EditDB_test.cc $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -313,13 +317,20 @@ compiler_clean:
 
 ####### Compile
 
-EditDB.o: ../src/classes/EditDB.cc ../src/classes/headers/EditDB.h
+EditDB.o: ../src/classes/EditDB.cc ../src/classes/headers/EditDB.h \
+		../src/classes/headers/Ingredient.h \
+		../src/classes/headers/DB.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EditDB.o ../src/classes/EditDB.cc
 
 Ingredient.o: ../src/classes/Ingredient.cc ../src/classes/headers/Ingredient.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Ingredient.o ../src/classes/Ingredient.cc
 
-EditDB_test.o: ../src/EditDB_test.cc ../src/classes/headers/EditDB.h
+DB.o: ../src/classes/DB.cc ../src/classes/headers/DB.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DB.o ../src/classes/DB.cc
+
+EditDB_test.o: ../src/EditDB_test.cc ../src/classes/headers/EditDB.h \
+		../src/classes/headers/Ingredient.h \
+		../src/classes/headers/DB.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EditDB_test.o ../src/EditDB_test.cc
 
 ####### Install

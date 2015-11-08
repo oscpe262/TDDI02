@@ -13,16 +13,12 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include "classes/headers/Ingredient.h"
+#include "classes/headers/DB.h"
 #include <iostream>
 
-class EditDB{
+class EditDB : public DB{
  public:
-  EditDB();
-  
-  void create_db();               //Creates database
-  void clear_db();                //Clears database
-  void print_tables();                       
-  void last_query(QSqlQuery q);   //prints last query on cout
+ EditDB() : DB() {}
   
   bool add_recipe();
   bool add_ingredient(const Ingredient& ingredient);
@@ -30,17 +26,13 @@ class EditDB{
   bool add_tool();
   
   bool remove_recipe();
+  bool remove_ingredient(const string& ingredient);
   bool remove_ingredient(const Ingredient& ingredient);
   bool remove_tool();
   bool remove_comment();
 
-  bool check_ingredient(const string& ingredient);
-  bool check_ingredient(const Ingredient& ingredient);
-
  private:
-  QSqlDatabase db_;
-  QSqlQuery    query_;
-  QSqlError    db_error_;
+
 
   
   
