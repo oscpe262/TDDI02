@@ -10,13 +10,13 @@ class Ingredient
   Ingredient() = default;
  Ingredient(string name,int price, int kcal) : name_(name), price_(price), kcal_(kcal) {}
   
-  string get_name() const {return name_;}
-  int get_price()   const {return price_;}
-  int get_kcal()    const {return kcal_;}
+  string getName() const {return name_;}
+  int getPrice()   const {return price_;}
+  int getKcal()    const {return kcal_;}
 
-  void set_name(string name){name_ = name;}
-  void set_price(int price) {price_ = price;}
-  void set_kcal(int kcal)   {kcal_ = kcal;}
+  void setName(string name){name_ = name;}
+  void setPrice(int price) {price_ = price;}
+  void setKcal(int kcal)   {kcal_ = kcal;}
  private:
   string name_;
   int price_;

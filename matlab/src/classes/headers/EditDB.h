@@ -20,16 +20,16 @@ class EditDB : public DB{
  public:
  EditDB() : DB() {}
   
-  bool add_recipe();
-  bool add_ingredient(const Ingredient& ingredient);
-  bool add_comment();
-  bool add_tool();
+  bool addRecipe();
+  bool addIngredient(const Ingredient& ingredient);
+  bool addComment();
+  bool addTool();
   
-  bool remove_recipe();
-  bool remove_ingredient(const string& ingredient);
-  bool remove_ingredient(const Ingredient& ingredient);
-  bool remove_tool();
-  bool remove_comment();
+  bool removeRecipe();
+  bool removeIngredient(const string& ingredient);
+  bool removeIngredient(const Ingredient& ingredient);
+  bool removeTool();
+  bool removeComment();
 
  private:
 

@@ -3,7 +3,9 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <vector>
-#include "Recipe.h"
+#include "classes/headers/DB.h"
+#include "classes/headers/Ingredient.h"
+//#include "Recipe.h"
 
 using namespace std;
 using namespace QSql;
@@ -11,23 +13,23 @@ using namespace QSql;
 
 //typedef vector<MiniRecipe> Recipe_List;
 
-class SearchDB
-{
+class SearchDB : public DB{
  public:
-  SearchDB();
+  SearchDB() : DB() {};
   //Search functions
-  void query_list();
-  void query_ingredient_list();
-  void query_ingredient_list_explicit();
-  void query_allergy_list();
-  void query_price_list();
-  void query_calory_list();
+  void queryList();
+  void queryIngredient_list();
+  void queryIngredient_list_explicit();
+  void queryAllergy_list();
+  void queryPrice_list();
+  void queryCalory_list();
 
   //Functions for data acess
-  //  Recipe_List get_list();
-  //Recipe_List get_recipe();
-  //Recipe_List get_recipe_ingredient();
-  //Recipe_List get_info_ingredient();
+  //Recipe_List getList();
+  //Recipe_List getRecipe();
+  //Recipe_List getRecipeIngredient();
+  Ingredient makeIngredient(const string& name);
+
 
   //Functions for merging recipie lists
   //  Recipe_List make_union();
@@ -35,14 +37,8 @@ class SearchDB
   //Recipe_List complement();
 
  private:
-  QSqlDatabase db_;
-  QSqlQuery    list_db_;
-  QSqlQuery    ingredient_db_;
   int          list_pos_;
-
-
 
 };
 
-//#include "SearchDB.cc"
 #endif

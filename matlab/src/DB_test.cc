@@ -21,16 +21,16 @@ int main(int argc, char* argv[])
       switch(menu)
 	{
 	case 1:
-	  test_db.create_db();
+	  test_db.createDb();
 	  break;
 	case 2:
-	  test_db.clear_db();
+	  test_db.clearDb();
 	  break;
 	case 3:
-	  test_db.print_tables();
+	  test_db.printTables();
 	  break;
 	case 4:
-	  if(test_db.add_ingredient(ingredient))
+	  if(test_db.addIngredient(ingredient))
 	    cout << "Ingrediens lades till";
 	  else
 	    cout << "Ingrediens finns redan";
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 	case 5:
 	  cout << "Ange ingrediens: ";
 	  cin >> name;
-	  if(test_db.check_ingredient(name))
+	  if(test_db.checkIngredient(name))
 	    cout << "\nIngrediensen finns\n";
 	  else
 	    cout << "\nIngrediensen finns inte\n";
@@ -46,14 +46,14 @@ int main(int argc, char* argv[])
 	case 6:
 	  cout << "Ange ingrediens: ";
 	  cin >> name;
-	  if(test_db.remove_ingredient(name))
+	  if(test_db.removeIngredient(name))
 	    cout << "Ingrediens togs bort";
 	  else
 	    cout << "Ingrediens finns inte";
 	  break;
 	}
       
-      print_menu();
+    print_menu();
     }while(cin >> menu);
   
   return 0;

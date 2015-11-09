@@ -9,17 +9,17 @@ using namespace std;
   the record is updated and return false
 */
 
-bool EditDB::add_ingredient(const Ingredient& ingredient)
+bool EditDB::addIngredient(const Ingredient& ingredient)
 {
   QSqlQuery tmp(db_);
 
-  if(check_ingredient(ingredient))
+  if(checkIngredient(ingredient))
     {
       tmp.finish();
       tmp.prepare("INSERT INTO Ingredient(price,kcal) VALUES(:price,:kcal) WHERE name=:name");
-      tmp.bindValue(":name",ingredient.get_name().c_str());
-      tmp.bindValue(":price",ingredient.get_price());
-      tmp.bindValue(":kcal",ingredient.get_kcal());
+      tmp.bindValue(":name",ingredient.getName().c_str());
+      tmp.bindValue(":price",ingredient.getPrice());
+      tmp.bindValue(":kcal",ingredient.getKcal());
       tmp.exec();
       return false;
     }
@@ -27,9 +27,9 @@ bool EditDB::add_ingredient(const Ingredient& ingredient)
     {
       tmp.finish();
       tmp.prepare("INSERT INTO Ingredient(name,price,kcal) VALUES(:name,:price,:kcal)");
-      tmp.bindValue(":name",ingredient.get_name().c_str());
-      tmp.bindValue(":price",ingredient.get_price());
-      tmp.bindValue(":kcal",ingredient.get_kcal());
+      tmp.bindValue(":name",ingredient.getName().c_str());
+      tmp.bindValue(":price",ingredient.getPrice());
+      tmp.bindValue(":kcal",ingredient.getKcal());
       tmp.exec();
       return true;
     } 
@@ -39,10 +39,10 @@ bool EditDB::add_ingredient(const Ingredient& ingredient)
   remove_ingredient() removes a ingredient from the database and returns
   true, can be called both using string and Ingredient objects
 */
-bool EditDB::remove_ingredient(const string& ingredient)
+bool EditDB::removeIngredient(const string& ingredient)
 {
   QSqlQuery tmp(db_);
-  if(check_ingredient(ingredient))
+  if(checkIngredient(ingredient))
     {
       tmp.prepare("DELETE FROM Ingredient WHERE name=:name");
       tmp.bindValue(":name",ingredient.c_str());
@@ -51,9 +51,9 @@ bool EditDB::remove_ingredient(const string& ingredient)
     }
   else return false;
 }
-bool EditDB::remove_ingredient(const Ingredient& ingredient)
+bool EditDB::removeIngredient(const Ingredient& ingredient)
 {
-  return remove_ingredient(ingredient.get_name());
+  return removeIngredient(ingredient.getName());
 }
 
 

@@ -17,14 +17,14 @@ class DB
  public:
   DB();
   
-  void create_db();               //Creates database
-  void clear_db();                //Clears database
+  void createDb();               //Creates database
+  void clearDb();                //Clears database
   
-  void print_tables();                       
-  void last_query(QSqlQuery q);   //prints last query on cout
+  void printTables();                       
+  void lastQuery(QSqlQuery q);   //prints last query on cout
 
-  bool check_ingredient(const string& ingredient);
-  bool check_ingredient(const Ingredient& ingredient);
+  bool checkIngredient(const string& ingredient);
+  bool checkIngredient(const Ingredient& ingredient);
   
  protected:
   QSqlDatabase db_;
