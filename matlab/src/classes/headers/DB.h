@@ -11,6 +11,18 @@
 #include <QSqlDatabase>
 #include <string>
 #include "classes/headers/Ingredient.h"
+using namespace std;
+
+class DB_Exception : public std::exception
+{
+ public:
+  explicit DB_Exception(const std::string& message):
+  msg_(message){}
+  virtual char const * what() const noexcept {return msg_.c_str();}
+
+ private:
+  string msg_;
+};
 
 class DB
 {

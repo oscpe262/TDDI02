@@ -1,0 +1,7 @@
+ägg 6 500
+smör 50 1000
+vetemjöl 5 400
+banan 7 400
+äpple 5 1000
+hallon 7 80
+havregryn 50 80
