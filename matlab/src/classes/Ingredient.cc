@@ -23,7 +23,7 @@ bool Ingredient::removeAllergene(string name)
   return true;
 }
 
-bool Ingredient::addClassing(string)
+bool Ingredient::addClassing(string name)
 {
    if( find( classings_.begin(), classings_.end(), name ) != classings_.end() )
     return false;
@@ -32,7 +32,7 @@ bool Ingredient::addClassing(string)
   return true;
 }
 
-bool Ingredient::removeClassing(string)
+bool Ingredient::removeClassing(string name)
 {
   if( find( classings_.begin(), classings_.end(), name ) == classings_.end() )
     return false;
