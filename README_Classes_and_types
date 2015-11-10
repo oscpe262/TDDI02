@@ -1,0 +1,36 @@
+Aktuell lista över klasser/poster och deras strukturer:
+
+
+*** Modulklasser: ***
+*********************
+
+	GUI		Shell			(DB)
+			    	  	       /    \
+					EditDB	      SearchDB
+
+*** Dataklasser: ***
+********************
+
+	  Recipe	  Ingredient
+			       |
+	<MiniRecipe>	RecipeIngredient
+
+
+	SearchTerm
+
+*** Hjälpklasser: ***
+*********************
+
+	<RelatedRecipe>
+
+
+^^^^^^^^^^^^
+^^ Legend ^^
+^^^^^^^^^^^^
+
+< > = Post
+( ) = Abstrakt basklass
+
+Förälder       Förälder
+   |	      /        \
+  Barn     Barn	       Barn
