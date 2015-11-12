@@ -38,6 +38,10 @@
 *.nav
 *.snm
 
+#other temps
+*~
+\#*
+
 # Local
 hemtentor/
 
