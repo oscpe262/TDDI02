@@ -14,13 +14,14 @@
 #include <QSqlError>
 #include "classes/headers/Ingredient.h"
 #include "classes/headers/DB.h"
+#include "classes/headers/Recipe.h"
 #include <iostream>
 
 class EditDB : public DB{
  public:
  EditDB() : DB() {}
   
-  bool addRecipe(const string& name);
+  bool addRecipe(const Recipe& recipe);
   bool addIngredient(const Ingredient& ingredient);
   bool updateIngredient(const Ingredient& ingredient);
   bool addComment();

@@ -2,7 +2,8 @@
 #define RECIPE_H
 #include <string>
 #include <vector>
-
+#include "classes/headers/Ingredient.h"
+#include "classes/headers/RecipeIngredient.h"
 
 struct MiniRecipe
 {
@@ -10,7 +11,7 @@ struct MiniRecipe
   int minutesTime_;
   double grade_;
 };
-typepef vector<RecipeIngredient> IngredientList;
+typedef vector<RecipeIngredient> IngredientList;
 
 
 
@@ -23,7 +24,7 @@ class Recipe
   {}
   
  Recipe( const string& name, const string& description = "Empty2", int minutes = -1 )
-   : name_{name}, description_{description}, minutesTime_{minutes}
+   : name_{name}, method_{method}, minutesTime_{minutes}
   {}
   
   Recipe( const Recipe& ) = default;
@@ -42,17 +43,17 @@ class Recipe
 
   //Medlemsfunktioner
   void setName(const string& name){name_ = name;}
-  void setMethod(const string& description){description_ = description;}
-  void setMinutesTime(const string& minutesTime_){minutesTime_ = minutesTime;}
+  void setMethod(const string& method){method_ = method;}
+  void setMinutesTime(const int& minutesTime){minutesTime_ = minutesTime;}
   void setGrade(const double grade){grade_ = grade;}
-  void setTime(const int& time){time_ = time;}
-  void setIngredients(const IngredientList& ingredients){ingredients_ = ingredients}
+  void setTime(const int& minutesTime){minutesTime_ = minutesTime;}
+  void setIngredients(const IngredientList& ingredients){ingredients_ = ingredients;}
 
-  void getName() const {return name_}
-  void getMethod() const {return decription_;}
-  void getMinutesTime() const {return minutesTime_;}
-  void getGrade() const {return grade_;}
-  void getIngredients() const {return ingredients;}
+  string getName() const {return name_;}
+  string getMethod() const {return method_;}
+  int getMinutesTime() const {return minutesTime_;}
+  double getGrade() const {return grade_;}
+  IngredientList getIngredients() const {return ingredients_;}
 
   void addComment(const string& );
   

@@ -9,7 +9,7 @@ using namespace std;
   the record is updated and return false
 */
 
-bool Edit_DB::addRecipe(const string& recipe)
+bool EditDB::addRecipe(const Recipe& recipe)
 {
   QSqlQuery tmp(db_);
   if(checkRecipe(recipe)) return false;
@@ -17,10 +17,10 @@ bool Edit_DB::addRecipe(const string& recipe)
     {
       tmp.finish();
       tmp.prepare("INSERT INTO Recipe(name,method,score,time) VALUES(:name,:price,:kcal)");
-      tmp.bindValue(":name", Recipe.getName().c_str());
+      tmp.bindValue(":name", recipe.getName().c_str());
       tmp.bindValue(":method", recpie.getMethod().c_str());
       tmp.bindValue(":score", recipe.getScore());
-      tmp.bindValue(
+      tmp.bindValue(":time", recipe.getTime());
 }
 
 
