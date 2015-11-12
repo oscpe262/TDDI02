@@ -8,7 +8,7 @@ class RecipeIngredient : public Ingredient
 {
  public:
   RecipeIngredient() = default;
-  RecipeIngredient(string name, int price, int kcal,Unit unit,double amount)
+  RecipeIngredient(string name, int price = 0, int kcal = 0,Unit unit = gram,double amount = 0)
     : Ingredient(name,price,kcal), unit_(unit), amount_(amount) {}
 
   Unit   getUnit() const {return unit_;}

@@ -14,8 +14,8 @@ DB::DB()
   db_.setPassword("hejhejhej");
   bool ok = db_.open();
   if(!ok) cerr << "FEL DATABAS KUNDE INTE ÖPPNAS";
-  QSqlQuery tmp(db_);
-  query_ = tmp;
+  QSqlQuery tmp_query(db_);
+  query_ = tmp_query;
 }
 
 /*
@@ -105,11 +105,11 @@ void DB::lastQuery(QSqlQuery q)
 
 bool DB::checkIngredient(const string& ingredient)
 {
-  QSqlQuery tmp(db_);
-  tmp.prepare("SELECT 1 FROM Ingredient WHERE name=:name");
-  tmp.bindValue(":name", ingredient.c_str());
-  tmp.exec();
-  if(tmp.next()) return true;
+  QSqlQuery tmp_query(db_);
+  tmp_query.prepare("SELECT 1 FROM Ingredient WHERE name=:name");
+  tmp_query.bindValue(":name", ingredient.c_str());
+  tmp_query.exec();
+  if(tmp_query.next()) return true;
   else return false;
 }
 
@@ -126,11 +126,11 @@ bool DB::checkIngredient(const Ingredient& ingredient)
 
 bool DB::checkRecipe(const string& recipe)
 {
-  QSqlQuery tmp(db_);
-  tmp.prepare("SELECT 1 FROM Recipe WHERE name=:name");
-  tmp.bindValue(":name", recipe.c_str());
-  tmp.exec();
-  if(tmp.next()) return true;
+  QSqlQuery tmp_query(db_);
+  tmp_query.prepare("SELECT 1 FROM Recipe WHERE name=:name");
+  tmp_query.bindValue(":name", recipe.c_str());
+  tmp_query.exec();
+  if(tmp_query.next()) return true;
   else return false;
 }
 
@@ -138,3 +138,59 @@ bool DB::checkRecipe(const Recipe& recipe)
 {
   return checkRecipe(recipe.getName());
 }
+
+/*
+ fetchIngredient() fetches ingredient information from the db and
+ returns a Ingredient object 
+ */
+
+Ingredient DB::fetchIngredient(const string & name)
+{
+  QSqlQuery tmp_query(db_);
+  tmp_query.prepare("SELECT * FROM Ingredient WHERE name = :name");
+  tmp_query.bindValue(":name",name.c_str());
+  tmp_query.exec();
+  tmp_query.next();
+  return Ingredient(tmp_query.value(0).toString().toStdString(),tmp_query.value(1).toInt(),tmp_query.value(2).toInt());
+}
+
+/*
+ fetchRecipeIngredient() fetches ingredient information from the db and
+ returns a RecipeIngredient object 
+*/
+
+RecipeIngredient DB::fetchRecipeIngredient(const string & name)
+{
+  QSqlQuery tmp_query(db_);
+  tmp_query.prepare("SELECT * FROM Ingredient WHERE name = :name");
+  tmp_query.bindValue(":name",name.c_str());
+  tmp_query.exec();
+  tmp_query.next();
+  return RecipeIngredient(tmp_query.value(0).toString().toStdString(),
+		    tmp_query.value(1).toInt(),
+		    tmp_query.value(2).toInt());
+}
+/*
+  fetchRecipe() Fetches Recipie info from db and returns recipe object
+*/
+
+Recipe DB::fetchRecipe(const string & name)
+{
+  QSqlQuery query(db_);
+  query.prepare("SELECT * FROM Recipe WHERE name = :name");
+  query.bindValue(":name",name.c_str());
+  query.exec();
+  query.next();
+  Recipe recipe(query.value(0).toString().toStdString(),
+		query.value(1).toString().toStdString(),
+		query.value(2).toInt(),query.value(3).toInt());
+
+  return recipe;
+}
+
+/*
+  Hej erik min gamle vän! När du sätter igång skall du göra följande
+  saker:
+  - Gör tilldelningsoperatorer för de ställen där det behövs.
+  - Ha kul!
+*/

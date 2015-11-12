@@ -22,10 +22,15 @@ bool EditDB::addRecipe(const Recipe& recipe)
   tmp.bindValue(":method", recipe.getMethod().c_str());
   tmp.bindValue(":score", recipe.getGrade());
   tmp.bindValue(":time", recipe.getMinutesTime());
-  return true;
+  tmp.finish();
+  
+  IngredientList ingredient_list = recipe.getIngredients();
+  for(auto i : ingredient_list)
+    {
+      if(!addRecipeIngredient(i, recipe.getName())) return false ;
+    }
 }
-
-bool EditDB::addIngredient(const Ingredient& ingredient)
+  bool EditDB::addIngredient(const Ingredient& ingredient)
 {
   QSqlQuery tmp(db_);
   if(checkIngredient(ingredient)) return false;
@@ -75,13 +80,13 @@ bool EditDB::addRecipeIngredient(const RecipeIngredient& ingredient, const strin
   return true;
 }
 /*
-  updates allready added RecipeIngredient
+  updateRecipeIngredient updates already added RecipeIngredient
 */
 
 bool EditDB::updateRecipeIngredient(const RecipeIngredient& ingredient,const string& recipe)
 {
   QSqlQuery tmp(db_);
-  if(!checkIngredient(ingredient.getName()) && !checkRecipe(recipe)) return false;
+  if(!checkIngredient(ingredient.getName()) || !checkRecipe(recipe)) return false;
   tmp.prepare("INSERT INTO Needed_for(amount), Values( :amount) WHERE recipe_name = :recipe_name AND ingredient_name=:ingredient_name");
   tmp.bindValue(":recipe_name", recipe.c_str());
   tmp.bindValue(":ingredient_name",ingredient.getName().c_str());

@@ -23,8 +23,8 @@ class Recipe
    : name_{}, method_{"Empty"}, minutesTime_{}
   {}
   
- Recipe( const string& name, const string& method = "Empty2", int minutes = -1 )
-   : name_{name}, method_{method}, minutesTime_{minutes}
+ Recipe( const string& name, const string& method = "Empty2", int minutes = -1, double grade = 5 )
+   : name_{name}, method_{method}, minutesTime_{minutes}, grade_{grade}
   {}
   
   Recipe( const Recipe& ) = default;

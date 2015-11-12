@@ -22,6 +22,7 @@ class EditDB : public DB{
  EditDB() : DB() {}
   
   bool addRecipe(const Recipe& recipe);
+  
   bool addIngredient(const Ingredient& ingredient);
   bool updateIngredient(const Ingredient& ingredient);
 
