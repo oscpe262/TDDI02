@@ -24,6 +24,10 @@ class EditDB : public DB{
   bool addRecipe(const Recipe& recipe);
   bool addIngredient(const Ingredient& ingredient);
   bool updateIngredient(const Ingredient& ingredient);
+
+  bool addRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe);
+  bool updateRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe);
+  
   bool addComment();
   bool addTool();
   

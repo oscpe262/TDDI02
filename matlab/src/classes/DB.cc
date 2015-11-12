@@ -134,7 +134,7 @@ bool DB::checkRecipe(const string& recipe)
   else return false;
 }
 
-bool DB::checkRecipe(const Ingredient& recipe)
+bool DB::checkRecipe(const Recipe& recipe)
 {
   return checkRecipe(recipe.getName());
 }

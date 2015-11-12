@@ -1,4 +1,7 @@
 #include "classes/headers/EditDB.h"
+#include "classes/headers/Ingredient.h"
+#include "classes/headers/RecipeIngredient.h"
+#include "classes/headers/Recipe.h"
 #include <iostream>
 #include <QString>
 using namespace std;
@@ -13,16 +16,14 @@ bool EditDB::addRecipe(const Recipe& recipe)
 {
   QSqlQuery tmp(db_);
   if(checkRecipe(recipe)) return false;
-  else
-    {
-      tmp.finish();
-      tmp.prepare("INSERT INTO Recipe(name,method,score,time) VALUES(:name,:price,:kcal)");
-      tmp.bindValue(":name", recipe.getName().c_str());
-      tmp.bindValue(":method", recpie.getMethod().c_str());
-      tmp.bindValue(":score", recipe.getScore());
-      tmp.bindValue(":time", recipe.getTime());
+  tmp.finish();
+  tmp.prepare("INSERT INTO Recipe(name,method,score,time) VALUES(:name,:price,:kcal)");
+  tmp.bindValue(":name", recipe.getName().c_str());
+  tmp.bindValue(":method", recipe.getMethod().c_str());
+  tmp.bindValue(":score", recipe.getGrade());
+  tmp.bindValue(":time", recipe.getMinutesTime());
+  return true;
 }
-
 
 bool EditDB::addIngredient(const Ingredient& ingredient)
 {
@@ -38,9 +39,8 @@ bool EditDB::addIngredient(const Ingredient& ingredient)
       tmp.exec();
       return true;
     } 
- }
+}
  
-
 /*
   updateIngredient() updates price and kcal value of the ingredient added
 */
@@ -60,11 +60,39 @@ bool EditDB::updateIngredient(const Ingredient& ingredient)
       return false;
     }
 }
-
-  
+/* 
+   addRecipeIngredient() like above for recipeingredients
+*/
+bool EditDB::addRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe)
+{
+  QSqlQuery tmp(db_);
+  if(checkIngredient(ingredient.getName())) return false;
+  tmp.prepare("INSERT INTO Needed_for(recipe_name,ingredient_name,amount), Values(:recipe_name, :ingredient_name, :amount)");
+  tmp.bindValue(":recipe_name", recipe.c_str());
+  tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
+  tmp.bindValue(":amount",ingredient.getAmount());
+  tmp.exec();
+  return true;
+}
 /*
-  remove_ingredient() removes a ingredient from the database and returns
-  true, can be called both using string and Ingredient objects
+  updates allready added RecipeIngredient
+*/
+
+bool EditDB::updateRecipeIngredient(const RecipeIngredient& ingredient,const string& recipe)
+{
+  QSqlQuery tmp(db_);
+  if(!checkIngredient(ingredient.getName()) && !checkRecipe(recipe)) return false;
+  tmp.prepare("INSERT INTO Needed_for(amount), Values( :amount) WHERE recipe_name = :recipe_name AND ingredient_name=:ingredient_name");
+  tmp.bindValue(":recipe_name", recipe.c_str());
+  tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
+  tmp.bindValue(":amount",ingredient.getAmount());
+  tmp.exec();
+  return true;
+}
+
+/*
+  remove_ingredient() removes a ingredient from the database and
+  returns true, can be called both using string and Ingredient objects
 */
 
 bool EditDB::removeIngredient(const string& ingredient)

@@ -11,6 +11,7 @@
 #include <QSqlDatabase>
 #include <string>
 #include "classes/headers/Ingredient.h"
+#include "classes/headers/Recipe.h"
 using namespace std;
 
 class DB_Exception : public std::exception
@@ -44,7 +45,7 @@ class DB
   bool checkIngredient(const Ingredient& ingredient);
 
   bool checkRecipe(const string& recipe);
-  bool checkRecipe(const Ingredient& recipe);
+  bool checkRecipe(const Recipe& recipe);
   
  protected:
   QSqlDatabase db_;
