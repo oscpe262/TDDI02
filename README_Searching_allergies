@@ -1,0 +1,36 @@
+Resonemang för att söka med allergier/kosthållning:
+
+   recipe_list	   	= Receptlista, vårt universum. Kan vara all recept.
+   			  Kan vara resultat av redan utförda nerskärningar
+			  (t.ex. enligt ingredienser)
+
+
+ReceptLista vårfunktion( ReceptLista recipe_list, BoolArray allergener_n_shit )
+{
+   for( int i {} ; i < definierat_antal_allergener_n_shit ; ++i )
+   {
+      if( allergener_n_shit[i] == true )
+      {
+         string allergy = to_str(i);
+         temp_list = get_RecipeList_based_on_allergy( allergy );
+	 recipe_list = snitta( recipe_list, komplementera( temp_list ) );
+      }
+   }
+}
+
+
+
+Ovanstående går igenom en BoolArray och exkluderar steg för steg recept med en viss allergen om dess index i BoolArrayen är true.
+
+Funkar för allergener.
+
+För att ta i åtanke kosthållning kan vi göra en av två saker:
+
+    1. Utöka med en till for-loop och en parameter för en ytterligare BoolArray "kosthållning"
+    2. Skriva en till funktion för BoolArray "kosthållning".
+
+    3. For-loopen delas upp i två delar (på något sätt). Första delen går till konstant END_OF_ALLERGENES. Nästa del fortsätter därifrån och går till END_OF_KOSTHÅLLNING. I denna används en BoolArray för både allergener och kosthållning.
+
+(För alla alternativ, den viktiga radens skillnad:)
+
+       	recipe_list = snitta( recipe_list, temp_list ); //ingen komplementering
