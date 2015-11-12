@@ -20,10 +20,10 @@ class Recipe
  public:
   //Konstruktorer
  Recipe()
-   : name_{}, description_{"Empty"}, minutesTime_{}
+   : name_{}, method_{"Empty"}, minutesTime_{}
   {}
   
- Recipe( const string& name, const string& description = "Empty2", int minutes = -1 )
+ Recipe( const string& name, const string& method = "Empty2", int minutes = -1 )
    : name_{name}, method_{method}, minutesTime_{minutes}
   {}
   
