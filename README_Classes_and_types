@@ -4,7 +4,7 @@ Aktuell lista över klasser/poster och deras strukturer:
 *** Modulklasser: ***
 *********************
 
-	GUI		Shell			(DB)
+	GUI		Shell			(DB)             DB_Exception
 			    	  	       /    \
 					EditDB	      SearchDB
 
@@ -34,3 +34,9 @@ Aktuell lista över klasser/poster och deras strukturer:
 Förälder       Förälder
    |	      /        \
   Barn     Barn	       Barn
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^Egendefinerade Datatyper^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+typepef vector<RecipeIngredient> IngredientList;

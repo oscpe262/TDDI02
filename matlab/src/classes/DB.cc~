@@ -1,0 +1,31 @@
+#include "classes/headers/DB.h"
+#include
+#include <iostream>
+
+DB::DB()
+{
+  db_ = QSqlDatabase::addDatabase("QMYSQL");
+  db_.setHostName("localhost");
+  db_.setDatabaseName("matlabb");
+  db_.setUserName("root");
+  db_.setPassword("hejhejhej");
+  bool ok = db_.open();
+  if(!ok) cerr << "FEL DATABAS KUNDE INTE ÖPPNAS";
+  QSqlQuery tmp(db_);
+  query_ = tmp;
+}
+
+bool DB::check_ingredient(const string& ingredient)
+{
+  QSqlQuery tmp(db_);
+  tmp.prepare("SELECT 1 FROM Ingredient WHERE name=:name");
+  tmp.bindValue(":name", ingredient.c_str());
+  tmp.exec();
+  if(tmp.next()) return true;
+  else return false;
+}
+
+bool DB::check_ingredient(const Ingredient& ingredient)
+{
+  return check_ingredient(ingredient.get_name());
+}

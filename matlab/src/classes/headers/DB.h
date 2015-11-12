@@ -27,7 +27,12 @@ class DB_Exception : public std::exception
 class DB
 {
  public:
+  //Constructors
   DB();
+  DB(const DB&) = default;
+  DB(DB&& ) = default;
+  //Destructor
+  ~DB() {db_.close();}
   
   void createDb();               //Creates database
   void clearDb();                //Clears database
@@ -37,6 +42,9 @@ class DB
 
   bool checkIngredient(const string& ingredient);
   bool checkIngredient(const Ingredient& ingredient);
+
+  bool checkRecipe(const string& recipe);
+  bool checkRecipe(const Ingredient& recipe);
   
  protected:
   QSqlDatabase db_;

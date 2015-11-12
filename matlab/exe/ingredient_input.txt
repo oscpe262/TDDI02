@@ -1,4 +1,4 @@
-ägg 6 500
+ägg 5 500
 smör 50 1000
 vetemjöl 5 400
 banan 7 400

@@ -77,6 +77,8 @@ void DB::clearDb()
 
   db_error_ = db_.lastError();
   cerr << db_.lastError().text().toStdString();
+
+  query_.finish();
 }
 
 void DB::printTables()
@@ -114,4 +116,25 @@ bool DB::checkIngredient(const string& ingredient)
 bool DB::checkIngredient(const Ingredient& ingredient)
 {
   return checkIngredient(ingredient.getName());
+}
+
+/*
+  checkRecipe() checks if a recipe is stored in the db returns
+  true if recipe exists else false can be called both using string
+  and recipe objects
+*/
+
+bool DB::checkRecipe(const string& recipe)
+{
+  QSqlQuery tmp(db_);
+  tmp.prepare("SELECT 1 FROM Recipe WHERE name=:name");
+  tmp.bindValue(":name", recipe.c_str());
+  tmp.exec();
+  if(tmp.next()) return true;
+  else return false;
+}
+
+bool DB::checkRecipe(const Ingredient& recipe)
+{
+  return checkRecipe(recipe.getName());
 }

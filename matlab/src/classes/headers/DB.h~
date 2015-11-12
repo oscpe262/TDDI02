@@ -1,0 +1,10 @@
+/*
+  Klassen DB är abstrakt basklass för EditDB och SearchDB
+
+  kontouppgifter till databasen:
+  User:              Password:             Databas:
+  TDDI02_HT15_02     TDDI02_HT15_02b957
+ */
+
+#ifndef EDITDB_H
+#define EDITDB_H
