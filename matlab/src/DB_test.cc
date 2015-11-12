@@ -2,17 +2,20 @@
 #include <QCoreApplication>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "classes/headers/Ingredient.h"
 #include "classes/headers/EditDB.h"
+
 
 using namespace std;
 void print_menu();
 bool import_ingredients(ifstream& stream,EditDB& db);
 bool import_recipes(ifstream& stream, EditDB& db);
+bool add_ingredient(EditDB& db);
 
 int main(int argc, char* argv[])
 {
-
+  QCoreApplication app(argc, argv);
   EditDB test_db;
   int menu = 0;
   string name;
@@ -25,7 +28,7 @@ int main(int argc, char* argv[])
 	   << "Flags: \n"
 	   << "-i import ingredients\n"
 	   << "-r import recipies\n";
-      return 1;
+      return app.exec();
     }
   if(argc > 1)
     {
@@ -73,10 +76,10 @@ int main(int argc, char* argv[])
 	  test_db.printTables();
 	  break;
 	case 4:
-	  if(test_db.addIngredient(ingredient))
-	    cout << "Ingrediens lades till";
+	  if(add_ingredient(test_db))
+	    cout << "Ingredient added\n";
 	  else
-	    cout << "Ingrediens finns redan";
+	    cout << "something went wrong, ingredient probably exists try again \n";
 	  break;
 	case 5:
 	  cout << "Ange ingrediens: ";
@@ -99,7 +102,7 @@ int main(int argc, char* argv[])
       print_menu();
     }while(cin >> menu);
   
-  QCoreApplication app(argc, argv);
+
   return app.exec();
 }
 
@@ -115,8 +118,58 @@ void print_menu()
 
 }
 bool import_ingredients(ifstream& stream,EditDB& db)
-{}
+{
+ 
+  istringstream isstream;
+  Ingredient ingredient;
+  string row,tmpStr;
+  int tmpInt;
+  while(stream.peek() != EOF)
+    {
+      getline(stream,row);
+      istringstream isstream(row);
+      try{
+	isstream >> tmpStr;
+	ingredient.setName(tmpStr);
+	isstream >> tmpInt;
+	ingredient.setPrice(tmpInt);
+	isstream >> tmpInt;
+	ingredient.setKcal(tmpInt);
+	if(isstream.fail())
+	  throw DB_Exception("File could not be read, check syntax \n");
+	db.addIngredient(ingredient);
+	cout << ingredient.getName() << " Was added \n";
+      }
+      catch(DB_Exception e)
+	{
+	  cerr << e.what();
+	  return false;
+	}
+    }
+    return true;
+}
 bool import_recipes(ifstream& stream, EditDB& db)
-{}
+{
+  
+}
+
+bool add_ingredient(EditDB& db)
+{
+  int tmpInt;
+  string tmpStr;
+  Ingredient ingredient;
+  
+  cout << "Input ingredient (format: name price kcal): \n";
+  cin >> tmpStr;
+  ingredient.setName(tmpStr);
+  cin >> tmpInt;
+  ingredient.setPrice(tmpInt);
+  cin >> tmpInt;
+  ingredient.setKcal(tmpInt);
+  
+  return db.addIngredient(ingredient);
+
+}
+    
 
   

@@ -10,6 +10,9 @@ struct MiniRecipe
   int minutesTime_;
   double grade_;
 };
+typepef vector<RecipeIngredient> IngredientList;
+
+
 
 class Recipe
 {
@@ -38,24 +41,38 @@ class Recipe
 
 
   //Medlemsfunktioner
-  void setTime( int );
-  void addComment( const string& );
-  void setGrade( double );
+  void setName(const string& name){name_ = name;}
+  void setMethod(const string& description){description_ = description;}
+  void setMinutesTime(const string& minutesTime_){minutesTime_ = minutesTime;}
+  void setGrade(const double grade){grade_ = grade;}
+  void setTime(const int& time){time_ = time;}
+  void setIngredients(const IngredientList& ingredients){ingredients_ = ingredients}
+
+  void getName() const {return name_}
+  void getMethod() const {return decription_;}
+  void getMinutesTime() const {return minutesTime_;}
+  void getGrade() const {return grade_;}
+  void getIngredients() const {return ingredients;}
+
+  void addComment(const string& );
+  
+  
   //  void addIngredient(s)?
- 
+  
 
 
 
 
   //Datamedlemmar
   string name_;
-  string description_;
+  string method_;
   int minutesTime_;
-
-  vector<string> comments_;
   double grade_;
-  // vector<RecipeIngredient> ingredients_;
-  // vector<RelatedRecipe> relatedRecipes_;
+  
+  vector<string> comments_;
+  IngredientList ingredients_;
+
+ // vector<RelatedRecipe> relatedRecipes_;
   // something something image_;
 
 
