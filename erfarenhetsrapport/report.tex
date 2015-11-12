@@ -1,0 +1,97 @@
+
+%% Doc Props
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[swedish]{babel}
+
+% Packages
+\usepackage{
+  titlesec,
+  %tikz,
+  pifont,
+  textcomp,
+  fixltx2e,
+  color,
+  fullpage,
+  graphicx,
+  afterpage,
+  float,
+  parskip,
+  xfrac,
+  gensymb,
+  mathtools,
+  pdfpages,
+  etoolbox,
+  hyperref
+}
+\usepackage[nottoc,section,numbib]{tocbibind}
+\usepackage[font={small,it}]{caption} %% Italics in captions
+
+% PDF props
+\hypersetup {
+  bookmarks=true,              % show bookmarks bar?
+  unicode=true,                % non-Latin characters in Acrobat’s bookmarks
+  pdftoolbar=true,             % show Acrobat’s toolbar?
+  pdfmenubar=true,             % show Acrobat’s menu?
+  pdffitwindow=false,          % window fit to page when opened
+  pdfstartview={FitH},         % fits the width of the page to the window
+  pdftitle={Erfarenhetsrapport},                 % title
+  pdfauthor={Oscar Petersson}, % author
+  pdfsubject={TDDI02 Erfarenhetsrapport},          % subject of the document
+  pdfkeywords={TDDI02, Erfarenheter}          % list of keywords
+  pdfnewwindow=true,           % links in new window
+  hidelinks,                   % hide links (removing color and border)
+  linktoc=all,                 % parts of TOC made into links    
+}
+\urlstyle{same}
+
+% More Props
+%\graphicspath{{./fig/}}
+
+% Comfy Command Redefinitions
+\newcommand{\bve}{\begin{verbatim}}
+\newcommand{\itb}{\begin{itemize}}
+\newcommand{\ite}{\end{itemize}}
+\newcommand{\tb}{\textbackslash}
+
+%% First Page Information
+\author{Matteus Laurent, Johan Levinsson, Oscar Petersson, Erik Peyronson}
+\title{MatLabb - Erfarenhetsdokument}
+\date{\today}
+\newcommand{\course}{Programmeringsprojekt, HT15}
+\newcommand{\coursenumber}{TDDI02, Linköpings universitet}
+\newcommand{\programme}{Högskoleingenjörsutbildning i datateknik, 180 hp}
+\newcommand{\examiner}{Johan Frimodig}
+\newcommand{\institution}{Institutionen för datavetenskap}
+\newcommand{\reptype}{Erfarenhetsdokument}
+
+%%% Document %%%
+\begin{document}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+%% Custom titlepage, empty backside, do not use with \maketitle
+\pagestyle{empty}
+  \makeatletter\begin{center}~\vfill
+  \Large{\@author}\vskip .3cm
+  \textbf{\LARGE{\@title}}\vskip .2cm
+  \large{\programme}
+  \vfill
+\end{center}
+\reptype{} - \@date\hfill Handledare:\\
+\textbf{\course}\hfill\examiner\\
+\coursenumber\hfill\institution
+\makeatother
+\newpage
+
+%% Table of Contents
+\addtocontents{toc}{\protect\hypertarget{toc}{}}
+\tableofcontents\label{sec:toc}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\cleardoublepage
+% Call First File Branch
+%\input{./tex/main.tex}
+\input{./tex/main.tex}
+
+\end{document}
