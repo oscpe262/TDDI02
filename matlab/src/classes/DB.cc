@@ -13,7 +13,7 @@ DB::DB()
   db_.setUserName("root");
   db_.setPassword("hejhejhej");
   bool ok = db_.open();
-  if(!ok) cerr << "FEL DATABAS KUNDE INTE ÖPPNAS";
+  if(!ok) throw DB_Exception("ERROR: Database could not be opened");
   QSqlQuery tmp_query(db_);
   query_ = tmp_query;
 }
@@ -26,7 +26,7 @@ void DB::createDb()
 { 
   //Creating tables for strong entitys
   
-  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(20),method VARCHAR(200), score int(10), time int(10), PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(20),method VARCHAR(200), score float(10), time int(10), PRIMARY KEY(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(20),price INT(10),kcal INT(10),PRIMARY KEY(name))");
   lastQuery(query_);
@@ -162,6 +162,7 @@ Ingredient DB::fetchIngredient(const string & name)
 RecipeIngredient DB::fetchRecipeIngredient(const string & name)
 {
   QSqlQuery tmp_query(db_);
+  // if(!checkIngredient(name)) throw DB_Exception("ERROR: Ingredient not in database");
   tmp_query.prepare("SELECT * FROM Ingredient WHERE name = :name");
   tmp_query.bindValue(":name",name.c_str());
   tmp_query.exec();
@@ -177,20 +178,17 @@ RecipeIngredient DB::fetchRecipeIngredient(const string & name)
 Recipe DB::fetchRecipe(const string & name)
 {
   QSqlQuery query(db_);
+  if(!checkRecipe(name)) throw DB_Exception("ERROR: Recipe not in database");
   query.prepare("SELECT * FROM Recipe WHERE name = :name");
   query.bindValue(":name",name.c_str());
   query.exec();
   query.next();
-  Recipe recipe(query.value(0).toString().toStdString(),
+ 
+  Recipe recipe;
+ /*
+  (query.value(0).toString().toStdString(),
 		query.value(1).toString().toStdString(),
 		query.value(2).toInt(),query.value(3).toInt());
-
+  */
   return recipe;
 }
-
-/*
-  Hej erik min gamle vän! När du sätter igång skall du göra följande
-  saker:
-  - Gör tilldelningsoperatorer för de ställen där det behövs.
-  - Ha kul!
-*/

@@ -8,8 +8,10 @@ class RecipeIngredient : public Ingredient
 {
  public:
   RecipeIngredient() = default;
-  RecipeIngredient(string name, int price = 0, int kcal = 0,Unit unit = gram,double amount = 0)
-    : Ingredient(name,price,kcal), unit_(unit), amount_(amount) {}
+  //Lade till konstruktor för initiering med Ingredientobjekt, behövdes för att skapa recept från databasen //erik
+ RecipeIngredient(const Ingredient& i) : Ingredient(i.getName(),i.getPrice(),i.getKcal()), amount_{0}, unit_{gram} {} 
+ RecipeIngredient(string name, int price = 0, int kcal = 0,double amount = 0, Unit unit = gram)
+   : Ingredient(name,price,kcal), amount_(amount),unit_(unit) {}
 
   Unit   getUnit() const {return unit_;}
   double getAmount() const {return amount_;}
@@ -17,9 +19,9 @@ class RecipeIngredient : public Ingredient
   void   setUnit(Unit unit) {unit_ = unit;}
   void   setAmount(double amount) {amount_ = amount;}
 
-
-  Unit unit_;
   double amount_;
+  Unit unit_;
+
 };
 
 #endif

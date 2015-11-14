@@ -17,18 +17,23 @@ bool EditDB::addRecipe(const Recipe& recipe)
   QSqlQuery tmp(db_);
   if(checkRecipe(recipe)) return false;
   tmp.finish();
-  tmp.prepare("INSERT INTO Recipe(name,method,score,time) VALUES(:name,:price,:kcal)");
+  tmp.prepare("INSERT INTO Recipe(name,method,score,time) VALUES(:name,:method,:score,:time)");
   tmp.bindValue(":name", recipe.getName().c_str());
   tmp.bindValue(":method", recipe.getMethod().c_str());
+  cerr << recipe.getGrade() << endl;
   tmp.bindValue(":score", recipe.getGrade());
+  cerr << recipe.getMinutesTime() << endl;
   tmp.bindValue(":time", recipe.getMinutesTime());
+  tmp.exec();
+  //db_error_ = tmp.lastError();
+  cerr << tmp.lastError().text().toStdString();
   tmp.finish();
-  
+  /*
   IngredientList ingredient_list = recipe.getIngredients();
   for(auto i : ingredient_list)
-    {
-      if(!addRecipeIngredient(i, recipe.getName())) return false ;
-    }
+    if(!addRecipeIngredient(i, recipe.getName())) return false ;
+  */
+  return true;
 }
   bool EditDB::addIngredient(const Ingredient& ingredient)
 {
