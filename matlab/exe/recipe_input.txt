@@ -2,6 +2,38 @@ Mom's Spaghetti
 Boil spaghetti, add mom, Aayy lmao, thug life
 60
 5
-Spaghetti
-Mom
-%
+Spaghetti 500
+Mom 1
+%ENDRECIPE
+Hallonkaka
+Baka kaka, tillsätt hallon.
+90 
+5
+Vetemjöl 50
+Kaka 1
+Hallon 50
+%ENDRECIPE
+Johans Specialpizza
+Blanda jäst vatten och mjöl, knåda, lägg på resten av skiten, kör i ugnen
+120
+1
+Johan 1 
+Jäst 1
+Köttfärs 500
+
+%ENDRECIPE
+Matteus Laurents stora grova franska baguette
+Öppna gylf, avlägsna byxor ha kul!
+10
+5
+Matteus 1
+
+%ENDRECIPE
+Oscars socialistiska smörgås
+Bred mackan, tillsätt Göran Greider, rök hasch och lyssna på hoola bandoola band
+240 5
+Bröd 1
+Hasch 3
+HoolaBandoolaBand 1
+Göran 1
+%ENDLIST

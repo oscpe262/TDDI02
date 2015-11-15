@@ -182,41 +182,44 @@ bool import_recipes(ifstream& stream, EditDB& db)
   istringstream isstream;
   RecipeIngredient ingredient;
   string name,method,row,ingr;
-  int time;
+  int time, amount;
   double grade;
   IngredientList ingredients;
   char c;
 
-  while(!stream.eof())
+  do 
     {
-      //try{
-      stream.ignore(100,'%');
-      getline(stream,name,'\n');
-	cerr << name << endl;
-	getline(stream,method,'\n');
-	cerr << method << endl;
-	stream >> time; stream.ignore(1);
-	cerr << time << endl;
-	stream >> grade; stream.ignore(1);
-	cerr << grade << endl;
-	stream >> ingr;
-	while(stream != "%")
-	  {
-	    cerr << ingr << endl;
-	    ingredient = db.fetchIngredient(ingr);
-	    ingredients.push_back(RecipeIngredient(ingr));
-	    stream >> ingr;
-	  }
-	stream.clear();
-	stream.ignore(1);
-	
-	//Recipe recipe(name,method,time,grade,ingredients);
-	
-	//	cerr << recipe.getName() << " " << recipe.getMethod() << " " << recipe.getMinutesTime()
-	//   << " " << recipe.getGrade() << endl;
-	
-	//	if(!db.addRecipe(recipe)) cerr << " fel" << endl;
-    }
+      sleep_for(milliseconds(200));
+
+      getline(stream,name);
+      cerr << name << endl;
+	  
+      getline(stream,method);
+      cerr << method << endl;
+      
+      stream >> time;
+      cerr << time << endl;
+      
+      stream >> grade;
+      cerr << grade << endl;
+      for(;;)
+	{
+	  sleep_for(milliseconds(200));
+	  stream >> ingr;
+	  if(ingr == "%ENDRECIPE" || ingr == "%ENDLIST")
+	    {
+	      stream.ignore(1);
+	      break;
+	    }
+	  stream >> amount;
+	  ingredient = RecipeIngredient(db.fetchIngredient(ingr));
+	  ingredient.setAmount(amount);
+	  ingredients.push_back(ingredient);
+	  cerr << endl << ingredient.getName() << " " << ingredient.getAmount() << endl << endl;
+	}
+      db.addRecipe(Recipe(name,method,time,grade,ingredients));
+      ingredients.clear();
+    } while(ingr != "%ENDLIST");
 return true;
 }
 bool add_ingredient(EditDB& db)

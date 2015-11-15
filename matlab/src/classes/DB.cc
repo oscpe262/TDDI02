@@ -26,9 +26,9 @@ void DB::createDb()
 { 
   //Creating tables for strong entitys
   
-  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(20),method VARCHAR(200), score float(10), time int(10), PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(50),method VARCHAR(200), score float(10), time int(10), PRIMARY KEY(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(20),price INT(10),kcal INT(10),PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(30),price INT(10),kcal INT(10),PRIMARY KEY(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Allergy(name VARCHAR(10),PRIMARY KEY(name))");
   lastQuery(query_);
@@ -38,7 +38,7 @@ void DB::createDb()
 
   //Creating tables for M-N relations
 
-  query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(20), ingredient_name VARCHAR(20), amount INT(10), FOREIGN KEY(recipe_name) REFERENCES Recipe(name), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
+  query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(50), ingredient_name VARCHAR(20), amount INT(10), FOREIGN KEY(recipe_name) REFERENCES Recipe(name), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Contained_in(ingredient_name VARCHAR(20), allergy_name VARCHAR(20), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(allergy_name) REFERENCES Allergy(name))");
   lastQuery(query_);

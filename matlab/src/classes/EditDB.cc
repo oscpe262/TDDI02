@@ -25,14 +25,22 @@ bool EditDB::addRecipe(const Recipe& recipe)
   cerr << recipe.getMinutesTime() << endl;
   tmp.bindValue(":time", recipe.getMinutesTime());
   tmp.exec();
-  //db_error_ = tmp.lastError();
   cerr << tmp.lastError().text().toStdString();
   tmp.finish();
-  /*
   IngredientList ingredient_list = recipe.getIngredients();
   for(auto i : ingredient_list)
-    if(!addRecipeIngredient(i, recipe.getName())) return false ;
-  */
+    {
+      //if(!addRecipeIngredient(i, recipe.getName())) return false;
+      tmp.prepare("INSERT INTO Used_for(recipe_name,ingredient_name,amount) VALUES(:recipe_name,:ingredient_name,:amount)");
+      tmp.bindValue(":recipe_name", recipe.getName().c_str());
+      tmp.bindValue(":ingredient_name", i.getName().c_str());
+      tmp.bindValue(":amount",i.getAmount());
+      tmp.exec();
+      cerr << "INGREDIENT :" << i.getName() << " Recipe" << recipe.getName() << endl;
+      cerr << tmp.lastError().text().toStdString();
+      tmp.finish();
+      tmp.finish();
+    }
   return true;
 }
   bool EditDB::addIngredient(const Ingredient& ingredient)
