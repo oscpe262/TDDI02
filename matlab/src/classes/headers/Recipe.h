@@ -5,15 +5,11 @@
 #include "classes/headers/Ingredient.h"
 #include "classes/headers/RecipeIngredient.h"
 
-struct MiniRecipe
-{
-  string name_;
-  int minutesTime_;
-  double grade_;
-};
+
+struct MiniRecipe;
+
 typedef vector<RecipeIngredient> IngredientList;
-
-
+typedef vector<MiniRecipe> RecipeList;
 
 class Recipe
 {
@@ -81,5 +77,4 @@ class Recipe
  private:
 
 };
-
 #endif

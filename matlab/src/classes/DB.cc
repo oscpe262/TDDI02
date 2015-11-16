@@ -215,3 +215,4 @@ Recipe DB::fetchRecipe(const string & name)
 		fetchIngredientList(name));
   return recipe;
 }
+

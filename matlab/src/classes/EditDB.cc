@@ -30,8 +30,7 @@ bool EditDB::addRecipe(const Recipe& recipe)
     {
       addRecipeIngredient(i, recipe.getName());
       tmp.finish();
-    }
-  
+    } 
   return true;
 }
   bool EditDB::addIngredient(const Ingredient& ingredient)

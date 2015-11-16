@@ -5,13 +5,12 @@
 #include <vector>
 #include "classes/headers/DB.h"
 #include "classes/headers/Ingredient.h"
-//#include "Recipe.h"
+#include "classes/headers/Recipe.h"
 
 using namespace std;
 using namespace QSql;
 
-
-//typedef vector<MiniRecipe> Recipe_List;
+typedef vector<MiniRecipe> Recipe_List;
 
 class SearchDB : public DB{
  public:
@@ -28,7 +27,6 @@ class SearchDB : public DB{
   //Recipe_List getList();
   //Recipe_List getRecipe();
   //Recipe_List getRecipeIngredient();
-  Ingredient makeIngredient(const string& name);
 
 
   //Functions for merging recipie lists

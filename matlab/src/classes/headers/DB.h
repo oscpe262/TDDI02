@@ -47,12 +47,10 @@ class DB
   bool checkRecipe(const string& recipe);
   bool checkRecipe(const Recipe& recipe);
 
-  Ingredient fetchIngredient(const string & name);
+  Ingredient       fetchIngredient(const string & name);
   RecipeIngredient fetchRecipeIngredient(const string & name);
-
-  IngredientList fetchIngredientList(const string & recipe);
-
-  Recipe fetchRecipe(const string & name);
+  IngredientList   fetchIngredientList(const string & recipe);
+  Recipe           fetchRecipe(const string & name);
   
  protected:
   QSqlDatabase db_;
