@@ -18,3 +18,10 @@ Bröd 20 400
 Hasch 600 0
 HoolaBandoolaBand 10 50
 Göran 1 1
+Hemligt 1 1
+Köttfärs 69 400
+Tomatkross 10 250
+Lök 2 100
+Ägg 1 50
+Morot 4 100
+Ströbröd 20 300

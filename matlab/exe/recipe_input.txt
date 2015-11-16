@@ -14,12 +14,13 @@ Kaka 1 1
 Hallon 50 2
 %ENDRECIPE
 Johans Specialpizza
-Blanda jäst vatten och mjöl, knåda, lägg på resten av skiten, kör i ugnen
+Blanda jäst vatten, mjöl hemligt, knåda, lägg på resten av skiten, kör i ugnen
 120
 1
 Johan 1 1
 Jäst 1 1
-Köttfärs 500 2
+Köttfärs 500 1
+Hemligt 1 1
 
 %ENDRECIPE
 Matteus Laurents stora grova franska baguette
@@ -31,9 +32,32 @@ Matteus 80000 1
 %ENDRECIPE
 Oscars socialistiska smörgås
 Bred mackan, tillsätt Göran Greider, rök hasch och lyssna på hoola bandoola band
-240 5
+240
+5
 Bröd 1 1
 Hasch 3 1
 HoolaBandoolaBand 1 2
 Göran 100000 1
+%ENDRECIPE
+Pasta bolognese
+Bryn lök och köttfärs, tillsätt krossade tomater salta peppra och låt koka. Serveras med pasta
+60
+5
+Spaghetti 400 1
+Köttfärs 400 1
+Tomatkross 1 3
+Lök 1 5
+%ENDRECIPE
+Stekt ägg
+Kläck ägg, stek
+10
+5
+ägg 1 5
+%ENDRECIPE
+Morotsbiffar
+Riv morot, blanda med ägg och ströbröd forma till biffar stek.
+40
+5
+Morot 2 5
+Ströbröd 1 2
 %ENDLIST

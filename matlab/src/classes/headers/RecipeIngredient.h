@@ -2,7 +2,7 @@
 #define RECIPEINGREDIENT_H
 #include "Ingredient.h"
 
-enum Unit{gram, deciliter, teaspoon, tablespoon};
+enum Unit{gram, deciliter, teaspoon, tablespoon,pcs};
 
 class RecipeIngredient : public Ingredient
 {

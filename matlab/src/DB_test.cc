@@ -18,6 +18,7 @@ bool import_ingredients(ifstream& stream,EditDB& db);
 bool import_recipes(ifstream& stream, EditDB& db);
 bool add_ingredient(EditDB& db);
 bool add_recipe(Recipe& recipe);
+bool fetch_ingredient(EditDB& db);
 
 int main(int argc, char* argv[])
 {
@@ -110,10 +111,8 @@ int main(int argc, char* argv[])
 	    cout << "Ingrediens finns inte";
 	  break;
 	case 7:
-	  //add_recipe();
+	  fetch_ingredient(test_db);
 	  break;
-	
-	
 	}
       
       print_menu();
@@ -132,7 +131,8 @@ void print_menu()
        << "4.addIngredient\n"
        << "5.checkIngredient\n"
        << "6.removeIngredient\n"
-       << "7.addRecipe";
+       << "7.fetchIngredient\n"
+       << "Choice: ";
 
 }
 bool import_ingredients(ifstream& stream,EditDB& db)
@@ -228,6 +228,23 @@ bool add_ingredient(EditDB& db)
   ingredient.setKcal(tmpInt);
   return db.addIngredient(ingredient);
 }
-
+bool fetch_ingredient(EditDB& db)
+{
+  string ingredient_name;
+  Ingredient ingredient;
+  cout << "Enter ingredient: ";
+  cin >> ingredient_name;
+  try{
+    ingredient = db.fetchIngredient(ingredient_name);
+  }
+  catch(DB_Exception e)
+    {
+      cerr << endl << e.what() << endl << endl;
+      return false;
+    }
+  cout << endl << ingredient.getName() << " price: " << ingredient.getPrice()
+       << " kcal: " << ingredient.getKcal() << endl << endl;
+  return true;
+}
 
   

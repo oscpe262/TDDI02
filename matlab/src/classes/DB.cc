@@ -147,6 +147,8 @@ bool DB::checkRecipe(const Recipe& recipe)
 Ingredient DB::fetchIngredient(const string & name)
 {
   QSqlQuery tmp_query(db_);
+    if(!checkIngredient(name))
+      throw DB_Exception("Ingredient: " + name + " could not be found in the database");
   tmp_query.prepare("SELECT * FROM Ingredient WHERE name = :name");
   tmp_query.bindValue(":name",name.c_str());
   tmp_query.exec();
@@ -200,7 +202,8 @@ Recipe DB::fetchRecipe(const string & name)
 {
   QSqlQuery query(db_);
   IngredientList ingredients;
-  if(!checkRecipe(name)) throw DB_Exception("ERROR: Recipe not in database");
+  if(!checkRecipe(name))
+    throw DB_Exception("ERROR: Recipe " + name + " could not be found in the database");
   query.prepare("SELECT * FROM Recipe WHERE name = :name");
   query.bindValue(":name",name.c_str());
   query.exec();
