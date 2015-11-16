@@ -38,7 +38,7 @@ void DB::createDb()
 
   //Creating tables for M-N relations
 
-  query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(50), ingredient_name VARCHAR(20), amount INT(10), FOREIGN KEY(recipe_name) REFERENCES Recipe(name), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
+  query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(50), ingredient_name VARCHAR(20), amount INT(10), unit INT(5), FOREIGN KEY(recipe_name) REFERENCES Recipe(name), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Contained_in(ingredient_name VARCHAR(20), allergy_name VARCHAR(20), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(allergy_name) REFERENCES Allergy(name))");
   lastQuery(query_);
@@ -172,23 +172,43 @@ RecipeIngredient DB::fetchRecipeIngredient(const string & name)
 		    tmp_query.value(2).toInt());
 }
 /*
+  Fetches IngredientList for recipe
+*/
+IngredientList DB::fetchIngredientList(const string & recipe)
+{
+  QSqlQuery query(db_);
+  IngredientList ingredients;
+  query.prepare("SELECT Ingredient.name, Ingredient.price, Ingredient.kcal, Used_for.amount, Used_for.unit FROM Ingredient INNER JOIN Used_for ON Ingredient.name=Used_for.ingredient_name WHERE Used_for.recipe_name = :recipe");
+  query.bindValue(":recipe",recipe.c_str());
+  query.exec();
+  while(query.next())
+    {
+      ingredients.push_back(RecipeIngredient(query.value(0).toString().toStdString(),
+					     query.value(1).toInt(),
+					     query.value(2).toInt(),
+					     query.value(3).toDouble(),
+					     static_cast<Unit>(query.value(4).toInt())));
+    }
+  return ingredients;
+}
+
+/*
   fetchRecipe() Fetches Recipie info from db and returns recipe object
 */
 
 Recipe DB::fetchRecipe(const string & name)
 {
   QSqlQuery query(db_);
+  IngredientList ingredients;
   if(!checkRecipe(name)) throw DB_Exception("ERROR: Recipe not in database");
   query.prepare("SELECT * FROM Recipe WHERE name = :name");
   query.bindValue(":name",name.c_str());
   query.exec();
   query.next();
- 
-  Recipe recipe;
- /*
-  (query.value(0).toString().toStdString(),
+  Recipe recipe(query.value(0).toString().toStdString(),
 		query.value(1).toString().toStdString(),
-		query.value(2).toInt(),query.value(3).toInt());
-  */
+		query.value(2).toDouble(),
+		query.value(3).toInt(),
+		fetchIngredientList(name));
   return recipe;
 }

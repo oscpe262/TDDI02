@@ -50,6 +50,8 @@ class DB
   Ingredient fetchIngredient(const string & name);
   RecipeIngredient fetchRecipeIngredient(const string & name);
 
+  IngredientList fetchIngredientList(const string & recipe);
+
   Recipe fetchRecipe(const string & name);
   
  protected:

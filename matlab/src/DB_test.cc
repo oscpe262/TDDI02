@@ -6,9 +6,10 @@
 #include <chrono>
 #include <thread>
 #include "classes/headers/Ingredient.h"
+#include "classes/headers/RecipeIngredient.h"
 #include "classes/headers/EditDB.h"
 using namespace std::chrono;
-using namespace std::this_thread; 
+using namespace std::this_thread;
 
 
 using namespace std;
@@ -26,16 +27,7 @@ int main(int argc, char* argv[])
   string name;
   Ingredient ingredient("Korv",5,200);
   ifstream importstream;
-  /*
-  if(!(argc == 1 || argc ==3))
-    {
-      cerr << "usage: ./DB_test -F filename.txt \n"
-	   << "Flags: \n"
-	   << "-i import ingredients\n"
-	   << "-r import recipies\n";
-      return app.exec();
-    }
-  */
+
   if(argc > 1)
     {
       if(!strcmp(argv[1], "-i"))
@@ -66,13 +58,11 @@ int main(int argc, char* argv[])
 	  importstream.open("ingredient_input.txt");
 	  import_ingredients(importstream,test_db);
 	  importstream.close();
-	  /*
 	  importstream.clear();
 	  importstream.open("recipe_input.txt");
 	  import_recipes(importstream,test_db);
 	  importstream.close();
 	  cout << "DB reset, ingredients and recipes imported \n";
-	  */
 	}
       else
 	{
@@ -152,6 +142,9 @@ bool import_ingredients(ifstream& stream,EditDB& db)
   Ingredient ingredient;
   string row,tmpStr;
   int tmpInt;
+  cout << "*************************\n"
+       << "**INGREDIENTS IMPORTED:**\n"
+       << "*************************\n";
   while(stream.peek() != EOF)
     {
       getline(stream,row);
@@ -166,7 +159,7 @@ bool import_ingredients(ifstream& stream,EditDB& db)
 	if(isstream.fail())
 	  throw DB_Exception("File could not be read, check syntax \n");
 	db.addIngredient(ingredient);
-	cout << ingredient.getName() << " Was added \n";
+	cout << ingredient.getName() <<" Was added \n";
       }
       catch(DB_Exception e)
 	{
@@ -174,7 +167,8 @@ bool import_ingredients(ifstream& stream,EditDB& db)
 	  return false;
 	}
     }
-    return true;
+  cout << endl;
+  return true;
 }
  
 bool import_recipes(ifstream& stream, EditDB& db)
@@ -183,28 +177,22 @@ bool import_recipes(ifstream& stream, EditDB& db)
   RecipeIngredient ingredient;
   string name,method,row,ingr;
   int time, amount;
+  Unit unit;
   double grade;
   IngredientList ingredients;
   char c;
-
+  cout << "*************************\n"
+       << "****RECIPES IMPORTED:****\n"
+       << "*************************\n";
   do 
     {
-      sleep_for(milliseconds(200));
-
       getline(stream,name);
-      cerr << name << endl;
-	  
-      getline(stream,method);
-      cerr << method << endl;
-      
+      cout << name << " Was added\n";
+      getline(stream,method);     
       stream >> time;
-      cerr << time << endl;
-      
       stream >> grade;
-      cerr << grade << endl;
       for(;;)
 	{
-	  sleep_for(milliseconds(200));
 	  stream >> ingr;
 	  if(ingr == "%ENDRECIPE" || ingr == "%ENDLIST")
 	    {
@@ -214,13 +202,17 @@ bool import_recipes(ifstream& stream, EditDB& db)
 	  stream >> amount;
 	  ingredient = RecipeIngredient(db.fetchIngredient(ingr));
 	  ingredient.setAmount(amount);
+	  stream >> amount;
+	  unit = static_cast<Unit>(amount);
+	  ingredient.setUnit(unit);
 	  ingredients.push_back(ingredient);
-	  cerr << endl << ingredient.getName() << " " << ingredient.getAmount() << endl << endl;
 	}
       db.addRecipe(Recipe(name,method,time,grade,ingredients));
       ingredients.clear();
+      // cout << left << name << " Was added\n";
     } while(ingr != "%ENDLIST");
-return true;
+  cout << endl;
+  return true;
 }
 bool add_ingredient(EditDB& db)
 {
@@ -236,11 +228,6 @@ bool add_ingredient(EditDB& db)
   ingredient.setKcal(tmpInt);
   return db.addIngredient(ingredient);
 }
-/*
-bool add_recipe(Recipe& recipe)
-{
 
-}
-*/
 
   

@@ -4,6 +4,7 @@
 #include "classes/headers/Recipe.h"
 #include <iostream>
 #include <QString>
+#include <algorithm>
 using namespace std;
 
 /*
@@ -20,27 +21,17 @@ bool EditDB::addRecipe(const Recipe& recipe)
   tmp.prepare("INSERT INTO Recipe(name,method,score,time) VALUES(:name,:method,:score,:time)");
   tmp.bindValue(":name", recipe.getName().c_str());
   tmp.bindValue(":method", recipe.getMethod().c_str());
-  cerr << recipe.getGrade() << endl;
   tmp.bindValue(":score", recipe.getGrade());
-  cerr << recipe.getMinutesTime() << endl;
   tmp.bindValue(":time", recipe.getMinutesTime());
   tmp.exec();
-  cerr << tmp.lastError().text().toStdString();
   tmp.finish();
   IngredientList ingredient_list = recipe.getIngredients();
   for(auto i : ingredient_list)
     {
-      //if(!addRecipeIngredient(i, recipe.getName())) return false;
-      tmp.prepare("INSERT INTO Used_for(recipe_name,ingredient_name,amount) VALUES(:recipe_name,:ingredient_name,:amount)");
-      tmp.bindValue(":recipe_name", recipe.getName().c_str());
-      tmp.bindValue(":ingredient_name", i.getName().c_str());
-      tmp.bindValue(":amount",i.getAmount());
-      tmp.exec();
-      cerr << "INGREDIENT :" << i.getName() << " Recipe" << recipe.getName() << endl;
-      cerr << tmp.lastError().text().toStdString();
-      tmp.finish();
+      addRecipeIngredient(i, recipe.getName());
       tmp.finish();
     }
+  
   return true;
 }
   bool EditDB::addIngredient(const Ingredient& ingredient)
@@ -84,11 +75,13 @@ bool EditDB::updateIngredient(const Ingredient& ingredient)
 bool EditDB::addRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe)
 {
   QSqlQuery tmp(db_);
-  if(checkIngredient(ingredient.getName())) return false;
-  tmp.prepare("INSERT INTO Needed_for(recipe_name,ingredient_name,amount), Values(:recipe_name, :ingredient_name, :amount)");
+  if(!checkIngredient(ingredient.getName())) return false;  
+  tmp.prepare("INSERT INTO Used_for(recipe_name,ingredient_name,amount,unit) VALUES(:recipe_name,:ingredient_name,:amount,:unit)");
   tmp.bindValue(":recipe_name", recipe.c_str());
-  tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
+  tmp.bindValue(":ingredient_name", ingredient.getName().c_str());
   tmp.bindValue(":amount",ingredient.getAmount());
+  tmp.bindValue(":unit",static_cast<int>(ingredient.getUnit()));
+  cerr << tmp.lastError().text().toStdString();
   tmp.exec();
   return true;
 }
