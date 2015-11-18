@@ -34,6 +34,9 @@ using namespace std;
  * Kosher
  */
 
+typedef array<bool,14> AllergeneArray;
+typedef array<bool,4> DietArray;
+
 enum Allergene { fruit, garlic, hot_peppers, oats, wheat, gluten, peanut, tree_nut,
 		 shellfish, alpha_gal, egg, milk, lactose, soy };
 
@@ -68,8 +71,8 @@ class Ingredient
   string name_;
   double price_;
   int kcal_;
-  array<bool,14> allergenes_ { };
-  array<bool,4> diets_ { };
+  AllergeneArray allergenes_ { };
+  DietArray diets_ { };
 };
 
 #endif
