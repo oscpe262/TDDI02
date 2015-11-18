@@ -7,6 +7,8 @@
 
 int main() {
   // Pröva konstruktorer
-  // Pröva 
+  // Pröva destruktorer
+  // Pröva medlemsfunktioner
+  // Pröva åtkomst av medlemsvariabler
 
 };
