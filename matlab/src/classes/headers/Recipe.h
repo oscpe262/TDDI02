@@ -51,8 +51,9 @@ class Recipe
   double getGrade() const {return grade_;}
   IngredientList getIngredients() const {return ingredients_;}
 
-  void addComment(const string& );
-  
+  void addComment( const string& );
+  double calcPrice(double) const;
+  double calcKcal(double) const;
   
   //  void addIngredient(s)?
   
