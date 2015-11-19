@@ -52,12 +52,13 @@ Stekt ägg
 Kläck ägg, stek
 10
 5
-ägg 1 5
+Ägg 1 5
 %ENDRECIPE
 Morotsbiffar
 Riv morot, blanda med ägg och ströbröd forma till biffar stek.
 40
 5
 Morot 2 5
+Ägg 1 5
 Ströbröd 1 2
 %ENDLIST

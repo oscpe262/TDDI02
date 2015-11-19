@@ -30,6 +30,7 @@ class DB
  public:
   //Constructors
   DB();
+  DB(string name);
   DB(const DB&) = default;
   DB(DB&& ) = default;
   //Destructor

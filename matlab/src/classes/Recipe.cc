@@ -2,19 +2,19 @@
 #include <string>
 #include <vector>
 
-struct MiniRecipe
-{
-  string name_;
-  int minutesTime_;
-  double grade_;
+// struct MiniRecipe
+// {
+//   string name_;
+//   int minutesTime_;
+//   double grade_;
 
-  void operator=(Recipe& recipe)
-  {
-    name_ = recipe.getName();
-    minutesTime_ = recipe.getMinutesTime();
-    grade_ = recipe.getGrade();
-  }
-};
+//   void operator=(Recipe& recipe)
+//   {
+//     name_ = recipe.getName();
+//     minutesTime_ = recipe.getMinutesTime();
+//     grade_ = recipe.getGrade();
+//   }
+// };
 
 void Recipe::setTime( int minutes )
 {

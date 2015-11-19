@@ -18,6 +18,19 @@ DB::DB()
   query_ = tmp_query;
 }
 
+DB::DB(string name)
+{
+  db_ = QSqlDatabase::addDatabase("QMYSQL");
+  db_.setHostName("localhost");
+  db_.setDatabaseName("matlabb");
+  db_.setUserName("root");
+  db_.setPassword("hejhejhej");
+  bool ok = db_.open();
+  if(!ok) throw DB_Exception("ERROR: Database could not be opened");
+  QSqlQuery tmp_query(db_);
+  query_ = tmp_query;
+}
+
 /*
   create_db() builds the database tables
 */ 

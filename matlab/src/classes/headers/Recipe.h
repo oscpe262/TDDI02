@@ -6,7 +6,16 @@
 #include "classes/headers/RecipeIngredient.h"
 
 
-struct MiniRecipe;
+
+struct MiniRecipe
+{
+  
+MiniRecipe(string name,int time,double grade)
+: name_(name),minutesTime_(time),grade_(grade) {}
+  string name_;
+  int minutesTime_;
+  double grade_;
+};
 
 typedef vector<RecipeIngredient> IngredientList;
 typedef vector<MiniRecipe> RecipeList;

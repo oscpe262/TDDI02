@@ -53,13 +53,15 @@ SOURCES       = ../../src/classes/SearchDB.cc \
 		../../src/classes/Ingredient.cc \
 		../../src/classes/RecipeIngredient.cc \
 		../../src/classes/DB.cc \
-		../../src/DB_test.cc 
+		../../src/DB_test.cc \
+		../../src/classes/SearchTerm.cc 
 OBJECTS       = SearchDB.o \
 		EditDB.o \
 		Ingredient.o \
 		RecipeIngredient.o \
 		DB.o \
-		DB_test.o
+		DB_test.o \
+		SearchTerm.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -119,12 +121,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../../src/classes/headers/Ingredient.h \
 		../../src/classes/headers/RecipeIngredient.h \
 		../../src/classes/headers/DB.h \
-		../../src/classes/headers/SearchDB.h ../../src/classes/SearchDB.cc \
+		../../src/classes/headers/SearchDB.h \
+		../../src/classes/headers/SearchTerm.h \
+		../../src/classes/headers/Definitions.h ../../src/classes/SearchDB.cc \
 		../../src/classes/EditDB.cc \
 		../../src/classes/Ingredient.cc \
 		../../src/classes/RecipeIngredient.cc \
 		../../src/classes/DB.cc \
-		../../src/DB_test.cc
+		../../src/DB_test.cc \
+		../../src/classes/SearchTerm.cc
 QMAKE_TARGET  = DB_test
 DESTDIR       = ../../exe/#avoid trailing-slash linebreak
 TARGET        = ../../exe/DB_test
@@ -287,8 +292,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../src/classes/headers/SearchDB.h ../../src/classes/headers/EditDB.h ../../src/classes/headers/Ingredient.h ../../src/classes/headers/RecipeIngredient.h ../../src/classes/headers/DB.h ../../src/classes/headers/SearchDB.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../src/classes/SearchDB.cc ../../src/classes/EditDB.cc ../../src/classes/Ingredient.cc ../../src/classes/RecipeIngredient.cc ../../src/classes/DB.cc ../../src/DB_test.cc $(DISTDIR)/
+	$(COPY_FILE) --parents ../../src/classes/headers/SearchDB.h ../../src/classes/headers/EditDB.h ../../src/classes/headers/Ingredient.h ../../src/classes/headers/RecipeIngredient.h ../../src/classes/headers/DB.h ../../src/classes/headers/SearchDB.h ../../src/classes/headers/SearchTerm.h ../../src/classes/headers/Definitions.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../src/classes/SearchDB.cc ../../src/classes/EditDB.cc ../../src/classes/Ingredient.cc ../../src/classes/RecipeIngredient.cc ../../src/classes/DB.cc ../../src/DB_test.cc ../../src/classes/SearchTerm.cc $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -329,14 +334,17 @@ SearchDB.o: ../../src/classes/SearchDB.cc ../../src/classes/headers/SearchDB.h \
 		../../src/classes/headers/DB.h \
 		../../src/classes/headers/Ingredient.h \
 		../../src/classes/headers/Recipe.h \
-		../../src/classes/headers/RecipeIngredient.h
+		../../src/classes/headers/RecipeIngredient.h \
+		../../src/classes/headers/Definitions.h \
+		../../src/classes/headers/SearchTerm.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SearchDB.o ../../src/classes/SearchDB.cc
 
 EditDB.o: ../../src/classes/EditDB.cc ../../src/classes/headers/EditDB.h \
 		../../src/classes/headers/Ingredient.h \
 		../../src/classes/headers/DB.h \
 		../../src/classes/headers/Recipe.h \
-		../../src/classes/headers/RecipeIngredient.h
+		../../src/classes/headers/RecipeIngredient.h \
+		../../src/classes/headers/Definitions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EditDB.o ../../src/classes/EditDB.cc
 
 Ingredient.o: ../../src/classes/Ingredient.cc ../../src/classes/headers/Ingredient.h
@@ -349,15 +357,24 @@ RecipeIngredient.o: ../../src/classes/RecipeIngredient.cc ../../src/classes/head
 DB.o: ../../src/classes/DB.cc ../../src/classes/headers/DB.h \
 		../../src/classes/headers/Ingredient.h \
 		../../src/classes/headers/Recipe.h \
-		../../src/classes/headers/RecipeIngredient.h
+		../../src/classes/headers/RecipeIngredient.h \
+		../../src/classes/headers/Definitions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DB.o ../../src/classes/DB.cc
 
 DB_test.o: ../../src/DB_test.cc ../../src/classes/headers/Ingredient.h \
+		../../src/classes/headers/RecipeIngredient.h \
 		../../src/classes/headers/EditDB.h \
 		../../src/classes/headers/DB.h \
 		../../src/classes/headers/Recipe.h \
-		../../src/classes/headers/RecipeIngredient.h
+		../../src/classes/headers/Definitions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DB_test.o ../../src/DB_test.cc
+
+SearchTerm.o: ../../src/classes/SearchTerm.cc ../../src/classes/headers/SearchTerm.h \
+		../../src/classes/headers/Recipe.h \
+		../../src/classes/headers/Ingredient.h \
+		../../src/classes/headers/RecipeIngredient.h \
+		../../src/classes/headers/Definitions.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SearchTerm.o ../../src/classes/SearchTerm.cc
 
 ####### Install
 
