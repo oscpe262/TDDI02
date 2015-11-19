@@ -8,25 +8,25 @@
 DB::DB()
 {
   db_ = QSqlDatabase::addDatabase("QMYSQL");
-  db_.setHostName("localhost");
-  db_.setDatabaseName("matlabb");
-  db_.setUserName("root");
-  db_.setPassword("hejhejhej");
+  db_.setHostName("db-und.ida.liu.se");
+  db_.setDatabaseName("TDDI02_HT15_02");
+  db_.setUserName("TDDI02_HT15_02");
+  db_.setPassword("TDDI02_HT15_02b957");
   bool ok = db_.open();
-  if(!ok) throw DB_Exception("ERROR: Database could not be opened");
+  //if(!ok) throw DB_Exception("ERROR: Database could not be opened");
   QSqlQuery tmp_query(db_);
   query_ = tmp_query;
 }
 
 DB::DB(string name)
 {
-  db_ = QSqlDatabase::addDatabase("QMYSQL");
-  db_.setHostName("localhost");
-  db_.setDatabaseName("matlabb");
-  db_.setUserName("root");
-  db_.setPassword("hejhejhej");
+  db_ = QSqlDatabase::addDatabase("QMYSQL", name.c_str());
+  db_.setHostName("db-und.ida.liu.se");
+  db_.setDatabaseName("TDDI02_HT15_02");
+  db_.setUserName("TDDI02_HT15_02");
+  db_.setPassword("TDDI02_HT15_02b957");
   bool ok = db_.open();
-  if(!ok) throw DB_Exception("ERROR: Database could not be opened");
+  // if(!ok) throw DB_Exception("ERROR: Database could not be opened");
   QSqlQuery tmp_query(db_);
   query_ = tmp_query;
 }
