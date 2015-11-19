@@ -1,6 +1,8 @@
 Syntax för att lägga till testdata i testdatafilerna, dom följer inte
 kravspec men det blev hemskt mycket enklare att koda såhär.
 
+filerna finns i mappen matlab/exe
+
 
 Allt anges i strängar och heltal, unit anges i heltal enligt följande:
 1 gram
