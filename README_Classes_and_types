@@ -67,5 +67,18 @@ MiniRecipe(string name,int time,double grade)
   double grade_;
 };
 
+enum Unit{gram, deciliter, teaspoon, tablespoon,pcs};
+
+enum Allergene { fruit, garlic, hot_peppers, oats, wheat, gluten, peanut, tree_nut,
+		 shellfish, alpha_gal, egg, milk, lactose, soy };
+
+enum Diet { vegetarian, vegan, halal, kosher };
+
+
+konstant: AA_SIZE = 14
+konstant: DA_SIZE = 4
+
 typedef vector<RecipeIngredient> IngredientList;
 typedef vector<MiniRecipe> RecipeList;
+typedef array<bool,AA_SIZE> AllergeneArray;
+typedef array<bool,DA_SIZE> DietArray;
