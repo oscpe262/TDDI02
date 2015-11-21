@@ -20,9 +20,11 @@ RecipeList SearchDB::queryList()
   */ 
 }
 
+
 /*
-  queryIngredientList() accepts a RecipeList and generates mini
-  recipes of all recipes containing that list
+  queryIngredientList() accepts a RecipeList and generates a vector
+  containing  MiniRecipes of all recipes containing ingredients from
+  that list 
 */
 
 RecipeList SearchDB::queryIngredientList(vector<string> ingredients)
@@ -33,18 +35,15 @@ RecipeList SearchDB::queryIngredientList(vector<string> ingredients)
     {
       query.prepare("Select Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (select recipe_name from Used_for where ingredient_name = :ingredient_name)");
       query.bindValue(":ingredient_name",i.c_str());
-      //while(query.next())
-      query.next();
+      query.exec();
+      while(query.next())
 	{
-	  cerr << "name: " << query.value(0).toString().toStdString() << " time; " <<  query.value(1).toInt() << " grade :" << query.value(3).toDouble();
-				
-
-    // recipe_list.push_back(MiniRecipe(query.value(0).toString().toStdString(),
-    // 					   query.value(1).toInt(),
-    // 					   query.value(3).toDouble()));
+	  recipe_list.push_back(MiniRecipe(query.value(0).toString().toStdString(),
+					   query.value(1).toInt(),
+					   query.value(2).toDouble()));
 	}
-      cerr << query.lastError().text().toStdString() << endl;
-      //  unique(recipe_list.begin(),recipe_list.end(),[](MiniRecipe i, MiniRecipe u){return i.name_ == u.name_;} );
     }
-  
+  cerr << query.lastError().text().toStdString() << endl;
+  //unique(recipe_list.begin(),recipe_list.end(),[](const MiniRecipe& i,const MiniRecipe& u){return i.name_ == u.name_;});
+  return recipe_list;
 }

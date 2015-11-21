@@ -28,13 +28,13 @@ int main(int argc, char* argv[])
   string db_name = "matlabb2";
   QCoreApplication app(argc, argv);
   EditDB test_editDB;
-  // SearchDB test_searchDB(db_name);
+  SearchDB test_searchDB(db_name);
   int menu = 0;
   string name;
   Ingredient ingredient("Korv",5,200);
   ifstream importstream;
 
-  if(argc > 1)
+  if(argc > 2)
     {
       if(!strcmp(argv[1], "-i"))
 	{
@@ -57,8 +57,19 @@ int main(int argc, char* argv[])
 	    }
 	  cout << "\nImport sucessfull!\n\n";
 	}
-    
-      else if(!strcmp(argv[1], "-reset"))
+      else
+	{
+	  cerr << "usage: ./DB_test -F filename.txt \n"
+	       << "Flags: \n"
+	       << "-i import ingredients\n"
+	       << "-r import recipies\n"
+	       << "-reset \n";
+	}
+     return 1;
+    }
+  else if(argc == 2)
+    {
+      if(!strcmp(argv[1], "-reset"))
 	{
 	  test_editDB.clearDb();
 	  test_editDB.createDb();
@@ -71,16 +82,16 @@ int main(int argc, char* argv[])
 	  importstream.close();
 	  cout << "DB reset, ingredients and recipes imported \n";
 	}
+      else
+	{
+	  cerr << "usage: ./DB_test -F \n"
+	       << "Flags: \n"
+	       << "-i import ingredients.txt\n"
+	       << "-r import recipies.txt\n"
+	       << "-reset \n";
+	  return 1;
+	}
     }
-  else
-    {
-      cerr << "usage: ./DB_test -F filename.txt \n"
-	   << "Flags: \n"
-	   << "-i import ingredients\n"
-	   << "-r import recipies\n";
-      return 1;
-    }
-  
 		    
   do
   {
@@ -121,7 +132,7 @@ int main(int argc, char* argv[])
 	fetch_ingredient(test_editDB);
 	break;
       case 8:
-	//	query_ingredient_test(test_searchDB);
+	query_ingredient_test(test_searchDB);
 	break;
       }
       
@@ -257,7 +268,7 @@ bool fetch_ingredient(EditDB& db)
        << " kcal: " << ingredient.getKcal() << endl << endl;
   return true;
 }
-/*
+
 bool query_ingredient_test(SearchDB& db)
 {
   
@@ -277,16 +288,13 @@ bool query_ingredient_test(SearchDB& db)
 	  cout << name << " was added!\n";
 	}
     }
-  cerr << "Kommer vi hit? \n";
   recipes = db.queryIngredientList(ingredients);
   cout << "Recipies containing: ";
   for(auto i : ingredients) cout << i << " ";
   cout << "\n\n";
   for(auto i : recipes)
-    cout << "name: " << i.name_ << " time: " << i.minutesTime_ << " grade: " << i.grade_ << endl;
+    cout << "Recipe name: " << i.name_ << " time: " << i.minutesTime_ << " grade: " << i.grade_ << endl;
   return true;
-
-
 }
   
-*/
+

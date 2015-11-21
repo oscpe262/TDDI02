@@ -16,7 +16,6 @@
   HEADERS += "$$PWD/../../src/classes/headers/DB.h"
   HEADERS += "$$PWD/../../src/classes/headers/SearchDB.h"
   HEADERS += "$$PWD/../../src/classes/headers/SearchTerm.h"
-  HEADERS += "$$PWD/../../src/classes/headers/Definitions.h"
   
   SOURCES += "$$PWD/../../src/classes/SearchDB.cc"
   SOURCES += "$$PWD/../../src/classes/EditDB.cc"
