@@ -1,3 +1,4 @@
+
 /*
   Klassen DB är abstrakt basklass för EditDB och SearchDB
 

@@ -37,7 +37,7 @@ class EditDB : public DB{
   bool removeIngredient(const Ingredient& ingredient);
   bool removeTool();
   bool removeComment();
-
+  char const* getAllergeneString(Allergene allergene);
  private:
 
 

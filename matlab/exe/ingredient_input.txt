@@ -1,27 +1,156 @@
-Ägg 5 500
-Smör 50 1000
-Vetemjöl 5 400
-Banan 7 400
-Äpple 5 1000
-Hallon 7 80
-Havregryn 50 80
-Mom 50 50
-Spaghetti 100 100
-Kaka 4 400
-Kladd 5 1000
-Johan 30 18000
-Jäst 1 50
-Köttfärs 4 100
-Ost 80 800
-Matteus 800 1000
-Bröd 20 400
-Hasch 600 0
-HoolaBandoolaBand 10 50
-Göran 1 1
-Hemligt 1 1
-Köttfärs 69 400
-Tomatkross 10 250
-Lök 2 100
-Ägg 1 50
-Morot 4 100
-Ströbröd 20 300
+ingredient: Ägg 
+price: 5 
+kcal: 500
+allergenes: 10
+diets: 1
+%end
+ingredient: Smör
+price: 50 
+kcal: 1000
+allergenes: 10 11 
+diets: 0 2 3
+%end
+ingredient: Vetemjöl 
+price: 8 
+kcal: 400
+allergenes: 5 4
+diets: 0 1 2 3
+%end
+ingredient: Banan 
+price: 5 
+kcal: 300
+allergenes: 0
+diets: 1
+%end
+ingredient: Äpple 
+price: 20 
+kcal: 200
+allergenes: 0
+diets: 0 1 2 3
+%end
+ingredient: Hallon 
+price: 60 
+kcal: 200
+allergenes: 0
+diets: 0 1 2 3
+%end
+ingredient: Havregryn 
+price: 16 
+kcal: 350
+allergenes: 3 5
+diets: 0 1 2 3
+%end
+ingredient: Mom 
+price: 900
+kcal: 800
+allergenes: 0 1 5 6 8 9 10 11 12 13
+diets:
+%end
+ingredient: Spaghetti
+price: 20 
+kcal: 400
+allergenes: 4 5
+diets: 1
+%end
+ingredient: Kaka
+price: 50
+kcal: 800
+allergenes: 4 5 10 11 12
+diets: 0 2 3
+%end
+ingredient: Kladd 
+price: 20
+kcal: 800
+allergenes:
+diets:
+%end
+ingredient: Johan 
+price: 800 
+kcal: 183527
+allergenes:
+diets: 0 1 2 3
+%end
+ingredient: Jäst
+price: 10 
+kcal: 40
+allergenes:
+diets:
+%end
+ingredient: Köttfärs
+price: 69 
+kcal: 600
+allergenes: 9
+diets: 2 3
+%end
+ingredient: Ost 
+price: 90
+kcal: 900
+allergenes: 11
+diets: 0 2 3
+%end
+ingredient: Matteus
+price: 800
+kcal: 1000
+allergenes: 
+diets: 
+%end
+ingredient: Bröd 
+price: 49 
+kcal: 350
+allergenes: 4 5
+diets: 0 1 2 3
+%end
+ingredient: Hasch 
+price: 60000
+kcal: 0
+allergenes:
+diets: 
+%end
+ingredient: HoolaBandoolaBand
+price: 123456789 
+kcal: 0
+allergenes: 
+diets: 
+%end
+ingredient: Göran
+price: 1
+kcal: 1
+allergenes: 
+diets: 
+%end
+ingredient: Hemligt 
+price: 1
+kcal: 1
+allergenes: 
+diets: 
+%end
+ingredient: Tomatkross 
+price: 15
+kcal: 150
+allergenes: 
+diets: 0 1 2 3
+%end
+ingredient: Lök
+price: 20
+kcal: 220
+allergenes:  
+diets: 0 1 2 3
+%end
+ingredient: Morot
+price: 25
+kcal: 420
+allergenes: 
+diets: 0 1 2 3
+%end
+ingredient: Ströbröd
+price: 20
+kcal: 320
+allergenes: 4 6 
+diets: 0 1 2 3
+%end
+ingredient: Kakao
+price: 40
+kcal: 600
+allergenes: 
+diets: 1 2 3 0
+%end

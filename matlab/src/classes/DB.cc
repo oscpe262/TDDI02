@@ -43,7 +43,9 @@ void DB::createDb()
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(30),price INT(10),kcal INT(10),PRIMARY KEY(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Allergy(name VARCHAR(10),PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Allergene(name VARCHAR(10),PRIMARY KEY(name))");
+  lastQuery(query_);
+  query_ = db_.exec("CREATE TABLE Diet(name VARCHAR(10),PRIMARY KEY(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Tool(name varchar(20),PRIMARY KEY(name))");
   lastQuery(query_);
@@ -53,11 +55,36 @@ void DB::createDb()
 
   query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(50), ingredient_name VARCHAR(20), amount INT(10), unit INT(5), FOREIGN KEY(recipe_name) REFERENCES Recipe(name), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Contained_in(ingredient_name VARCHAR(20), allergy_name VARCHAR(20), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(allergy_name) REFERENCES Allergy(name))");
+  query_ = db_.exec("CREATE TABLE Allergene_in(ingredient_name VARCHAR(20), allergene_name VARCHAR(20), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(allergene_name) REFERENCES Allergene(name))");
+  lastQuery(query_);
+  query_ = db_.exec("CREATE TABLE Diet_in(ingredient_name VARCHAR(20), diet_name VARCHAR(20), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(diet_name) REFERENCES Diet(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Needed_for(recipe_name VARCHAR(20), tool_name VARCHAR(20),FOREIGN KEY(recipe_name) REFERENCES Recipe(name),  FOREIGN KEY(tool_name) REFERENCES Tool(name))");
   lastQuery(query_);
-  
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('fruit')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('garlic')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('hot_peppers')");   
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('oats')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('wheat')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('gluten')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('peanut')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('tree_nut')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('shellfish')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('alpha_gal')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('egg')"); 
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('milk')");
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('lactose')");  
+  query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('soy')");
+
+  query_ = db_.exec("INSERT INTO Diet(name) VALUES ('vegetarian')");  
+  query_ = db_.exec("INSERT INTO Diet(name) VALUES ('vegan')");
+  query_ = db_.exec("INSERT INTO Diet(name) VALUES ('halal')");
+  query_ = db_.exec("INSERT INTO Diet(name) VALUES ('kosher')");
+
+
+
+  //, ,, , , , , , , , , , )");
+  lastQuery(query_);
   //Error message print
   cerr << db_.lastError().text().toStdString() << endl;
 }
@@ -71,15 +98,19 @@ void DB::clearDb()
   //Drop m-n tables
   query_ = db_.exec("DROP TABLE Used_for");
   lastQuery(query_);
-  query_ = db_.exec("DROP TABLE Contained_in");
+  query_ = db_.exec("DROP TABLE Allergene_in");
   lastQuery(query_);
-  query_ = db_.exec("DROP TABLE Needed_for");
+  query_ = db_.exec("DROP TABLE Diet_in");
   lastQuery(query_);
+ query_ = db_.exec("DROP TABLE Needed_for");
+ lastQuery(query_);
   
   //Drop Strong entitys
   query_ = db_.exec("DROP TABLE Ingredient");
   lastQuery(query_);
-  query_ = db_.exec("DROP TABLE Allergy");
+  query_ = db_.exec("DROP TABLE Allergene");
+  lastQuery(query_);
+  query_ = db_.exec("DROP TABLE Diet");
   lastQuery(query_);
   query_ = db_.exec("DROP TABLE Tool");
   lastQuery(query_);

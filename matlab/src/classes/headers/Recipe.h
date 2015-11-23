@@ -10,14 +10,19 @@
 struct MiniRecipe
 {
   
-MiniRecipe(string name,int time,double grade)
+MiniRecipe(string name = "null" ,int time = 0,double grade = 0)
 : name_(name),minutesTime_(time),grade_(grade) {}
   string name_;
   int minutesTime_;
   double grade_;
+
+  //  bool  operator == (const MiniRecipe& rhs) const  {return name_ == rhs.name_;}
+  bool  operator <  (const MiniRecipe& rhs) const  {return name_ < rhs.name_;}
+  bool  operator >  (const MiniRecipe& rhs) const  {return name_ > rhs.name_;}
 };
 
 typedef vector<RecipeIngredient> IngredientList;
+typedef vector<string> IngredientNames;
 typedef vector<MiniRecipe> RecipeList;
 
 class Recipe

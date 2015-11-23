@@ -37,10 +37,10 @@ using namespace std;
 typedef array<bool,14> AllergeneArray;
 typedef array<bool,4> DietArray;
 
-enum Allergene { fruit, garlic, hot_peppers, oats, wheat, gluten, peanut, tree_nut,
-		 shellfish, alpha_gal, egg, milk, lactose, soy };
+enum Allergene {fruit = 0, garlic = 1, hot_peppers = 2, oats = 3, wheat = 4, gluten = 5, peanut = 6, tree_nut =8,
+		 shellfish = 8, alpha_gal = 9, egg = 10, milk = 11, lactose = 12, soy =13 };
 
-enum Diet { vegetarian, vegan, halal, kosher };
+enum Diet { vegetarian = 0, vegan = 1, halal = 2, kosher = 3 };
 
 class Ingredient
 {
@@ -57,6 +57,7 @@ class Ingredient
   string getName() const {return name_;}
   double getPrice()   const {return price_;}
   int getKcal()    const {return kcal_;}
+  AllergeneArray getAllergenes() const {return allergenes_;}
 
   void setName(string name){name_ = name;}
   void setPrice(double price) {price_ = price;}

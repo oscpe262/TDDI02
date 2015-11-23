@@ -35,18 +35,30 @@ bool EditDB::addRecipe(const Recipe& recipe)
 }
   bool EditDB::addIngredient(const Ingredient& ingredient)
 {
+  AllergeneArray allergenes = ingredient.getAllergenes();
   QSqlQuery tmp(db_);
   if(checkIngredient(ingredient)) return false;
-  else
+  tmp.finish();
+  tmp.prepare("INSERT INTO Ingredient(name,price,kcal) VALUES(:name,:price,:kcal)");
+  tmp.bindValue(":name",ingredient.getName().c_str());
+  tmp.bindValue(":price",ingredient.getPrice());
+  tmp.bindValue(":kcal",ingredient.getKcal());
+  tmp.exec();
+  tmp.clear();
+  for(int i = 0; i < 14; ++i)
     {
-      tmp.finish();
-      tmp.prepare("INSERT INTO Ingredient(name,price,kcal) VALUES(:name,:price,:kcal)");
-      tmp.bindValue(":name",ingredient.getName().c_str());
-      tmp.bindValue(":price",ingredient.getPrice());
-      tmp.bindValue(":kcal",ingredient.getKcal());
-      tmp.exec();
-      return true;
-    } 
+      if (allergenes.at(i))
+	{
+	  tmp.prepare("INSERT INTO Allergene_in(ingredient_name, allergene_name) VALUES(:ingredient_name,:allergene_name)");
+	  tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
+	  tmp.bindValue("allergene_name",getAllergeneString(Allergene(i)));
+	  tmp.exec();
+	  tmp.clear();
+	  cerr << tmp.lastError().text().toStdString();
+	}
+    }
+  return true;
+   
 }
  
 /*
@@ -122,5 +134,57 @@ bool EditDB::removeIngredient(const Ingredient& ingredient)
   return removeIngredient(ingredient.getName());
 }
 
+/*
+  getAllergeneString() is a help function that accepts allergy enum
+  and returns a c-string as a result to be used while adding
+  ingredients in the database
+*/
+char const* EditDB::getAllergeneString(Allergene allergene)
+{
+  switch((int)allergene)
+    {
+    case 0:
+      return "fruit";
+      break;
+    case 1:
+      return "garlic";
+      break;
+    case 2:
+      return "hot_peppers";
+      break;
+    case 3:
+      return "oats";
+      break;
+    case 4:
+      return "wheat";
+      break;
+    case 5:
+      return "gluten";
+      break;
+    case 6:
+      return "peanut";
+      break; 
+    case 7:
+      return "tree_nut";
+      break;
+    case 8:
+      return "shellfish";
+      break;
+    case 9:
+      return "alpha_gal";
+      break;
+    case 10:
+      return "egg";
+      break;
+    case 11:
+      return "milk";
+      break;
+    case 12:
+      return "lactose";
+      break;
+    case 13:
+      return "soy";
+      break;
+    }
 
-
+}

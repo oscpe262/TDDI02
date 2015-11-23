@@ -1,6 +1,7 @@
 #include <QtCore>
 #include <QCoreApplication>
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <sstream>
 #include <chrono>
@@ -15,12 +16,17 @@ using namespace std::this_thread;
 
 using namespace std;
 void print_menu();
+void print_recipe(MiniRecipe& recipe);
+void print_recipe_list(RecipeList& recipe_list);
 bool import_ingredients(ifstream& stream,EditDB& db);
 bool import_recipes(ifstream& stream, EditDB& db);
 bool add_ingredient(EditDB& db);
 bool add_recipe(Recipe& recipe);
 bool fetch_ingredient(EditDB& db);
 bool query_ingredient_test(SearchDB& db);
+bool query_not_ingredient_test(SearchDB& db);
+bool query_list_test(SearchDB& db);
+bool allergene_test(EditDB& db);
 
 int main(int argc, char* argv[])
 {
@@ -134,6 +140,15 @@ int main(int argc, char* argv[])
       case 8:
 	query_ingredient_test(test_searchDB);
 	break;
+      case 9:
+	query_not_ingredient_test(test_searchDB);
+	break;
+      case 10:
+	query_list_test(test_searchDB);
+	break;
+      case 11:
+	allergene_test(test_editDB);
+	break;
       }
       
     print_menu();
@@ -153,10 +168,26 @@ void print_menu()
        << "5.checkIngredient\n"
        << "6.removeIngredient\n"
        << "7.fetchIngredient\n"
-       << "8. queryIngredientList\n"
+       << "8.queryIngredients\n"
+       << "9.queryNotIngredients\n"
+       << "10.queryList\n"
+       << "11.allergene_test\n"
        << "Choice: ";
 
 }
+void print_recipe(MiniRecipe& recipe)
+{
+  cout << "Recipe: " << recipe.name_ << endl
+       << "Grade: " << recipe.grade_ << endl
+       << "Time: " << recipe.minutesTime_ << endl << endl;
+}
+
+void print_recipe_list(RecipeList& recipe_list)
+{
+  for(auto i : recipe_list)
+    print_recipe(i);
+}
+
 bool import_ingredients(ifstream& stream,EditDB& db)
 {
  
@@ -169,19 +200,59 @@ bool import_ingredients(ifstream& stream,EditDB& db)
        << "*************************\n";
   while(stream.peek() != EOF)
     {
+      row.clear();
       getline(stream,row);
       istringstream isstream(row);
       try{
 	isstream >> tmpStr;
-	ingredient.setName(tmpStr);
-	isstream >> tmpInt;
-	ingredient.setPrice(tmpInt);
-	isstream >> tmpInt;
-	ingredient.setKcal(tmpInt);
+
+	if (tmpStr.compare("ingredient:") == 0)
+	  {
+	    isstream >> tmpStr;
+	    ingredient.setName(tmpStr);
+	  }	
+	else if(tmpStr.compare("price:") == 0)
+	  {
+	    isstream >> tmpInt;
+	    ingredient.setPrice(tmpInt);
+	  }
+	else if(tmpStr.compare("kcal:") == 0)
+	  {
+	    isstream >> tmpInt;
+	    ingredient.setKcal(tmpInt);
+	  }
+	else if(tmpStr.compare("allergenes:") == 0 )
+	  {
+	    while(isstream >> tmpInt)
+	      {
+	      ingredient.addAllergene(tmpInt);
+	      }
+	    isstream.clear();
+	  }
+	else if(tmpStr.compare("diets:") == 0)
+	  {
+	    while(isstream >> tmpInt)
+	      {
+		ingredient.addDiet(tmpInt);
+	      }
+	    isstream.clear();
+	  }
+	else if(tmpStr.compare("%end") == 0)
+	  {
+	    AllergeneArray al = ingredient.getAllergenes();
+	    int alint = 0;
+	    db.addIngredient(ingredient);
+	    cout << ingredient.getName() << " contains allergies: "; 
+	    for(int i = 0; i<14 ;++i)
+	      {
+		if (al[i])
+		  cout << i << " ";
+	      } 
+	    cout << ingredient.getName() <<" Was added \n";
+	  }
+
 	if(isstream.fail())
 	  throw DB_Exception("File could not be read, check syntax \n");
-	db.addIngredient(ingredient);
-	cout << ingredient.getName() <<" Was added \n";
       }
       catch(DB_Exception e)
 	{
@@ -270,8 +341,7 @@ bool fetch_ingredient(EditDB& db)
 }
 
 bool query_ingredient_test(SearchDB& db)
-{
-  
+{ 
   RecipeList recipes;
   vector<string> ingredients;
   string name;
@@ -285,16 +355,73 @@ bool query_ingredient_test(SearchDB& db)
       else if (name != "exit")
 	{
 	  ingredients.push_back(name);
-	  cout << name << " was added!\n";
+	  cout << name << " was added!\n\n";
 	}
     }
   recipes = db.queryIngredientList(ingredients);
   cout << "Recipies containing: ";
   for(auto i : ingredients) cout << i << " ";
   cout << "\n\n";
-  for(auto i : recipes)
-    cout << "Recipe name: " << i.name_ << " time: " << i.minutesTime_ << " grade: " << i.grade_ << endl;
+  print_recipe_list(recipes);
   return true;
 }
-  
+bool query_not_ingredient_test(SearchDB& db)
+{
+  RecipeList recipes;
+  vector<string> ingredients;
+  string name;
+  while(name != "exit")
+    {
+      cout << "Enter ingredient to add (exit to quit)\n"
+	   << "Choice: ";
+      cin >> name;
+      if(!db.checkIngredient(name) && name != "exit")
+	cout << "Ingredient not found in database \n";
+      else if (name != "exit")
+	{
+	  ingredients.push_back(name);
+	  cout << name << " was added!\n\n";
+	}
+    }
+  recipes = db.queryNotIngredientList(ingredients);
+  cout << "Recipies not containing: ";
+  for(auto i : ingredients) cout << i << " ";
+  cout << "\n\n";
+  print_recipe_list(recipes);
+  return true;
+}
 
+bool query_list_test(SearchDB& db)
+{
+  RecipeList recipe_list;
+  char c;
+  cout << "\n Enter + to query next n recipes - the last n recipes 0 to exit \n";
+  while(c != '0')
+    {
+      cout << "Choice: ";
+      cin >> c;
+      if (c == '+')
+	{
+	  recipe_list = db.queryList(true);
+	  print_recipe_list(recipe_list);
+	  cout << db.getPos();
+	}
+      else if (c == '-')
+	{
+	  recipe_list = db.queryList(false);
+	  print_recipe_list(recipe_list);
+	  cout << db.getPos() << endl;
+	}
+      else
+	cout << "Please enter + - or 0\n";
+  
+    
+    }
+}
+
+bool allergene_test(EditDB& db)
+{
+  Allergene allergene;
+  allergene = garlic;
+  cout << "Allergy: " << db.getAllergeneString(allergene) << endl;
+}
