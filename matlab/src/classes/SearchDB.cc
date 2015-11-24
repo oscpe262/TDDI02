@@ -70,6 +70,34 @@ RecipeList SearchDB::queryNotIngredientList(IngredientNames ingredients)
     result_list = complement(result_list,queryIngredient(i));
   return result_list;
 }
+RecipeList SearchDB::queryAllergene(const Allergene& allergene)
+{
+  QSqlQuery query(db_);
+  RecipeList recipe_list;
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name IN (SELECT Allergene_in.ingredient_name FROM Allergene_in WHERE Allergene_in.allergene_name = :allergene_name))");
+  cerr << getAllergeneString(allergene);
+  query.bindValue(":allergene_name",getAllergeneString(allergene).c_str());
+  query.exec();
+  cerr << query.lastError().text().toStdString();
+  recipe_list = makeRecipeList(query); 
+  return recipe_list;
+}
+RecipeList SearchDB::queryAllergeneList(const AllergeneArray& allergenes)
+{
+  RecipeList recipe_list{}, result_list{};
+  for(int i = 0; i < 14; ++i)
+    {
+      if(allergenes[i]) 
+	{
+	  recipe_list = queryAllergene(Allergene(i));
+	  if(result_list.empty()) //first ingredients RecipeList goes straight into result
+	    result_list = recipe_list;
+	  else //other ingredients results gets intersected with old result
+	    result_list = unionize(result_list,recipe_list);
+	}
+    }
+  return result_list;
+}
 
 
 /*
@@ -103,10 +131,17 @@ RecipeList SearchDB::complement(RecipeList l1, RecipeList l2)
 		 back_inserter(result));
   return result;
 }
-/*
-  makeList() accepts pre executed QSqlQuery and generates a RecipeList
-  from the result
-*/
+RecipeList SearchDB::unionize(RecipeList l1, RecipeList l2)
+{
+  RecipeList result;
+  sort(l1.begin(),l1.end());
+  sort(l2.begin(),l2.end());
+  set_union(l1.begin(),l1.end(),
+		 l2.begin(),l2.end(),
+		 back_inserter(result));
+  return result;
+}
+
 RecipeList SearchDB::makeRecipeList(QSqlQuery& query)
 {
   RecipeList recipe_list;

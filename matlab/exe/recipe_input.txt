@@ -5,6 +5,12 @@ Boil spaghetti, add mom, Aayy lmao, thug life
 Spaghetti 500 1
 Mom 1 2
 %ENDRECIPE
+Banan
+Skala banan
+5
+5
+Banan 1 1
+%ENDRECIPE
 Hallonkaka
 Baka kaka, tillsätt hallon.
 90 

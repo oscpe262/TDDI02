@@ -21,6 +21,8 @@ class SearchDB : public DB
   RecipeList queryIngredient(const string& name);
   RecipeList queryIngredientList(IngredientNames ingredients);
   RecipeList queryNotIngredientList(IngredientNames ingredients);
+  RecipeList queryAllergene(const Allergene& allergene);
+  RecipeList queryAllergeneList(const AllergeneArray& allergenes);
   void queryIngredient_list_explicit();
   void queryAllergy_list();
   void queryPrice_list();
@@ -42,6 +44,7 @@ class SearchDB : public DB
   SearchTerm search_term_;
   RecipeList intersect(RecipeList l1, RecipeList l2);
   RecipeList complement(RecipeList l1, RecipeList l2);
+  RecipeList unionize(RecipeList l1, RecipeList l2);
   RecipeList makeRecipeList(QSqlQuery& query);
   //Recipe_List make_union();
   //Recipe_List intersect();

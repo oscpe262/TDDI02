@@ -7,7 +7,7 @@ diets: 1
 ingredient: Smör
 price: 50 
 kcal: 1000
-allergenes: 10 11 
+allergenes: 11 
 diets: 0 2 3
 %end
 ingredient: Vetemjöl 
@@ -43,7 +43,7 @@ diets: 0 1 2 3
 ingredient: Mom 
 price: 900
 kcal: 800
-allergenes: 0 1 5 6 8 9 10 11 12 13
+allergenes:
 diets:
 %end
 ingredient: Spaghetti

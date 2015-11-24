@@ -47,14 +47,16 @@ bool EditDB::addRecipe(const Recipe& recipe)
   tmp.clear();
   for(int i = 0; i < 14; ++i)
     {
-      if (allergenes.at(i))
+      if (allergenes[i])
 	{
 	  tmp.prepare("INSERT INTO Allergene_in(ingredient_name, allergene_name) VALUES(:ingredient_name,:allergene_name)");
 	  tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
-	  tmp.bindValue("allergene_name",getAllergeneString(Allergene(i)));
+	  cerr << "GetAllergene: " << getAllergeneString(Allergene(i));
+	  tmp.bindValue(":allergene_name",getAllergeneString(Allergene(i)).c_str());
 	  tmp.exec();
-	  tmp.clear();
+
 	  cerr << tmp.lastError().text().toStdString();
+	  tmp.clear();
 	}
     }
   return true;
@@ -133,58 +135,54 @@ bool EditDB::removeIngredient(const Ingredient& ingredient)
 {
   return removeIngredient(ingredient.getName());
 }
-
 /*
-  getAllergeneString() is a help function that accepts allergy enum
-  and returns a c-string as a result to be used while adding
-  ingredients in the database
+  calculatePrice() and calculateKcal() calculates a recipes price and
+  kcal per portion in the recipe.
 */
-char const* EditDB::getAllergeneString(Allergene allergene)
+int EditDB::calculatePrice(const Recipe& recipe)
 {
-  switch((int)allergene)
-    {
-    case 0:
-      return "fruit";
-      break;
-    case 1:
-      return "garlic";
-      break;
-    case 2:
-      return "hot_peppers";
-      break;
-    case 3:
-      return "oats";
-      break;
-    case 4:
-      return "wheat";
-      break;
-    case 5:
-      return "gluten";
-      break;
-    case 6:
-      return "peanut";
-      break; 
-    case 7:
-      return "tree_nut";
-      break;
-    case 8:
-      return "shellfish";
-      break;
-    case 9:
-      return "alpha_gal";
-      break;
-    case 10:
-      return "egg";
-      break;
-    case 11:
-      return "milk";
-      break;
-    case 12:
-      return "lactose";
-      break;
-    case 13:
-      return "soy";
-      break;
-    }
+  int total_price = 0;
+  QSqlQuery query(db_);
+  IngredientList ingredients = recipe.getIngredients();
+  for(auto i : ingredients)
+    total_price += calculateIngredientPrice(i);
+  return total_price/recipe.getPortions();
+}
+int EditDB::calculateIngredientPrice(const RecipeIngredient ingredient)
+{
+  QSqlQuery query(db_);
+  int price;
+  query.prepare("SELECT price FROM Ingredient WHERE name = :name");
+  query.bindValue(":name",ingredient.getName().c_str());
+  query.exec();
+  query.next();
+  price = query.value(0).toInt();
+  switch(ingredient.getUnit())
+  {
+  case gram:
+    return (price/1000)*ingredient.getAmount(); //Price is in kr/kg
+    break;					//amount is in gram
+  case deciliter:
+    return (price/10)*ingredient.getAmount();  //price is in kr/l amount is in deciliter
+    break;
+  case tablespoon:
+    return ((price/1000)*15)*ingredient.getAmount(); //price in kr/l amount is in n*15ml
+    break;
+  case teaspoon:
+    return((price/1000)*5)*ingredient.getAmount();
+    break;
+  case pcs:
+    return price*ingredient.getAmount();
+    break;
+  default:
+    return 0;
+    break;
+  }
 
 }
+int EditDB::calculateKcal(const Recipe& recipe)
+{
+}
+  
+
+

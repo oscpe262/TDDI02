@@ -39,7 +39,7 @@ void DB::createDb()
 { 
   //Creating tables for strong entitys
   
-  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(50),method VARCHAR(200), score float(10), time int(10), PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(50),method VARCHAR(200), score float(10), time int(10), price int(10), portions int(10), PRIMARY KEY(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(30),price INT(10),kcal INT(10),PRIMARY KEY(name))");
   lastQuery(query_);
@@ -260,3 +260,57 @@ Recipe DB::fetchRecipe(const string & name)
   return recipe;
 }
 
+/*
+  getAllergeneString() is a help function that accepts allergy enum
+  and returns a c-string as a result to be used while adding
+  ingredients in the database
+*/
+string DB::getAllergeneString(Allergene allergene)
+{
+  switch((int)allergene)
+    {
+    case 0:
+      return "fruit";
+      break;
+    case 1:
+      return "garlic";
+      break;
+    case 2:
+      return "hot_peppers";
+      break;
+    case 3:
+      return "oats";
+      break;
+    case 4:
+      return "wheat";
+      break;
+    case 5:
+      return "gluten";
+      break;
+    case 6:
+      return "peanut";
+      break; 
+    case 7:
+      return "tree_nut";
+      break;
+    case 8:
+      return "shellfish";
+      break;
+    case 9:
+      return "alpha_gal";
+      break;
+    case 10:
+      return "egg";
+      break;
+    case 11:
+      return "milk";
+      break;
+    case 12:
+      return "lactose";
+      break;
+    case 13:
+      return "soy";
+      break;
+    }
+
+}

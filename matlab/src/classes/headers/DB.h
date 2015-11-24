@@ -54,7 +54,10 @@ class DB
   IngredientList   fetchIngredientList(const string & recipe);
   Recipe           fetchRecipe(const string & name);
   
+ string getAllergeneString(Allergene allergene);
  protected:
+
+
   QSqlDatabase db_;
   QSqlQuery    query_;
   QSqlError    db_error_;

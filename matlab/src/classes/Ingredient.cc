@@ -42,5 +42,3 @@ bool Ingredient::removeDiet(int i)
     }
   return false;
 }
-
-  

@@ -37,12 +37,13 @@ class EditDB : public DB{
   bool removeIngredient(const Ingredient& ingredient);
   bool removeTool();
   bool removeComment();
-  char const* getAllergeneString(Allergene allergene);
+
+  int calculatePrice(const Recipe& recipe);
  private:
-
-
+  int calculateIngredientPrice(const RecipeIngredient ingredient);
+  int calculateKcal(const Recipe& recipe);
   
-  
+ 
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include <sstream>
 #include <chrono>
 #include <thread>
+#include <iomanip>
 #include "classes/headers/Ingredient.h"
 #include "classes/headers/RecipeIngredient.h"
 #include "classes/headers/SearchDB.h"
@@ -26,7 +27,8 @@ bool fetch_ingredient(EditDB& db);
 bool query_ingredient_test(SearchDB& db);
 bool query_not_ingredient_test(SearchDB& db);
 bool query_list_test(SearchDB& db);
-bool allergene_test(EditDB& db);
+bool allergene_test(SearchDB& db);
+void calculate_price_test(EditDB& db);
 
 int main(int argc, char* argv[])
 {
@@ -101,6 +103,7 @@ int main(int argc, char* argv[])
 		    
   do
   {
+    cout << endl;
     switch(menu)
       {
       case 1:
@@ -147,8 +150,10 @@ int main(int argc, char* argv[])
 	query_list_test(test_searchDB);
 	break;
       case 11:
-	allergene_test(test_editDB);
+	allergene_test(test_searchDB);
 	break;
+      case 12:
+	calculate_price_test(test_editDB);
       }
       
     print_menu();
@@ -160,7 +165,7 @@ int main(int argc, char* argv[])
 
 void print_menu()
 {
-  cout << "EditDB Test menu\n"
+  cout << "\nEditDB Test menu\n"
        << "1.CreateDB\n"
        << "2.ClearDB\n"
        << "3.printTables\n"
@@ -172,6 +177,7 @@ void print_menu()
        << "9.queryNotIngredients\n"
        << "10.queryList\n"
        << "11.allergene_test\n"
+       << "12.calculatePrice_test\n"
        << "Choice: ";
 
 }
@@ -225,7 +231,7 @@ bool import_ingredients(ifstream& stream,EditDB& db)
 	  {
 	    while(isstream >> tmpInt)
 	      {
-	      ingredient.addAllergene(tmpInt);
+		ingredient.addAllergene(tmpInt);
 	      }
 	    isstream.clear();
 	  }
@@ -242,6 +248,7 @@ bool import_ingredients(ifstream& stream,EditDB& db)
 	    AllergeneArray al = ingredient.getAllergenes();
 	    int alint = 0;
 	    db.addIngredient(ingredient);
+	    for(int i = 0; i < 14; ++i) ingredient.removeAllergene(i);
 	    cout << ingredient.getName() << " contains allergies: "; 
 	    for(int i = 0; i<14 ;++i)
 	      {
@@ -413,15 +420,42 @@ bool query_list_test(SearchDB& db)
 	  cout << db.getPos() << endl;
 	}
       else
-	cout << "Please enter + - or 0\n";
-  
-    
+	cout << "Please enter + - or 0\n";   
     }
 }
 
-bool allergene_test(EditDB& db)
+bool allergene_test(SearchDB& db)
 {
-  Allergene allergene;
-  allergene = garlic;
-  cout << "Allergy: " << db.getAllergeneString(allergene) << endl;
+  int selection = 99;
+  AllergeneArray allergenes{};
+  RecipeList recipe_list;
+  while(selection != 14)
+    {
+      cout << left << setw(18) << "0.Fruit: "; if(allergenes[0]) cout << "Enabled\n"; else cout << endl;
+      cout << setw(18) << "1.Garlic: "; if(allergenes[1]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "2.Hot peppers: "; if(allergenes[2]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "3.Oats : "; if(allergenes[3]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "4.Wheat: "; if(allergenes[4]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "5.Gluten: "; if(allergenes[5]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "6.Peanut: "; if(allergenes[6]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "7.Tree nut: "; if(allergenes[7]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "8.Shellfish: ";      if(allergenes[8]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "9.Meat/Alpha-gal: "; if(allergenes[9]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "10.Egg: "; if(allergenes[10]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "11.Milk: "; if(allergenes[11]) cout << "Enabled\n"; else cout << endl;
+      cout << setw(18) << "12.Lactose: "; if(allergenes[12]) cout << "Enabled\n";  else cout << endl;
+      cout << setw(18) << "13.Soy: "; if(allergenes[13]) cout << "Enabled\n";  else cout << endl;
+      cout <<  "14.Search\n\n";
+      cout <<  "Selection: ";
+      cin  >> selection;
+
+      allergenes[selection] = !allergenes[selection];
+    }
+  recipe_list = db.queryAllergeneList(allergenes);
+  print_recipe_list(recipe_list);
+}
+void calculate_price_test(EditDB& db)
+{
+  Recipe recipe = db.fetchRecipe("Hallonkaka");
+  cout << "Hallonkaka kostar: " << db.calculatePrice(recipe);
 }

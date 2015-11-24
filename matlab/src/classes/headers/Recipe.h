@@ -33,8 +33,9 @@ class Recipe
    : name_{}, method_{"Empty"}, minutesTime_{}
   {}
   
- Recipe( const string& name, const string& method, const int& minutes, const double& grade, const IngredientList& ingredients)
-   : name_{name}, method_{method}, minutesTime_{minutes}, grade_{grade}, ingredients_{ingredients}
+ Recipe( const string& name, const string& method, const int& minutes, 
+	 const double& grade, const IngredientList& ingredients, const int& portions = 4, const int& price = 0)
+   : name_{name}, method_{method}, minutesTime_{minutes}, grade_{grade}, ingredients_{ingredients},price_{price}, portions_{portions}
   {}
   
   Recipe( const Recipe& ) = default;
@@ -57,17 +58,22 @@ class Recipe
   void setMinutesTime(const int& minutesTime){minutesTime_ = minutesTime;}
   void setGrade(const double grade){grade_ = grade;}
   void setTime(const int& minutesTime){minutesTime_ = minutesTime;}
+  void setPrice(const int& price){price_ = price;}
+  void setPortions(const int& portions){portions_ = portions;}
   void setIngredients(const IngredientList& ingredients){ingredients_ = ingredients;}
 
   string getName() const {return name_;}
   string getMethod() const {return method_;}
   int getMinutesTime() const {return minutesTime_;}
   double getGrade() const {return grade_;}
+  int getPrice() const {return price_;}
+  int getPortions() const {return portions_;}
+
   IngredientList getIngredients() const {return ingredients_;}
 
   void addComment( const string& );
-  double calcPrice(double) const;
-  double calcKcal(double) const;
+  //double calcPrice(double) const; //se motivering nedan
+  //double calcKcal(double) const;
   
   //  void addIngredient(s)?
   
@@ -79,7 +85,9 @@ class Recipe
   string name_;
   string method_;
   int minutesTime_;
-  double grade_;
+  double grade_; 
+  int price_;    //Som vi pratade om så lägger vi till denna infon i recipe och sparar i databasen
+  int portions_; //Priset kommer att beräknas då receptet läggs in mha addRecipe i EditDB så det
   
   vector<string> comments_;
   IngredientList ingredients_;

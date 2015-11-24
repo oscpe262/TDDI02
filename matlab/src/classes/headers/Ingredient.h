@@ -31,7 +31,7 @@ using namespace std;
  * Vegetarian
  * Vegan
  * Halal
- * Kosher
+ * Kosher 
  */
 
 typedef array<bool,14> AllergeneArray;
@@ -72,8 +72,8 @@ class Ingredient
   string name_;
   double price_;
   int kcal_;
-  AllergeneArray allergenes_ { };
-  DietArray diets_ { };
+  AllergeneArray allergenes_{};// { };
+  DietArray diets_{};// { };
 };
 
 #endif

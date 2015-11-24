@@ -29,8 +29,8 @@ class RecipeIngredient : public Ingredient
   void   setUnit(Unit unit) { unit_ = unit; }
   void   setAmount(double amount) { amount_ = amount; }
 
-  double calcPrice(double scaling) const { return getPrice()*getAmount()*scaling; }
-  int calcKcal(double scaling) const { return getKcal()*getAmount()*scaling; }
+  double calcPrice(double scaling) const { return getPrice()*getAmount()*scaling;}
+  int calcKcal(double scaling) const { return getKcal()*getAmount()*scaling;}
 
   //private:
 
