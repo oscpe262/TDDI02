@@ -15,27 +15,27 @@ class Shell
 {
  public:
 
-  void                exportTxt( string& );
-  void                importTxt( string& );
-  void                exportXml( string& );
-  void                importXml( string& );
+  void                exportTxt( string filename = "null" );
+  void                importTxt( string );
+  void                exportXml( string );
+  void                importXml( string );
 
   void                setScaling( double scaling ) { scaling_ = scaling; }
  
 
  
   // SearchDB-funktioner
-  vector<MiniRecipe>& exactMatch( const string& );
-  vector<MiniRecipe>  getRecipeResults( SearchTerm& söktermer ); // returnera konstreferens?
-  vector<string>      getIngredientList(); // returnera konstreferens?
+  vector<MiniRecipe>  exactMatch( const string& ); //
+  vector<MiniRecipe>  getRecipeResults( SearchTerm& ); // returnera konstreferens? RecipeList
+  vector<string>      getIngredientNames(); // returnera konstreferens? IngredientNames
   Recipe              openRecipe( const MiniRecipe& ); // eller sträng?
   Ingredient          openIngredient( const string& );
 
   // EditDB-funktioner
-  void                addRecipe( const Recipe& ); // tillägg och redigering?
-  void                removeRecipe( const Recipe& );
-  void                addIngredient( const Ingredient& );
-  void                removeIngredient( const string& ); // överlagring för Ingredient?
+  bool                addRecipe( const Recipe& ); // tillägg och redigering? bool?
+  bool                removeRecipe( const Recipe& );
+  bool                addIngredient( const Ingredient& );
+  bool                removeIngredient( const Ingredient& ); // överlagring för Ingredient? string? currentMedlemmar?
 
   // private:
 
@@ -45,7 +45,7 @@ class Shell
   Recipe              currentRecipe_;
   Ingredient          currentIngredient_;
   vector<MiniRecipe>  recipeSearchResults_;     // RecipeList
-  vector<string>      ingredientFullList_;      // IngredientList // IngredientList = RecipeIngredient-listan i ett receptet just nu
+  vector<string>      ingredientFullList_;      // IngredientNames 
   double              scaling_;
 };
 #endif
