@@ -30,7 +30,7 @@ void IngCheck (const Ingredient& foo, string name, double price, int kcal, Aller
   return;
 }
 
-// Ing, RecIng, InfoIng
+// Ing, RecIng, InfoIng, testa olika konstruktorer etc.
 int main() {
 
   std::cout << "Initierar \"Mjöl\"" << endl;
