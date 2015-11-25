@@ -32,16 +32,19 @@ class EditDB : public DB{
   bool addComment();
   bool addTool();
   
-  bool removeRecipe();
+  bool removeRecipe(const string& name);
+  bool removeRecipe(const Recipe& name);
   bool removeIngredient(const string& ingredient);
   bool removeIngredient(const Ingredient& ingredient);
   bool removeTool();
   bool removeComment();
 
   int calculatePrice(const Recipe& recipe);
+   int calculateKcal(const Recipe& recipe);
  private:
   int calculateIngredientPrice(const RecipeIngredient ingredient);
-  int calculateKcal(const Recipe& recipe);
+  int calculateIngredientKcal(const RecipeIngredient ingredient);
+  
   
  
 };

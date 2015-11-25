@@ -24,6 +24,8 @@ class SearchDB : public DB
   RecipeList queryNotIngredientList(IngredientNames ingredients);
   RecipeList queryAllergene(const Allergene& allergene);
   RecipeList queryAllergeneList(const AllergeneArray& allergenes);
+  RecipeList queryIngredientNames();
+
   void queryIngredient_list_explicit();
   void queryAllergy_list();
   void queryPrice_list();
