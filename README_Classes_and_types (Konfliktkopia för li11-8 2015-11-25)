@@ -1,0 +1,84 @@
+Aktuell lista över klasser/poster och deras strukturer:
+
+
+*** Modulklasser: ***
+*********************
+
+	GUI		Shell			(DB)             DB_Exception
+			    	  	       /    \
+					EditDB	      SearchDB
+
+*** Dataklasser: ***
+********************
+
+	  Recipe	  Ingredient
+			       |
+	<MiniRecipe>	RecipeIngredient
+
+
+	SearchTerm
+
+*** Hjälpklasser: ***
+*********************
+
+	<RelatedRecipe>
+
+
+^^^^^^^^^^^^
+^^ Legend ^^
+^^^^^^^^^^^^
+
+< > = Post
+( ) = Abstrakt basklass
+
+Förälder       Förälder
+   |	      /        \
+  Barn     Barn	       Barn
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^Egendefinerade Datatyper^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+struct Price
+{
+  double upper_bound;
+  double lower_bound;
+};
+struct Cal
+{
+  int upper_bound;
+  int lower_bound;
+};
+
+struct Time
+{
+  int upper_bound;
+  int lower_bound;
+};
+struct Allergies{
+  bool allergy;
+};
+struct MiniRecipe
+{
+MiniRecipe(string name,int time,double grade)
+: name_(name),minutesTime_(time),grade_(grade) {}
+  string name_;
+  int minutesTime_;
+  double grade_;
+};
+
+enum Unit{gram, deciliter, teaspoon, tablespoon,pcs};
+
+enum Allergene { fruit, garlic, hot_peppers, oats, wheat, gluten, peanut, tree_nut,
+		 shellfish, alpha_gal, egg, milk, lactose, soy };
+
+enum Diet { vegetarian, vegan, halal, kosher };
+
+
+konstant: AA_SIZE = 14
+konstant: DA_SIZE = 4
+
+typedef vector<RecipeIngredient> IngredientList;
+typedef vector<MiniRecipe> RecipeList;
+typedef array<bool,AA_SIZE> AllergeneArray;
+typedef array<bool,DA_SIZE> DietArray;
