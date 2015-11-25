@@ -71,8 +71,8 @@ class Ingredient
   string name_;
   double price_;
   int kcal_;
-  AllergeneArray allergenes_ { };
-  DietArray diets_ { };
+  AllergeneArray allergenes_ {{}};
+  DietArray diets_ {{}};
 };
 
 #endif

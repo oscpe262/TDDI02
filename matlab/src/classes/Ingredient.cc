@@ -1,42 +1,44 @@
 #include "headers/Ingredient.h"
 #include <string>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
-bool Ingredient::addAllergene(string name)
+bool Ingredient::addAllergene(int i)
 {
-  if( find( allergenes_.begin(), allergenes_.end(), name ) != allergenes_.end() )
-    return false;
-
-  allergenes_.push_back(name);
-  return true;
+  if( allergenes_[i] == false )
+    {
+      allergenes_[i] = true;
+      return true;
+    }
+  return false;
 }
 
-bool Ingredient::removeAllergene(string name)
+bool Ingredient::removeAllergene(int i)
 {
-  if( find( allergenes_.begin(), allergenes_.end(), name ) == allergenes_.end() )
-    return false;
-  
-  allergenes_.erase( remove( allergenes_.begin(), allergenes_.end(), name ), allergenes_.end() );
-  return true;
+  if( allergenes_[i] == true )
+    {
+      allergenes_[i] = false;
+      return true;
+    }
+  return false;
 }
 
-bool Ingredient::addClassing(string name)
+bool Ingredient::addDiet(int i)
 {
-   if( find( classings_.begin(), classings_.end(), name ) != classings_.end() )
-    return false;
-
-  classings_.push_back(name);
-  return true;
+  if( diets_[i] == false )
+    {
+      diets_[i] = true;
+      return true;
+    }
+  return false;
 }
 
-bool Ingredient::removeClassing(string name)
+bool Ingredient::removeDiet(int i)
 {
-  if( find( classings_.begin(), classings_.end(), name ) == classings_.end() )
-    return false;
-  
-  classings_.erase( remove( classings_.begin(), classings_.end(), name ), classings_.end() );
-  return true;
+  if( diets_[i] == true )
+    {
+      diets_[i] = false;
+      return true;
+    }
+  return false;
 }
