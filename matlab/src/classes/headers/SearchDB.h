@@ -17,6 +17,7 @@ class SearchDB : public DB
  SearchDB() : DB(), list_pos_(0) {};
  SearchDB(string name) : DB(name), list_pos_(0) {};
   //Search functions
+  
   RecipeList queryList(bool forward);
   RecipeList queryIngredient(const string& name);
   RecipeList queryIngredientList(IngredientNames ingredients);
@@ -28,6 +29,8 @@ class SearchDB : public DB
   void queryPrice_list();
   void queryCalory_list();
   int getPos() const {return list_pos_;}
+  
+  RecipeList termSearch(const SearchTerm& search_term); 
   
   //Functions for data acess
   //Recipe_List getList();
