@@ -22,25 +22,26 @@ class EditDB : public DB{
  EditDB() : DB() {}
   
   bool addRecipe(const Recipe& recipe);
+  bool updateRecipe(const Recipe& recipe);
   
   bool addIngredient(const Ingredient& ingredient);
   bool updateIngredient(const Ingredient& ingredient);
 
   bool addRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe);
-  bool updateRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe);
+  bool updateRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe); //otestad
   
   bool addComment();
   bool addTool();
   
-  bool removeRecipe(const string& name);
-  bool removeRecipe(const Recipe& name);
+  bool removeRecipe(const string& name); //otestad
+  bool removeRecipe(const Recipe& recipe);
   bool removeIngredient(const string& ingredient);
   bool removeIngredient(const Ingredient& ingredient);
   bool removeTool();
   bool removeComment();
 
   int calculatePrice(const Recipe& recipe);
-   int calculateKcal(const Recipe& recipe);
+  int calculateKcal(const Recipe& recipe);
  private:
   int calculateIngredientPrice(const RecipeIngredient ingredient);
   int calculateIngredientKcal(const RecipeIngredient ingredient);

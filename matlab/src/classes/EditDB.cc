@@ -8,9 +8,9 @@
 using namespace std;
 
 /*
-  add_ingredient() adds a Ingredient object to the DB, if ingredient
-  doesnt exist it adds it and returns true, if ingredient DOES exist
-  the record is updated and return false
+  Add and update recipe add does what the name suggests both return
+  true if a recipe is added or updated and false if its already there
+  respectivly not there
 */
 
 bool EditDB::addRecipe(const Recipe& recipe)
@@ -18,13 +18,19 @@ bool EditDB::addRecipe(const Recipe& recipe)
   QSqlQuery tmp(db_);
   if(checkRecipe(recipe)) return false;
   tmp.finish();
-  tmp.prepare("INSERT INTO Recipe(name,method,score,time) VALUES(:name,:method,:score,:time)");
+  tmp.prepare("INSERT INTO Recipe(name,method,score,time,price,kcal,portions) VALUES(:name,:method,:score,:time,:price,:kcal,:portions)");
   tmp.bindValue(":name", recipe.getName().c_str());
   tmp.bindValue(":method", recipe.getMethod().c_str());
   tmp.bindValue(":score", recipe.getGrade());
   tmp.bindValue(":time", recipe.getMinutesTime());
+  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
+  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
+  tmp.bindValue(":price", calculatePrice(recipe));
+  tmp.bindValue(":kcal", calculateKcal(recipe));
+  tmp.bindValue(":portions", recipe.getPortions());
+  cerr << tmp.lastError().text().toStdString();		
   tmp.exec();
-  tmp.finish();
+  //tmp.finish();
   IngredientList ingredient_list = recipe.getIngredients();
   for(auto i : ingredient_list)
     {
@@ -33,7 +39,44 @@ bool EditDB::addRecipe(const Recipe& recipe)
     } 
   return true;
 }
-  bool EditDB::addIngredient(const Ingredient& ingredient)
+
+bool EditDB::updateRecipe(const Recipe& recipe)
+{
+  QSqlQuery query(db_);
+  if(checkRecipe(recipe)) return false;
+  query.prepare("INSERT INTO recipe(method,score,time,price,kcal,portions), VALUES(:method,:score,:time,:price,:kcal,:portions WHERE name= :name)");
+  query.bindValue(":method", recipe.getMethod().c_str());
+  query.bindValue(":score", recipe.getGrade());
+  query.bindValue(":time", recipe.getMinutesTime());
+  query.bindValue(":price",recipe.getPrice());
+  query.bindValue(":kcal", recipe.getKcal());
+  query.bindValue(":portions",recipe.getPortions());
+  
+  query.finish();
+  query.prepare("DELETE FROM Used_for WHERE recipe_name =:recipe_name");
+  query.bindValue(":recipe_name", recipe.getName().c_str());
+  query.exec();
+  
+  IngredientList ingredient_list = recipe.getIngredients();
+  for(auto i : ingredient_list)
+    {
+      addRecipeIngredient(i, recipe.getName());
+      query.finish();
+    } 
+  return true;
+    
+
+}
+
+
+
+/*
+  add_ingredient() adds a Ingredient object to the DB, if ingredient
+  doesnt exist it adds it and returns true, if ingredient DOES exist
+  the record is updated and return false
+*/
+
+bool EditDB::addIngredient(const Ingredient& ingredient)
 {
   AllergeneArray allergenes = ingredient.getAllergenes();
   QSqlQuery tmp(db_);
@@ -113,6 +156,32 @@ bool EditDB::updateRecipeIngredient(const RecipeIngredient& ingredient,const str
   tmp.exec();
   return true;
 }
+/*
+  removeRecipe() removes a recipe from the DB can be called both using
+  a string and a recipe object
+*/
+bool EditDB::removeRecipe(const string& name)
+{
+  if(checkRecipe(name))
+    {
+      QSqlQuery query(db_);
+      query.prepare("DELETE FROM Recipe WHERE name=:name");
+      query.bindValue(":name",name.c_str());
+      query.exec();
+      query.finish();
+      query.prepare("DELETE FROM Used_for WHERE recipe_name=:name");
+      query.bindValue(":name",name.c_str());
+      query.exec();
+      return true;
+    }
+  return false;
+  
+}
+bool EditDB::removeRecipe(const Recipe& recipe)
+{
+  return removeRecipe(recipe.getName());
+}
+
 
 /*
   remove_ingredient() removes a ingredient from the database and
@@ -135,6 +204,7 @@ bool EditDB::removeIngredient(const Ingredient& ingredient)
 {
   return removeIngredient(ingredient.getName());
 }
+
 /*
   calculatePrice() and calculateKcal() calculates a recipes price and
   kcal per portion in the recipe.
@@ -142,37 +212,49 @@ bool EditDB::removeIngredient(const Ingredient& ingredient)
 int EditDB::calculatePrice(const Recipe& recipe)
 {
   int total_price = 0;
-  QSqlQuery query(db_);
   IngredientList ingredients = recipe.getIngredients();
   for(auto i : ingredients)
     total_price += calculateIngredientPrice(i);
+  cout << endl << recipe.getName() << " total price " << total_price 
+       << " per portion: " << total_price/recipe.getPortions();
+
   return total_price/recipe.getPortions();
 }
+int EditDB::calculateKcal(const Recipe& recipe)
+{
+  int total_kcal = 0;
+  IngredientList ingredients = recipe.getIngredients();
+  for(auto i : ingredients)
+    total_kcal += calculateIngredientKcal(i);
+  return total_kcal/recipe.getPortions();
+}
+
 int EditDB::calculateIngredientPrice(const RecipeIngredient ingredient)
 {
   QSqlQuery query(db_);
-  int price;
-  query.prepare("SELECT price FROM Ingredient WHERE name = :name");
+  double price;
+  query.prepare("SELECT Ingredient.price FROM Ingredient WHERE Ingredient.name = :name");
   query.bindValue(":name",ingredient.getName().c_str());
   query.exec();
   query.next();
-  price = query.value(0).toInt();
+  price = query.value(0).toDouble();
+  cerr << ingredient.getName() << " costs: " << price << endl;
   switch(ingredient.getUnit())
   {
   case gram:
-    return (price/1000)*ingredient.getAmount(); //Price is in kr/kg
+    return static_cast<int>((price/1000)*ingredient.getAmount()); //Price is in kr/kg
     break;					//amount is in gram
   case deciliter:
-    return (price/10)*ingredient.getAmount();  //price is in kr/l amount is in deciliter
+    return static_cast<int>((price/10)*ingredient.getAmount());  //price is in kr/l amount is in deciliter
     break;
   case tablespoon:
-    return ((price/1000)*15)*ingredient.getAmount(); //price in kr/l amount is in n*15ml
+    return static_cast<int>(((price/1000)*15)*ingredient.getAmount()); //price in kr/l amount is in n*15ml
     break;
   case teaspoon:
-    return((price/1000)*5)*ingredient.getAmount();
+    return static_cast<int>(((price/1000)*5)*ingredient.getAmount());
     break;
   case pcs:
-    return price*ingredient.getAmount();
+    return static_cast<int>(price*ingredient.getAmount());
     break;
   default:
     return 0;
@@ -180,9 +262,41 @@ int EditDB::calculateIngredientPrice(const RecipeIngredient ingredient)
   }
 
 }
-int EditDB::calculateKcal(const Recipe& recipe)
+
+int EditDB::calculateIngredientKcal(const RecipeIngredient ingredient)
 {
+  QSqlQuery query(db_);
+  double kcal;
+  query.prepare("SELECT Ingredient.kcal FROM Ingredient WHERE Ingredient.name = :name");
+  query.bindValue(":name",ingredient.getName().c_str());
+  query.exec();
+  query.next();
+  kcal = query.value(0).toDouble();
+  switch(ingredient.getUnit()) //Kcal is allways given in kcal/100g
+    {
+     case gram:
+    return static_cast<int>((kcal/100)*ingredient.getAmount()); 
+    break;					
+  case deciliter:
+    return static_cast<int>(kcal*ingredient.getAmount());  
+    break;
+  case tablespoon:
+    return static_cast<int>(((kcal/100)*15)*ingredient.getAmount()); 
+    break;
+  case teaspoon:
+    return static_cast<int>(((kcal/100)*5)*ingredient.getAmount());
+    break;
+  case pcs:
+    return static_cast<int>(kcal*ingredient.getAmount());
+    break;
+  default:
+    return 0;
+    break; 
+    }
 }
-  
+
+
+
+
 
 

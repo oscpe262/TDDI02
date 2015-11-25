@@ -39,7 +39,7 @@ void DB::createDb()
 { 
   //Creating tables for strong entitys
   
-  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(50),method VARCHAR(200), score float(10), time int(10), price int(10), portions int(10), PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(50),method VARCHAR(200), score float(10), time int(10), price int(10), kcal int(10), portions int(10), PRIMARY KEY(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(30),price INT(10),kcal INT(10),PRIMARY KEY(name))");
   lastQuery(query_);
@@ -75,7 +75,6 @@ void DB::createDb()
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('milk')");
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('lactose')");  
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('soy')");
-
   query_ = db_.exec("INSERT INTO Diet(name) VALUES ('vegetarian')");  
   query_ = db_.exec("INSERT INTO Diet(name) VALUES ('vegan')");
   query_ = db_.exec("INSERT INTO Diet(name) VALUES ('halal')");
@@ -254,9 +253,12 @@ Recipe DB::fetchRecipe(const string & name)
   query.next();
   Recipe recipe(query.value(0).toString().toStdString(),
 		query.value(1).toString().toStdString(),
-		query.value(2).toDouble(),
-		query.value(3).toInt(),
-		fetchIngredientList(name));
+		query.value(2).toInt(),
+		query.value(3).toDouble(),
+		fetchIngredientList(name),
+		query.value(4).toInt(),
+		query.value(5).toInt(),
+		query.value(6).toInt());
   return recipe;
 }
 
