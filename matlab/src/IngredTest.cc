@@ -23,7 +23,6 @@ void IngCreateTest (const Ingredient& foo ) {
 };
 
 void IngCheck (const Ingredient& foo, string name, double price, int kcal, AllergeneArray allergenes, DietArray diets) {
-  //  IngCreateTest(foo);
   if (foo.name_ == name && foo.price_ == price && foo.kcal_ == kcal && foo.allergenes_ == allergenes && foo.diets_ == diets)
     cout << "\033[1;32mCheck OK \033[0m\n" << endl;
   else
@@ -36,6 +35,7 @@ int main() {
 
   std::cout << "Initierar \"Mjöl\"" << endl;
   Ingredient Mjol = {"Mjöl",10,100};
+  IngCreateTest(Mjol);
   IngCheck(Mjol,"Mjöl",10,100,Mjol.allergenes_,Mjol.diets_);
 
   std::cout << "Kopierar " << Mjol.name_ << endl;
@@ -47,6 +47,7 @@ int main() {
   Mjol2.setName("Vetemjöl");
   Mjol2.setPrice(11);
   Mjol2.setKcal(50);
+  IngCreateTest(Mjol2);
   IngCheck(Mjol2,"Vetemjöl",11,50,Mjol.allergenes_,Mjol.diets_);
 
   std::cout << "Lägger till allergen \"vete\" samt diet \"vegan\"." << endl;
@@ -54,6 +55,7 @@ int main() {
   Mjol2.addDiet(1);
   AllergeneArray testArray1 {0,0,0,0,1,0,0,0,0,0,0,0,0,0};
   DietArray testArray2 {0,1,0,0};
+  IngCreateTest(Mjol2);
   IngCheck(Mjol2,"Vetemjöl",11,50,testArray1,testArray2);
 
   std::cout << "Tar bort allergen, försöker lägga till befintlig diet." << endl;
