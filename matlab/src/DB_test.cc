@@ -33,6 +33,7 @@ void query_ingredient_names_test(SearchDB& db);
 void query_price_test(SearchDB& db);
 void query_kcal_test(SearchDB& db);
 bool diet_test(SearchDB& db);
+void term_search_test(SearchDB& db);
 
 
 int main(int argc, char* argv[])
@@ -70,6 +71,7 @@ int main(int argc, char* argv[])
 	    }
 	  cout << "\nImport sucessfull!\n\n";
 	}
+
       else
 	{
 	  cerr << "usage: ./DB_test -F filename.txt \n"
@@ -172,6 +174,9 @@ int main(int argc, char* argv[])
       case 16:
 	diet_test(test_searchDB);
 	break;
+      case 17:
+	term_search_test(test_searchDB);
+	break;
       }
       
     print_menu();
@@ -200,6 +205,7 @@ void print_menu()
        << "14.queryPrice test\n"
        << "15.queryKcal test\n"
        << "16 queryDietlist test\n"
+       << "17 tearm_search test \n"
        << "Choice: ";
 
 }
@@ -539,4 +545,25 @@ bool diet_test(SearchDB& db)
   recipe_list = db.queryDietList(diets);
   print_recipe_list(recipe_list);
   return true;
+}
+void term_search_test(SearchDB& db)
+{
+  SearchTerm st;
+  vector<string> ingredients{"Ägg"};
+  AllergeneArray allergenes{};
+  Price price{5000,0};
+  Cal cal{5000,0};
+  Time time{5000,0};
+  RecipeList search_result;
+  allergenes[Allergene(fruit)] = true;
+  st.setIngredients(ingredients);
+  st.setAllergenes(allergenes);
+  st.setPrice(price);
+  st.setCal(cal);
+  st.setTime(time);
+  
+  search_result = db.termSearch(st);
+  cout << "RESULT: \n";
+  print_recipe_list(search_result);
+  
 }
