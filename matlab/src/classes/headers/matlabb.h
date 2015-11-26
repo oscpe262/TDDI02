@@ -5,6 +5,7 @@
 #include <QToolBar>
 #include <QListWidgetItem>
 
+
 namespace Ui {
 class MatLabb;
 }
@@ -36,13 +37,13 @@ private slots:
 
     void on_ingredientlist_selected_itemPressed(QListWidgetItem *item);
 
-    void on_pushButton_allergens_select_clicked();
+    void on_pushButton_allergenes_select_clicked();
 
-    void on_pushButton_allergens_deselect_clicked();
+    void on_pushButton_allergenes_deselect_clicked();
 
-    void on_allergens_deselected_itemPressed(QListWidgetItem *item);
+    void on_allergenes_deselected_itemPressed(QListWidgetItem *item);
 
-    void on_allergens_selected_itemPressed(QListWidgetItem *item);
+    void on_allergenes_selected_itemPressed(QListWidgetItem *item);
 
     void on_pushButton_diet_select_clicked();
 
@@ -51,6 +52,10 @@ private slots:
     void on_diet_deselected_itemPressed(QListWidgetItem *item);
 
     void on_diet_selected_itemPressed(QListWidgetItem *item);
+
+    void on_rating_spinBox_valueChanged(int arg1);
+
+    void on_searchButton_clicked();
 
 private:
     Ui::MatLabb *ui;
