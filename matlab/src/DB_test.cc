@@ -29,6 +29,11 @@ bool query_not_ingredient_test(SearchDB& db);
 bool query_list_test(SearchDB& db);
 bool allergene_test(SearchDB& db);
 void calculate_price_test(EditDB& db);
+void query_ingredient_names_test(SearchDB& db);
+void query_price_test(SearchDB& db);
+void query_kcal_test(SearchDB& db);
+bool diet_test(SearchDB& db);
+
 
 int main(int argc, char* argv[])
 {
@@ -154,6 +159,19 @@ int main(int argc, char* argv[])
 	break;
       case 12:
 	calculate_price_test(test_editDB);
+	break;
+      case 13:
+	query_ingredient_names_test(test_searchDB);
+	break;
+      case 14:
+	query_price_test(test_searchDB);
+	break;
+      case 15:
+	query_kcal_test(test_searchDB);
+	break;
+      case 16:
+	diet_test(test_searchDB);
+	break;
       }
       
     print_menu();
@@ -178,6 +196,10 @@ void print_menu()
        << "10.queryList\n"
        << "11.allergene_test\n"
        << "12.calculatePrice_test\n"
+       << "13.queryIngredientNames test\n"
+       << "14.queryPrice test\n"
+       << "15.queryKcal test\n"
+       << "16 queryDietlist test\n"
        << "Choice: ";
 
 }
@@ -458,4 +480,63 @@ void calculate_price_test(EditDB& db)
 {
   Recipe recipe = db.fetchRecipe("Hallonkaka");
   cout << "Hallonkaka kostar: " << db.calculatePrice(recipe);
+}
+
+void query_ingredient_names_test(SearchDB& db)
+{
+  IngredientNames ingredient_names = db.queryIngredientNames();
+  
+  for(auto i : ingredient_names)
+    {
+      cout << i << endl;
+    }
+}
+void query_price_test(SearchDB& db)
+{
+  Price price;
+  cout << "Enter upper bound: ";
+  cin >> price.upper_bound;
+  cout << "Enter lower bound: ";
+  cin >> price.lower_bound;
+  RecipeList recipe_list = db.queryPrice(price);
+  print_recipe_list(recipe_list);
+}
+void query_kcal_test(SearchDB& db)
+{
+  Cal kcal;
+  cout << "Enter upper bound: ";
+  cin >> kcal.upper_bound;
+  cout << "Enter lower bound: ";
+  cin >> kcal.lower_bound;
+  RecipeList recipe_list = db.queryKcal(kcal);
+  print_recipe_list(recipe_list);
+}
+bool diet_test(SearchDB& db)
+{
+  int selection = 99;
+  DietArray diets{};
+  RecipeList recipe_list;
+  while(selection != 4)
+    {
+      cout << left << setw(18) << "0.vegetarian: "; 
+      if(diets[0]) cout << "Enabled\n"; 
+      else cout << endl;
+      cout << setw(18) << "1.vegan: "; 
+      if(diets[1]) cout << "Enabled\n";  
+      else cout << endl;
+      cout << setw(18) << "2.Halal: ";
+      if(diets[2]) cout << "Enabled\n";  
+      else cout << endl;
+      cout << setw(18) << "3.kosher : ";
+      if(diets[3]) cout << "Enabled\n"; 
+      else cout << endl;
+      cout << endl << "4.Search\n";
+ 
+      cout <<  "Selection: ";
+      cin  >> selection;
+      diets[selection] = !diets[selection];
+    }
+  recipe_list = db.queryDietList(diets);
+  print_recipe_list(recipe_list);
+  return true;
 }

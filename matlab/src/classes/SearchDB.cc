@@ -21,7 +21,6 @@ RecipeList SearchDB::queryList(bool forward)
     query.bindValue(":offset",--list_pos_*2);
   query.exec();
   return makeRecipeList(query);
-
 }
 
 /*
@@ -94,16 +93,50 @@ RecipeList SearchDB::queryAllergeneList(const AllergeneArray& allergenes)
 	  recipe_list = queryAllergene(Allergene(i));
 	  if(result_list.empty()) //first ingredients RecipeList goes straight into result
 	    result_list = recipe_list;
-	  else //other ingredients results gets intersected with old result
+	  else //other ingredients results gets unioned with old result
 	    result_list = unionize(result_list,recipe_list);
 	}
     }
   return result_list;
 }
 /*
+  queryDiet works exactly as allergenes
+*/
+RecipeList SearchDB::queryDiet(const Diet& diet)
+{
+  QSqlQuery query(db_);
+  RecipeList recipe_list;
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name IN (SELECT Diet_in.ingredient_name FROM Diet_in WHERE Diet_in.diet_name != :diet_name))");
+  query.bindValue(":diet_name",getDietString(diet).c_str());
+  query.exec();
+  cerr << query.lastError().text().toStdString();
+  recipe_list = makeRecipeList(query);
+  return recipe_list;
+}
+RecipeList SearchDB::queryDietList(const DietArray& diets)
+{
+ RecipeList recipe_list{}, result_list{};
+  for(int i = 0; i < 4; ++i)
+    {
+      cout << "varv: " << i << " i loopen" << endl;
+      if(diets[i]) 
+	{
+	  recipe_list = queryDiet(Diet(i));
+	  if(result_list.empty()) //first ingredients RecipeList goes straight into result
+	    result_list = recipe_list;
+	  else //other ingredients results gets unioned with old result
+	    result_list = unionize(result_list,recipe_list);
+	}
+    }
+  return result_list;
+
+}
+
+/*
   queryPrice() accepts a price struct with an upper bound and a lower
   bound and returns all recipes in that interval
 */
+
 RecipeList SearchDB::queryPrice(const Price& price)
 {
   QSqlQuery query(db_);
@@ -135,7 +168,8 @@ RecipeList SearchDB::queryKcal(const Cal& kcal)
 */
 RecipeList SearchDB::termSearch(const SearchTerm& search_term)
 {
-  
+  RecipeList rl;
+  return rl;
 }
 
 
