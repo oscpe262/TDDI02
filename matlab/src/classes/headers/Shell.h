@@ -11,6 +11,8 @@
 
 using namespace std;
 
+string unit2str( const Unit& unitvalue );
+
 class Shell
 {
  public:
@@ -48,4 +50,25 @@ class Shell
   vector<string>      ingredientFullList_;      // IngredientNames 
   double              scaling_;
 };
+
+
+string unit2str( const Unit& unitvalue )
+{
+  switch(unitvalue)
+    {
+    case gram:
+      return "g";
+    case deciliter:
+      return "dl";
+    case teaspoon:
+      return "tsk";
+    case tablespoon:
+      return "msk";
+    case pcs:
+      return "st";
+    default:
+      return "null";
+    }
+}
+
 #endif

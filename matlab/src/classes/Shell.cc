@@ -16,8 +16,11 @@ using namespace std;
 /* extra function declarations */
 
 bool fileExists( const string& name );
-string unit2str( const Unit& unitvalue );
 void readFromFile( istream& is, string& str );
+
+bool findName( const string& fieldstr, string& returnstr );
+bool findPortions( const string& fieldstr, string& returnstr );
+bool findTime( const string& fieldstr, string& returnstr );
 
 
 /*
@@ -43,6 +46,11 @@ void readFromFile( istream& is, string& str );
  *** [extra] ***
  * fileExists
  * unit2str
+ * readFromFile
+ *
+ * findName
+ * findPortions
+ * findTime
  */
 
 
@@ -86,6 +94,8 @@ void Shell::exportTxt( string fileName )
   recipeTxt.close();
 }
 
+
+
 /*Recipe Shell::importTxt( string fileName )
 {
   if( !fileExists(fileName) )
@@ -94,6 +104,7 @@ void Shell::exportTxt( string fileName )
       // Beep boop, "Filen existerar ej"
     }
 
+  // Öppna fil
   ifstream openedFile {fileName};
   if( !openedFile )
     {
@@ -104,6 +115,7 @@ void Shell::exportTxt( string fileName )
   Recipe recipe;
   string fileContents;
 
+  // Läs till sträng fileContents och Stäng fil
   readFromStream(openedFile, fileContents);
   openedFile.close();
 
@@ -115,22 +127,38 @@ void Shell::exportTxt( string fileName )
       fileContents = fileContents.substr(0, filePos) + fileContents.substr(filePosEnd);
     }
 
+  // Namn (, portioner, tid)
   istringstream iss {fileContents};
-  string fileLine;
-  char c;
-
-  while( !isalpha( iss.peek() ) )
+  string fileLine, fileSection;
+  
+  for( int i {} ; i < 5 ; ++i )
     {
-      get(iss, c);
+      getline(iss, fileLine);
+      if( fileLine.find('=') != string::npos )
+	{
+	  break;
+	}
+      fileSection += fileLine;
+      fileSection.push_back('\n');
     }
 
-  getline(iss, fileLine);
+  findName(fileSection, fileLine);
+  recipe.setName(fileLine);
 
-  size_t linePos { fileLine.find('(') };
+  if( findPortions(fileSection, fileLine) )
+    recipe.setPortions( stoi(fileLine) );
 
-  if( linePos != string::npos )
+  if( findTime(fileSection, fileLine) )
+    recipe.setTime( stoi(fileLine) );
 
-    }*/
+  // Ingredienser
+  
+  // first << second << third
+  // first << secondthird
+
+
+
+}*/
 
 
 
@@ -210,24 +238,7 @@ bool fileExists( const string& name )
     }
 }
 
-string unit2str( const Unit& unitvalue )
-{
-  switch(unitvalue)
-    {
-    case gram:
-      return "g";
-    case deciliter:
-      return "dl";
-    case teaspoon:
-      return "tsk";
-    case tablespoon:
-      return "msk";
-    case pcs:
-      return "st";
-    default:
-      return "null";
-    }
-}
+
 
 void readFromStream( istream& is, string& str )
 {
@@ -238,3 +249,96 @@ void readFromStream( istream& is, string& str )
       str.push_back('\n');
     }
 }
+
+
+
+bool findName( const string& fieldstr, string& returnstr )
+{
+  istringstream iss {fieldstr};
+  char c;
+
+  while( !isalpha( iss.peek() ) )
+    {
+      iss.get(c);
+    }
+
+  getline(iss, returnstr);
+  size_t junkCheck { returnstr.find('(') };
+
+  if( junkCheck != string::npos )
+    returnstr = returnstr.substr(0, junkCheck-1);
+
+  return true;
+}
+
+
+
+bool findPortions( const string& fieldstr, string& returnstr )
+{
+  istringstream iss {fieldstr};
+  string portionCheck;
+  char c {'n'};
+  
+  returnstr.clear();
+  
+  while( iss )
+    {
+      while( !isdigit(c) )
+	{
+	  iss.get(c);
+	}
+      
+      while( isdigit(c) )
+	{
+	  returnstr += c;
+	  iss.get(c);
+	}
+      
+      iss >> portionCheck;
+
+      if( !isspace(c) )
+	portionCheck = c + portionCheck;
+      
+      if( portionCheck.find("portion") != string::npos )
+	return true;
+    }
+  return false;
+}
+
+
+bool findTime( const string& fieldstr, string& returnstr )
+{
+  istringstream iss {fieldstr};
+  string minCheck;
+  char c {'n'};
+  
+  returnstr.clear();
+  
+  while( iss )
+    {
+      while( !isdigit(c) )
+	{
+	  iss.get(c);
+	}
+      
+      while( isdigit(c) )
+	{
+	  returnstr += c;
+	  iss.get(c);
+	}
+
+      iss >> minCheck;
+
+      if( !isspace(c) )
+	minCheck = c + minCheck;
+      
+      if( minCheck.find("min") != string::npos )
+	return true;
+    }
+  return false;
+
+}
+
+
+
+
