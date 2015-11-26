@@ -2,6 +2,9 @@
 #include "classes/headers/Recipe.h"
 #include "classes/headers/Ingredient.h"
 #include "classes/headers/RecipeIngredient.h"
+#include "classes/headers/DB.h"
+#include "classes/headers/EditDB.h"
+#include "classes/headers/SearchDB.h"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -11,6 +14,8 @@ using namespace std;
 /* extra function declarations */
 
 bool fileExists( const string& name );
+string unit2str( const Unit& unitvalue );
+/*void readFromFile( istream& is, string&*/
 
 
 /*
@@ -19,12 +24,14 @@ bool fileExists( const string& name );
  * *exportXml
  * *importXml
  * *setScaling
+ *
  *** [SDB] ***
  * exactMatch
  * getRecipeResults
  * getIngredientList
  * *openRecipe
  * *openIngredient
+ *
  *** [EDB] ***
  * addRecipe
  * removeReciope
@@ -33,13 +40,17 @@ bool fileExists( const string& name );
  *
  *** [extra] ***
  * fileExists
+ * unit2str
  */
 
 
 void Shell::exportTxt( string fileName )
 {
   if( fileName == "null" )
-    fileName = currentRecipe_.getName() + ".txt"; // fixa så att .txt-ändelsen är garanterad!!!
+    fileName = currentRecipe_.getName();
+
+  if( fileName.substr(fileName.length()-5, string::npos) != ".txt" )
+    fileName += ".txt";
 
   if( fileExists(fileName) ) 
     {
@@ -53,14 +64,14 @@ void Shell::exportTxt( string fileName )
       recipeTxt.close();
       // kasta undantag!!!
     }
-      
-  recipeTxt << "# " << currentRecipe_.getName() << "\n"
+  // lägg till kommentar med filnamn?
+  recipeTxt << "# " << currentRecipe_.getName() << " (" << currentRecipe_.getPortions() << " portioner)\n"
 	    << "Tillagningstid: c:a " << currentRecipe_.getMinutesTime() << " min\n"
 	    << "============\n"; // godtyckligt antal?
 
     for( RecipeIngredient& ri : currentRecipe_.getIngredients() )
       {
-	recipeTxt << ri.getName() << " " << ri.getAmount() << " " << ri.getUnit() << "\n\n"; // convertToString( ri.getUnit() )?
+	recipeTxt << ri.getName() << " " << ri.getAmount() << " " << unit2str( ri.getUnit() ) << "\n\n";
       }
 
   recipeTxt << currentRecipe_.getMethod() << "\n\n";
@@ -72,6 +83,33 @@ void Shell::exportTxt( string fileName )
 
   recipeTxt.close();
 }
+
+		   /*Recipe Shell::importTxt( string fileName )
+{
+  if( !fileExists(fileName) )
+    {
+      // kasta undantag!!
+      // Beep boop, "Filen existerar ej"
+    }
+
+  ifstream openedFile {fileName};
+  if( !recipeTxt )
+    {
+      recipeTxt.close();
+      // kasta undantag
+    }
+
+  Recipe recipe;
+  string fileContents;
+
+  readFromFile(openedFile, fileContents);
+
+  recipeTxt
+
+
+}*/
+
+
 
 /*************
  *** [SDB] ***
@@ -95,6 +133,8 @@ vector<string> Shell::getIngredientNames()
   ingredientFullList_ = sDB_.queryIngredientNames(); // Ersätt ingredienslistsökning med verkliga namnet!!!
   return ingredientFullList_;
 }
+
+
 
 /*************
  *** [EDB] ***
@@ -120,13 +160,15 @@ bool Shell::removeIngredient( const Ingredient& ingredient )
   return eDB_.removeIngredient(ingredient);
 }
 
+
+
 /***************
  *** [extra] ***
  **************/
 
 bool fileExists( const string& name )
 {
-  ifstream filetest {name}; // lägg till test för att filen inte redan existerar!!!
+  ifstream filetest {name};
   if( filetest.good() )
     {
       filetest.close();
@@ -136,5 +178,24 @@ bool fileExists( const string& name )
     {
       filetest.close();
       return false;
+    }
+}
+
+string unit2str( const Unit& unitvalue )
+{
+  switch(unitvalue)
+    {
+    case gram:
+      return "g";
+    case deciliter:
+      return "dl";
+    case teaspoon:
+      return "tsk";
+    case tablespoon:
+      return "msk";
+    case pcs:
+      return "st";
+    default:
+      return "null";
     }
 }

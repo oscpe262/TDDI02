@@ -15,8 +15,8 @@ class Shell
 {
  public:
 
-  void                exportTxt( string filename = "null" );
-  void                importTxt( string );
+  void                exportTxt( string fileName = "null" );
+  void                importTxt( string fileName = "null" );
   void                exportXml( string );
   void                importXml( string );
 
