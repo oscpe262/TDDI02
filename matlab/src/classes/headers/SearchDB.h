@@ -14,8 +14,8 @@ using namespace QSql;
 class SearchDB : public DB
 {
  public:
- SearchDB() : DB(), list_pos_(0) {};
- SearchDB(string name) : DB(name), list_pos_(0) {};
+ SearchDB() : DB("search"), list_pos_(0) {};
+ SearchDB(string name) : DB(), list_pos_(0) {};
   //Search functions
   
   RecipeList queryList(bool forward);
@@ -24,10 +24,14 @@ class SearchDB : public DB
   RecipeList queryNotIngredientList(IngredientNames ingredients);
   RecipeList queryAllergene(const Allergene& allergene);
   RecipeList queryAllergeneList(const AllergeneArray& allergenes);
+  RecipeList queryDiet(const Diet& diet);
+  RecipeList queryDietList(const DietArray& diets);
   RecipeList queryPrice(const Price& price);
   RecipeList queryKcal(const Cal& kcal); 
+  RecipeList termSearch(const SearchTerm& search_term);
 
-  IngredientNames queryIngredientNames(); //otestad
+
+  IngredientNames queryIngredientNames();
   
 
   void queryIngredient_list_explicit();
@@ -36,7 +40,7 @@ class SearchDB : public DB
   void queryCalory_list();
   int getPos() const {return list_pos_;}
   
-  RecipeList termSearch(const SearchTerm& search_term);
+  
 
  private:
   int          list_pos_;

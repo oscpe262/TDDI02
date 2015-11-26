@@ -19,7 +19,7 @@
 
 class EditDB : public DB{
  public:
- EditDB() : DB() {}
+ EditDB() : DB("edit") {}
   
   bool addRecipe(const Recipe& recipe);
   bool updateRecipe(const Recipe& recipe);
