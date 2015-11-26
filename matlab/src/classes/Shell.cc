@@ -2,11 +2,26 @@
 #include "classes/headers/Recipe.h"
 #include "classes/headers/Ingredient.h"
 #include "classes/headers/RecipeIngredient.h"
+#include "classes/headers/DB.h"
+#include "classes/headers/EditDB.h"
+#include "classes/headers/SearchDB.h"
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sstream>
+#include <cctype>
 
 using namespace std;
+
+/* extra function declarations */
+
+bool fileExists( const string& name );
+void readFromFile( istream& is, string& str );
+
+bool findName( const string& fieldstr, string& returnstr );
+bool findPortions( const string& fieldstr, string& returnstr );
+bool findTime( const string& fieldstr, string& returnstr );
+
 
 /*
  * exportTxt
@@ -14,26 +29,44 @@ using namespace std;
  * *exportXml
  * *importXml
  * *setScaling
+ *
  *** [SDB] ***
  * exactMatch
  * getRecipeResults
  * getIngredientList
- * *openRecipe
+ * openRecipe
  * *openIngredient
+ *
  *** [EDB] ***
- * *addRecipe
- * *removeReciope
- * *addIngredient
- * *removeIngredient
+ * addRecipe
+ * removeReciope
+ * addIngredient
+ * removeIngredient
+ *
+ *** [extra] ***
+ * fileExists
+ * unit2str
+ * readFromFile
+ *
+ * findName
+ * findPortions
+ * findTime
  */
 
 
-void Shell::exportTxt( string& fileName = "null" )
+void Shell::exportTxt( string fileName )
 {
   if( fileName == "null" )
-    fileName = currentRecipe_.getName() + ".txt"; // fixa så att .txt-ändelsen är garanterad!!!
+    fileName = currentRecipe_.getName();
 
-  // lägg till test för att filen inte redan existerar!!!
+  if( fileName.substr(fileName.length()-5, string::npos) != ".txt" )
+    fileName += ".txt";
+
+  if( fileExists(fileName) ) 
+    {
+      // kasta undantag!!
+      // Beep boop, "Fil med samma namn existerar redan!"
+    }
 
   ofstream recipeTxt {fileName};
   if( !recipeTxt )
@@ -41,49 +74,271 @@ void Shell::exportTxt( string& fileName = "null" )
       recipeTxt.close();
       // kasta undantag!!!
     }
-      
-  recipeTxt << "# " << currentRecipe_.getName() << "\n"
+  // lägg till kommentar med filnamn?
+  recipeTxt << "# " << currentRecipe_.getName() << " (" << currentRecipe_.getPortions() << " portioner)\n"
 	    << "Tillagningstid: c:a " << currentRecipe_.getMinutesTime() << " min\n"
-	    << "============\n" // godtyckligt antal?
+	    << "============\n"; // godtyckligt antal?
 
     for( RecipeIngredient& ri : currentRecipe_.getIngredients() )
       {
-	recipeTxt << ri.getName() << " " << ri.getAmount() << " " << ri.getUnit() << "\n\n"; // convertToString( ri.getUnit() )?
+	recipeTxt << ri.getName() << " " << ri.getAmount() << " " << unit2str( ri.getUnit() ) << "\n\n";
       }
 
   recipeTxt << currentRecipe_.getMethod() << "\n\n";
 
-  recipeTxt << "Uppskattat energiinnehåll: " << currentRecipe_.calcKcal(scaling_) << " kcal\n"
-	    << "Uppskattat pris: " << currentRecipe_.calcPrice(scaling_) << " kr\n"
+  recipeTxt << "Uppskattat energiinnehåll: " << currentRecipe_.getKcal() << " kcal\n"
+	    << "Uppskattat pris: " << currentRecipe_.getPrice() << " kr\n"
 	    << "Betyg: " << currentRecipe_.getGrade() << "/5\n"
 	    << "<!-- EOF -->";
 
   recipeTxt.close();
 }
 
+
+
+/*Recipe Shell::importTxt( string fileName )
+{
+  if( !fileExists(fileName) )
+    {
+      // kasta undantag!!
+      // Beep boop, "Filen existerar ej"
+    }
+
+  // Öppna fil
+  ifstream openedFile {fileName};
+  if( !openedFile )
+    {
+      openedFile.close();
+      // kasta undantag
+    }
+
+  Recipe recipe;
+  string fileContents;
+
+  // Läs till sträng fileContents och Stäng fil
+  readFromStream(openedFile, fileContents);
+  openedFile.close();
+
+  // Rensa bort kommentarer: <!-- kommentar -->
+  while( fileContents.find("<!--") != string::npos )
+    {
+      size_t filePos { fileContents.find("<!--") };
+      size_t filePosEnd { fileContents.find("-->") };
+      fileContents = fileContents.substr(0, filePos) + fileContents.substr(filePosEnd);
+    }
+
+  // Namn (, portioner, tid)
+  istringstream iss {fileContents};
+  string fileLine, fileSection;
+  
+  for( int i {} ; i < 5 ; ++i )
+    {
+      getline(iss, fileLine);
+      if( fileLine.find('=') != string::npos )
+	{
+	  break;
+	}
+      fileSection += fileLine;
+      fileSection.push_back('\n');
+    }
+
+  findName(fileSection, fileLine);
+  recipe.setName(fileLine);
+
+  if( findPortions(fileSection, fileLine) )
+    recipe.setPortions( stoi(fileLine) );
+
+  if( findTime(fileSection, fileLine) )
+    recipe.setTime( stoi(fileLine) );
+
+  // Ingredienser
+  
+  // first << second << third
+  // first << secondthird
+
+
+
+}*/
+
+
+
 /*************
  *** [SDB] ***
  ************/
 
-vector<MiniRecipe>& Shell::exactMatch( const string& name )
+vector<MiniRecipe> Shell::exactMatch( const string& name )
 {
-  currentRecipe_ = sDB_.receptmatchning(name);
+  currentRecipe_ = sDB_.fetchRecipe(name);
   vector<MiniRecipe> vmr { MiniRecipe( currentRecipe_.getName(), currentRecipe_.getMinutesTime(), currentRecipe_.getGrade() ) };
   return vmr;
 }
 
 vector<MiniRecipe> Shell::getRecipeResults( SearchTerm& searchTerms )
 {
-  recipeSearchResults_ = sDB_.receptsökning(searchTerms); // Ersätt receptsökning med verkliga namnet!!!
+  recipeSearchResults_ = sDB_.termSearch(searchTerms); 
   return recipeSearchResults_;
 } 
 
-vector<string> Shell::getIngredientList()
+vector<string> Shell::getIngredientNames()
 {
-  ingredientFullList = sDB_.ingredienslistsökning(); // Ersätt ingredienslistsökning med verkliga namnet!!!
-      return ingredientFullList_;
+  ingredientFullList_ = sDB_.queryIngredientNames();
+  return ingredientFullList_;
 }
+
+Recipe Shell::openRecipe( const string& name )
+{
+  currentRecipe_ = sDB_.fetchRecipe(name);
+  return currentRecipe_;
+}
+
+
 
 /*************
  *** [EDB] ***
  ************/
+
+bool Shell::addRecipe( const Recipe& recipe )
+{
+  return eDB_.addRecipe(recipe); // Rätt funktion?
+}
+
+bool Shell::removeRecipe( const Recipe& recipe )
+{
+  return eDB_.removeRecipe(recipe); // Rätt funktion?
+}
+
+bool Shell::addIngredient( const Ingredient& ingredient )
+{
+  return eDB_.addIngredient(ingredient); // Rätt funktion?
+}
+
+bool Shell::removeIngredient( const Ingredient& ingredient )
+{
+  return eDB_.removeIngredient(ingredient);
+}
+
+
+
+/***************
+ *** [extra] ***
+ **************/
+
+bool fileExists( const string& name )
+{
+  ifstream filetest {name};
+  if( filetest.good() )
+    {
+      filetest.close();
+      return true;
+    }
+  else
+    {
+      filetest.close();
+      return false;
+    }
+}
+
+
+
+void readFromStream( istream& is, string& str )
+{
+  string temp;
+  while( getline(is, temp) )
+    {
+      str += temp;
+      str.push_back('\n');
+    }
+}
+
+
+
+bool findName( const string& fieldstr, string& returnstr )
+{
+  istringstream iss {fieldstr};
+  char c;
+
+  while( !isalpha( iss.peek() ) )
+    {
+      iss.get(c);
+    }
+
+  getline(iss, returnstr);
+  size_t junkCheck { returnstr.find('(') };
+
+  if( junkCheck != string::npos )
+    returnstr = returnstr.substr(0, junkCheck-1);
+
+  return true;
+}
+
+
+
+bool findPortions( const string& fieldstr, string& returnstr )
+{
+  istringstream iss {fieldstr};
+  string portionCheck;
+  char c {'n'};
+  
+  returnstr.clear();
+  
+  while( iss )
+    {
+      while( !isdigit(c) )
+	{
+	  iss.get(c);
+	}
+      
+      while( isdigit(c) )
+	{
+	  returnstr += c;
+	  iss.get(c);
+	}
+      
+      iss >> portionCheck;
+
+      if( !isspace(c) )
+	portionCheck = c + portionCheck;
+      
+      if( portionCheck.find("portion") != string::npos )
+	return true;
+    }
+  return false;
+}
+
+
+bool findTime( const string& fieldstr, string& returnstr )
+{
+  istringstream iss {fieldstr};
+  string minCheck;
+  char c {'n'};
+  
+  returnstr.clear();
+  
+  while( iss )
+    {
+      while( !isdigit(c) )
+	{
+	  iss.get(c);
+	}
+      
+      while( isdigit(c) )
+	{
+	  returnstr += c;
+	  iss.get(c);
+	}
+
+      iss >> minCheck;
+
+      if( !isspace(c) )
+	minCheck = c + minCheck;
+      
+      if( minCheck.find("min") != string::npos )
+	return true;
+    }
+  return false;
+
+}
+
+
+
+

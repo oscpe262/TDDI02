@@ -33,9 +33,15 @@ class Recipe
    : name_{}, method_{"Empty"}, minutesTime_{}
   {}
   
- Recipe( const string& name, const string& method, const int& minutes, 
-	 const double& grade, const IngredientList& ingredients, const int& portions = 4, const int& price = 0)
-   : name_{name}, method_{method}, minutesTime_{minutes}, grade_{grade}, ingredients_{ingredients},price_{price}, portions_{portions}
+ Recipe( const string& name,
+	 const string& method,
+	 const int& minutes, 
+	 const double& grade,
+	 const IngredientList& ingredients,
+	 const int& price = 0,
+	 const int& kcal = 0,
+	 const int& portions = 4 )
+   : name_{name}, method_{method}, minutesTime_{minutes}, grade_{grade}, ingredients_{ingredients}, price_{price}, kcal_{kcal}, portions_{portions}
   {}
   
   Recipe( const Recipe& ) = default;
@@ -48,7 +54,7 @@ class Recipe
 
   //Operatorer
 
-
+  Recipe& operator=(const Recipe&) = default;
 
 
 
@@ -67,6 +73,7 @@ class Recipe
   int getMinutesTime() const {return minutesTime_;}
   double getGrade() const {return grade_;}
   int getPrice() const {return price_;}
+  int getKcal() const {return kcal_;}
   int getPortions() const {return portions_;}
 
   IngredientList getIngredients() const {return ingredients_;}
@@ -85,12 +92,14 @@ class Recipe
   string name_;
   string method_;
   int minutesTime_;
-  double grade_; 
+  double grade_;
+  IngredientList ingredients_;
   int price_;    //Som vi pratade om så lägger vi till denna infon i recipe och sparar i databasen
+  int kcal_;
   int portions_; //Priset kommer att beräknas då receptet läggs in mha addRecipe i EditDB så det
   
   vector<string> comments_;
-  IngredientList ingredients_;
+ 
 
  // vector<RelatedRecipe> relatedRecipes_;
   // something something image_;

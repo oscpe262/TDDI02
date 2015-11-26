@@ -2,7 +2,7 @@ ingredient: Ägg
 price: 5 
 kcal: 500
 allergenes: 10
-diets: 1
+diets: 0
 %end
 ingredient: Smör
 price: 50 
