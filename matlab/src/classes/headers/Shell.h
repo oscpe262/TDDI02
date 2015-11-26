@@ -16,7 +16,7 @@ class Shell
  public:
 
   void                exportTxt( string fileName = "null" );
-  void                importTxt( string fileName = "null" );
+  Recipe              importTxt( string fileName = "null" );
   void                exportXml( string );
   void                importXml( string );
 
@@ -28,7 +28,7 @@ class Shell
   vector<MiniRecipe>  exactMatch( const string& ); //
   vector<MiniRecipe>  getRecipeResults( SearchTerm& ); // returnera konstreferens? RecipeList
   vector<string>      getIngredientNames(); // returnera konstreferens? IngredientNames
-  Recipe              openRecipe( const MiniRecipe& ); // eller sträng?
+  Recipe              openRecipe( const string& ); // eller sträng?
   Ingredient          openIngredient( const string& );
 
   // EditDB-funktioner

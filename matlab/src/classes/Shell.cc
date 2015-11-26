@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sstream>
+#include <cctype>
 
 using namespace std;
 
@@ -15,7 +17,7 @@ using namespace std;
 
 bool fileExists( const string& name );
 string unit2str( const Unit& unitvalue );
-/*void readFromFile( istream& is, string&*/
+void readFromFile( istream& is, string& str );
 
 
 /*
@@ -29,7 +31,7 @@ string unit2str( const Unit& unitvalue );
  * exactMatch
  * getRecipeResults
  * getIngredientList
- * *openRecipe
+ * openRecipe
  * *openIngredient
  *
  *** [EDB] ***
@@ -84,7 +86,7 @@ void Shell::exportTxt( string fileName )
   recipeTxt.close();
 }
 
-		   /*Recipe Shell::importTxt( string fileName )
+/*Recipe Shell::importTxt( string fileName )
 {
   if( !fileExists(fileName) )
     {
@@ -93,21 +95,42 @@ void Shell::exportTxt( string fileName )
     }
 
   ifstream openedFile {fileName};
-  if( !recipeTxt )
+  if( !openedFile )
     {
-      recipeTxt.close();
+      openedFile.close();
       // kasta undantag
     }
 
   Recipe recipe;
   string fileContents;
 
-  readFromFile(openedFile, fileContents);
+  readFromStream(openedFile, fileContents);
+  openedFile.close();
 
-  recipeTxt
+  // Rensa bort kommentarer: <!-- kommentar -->
+  while( fileContents.find("<!--") != string::npos )
+    {
+      size_t filePos { fileContents.find("<!--") };
+      size_t filePosEnd { fileContents.find("-->") };
+      fileContents = fileContents.substr(0, filePos) + fileContents.substr(filePosEnd);
+    }
 
+  istringstream iss {fileContents};
+  string fileLine;
+  char c;
 
-}*/
+  while( !isalpha( iss.peek() ) )
+    {
+      get(iss, c);
+    }
+
+  getline(iss, fileLine);
+
+  size_t linePos { fileLine.find('(') };
+
+  if( linePos != string::npos )
+
+    }*/
 
 
 
@@ -117,7 +140,7 @@ void Shell::exportTxt( string fileName )
 
 vector<MiniRecipe> Shell::exactMatch( const string& name )
 {
-  currentRecipe_ = sDB_.fetchRecipe(name); // Ersätt funktionsnamn!!!
+  currentRecipe_ = sDB_.fetchRecipe(name);
   vector<MiniRecipe> vmr { MiniRecipe( currentRecipe_.getName(), currentRecipe_.getMinutesTime(), currentRecipe_.getGrade() ) };
   return vmr;
 }
@@ -130,8 +153,14 @@ vector<MiniRecipe> Shell::getRecipeResults( SearchTerm& searchTerms )
 
 vector<string> Shell::getIngredientNames()
 {
-  ingredientFullList_ = sDB_.queryIngredientNames(); // Ersätt ingredienslistsökning med verkliga namnet!!!
+  ingredientFullList_ = sDB_.queryIngredientNames();
   return ingredientFullList_;
+}
+
+Recipe Shell::openRecipe( const string& name )
+{
+  currentRecipe_ = sDB_.fetchRecipe(name);
+  return currentRecipe_;
 }
 
 
@@ -197,5 +226,15 @@ string unit2str( const Unit& unitvalue )
       return "st";
     default:
       return "null";
+    }
+}
+
+void readFromStream( istream& is, string& str )
+{
+  string temp;
+  while( getline(is, temp) )
+    {
+      str += temp;
+      str.push_back('\n');
     }
 }
