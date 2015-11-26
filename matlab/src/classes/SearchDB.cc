@@ -106,7 +106,7 @@ RecipeList SearchDB::queryDiet(const Diet& diet)
 {
   QSqlQuery query(db_);
   RecipeList recipe_list;
-  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name IN (SELECT Diet_in.ingredient_name FROM Diet_in WHERE Diet_in.diet_name != :diet_name))");
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name NOT IN (SELECT Diet_in.ingredient_name FROM Diet_in WHERE Diet_in.diet_name = :diet_name))");
   query.bindValue(":diet_name",getDietString(diet).c_str());
   query.exec();
   cerr << query.lastError().text().toStdString();
@@ -161,6 +161,17 @@ RecipeList SearchDB::queryKcal(const Cal& kcal)
   cerr << query.lastError().text().toStdString();
   return makeRecipeList(query);
 } 
+RecipeList SearchDB::queryTime(const Time& time)
+{
+  QSqlQuery query(db_);
+  query.prepare("Select Recipe.name,Recipe.score,Recipe.time FROM Recipe WHERE (Recipe.time <= :upper AND Recipe.time >= :lower)");
+  query.bindValue(":upper",time.upper_bound);
+  query.bindValue(":lower",time.lower_bound);
+  query.exec();
+  cerr << query.lastError().text().toStdString();
+  return makeRecipeList(query);
+} 
+
 /*
   termSearch() The big baus, uses all the functions above to generate
   a multisearch using the data members from the provided SearchTerm
@@ -168,11 +179,16 @@ RecipeList SearchDB::queryKcal(const Cal& kcal)
 */
 RecipeList SearchDB::termSearch(const SearchTerm& search_term)
 {
-  RecipeList rl;
-  return rl;
+  RecipeList result;
+  result = queryIngredientList(search_term.getIngredients());
+  result = intersect(queryAllergeneList(search_term.getAllergenes()),result);
+  result = intersect(queryPrice(search_term.getPrice()),result);
+  result = intersect(queryKcal(search_term.getCal()),result);
+  result = intersect(queryPrice(search_term.getPrice()),result);
+  result = intersect(queryTime(search_term.getTime()),result);
+  return result;
+
 }
-
-
 
 /*
   queryIngredientName returns a vector containing all the ingredients

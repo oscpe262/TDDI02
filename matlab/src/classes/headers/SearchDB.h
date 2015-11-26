@@ -28,6 +28,7 @@ class SearchDB : public DB
   RecipeList queryDietList(const DietArray& diets);
   RecipeList queryPrice(const Price& price);
   RecipeList queryKcal(const Cal& kcal); 
+  RecipeList queryTime(const Time& time);
   RecipeList termSearch(const SearchTerm& search_term);
 
 
