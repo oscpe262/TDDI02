@@ -44,7 +44,7 @@ class SearchDB : public DB
   
 
  private:
-  int          list_pos_;
+  int        list_pos_;
   SearchTerm search_term_;
   RecipeList intersect(RecipeList l1, RecipeList l2);
   RecipeList complement(RecipeList l1, RecipeList l2);

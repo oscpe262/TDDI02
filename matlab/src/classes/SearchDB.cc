@@ -99,9 +99,11 @@ RecipeList SearchDB::queryAllergeneList(const AllergeneArray& allergenes)
     }
   return result_list;
 }
+
 /*
   queryDiet works exactly as allergenes
 */
+
 RecipeList SearchDB::queryDiet(const Diet& diet)
 {
   QSqlQuery query(db_);
@@ -129,7 +131,6 @@ RecipeList SearchDB::queryDietList(const DietArray& diets)
 	}
     }
   return result_list;
-
 }
 
 /*
@@ -181,11 +182,11 @@ RecipeList SearchDB::termSearch(const SearchTerm& search_term)
 {
   RecipeList result;
   result = queryIngredientList(search_term.getIngredients());
-  result = intersect(queryAllergeneList(search_term.getAllergenes()),result);
-  result = intersect(queryPrice(search_term.getPrice()),result);
-  result = intersect(queryKcal(search_term.getCal()),result);
-  result = intersect(queryPrice(search_term.getPrice()),result);
-  result = intersect(queryTime(search_term.getTime()),result);
+  result = complement(result, queryAllergeneList(search_term.getAllergenes()));
+  result = complement(result,queryPrice(search_term.getPrice()));
+  result = complement(result,queryKcal(search_term.getCal()));
+  result = complement(result, queryPrice(search_term.getPrice()));
+  result = complement(result,queryTime(search_term.getTime()));
   return result;
 
 }
@@ -260,8 +261,8 @@ RecipeList SearchDB::makeRecipeList(QSqlQuery& query)
   while(query.next()) //Push back all recipies containing current ingreient
     {
       recipe_list.push_back(MiniRecipe(query.value(0).toString().toStdString(),
-				       query.value(1).toInt(),
-				       query.value(2).toDouble()));
+				       query.value(2).toDouble(),
+				       query.value(1).toInt()));
     }
   query.clear();
   return recipe_list;
