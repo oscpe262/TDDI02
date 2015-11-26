@@ -24,7 +24,11 @@ class SearchDB : public DB
   RecipeList queryNotIngredientList(IngredientNames ingredients);
   RecipeList queryAllergene(const Allergene& allergene);
   RecipeList queryAllergeneList(const AllergeneArray& allergenes);
-  vector<string> queryIngredientNames();
+  RecipeList queryPrice(const Price& price);
+  RecipeList queryKcal(const Cal& kcal); 
+
+  IngredientNames queryIngredientNames(); //otestad
+  
 
   void queryIngredient_list_explicit();
   void queryAllergy_list();
@@ -32,17 +36,7 @@ class SearchDB : public DB
   void queryCalory_list();
   int getPos() const {return list_pos_;}
   
-  RecipeList termSearch(const SearchTerm& search_term); 
-  
-  //Functions for data acess
-  //Recipe_List getList();
-  //Recipe_List getRecipe();
-  //Recipe_List getRecipeIngredient();
-  
-  //Functions for merging recipie lists
-  //Recipe_List make_union();
-  //Recipe_List intersect();
-  //Recipe_List complement();
+  RecipeList termSearch(const SearchTerm& search_term);
 
  private:
   int          list_pos_;
@@ -51,9 +45,7 @@ class SearchDB : public DB
   RecipeList complement(RecipeList l1, RecipeList l2);
   RecipeList unionize(RecipeList l1, RecipeList l2);
   RecipeList makeRecipeList(QSqlQuery& query);
-  //Recipe_List make_union();
-  //Recipe_List intersect();
-  //Recipe_List complement();
+
 
 };
 #endif

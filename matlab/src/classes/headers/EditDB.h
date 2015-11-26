@@ -25,7 +25,7 @@ class EditDB : public DB{
   bool updateRecipe(const Recipe& recipe);
   
   bool addIngredient(const Ingredient& ingredient);
-  bool updateIngredient(const Ingredient& ingredient);
+  bool updateIngredient(const Ingredient& ingredient); //lägg till stöd för allergener och dieter!
 
   bool addRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe);
   bool updateRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe); //otestad

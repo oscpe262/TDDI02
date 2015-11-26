@@ -316,3 +316,21 @@ string DB::getAllergeneString(Allergene allergene)
     }
 
 }
+string DB::getDietString(Diet allergene)
+{
+  switch((int)allergene)
+    {
+    case 0:
+      return "vegetarian";
+      break;
+    case 1:
+      return "vegan";
+      break;
+    case 2:
+      return "halal";
+      break;
+    case 3:
+      return "kosher";
+      break;
+    }
+}

@@ -79,6 +79,7 @@ bool EditDB::updateRecipe(const Recipe& recipe)
 bool EditDB::addIngredient(const Ingredient& ingredient)
 {
   AllergeneArray allergenes = ingredient.getAllergenes();
+  DietArray diets = ingredient.getDiets();
   QSqlQuery tmp(db_);
   if(checkIngredient(ingredient)) return false;
   tmp.finish();
@@ -97,12 +98,27 @@ bool EditDB::addIngredient(const Ingredient& ingredient)
 	  cerr << "GetAllergene: " << getAllergeneString(Allergene(i));
 	  tmp.bindValue(":allergene_name",getAllergeneString(Allergene(i)).c_str());
 	  tmp.exec();
-
 	  cerr << tmp.lastError().text().toStdString();
 	  tmp.clear();
 	}
     }
-  return true;
+  
+  for(int i=0; i < 4; ++i)
+    {
+        if (diets[i])
+  	{
+  	  tmp.prepare("INSERT INTO Diet_in(ingredient_name, diet_name) VALUES(:ingredient_name,:diet_name)");
+  	  tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
+  	  tmp.bindValue(":diet_name",getDietString(Diet(i)).c_str());
+  	  tmp.exec();
+	  cout << endl << "DIET!\n";
+	  lastQuery(tmp);
+	  cout << endl;
+  	  cerr << tmp.lastError().text().toStdString();
+  	  tmp.clear();
+	}
+    }
+	return true;
    
 }
  

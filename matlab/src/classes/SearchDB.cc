@@ -6,7 +6,7 @@ using namespace std;
 
 /*
   queryList() queries the 10 recipes next using the pos_ variable to
-  decide which 10
+  decide which 10 
 */ 
 
 RecipeList SearchDB::queryList(bool forward)
@@ -14,7 +14,9 @@ RecipeList SearchDB::queryList(bool forward)
   QSqlQuery query(db_);
   query.prepare("SELECT name, score, time FROM Recipe LIMIT 2 OFFSET :offset" );  
   if(forward)
-    query.bindValue(":offset",++list_pos_*2);
+    query.bindValue(":offset",++list_pos_*2); // this 2 should be 10
+					      // when we have more
+					      // test data
   else
     query.bindValue(":offset",--list_pos_*2);
   query.exec();
@@ -98,14 +100,67 @@ RecipeList SearchDB::queryAllergeneList(const AllergeneArray& allergenes)
     }
   return result_list;
 }
+/*
+  queryPrice() accepts a price struct with an upper bound and a lower
+  bound and returns all recipes in that interval
+*/
+RecipeList SearchDB::queryPrice(const Price& price)
+{
+  QSqlQuery query(db_);
+  query.prepare("Select Recipe.name,Recipe.score,Recipe.time FROM Recipe WHERE (Recipe.price <= :upper AND Recipe.price >= :lower)");
+  query.bindValue(":upper",price.upper_bound);
+  query.bindValue(":lower",price.lower_bound);
+  query.exec();
+  cerr << query.lastError().text().toStdString();
+  return makeRecipeList(query);
+}
+/*
+  queryPrice() accepts a kcal struct with an upper bound and a lower
+  bound and returns all recipes in that interval
+*/
+RecipeList SearchDB::queryKcal(const Cal& kcal)
+{
+  QSqlQuery query(db_);
+  query.prepare("Select Recipe.name,Recipe.score,Recipe.time FROM Recipe WHERE (Recipe.kcal <= :upper AND Recipe.kcal >= :lower)");
+  query.bindValue(":upper",kcal.upper_bound);
+  query.bindValue(":lower",kcal.lower_bound);
+  query.exec();
+  cerr << query.lastError().text().toStdString();
+  return makeRecipeList(query);
+} 
+/*
+  termSearch() The big baus, uses all the functions above to generate
+  a multisearch using the data members from the provided SearchTerm
+  object
+*/
+RecipeList SearchDB::termSearch(const SearchTerm& search_term)
+{
+  
+}
 
 
 
+/*
+  queryIngredientName returns a vector containing all the ingredients
+  in the database as strings.
+*/
+IngredientNames SearchDB::queryIngredientNames()
+{
+  QSqlQuery query(db_);
+  IngredientNames ingredient_names;
+  query.exec("SELECT name FROM Ingredient");
+  while(query.next())
+    {
+      ingredient_names.push_back(query.value(0).toString().toStdString());
+    }
+    
+  return ingredient_names;
+}
 
 
-
-
-
+//////////////////////////////////////////
+//PRIVATE
+//////////////////////////////////////////
 
 /*
   intersect() accepts two recipe lists and returns the intersection

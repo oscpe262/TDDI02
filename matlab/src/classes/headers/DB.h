@@ -55,6 +55,7 @@ class DB
   Recipe           fetchRecipe(const string & name);
   
  string getAllergeneString(Allergene allergene);
+ string getDietString(Diet allergene);
  protected:
 
 

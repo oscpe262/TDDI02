@@ -58,6 +58,7 @@ class Ingredient
   double getPrice()   const {return price_;}
   int getKcal()    const {return kcal_;}
   AllergeneArray getAllergenes() const {return allergenes_;}
+  DietArray getDiets() const {return diets_;}
 
   void setName(string name){name_ = name;}
   void setPrice(double price) {price_ = price;}
