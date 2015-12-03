@@ -183,10 +183,9 @@ RecipeList SearchDB::termSearch(const SearchTerm& search_term)
   RecipeList result;
   result = queryIngredientList(search_term.getIngredients());
   result = complement(result, queryAllergeneList(search_term.getAllergenes()));
-  result = complement(result,queryPrice(search_term.getPrice()));
-  result = complement(result,queryKcal(search_term.getCal()));
-  result = complement(result, queryPrice(search_term.getPrice()));
-  result = complement(result,queryTime(search_term.getTime()));
+  result = intersect(result, queryPrice(search_term.getPrice()));
+  result = intersect(result,queryKcal(search_term.getCal()));
+  result = intersect(result,queryTime(search_term.getTime()));
   return result;
 
 }
