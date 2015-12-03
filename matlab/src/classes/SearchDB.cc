@@ -186,6 +186,7 @@ RecipeList SearchDB::termSearch(const SearchTerm& search_term)
   result = intersect(result, queryPrice(search_term.getPrice()));
   result = intersect(result,queryKcal(search_term.getCal()));
   result = intersect(result,queryTime(search_term.getTime()));
+  //hej
   return result;
 
 }
