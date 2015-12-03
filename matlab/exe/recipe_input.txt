@@ -76,4 +76,25 @@ Riv morot, blanda med ägg och ströbröd forma till biffar stek.
 Morot 2 5
 Ägg 1 5
 Ströbröd 1 2
-%ENDLIST
+%ENDRECIPE
+Levinssonska pepparkakor
+Kavla ut degen. Ta ut kakor med mått
+50
+3
+Köpedeg 1 4
+%ENDRECIPE
+Eriks kastade sallad
+Blotta salladen, kasta. Serveras med vit sås.
+4
+2
+Peyron 1 4
+Mom 1 4
+Hemligt 1 4
+%ENDRECIPE
+Studentens sockerkaka
+Blanda skiten i en metallbunke. Ställ in bunken i ugnen på 225 grader tills fanskapet är klart.
+40
+1
+Socker 300 1
+Kaka 1 4
+%ENDRECIPE

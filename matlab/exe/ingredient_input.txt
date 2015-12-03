@@ -154,3 +154,21 @@ kcal: 600
 allergenes: 
 diets: 1 2 3 0
 %end
+ingredient: Köpedeg
+price: 30
+kcal: 510
+allergenes: 
+diets:
+%end
+ingredient: Peyron
+price: 6
+kcal: 36
+allergenes: 3
+diets: 0
+%end
+ingredient: Socker
+price: 15
+kcal: 650
+allergenes:
+diets:
+%end
