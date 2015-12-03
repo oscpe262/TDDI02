@@ -21,7 +21,7 @@
     <number>6</number>
    </property>
    <item>
-    <widget class="QTabWidget" name="tabWidget">
+    <widget class="QTabWidget" name="tabs">
      <property name="minimumSize">
       <size>
        <width>786</width>
@@ -44,7 +44,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="movable">
       <bool>false</bool>
@@ -64,7 +64,14 @@
        </property>
        <layout class="QHBoxLayout" name="SearchResultLayout">
         <item>
-         <widget class="QListWidget" name="listWidget_minirecipes"/>
+         <widget class="QListWidget" name="listWresults"/>
+        </item>
+        <item>
+         <widget class="QListWidget" name="listWresultsinfo">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::NoSelection</enum>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -82,7 +89,14 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="OpenButton">
+            <property name="text">
+             <string>Öppna</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="AddButton">
             <property name="text">
              <string>Lägg till</string>
             </property>
@@ -92,7 +106,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -366,17 +380,24 @@
               <item>
                <widget class="QLabel" name="energyLabel">
                 <property name="text">
-                 <string>Energiintervall (kcal)</string>
+                 <string>Energiintervall</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="energyMin"/>
+               <widget class="QSpinBox" name="energyMin">
+                <property name="suffix">
+                 <string> kcal</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QSpinBox" name="energyMax">
+                <property name="suffix">
+                 <string> kcal</string>
+                </property>
                 <property name="maximum">
-                 <number>50000</number>
+                 <number>99999</number>
                 </property>
                </widget>
               </item>
@@ -387,17 +408,24 @@
               <item>
                <widget class="QLabel" name="label_16">
                 <property name="text">
-                 <string>Tidsintervall (m)</string>
+                 <string>Tidsintervall</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="timeMin"/>
+               <widget class="QSpinBox" name="timeMin">
+                <property name="suffix">
+                 <string> m</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QSpinBox" name="timeMax">
+                <property name="suffix">
+                 <string> m</string>
+                </property>
                 <property name="maximum">
-                 <number>9001</number>
+                 <number>99999</number>
                 </property>
                </widget>
               </item>
@@ -408,17 +436,24 @@
               <item>
                <widget class="QLabel" name="label_14">
                 <property name="text">
-                 <string>Kostnadsintervall (SEK)</string>
+                 <string>Kostnadsintervall</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="costMin"/>
+               <widget class="QSpinBox" name="costMin">
+                <property name="suffix">
+                 <string> kr</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QSpinBox" name="costMax">
+                <property name="suffix">
+                 <string> kr</string>
+                </property>
                 <property name="maximum">
-                 <number>100000000</number>
+                 <number>99999</number>
                 </property>
                </widget>
               </item>
@@ -437,127 +472,151 @@
         </item>
        </layout>
       </widget>
-      <zorder>layoutWidget</zorder>
-      <zorder>layoutWidget</zorder>
-      <zorder>layoutWidget</zorder>
-      <zorder>label</zorder>
-      <zorder>costMin</zorder>
-      <zorder>costMax</zorder>
-      <zorder>label_14</zorder>
-      <zorder>layoutWidget_3</zorder>
-      <zorder>layoutWidget_4</zorder>
      </widget>
      <widget class="QWidget" name="recipe_view">
       <attribute name="title">
        <string>Recept</string>
       </attribute>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>11</y>
+         <x>10</x>
+         <y>10</y>
          <width>981</width>
-         <height>721</height>
+         <height>521</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <layout class="QVBoxLayout" name="RecipeViewLayout">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <widget class="QListWidget" name="RecipeInfo">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>60</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
           <item>
-           <widget class="QListView" name="listView"/>
-          </item>
-          <item>
-           <widget class="QTextBrowser" name="textBrowser">
-            <property name="html">
-             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QTextBrowser" name="RecipeIngredients"/>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="Method">
+              <property name="acceptDrops">
+               <bool>false</bool>
+              </property>
+              <property name="undoRedoEnabled">
+               <bool>false</bool>
+              </property>
+              <property name="html">
+               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You gotta do the cooking by the book!&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
           <item>
-           <layout class="QVBoxLayout" name="commentVerticalLayout">
+           <layout class="QVBoxLayout" name="verticalLayout_9">
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
+             <layout class="QVBoxLayout" name="commentVerticalLayout">
               <item>
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Kommentar</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPlainTextEdit" name="plainTextEdit"/>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
                 <item>
-                 <widget class="QPushButton" name="pushButton_3">
+                 <widget class="QLabel" name="Kommentar">
                   <property name="text">
-                   <string>PushButton</string>
+                   <string>Kommentar</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_2">
+                 <widget class="QPlainTextEdit" name="comment_plainTextEdit"/>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="comment">
                   <property name="text">
-                   <string>PushButton</string>
+                   <string>Spara Kommentar</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QPushButton" name="pushButton_3">
+                    <property name="text">
+                     <string>Föregående</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_2">
+                    <property name="text">
+                     <string>Nästa</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>
              </layout>
             </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Portionsfaktor</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="horizontalSlider">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_7">
-              <item>
-               <widget class="QPushButton" name="pushButton_4">
-                <property name="text">
-                 <string>Redigera</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
-                 <widget class="QLabel" name="label_6">
+                 <widget class="QLabel" name="label_5">
                   <property name="text">
-                   <string>Betyg</string>
+                   <string>Portionsfaktor</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="rating_spinBox"/>
+                 <widget class="QSlider" name="horizontalSlider">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton">
+                  <property name="text">
+                   <string>Beräkna</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <widget class="QPushButton" name="pushButton_4">
+                  <property name="text">
+                   <string>Redigera</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_9">
+                  <item>
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>Betyg</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="rating_spinBox"/>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>
@@ -699,7 +758,11 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+             <widget class="QSpinBox" name="spinBox">
+              <property name="suffix">
+               <string> kr</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -713,7 +776,11 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="spinBox"/>
+             <widget class="QSpinBox" name="spinBox">
+              <property name="suffix">
+               <string> kcal</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -739,12 +806,72 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <item>
                  <property name="text">
-                  <string>gräspollen</string>
+                  <string>Chilipeppar</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>laktos</string>
+                  <string>Frukt</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Gluten</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Havre</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Jordnötter</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Kött</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Laktos</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mjölk</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Skaldjur</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Soja</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Trädnötter</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Vitlök</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Vete</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Ägg</string>
                  </property>
                 </item>
                </widget>

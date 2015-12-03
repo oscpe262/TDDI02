@@ -14,6 +14,26 @@
 using namespace std;
 
 /* extra function declarations */
+namespace{
+string unit2str( const Unit& unitvalue )
+{
+  switch(unitvalue)
+    {
+    case gram:
+      return "g";
+    case deciliter:
+      return "dl";
+    case teaspoon:
+      return "tsk";
+    case tablespoon:
+      return "msk";
+    case pcs:
+      return "st";
+    default:
+      return "null";
+    }
+}
+}
 
 bool fileExists( const string& name );
 void readFromFile( istream& is, string& str );
@@ -81,7 +101,7 @@ void Shell::exportTxt( string fileName )
 
     for( RecipeIngredient& ri : currentRecipe_.getIngredients() )
       {
-	recipeTxt << ri.getName() << " " << ri.getAmount() << " " << unit2str( ri.getUnit() ) << "\n\n";
+    recipeTxt << ri.getName() << " " << ri.getAmount() << " " << unit2str( ri.getUnit() ) << "\n\n";
       }
 
   recipeTxt << currentRecipe_.getMethod() << "\n\n";
