@@ -72,7 +72,7 @@ AllergeneArray Recipe::getAllergenes() const
 
 DietArray Recipe::getDiets() const
 {
-  DietArray returnArray { { } };
+  DietArray returnArray { { 1,1,1,1 } };
 
   for( const RecipeIngredient& ri : ingredients_ )
     { 

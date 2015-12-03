@@ -40,7 +40,7 @@ class SearchTerm
   {
       ingredients_ = {};
       not_ingredients_={};
-      allergenes_={};
+      /* allergenes_={};*/
       price_={};
       cal_={};
       time_={};
@@ -53,7 +53,7 @@ class SearchTerm
   Price getPrice()                   const {return price_;}
   Cal getCal()                       const {return cal_;}
   Time getTime()                     const {return time_;}
-  RecipeList getSerchResult()        const {return search_result_;}
+  RecipeList getSearchResult()        const {return search_result_;}
 
   void setIngredients(const vector<string>& ingredients)    {ingredients_ = ingredients;}
   void setNotIngredients(const vector<string>& ingredients) {not_ingredients_ = ingredients;}
@@ -66,7 +66,7 @@ class SearchTerm
  private:
   vector<string> ingredients_;
   vector<string> not_ingredients_;
-  AllergeneArray allergenes_;
+  AllergeneArray allergenes_ { };
   Price price_;
   Cal cal_;
   Time time_;
