@@ -66,7 +66,7 @@ class SearchTerm
  private:
   vector<string> ingredients_;
   vector<string> not_ingredients_;
-  AllergeneArray allergenes_ { };
+  AllergeneArray allergenes_ { { } };
   Price price_;
   Cal cal_;
   Time time_;
