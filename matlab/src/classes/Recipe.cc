@@ -16,4 +16,41 @@
 //   }
 // };
 
+void Recipe::setTime( int minutes )
+{
+  minutesTime_ = minutes;
+}
 
+void Recipe::addComment( const string& comment )
+{
+  comments_.push_back(comment);
+}
+
+void Recipe::setGrade( double grade )
+{
+  grade_ = grade;
+}
+
+double Recipe::calcPrice( double scaling ) const
+{
+  double priceSum { };
+
+  for( RecipeIngredient ri : ingredients_ )
+    {
+      priceSum += priceSum + ri.calcPrice(scaling); // Behöver vi skicka ner scaling? Kanske räcker med att scala resultatet innan vi returnerar till GUI
+    }
+
+  return priceSum;
+}
+
+double Recipe::calcKcal( double scaling ) const
+{
+  double kcalSum { };
+
+  for( RecipeIngredient ri : ingredients_ )
+    {
+      kcalSum += kcalSum + ri.calcKcal(scaling); // Behöver vi skicka ner scaling? Kanske räcker med att scala resultatet innan vi returnerar till GUI
+    }
+
+  return priceSum;
+}
