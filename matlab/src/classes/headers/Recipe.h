@@ -67,6 +67,7 @@ class Recipe
   void setPrice(const int& price){price_ = price;}
   void setPortions(const int& portions){portions_ = portions;}
   void setIngredients(const IngredientList& ingredients){ingredients_ = ingredients;}
+  void setRelated(const vector<string>& related) { related_ = related; }
 
   string getName() const {return name_;}
   string getMethod() const {return method_;}
@@ -75,6 +76,7 @@ class Recipe
   int getPrice() const {return price_;}
   int getKcal() const {return kcal_;}
   int getPortions() const {return portions_;}
+  vector<string> getRelated() const {return related_;}
 
   AllergeneArray getAllergenes() const;
   DietArray getDiets() const;
@@ -100,7 +102,9 @@ class Recipe
   int price_;    //Som vi pratade om så lägger vi till denna infon i recipe och sparar i databasen
   int kcal_;
   int portions_; //Priset kommer att beräknas då receptet läggs in mha addRecipe i EditDB så det
-  
+ 
+  vector<string> related_;
+ 
   vector<string> comments_;
  
 

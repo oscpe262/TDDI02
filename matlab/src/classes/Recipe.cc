@@ -59,7 +59,7 @@ AllergeneArray Recipe::getAllergenes() const
 {
   AllergeneArray returnArray { { } };
 
-  for( RecipeIngredient ri& : ingredients_ )
+  for( const RecipeIngredient& ri : ingredients_ )
     { 
       for( int j {} ; j < 14 ; ++j ) // Ändra 14 till en konstant "antal allergener"
 	{
@@ -74,7 +74,7 @@ DietArray Recipe::getDiets() const
 {
   DietArray returnArray { { } };
 
-  for( RecipeIngredient ri& : ingredients_ )
+  for( const RecipeIngredient& ri : ingredients_ )
     { 
       for( int j {} ; j < 4 ; ++j ) // Ändra 4 till en konstant "antal dieter"
 	{
