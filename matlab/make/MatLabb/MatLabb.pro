@@ -28,6 +28,7 @@ SOURCES += "$$PWD/../../src/classes/SearchTerm.cc"
 SOURCES += "$$PWD/../../src/classes/SearchDB.cc"
 SOURCES += "$$PWD/../../src/classes/RecipeIngredient.cc"
 SOURCES += "$$PWD/../../src/classes/Recipe.cc"
+SOURCES += "$$PWD/../../src/classes/Ingredient.cc"
 
 
 HEADERS  += "$$PWD/../../src/classes/headers/matlabb.h"
