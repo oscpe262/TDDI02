@@ -76,6 +76,9 @@ class Recipe
   int getKcal() const {return kcal_;}
   int getPortions() const {return portions_;}
 
+  AllergeneArray getAllergenes() const;
+  DietArray getDiets() const;
+
   IngredientList getIngredients() const {return ingredients_;}
 
   void addComment( const string& );
