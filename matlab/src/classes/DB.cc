@@ -61,6 +61,8 @@ void DB::createDb()
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Needed_for(recipe_name VARCHAR(20), tool_name VARCHAR(20),FOREIGN KEY(recipe_name) REFERENCES Recipe(name),  FOREIGN KEY(tool_name) REFERENCES Tool(name))");
   lastQuery(query_);
+  query_ = db_.exec("CREATE TABLE Related_to(recipe VARCHAR(20), related VARCHAR(20), FOREIGN KEY(recipe) REFERENCES Recipe(name), FOREIGN KEY(related) REFERENCES Recipe(name))");
+
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('fruit')"); 
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('garlic')"); 
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('hot_peppers')");   
@@ -103,6 +105,7 @@ void DB::clearDb()
   lastQuery(query_);
  query_ = db_.exec("DROP TABLE Needed_for");
  lastQuery(query_);
+ query_ = db_.exec("DROP TABLE Related_to");
   
   //Drop Strong entitys
   query_ = db_.exec("DROP TABLE Ingredient");

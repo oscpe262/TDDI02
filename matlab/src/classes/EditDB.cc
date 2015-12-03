@@ -16,7 +16,12 @@ using namespace std;
 bool EditDB::addRecipe(const Recipe& recipe)
 {
   QSqlQuery tmp(db_);
-  if(checkRecipe(recipe)) return false;
+  if(checkRecipe(recipe))
+  {
+    return updateRecipe(recipe);
+  }
+  else
+    {
   tmp.finish();
   tmp.prepare("INSERT INTO Recipe(name,method,score,time,price,kcal,portions) VALUES(:name,:method,:score,:time,:price,:kcal,:portions)");
   tmp.bindValue(":name", recipe.getName().c_str());
@@ -28,8 +33,10 @@ bool EditDB::addRecipe(const Recipe& recipe)
   tmp.bindValue(":price", calculatePrice(recipe));
   tmp.bindValue(":kcal", calculateKcal(recipe));
   tmp.bindValue(":portions", recipe.getPortions());
+  //  bindRelated(recipe.getRelated(),recipe.getName());
   cerr << tmp.lastError().text().toStdString();		
   tmp.exec();
+  
   //tmp.finish();
   IngredientList ingredient_list = recipe.getIngredients();
   for(auto i : ingredient_list)
@@ -37,7 +44,22 @@ bool EditDB::addRecipe(const Recipe& recipe)
       addRecipeIngredient(i, recipe.getName());
       tmp.finish();
     } 
+    }
   return true;
+}
+
+bool EditDB::bindRelated(const vector<string>& related,const string& name)
+{
+  QSqlQuery query(db_);
+  for(auto i : related)
+    {
+      if(!checkRecipe(i)) throw DB_Exception("Fel: " + i + " finns ej i databasen");
+      query.prepare("INSERT INTO Related_to(recipe,related), VALUES(:recipe,:related)");
+      query.bindValue(":recipe",name.c_str());
+      query.bindValue(":related",i.c_str());
+      query.exec();
+    }
+
 }
 
 bool EditDB::updateRecipe(const Recipe& recipe)
@@ -68,8 +90,6 @@ bool EditDB::updateRecipe(const Recipe& recipe)
 
 }
 
-
-
 /*
   add_ingredient() adds a Ingredient object to the DB, if ingredient
   doesnt exist it adds it and returns true, if ingredient DOES exist
@@ -81,7 +101,8 @@ bool EditDB::addIngredient(const Ingredient& ingredient)
   AllergeneArray allergenes = ingredient.getAllergenes();
   DietArray diets = ingredient.getDiets();
   QSqlQuery tmp(db_);
-  if(checkIngredient(ingredient)) return false;
+  if(checkIngredient(ingredient)) 
+    return updateIngredient(ingredient);
   tmp.finish();
   tmp.prepare("INSERT INTO Ingredient(name,price,kcal) VALUES(:name,:price,:kcal)");
   tmp.bindValue(":name",ingredient.getName().c_str());

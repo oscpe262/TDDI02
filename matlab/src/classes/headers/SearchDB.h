@@ -15,7 +15,6 @@ class SearchDB : public DB
 {
  public:
  SearchDB() : DB("search"), list_pos_(0) {};
- SearchDB(string name) : DB(), list_pos_(0) {};
   //Search functions
   
   RecipeList queryList(bool forward);

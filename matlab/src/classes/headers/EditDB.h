@@ -24,6 +24,8 @@ class EditDB : public DB{
   bool addRecipe(const Recipe& recipe);
   bool updateRecipe(const Recipe& recipe);
   
+  bool bindRelated(const vector<string>& related,const string& name);
+  
   bool addIngredient(const Ingredient& ingredient);
   bool updateIngredient(const Ingredient& ingredient); //lägg till stöd för allergener och dieter!
 
