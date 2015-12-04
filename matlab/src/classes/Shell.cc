@@ -264,6 +264,11 @@ bool Shell::removeIngredient( const Ingredient& ingredient )
   return eDB_.removeIngredient(ingredient);
 }
 
+bool Shell::removeIngredient( const string& name )
+{
+  return eDB_.removeIngredient(name);
+}
+
 
 
 /***************

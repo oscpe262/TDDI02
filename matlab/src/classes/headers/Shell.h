@@ -38,7 +38,8 @@ class Shell
   bool                removeRecipe( const Recipe& );
   bool                removeRecipe( const string& );
   bool                addIngredient( const Ingredient& );
-  bool                removeIngredient( const Ingredient& ); // överlagring för Ingredient? string? currentMedlemmar?
+  bool                removeIngredient( const Ingredient& );
+  bool                removeIngredient( const string& );
 
   // private:
 
