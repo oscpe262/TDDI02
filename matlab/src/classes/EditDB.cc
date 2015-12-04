@@ -22,28 +22,27 @@ bool EditDB::addRecipe(const Recipe& recipe)
   }
   else
     {
-  tmp.finish();
-  tmp.prepare("INSERT INTO Recipe(name,method,score,time,price,kcal,portions) VALUES(:name,:method,:score,:time,:price,:kcal,:portions)");
-  tmp.bindValue(":name", recipe.getName().c_str());
-  tmp.bindValue(":method", recipe.getMethod().c_str());
-  tmp.bindValue(":score", recipe.getGrade());
-  tmp.bindValue(":time", recipe.getMinutesTime());
-  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
-  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
-  tmp.bindValue(":price", calculatePrice(recipe));
-  tmp.bindValue(":kcal", calculateKcal(recipe));
-  tmp.bindValue(":portions", recipe.getPortions());
-  //  bindRelated(recipe.getRelated(),recipe.getName());
-  cerr << tmp.lastError().text().toStdString();		
-  tmp.exec();
-  
-  //tmp.finish();
-  IngredientList ingredient_list = recipe.getIngredients();
-  for(auto i : ingredient_list)
-    {
-      addRecipeIngredient(i, recipe.getName());
       tmp.finish();
-    } 
+      tmp.prepare("INSERT INTO Recipe(name,method,score,time,price,kcal,portions) VALUES(:name,:method,:score,:time,:price,:kcal,:portions)");
+      tmp.bindValue(":name", recipe.getName().c_str());
+      tmp.bindValue(":method", recipe.getMethod().c_str());
+      tmp.bindValue(":score", recipe.getGrade());
+      tmp.bindValue(":time", recipe.getMinutesTime());
+      cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
+      cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
+      tmp.bindValue(":price", calculatePrice(recipe));
+      tmp.bindValue(":kcal", calculateKcal(recipe));
+      tmp.bindValue(":portions", recipe.getPortions());
+      cerr << tmp.lastError().text().toStdString();		
+      tmp.exec();
+      //tmp.finish();
+      IngredientList ingredient_list = recipe.getIngredients();
+      for(auto i : ingredient_list)
+	{
+	  addRecipeIngredient(i, recipe.getName());
+	  tmp.finish();
+	}
+      bindRelated(recipe.getRelated(),recipe.getName());
     }
   return true;
 }
@@ -54,19 +53,21 @@ bool EditDB::bindRelated(const vector<string>& related,const string& name)
   for(auto i : related)
     {
       if(!checkRecipe(i)) throw DB_Exception("Fel: " + i + " finns ej i databasen");
-      query.prepare("INSERT INTO Related_to(recipe,related), VALUES(:recipe,:related)");
-      query.bindValue(":recipe",name.c_str());
-      query.bindValue(":related",i.c_str());
+      //"CREATE TABLE Related_to(recipe VARCHAR(20) related VARCHAR(20)
+      query.prepare("INSERT INTO Related_to(recipe,related) VALUES(:recipe,:related)");
+      query.bindValue(":recipe", name.c_str());
+      query.bindValue(":related", i.c_str());
+      lastQuery(query);
+      cerr << query.lastError().text().toStdString();
       query.exec();
     }
-
 }
 
 bool EditDB::updateRecipe(const Recipe& recipe)
 {
   QSqlQuery query(db_);
   if(checkRecipe(recipe)) return false;
-  query.prepare("INSERT INTO recipe(method,score,time,price,kcal,portions), VALUES(:method,:score,:time,:price,:kcal,:portions WHERE name= :name)");
+  query.prepare("INSERT INTO recipe(method,score,time,price,kcal,portions) VALUES(:method,:score,:time,:price,:kcal,:portions WHERE name= :name)");
   query.bindValue(":method", recipe.getMethod().c_str());
   query.bindValue(":score", recipe.getGrade());
   query.bindValue(":time", recipe.getMinutesTime());
@@ -85,9 +86,12 @@ bool EditDB::updateRecipe(const Recipe& recipe)
       addRecipeIngredient(i, recipe.getName());
       query.finish();
     } 
-  return true;
+  
+  // query.finish();
+  // query.prepare("DELETE FROM Related_to WHERE 
+  // bindRelated(recipe.getRelated(),recipe.getName()); 
     
-
+  return true;
 }
 
 /*
@@ -149,6 +153,8 @@ bool EditDB::addIngredient(const Ingredient& ingredient)
 
 bool EditDB::updateIngredient(const Ingredient& ingredient)
 {
+  AllergeneArray allergenes = ingredient.getAllergenes();
+  DietArray diets = ingredient.getDiets();
   QSqlQuery tmp(db_);
   if(!checkIngredient(ingredient)) return false;
   else
@@ -159,7 +165,45 @@ bool EditDB::updateIngredient(const Ingredient& ingredient)
       tmp.bindValue(":price",ingredient.getPrice());
       tmp.bindValue(":kcal",ingredient.getKcal());
       tmp.exec();
-      return false;
+      tmp.finish();
+      tmp.prepare("DELETE FROM Allergene_in WHERE ingredient_name = :name");
+      tmp.bindValue(":name",ingredient.getName().c_str());
+      tmp.exec();
+      tmp.finish();
+      tmp.prepare("DELETE FROM Diet_in WHERE ingredient_name = :name");
+      tmp.bindValue(":name",ingredient.getName().c_str());
+      tmp.exec();
+
+      for(int i = 0; i < 14; ++i)
+	{
+	  if (allergenes[i])
+	    {
+	      tmp.prepare("INSERT INTO Allergene_in(ingredient_name, allergene_name) VALUES(:ingredient_name,:allergene_name)");
+	      tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
+	      cerr << "GetAllergene: " << getAllergeneString(Allergene(i));
+	      tmp.bindValue(":allergene_name",getAllergeneString(Allergene(i)).c_str());
+	      tmp.exec();
+	      cerr << tmp.lastError().text().toStdString();
+	      tmp.clear();
+	    }
+	}
+  
+      for(int i=0; i < 4; ++i)
+	{
+	  if (diets[i])
+	    {
+	      tmp.prepare("INSERT INTO Diet_in(ingredient_name, diet_name) VALUES(:ingredient_name,:diet_name)");
+	      tmp.bindValue(":ingredient_name",ingredient.getName().c_str());
+	      tmp.bindValue(":diet_name",getDietString(Diet(i)).c_str());
+	      tmp.exec();
+	      cout << endl << "DIET!\n";
+	      lastQuery(tmp);
+	      cout << endl;
+	      cerr << tmp.lastError().text().toStdString();
+	      tmp.clear();
+	    }
+	}
+      return true;
     }
 }
 /* 

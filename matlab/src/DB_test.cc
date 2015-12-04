@@ -22,7 +22,7 @@ void print_recipe_list(RecipeList& recipe_list);
 bool import_ingredients(ifstream& stream,EditDB& db);
 bool import_recipes(ifstream& stream, EditDB& db);
 bool add_ingredient(EditDB& db);
-bool add_recipe(Recipe& recipe);
+bool add_recipe(EditDB& db);
 bool fetch_ingredient(EditDB& db);
 bool query_ingredient_test(SearchDB& db);
 bool query_not_ingredient_test(SearchDB& db);
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
   string db_name = "matlabb2";
   QCoreApplication app(argc, argv);
   EditDB test_editDB;
-  SearchDB test_searchDB(db_name);
+  SearchDB test_searchDB;
   int menu = 0;
   string name;
   Ingredient ingredient("Korv",5,200);
@@ -177,6 +177,8 @@ int main(int argc, char* argv[])
       case 17:
 	term_search_test(test_searchDB);
 	break;
+      case 18:
+	add_recipe(test_editDB);
       }
       
     print_menu();
@@ -206,6 +208,7 @@ void print_menu()
        << "15.queryKcal test\n"
        << "16 queryDietlist test\n"
        << "17 tearm_search test \n"
+       << "18 Relation test \n"
        << "Choice: ";
 
 }
@@ -356,6 +359,23 @@ bool add_ingredient(EditDB& db)
   ingredient.setKcal(tmpInt);
   return db.addIngredient(ingredient);
 }
+
+bool add_recipe(EditDB& db)
+{
+  IngredientList ingredients{db.fetchIngredient("Socker")};
+  Recipe recipe("Foo","Fighters",5,5,ingredients);
+  // string name;
+  // recipe.setName("Foo");
+  // recipe.setMethod("FooFighters");
+  // recipe.setMinutesTime(10);
+  // recipe.setPrice(10);
+  // recipe.setPortions(4);
+  vector<string> related{"Banan","Chokladkaka"};
+  for(auto i : related) cout << i << endl;
+  recipe.setRelated(related);
+  db.addRecipe(recipe);
+}
+
 bool fetch_ingredient(EditDB& db)
 {
   string ingredient_name;
@@ -550,12 +570,12 @@ void term_search_test(SearchDB& db)
 {
   SearchTerm st;
   vector<string> ingredients{"Ägg"};
-  AllergeneArray allergenes{};
-  Price price{5000,0};
-  Cal cal{5000,0};
-  Time time{5000,0};
+  AllergeneArray allergenes{{}};
+  Price price(0,99999);
+  Cal cal(0,99999);
+  Time time(0,99999);
   RecipeList search_result;
-  allergenes[Allergene(fruit)] = true;
+  // allergenes[Allergene(fruit)] = true;
   st.setIngredients(ingredients);
   st.setAllergenes(allergenes);
   st.setPrice(price);

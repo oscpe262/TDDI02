@@ -27,7 +27,7 @@ class EditDB : public DB{
   bool bindRelated(const vector<string>& related,const string& name);
   
   bool addIngredient(const Ingredient& ingredient);
-  bool updateIngredient(const Ingredient& ingredient); //lägg till stöd för allergener och dieter!
+  bool updateIngredient(const Ingredient& ingredient); //ALLERGENER OCH DIETER OTESTAT
 
   bool addRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe);
   bool updateRecipeIngredient(const RecipeIngredient& ingredient, const string& recipe); //otestad
