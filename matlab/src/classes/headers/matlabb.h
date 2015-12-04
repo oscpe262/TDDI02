@@ -94,9 +94,28 @@ private slots:
 
     void on_pushButton_diet_deselect_2_clicked();
 
+    void on_pushButton_5_clicked();
+
+    void on_addIngredientButton_clicked();
+
+    void on_saveRecipe_clicked();
+
+    void on_RI_select_clicked();
+
+    void on_ingredientlist_deselected_2_itemSelectionChanged();
+
+    void on_ingredientlist_deselected_2_itemPressed(QListWidgetItem *item);
+
+    void on_deleteRecipe_clicked();
+
+    void on_removeIngredientButton_clicked();
+
+    void on_editOpenRecipe_clicked();
+
 private:
     Ui::MatLabb *ui;
     Shell shell;
+    Recipe recipe_;
 };
 
 #endif // MATLABB_H
