@@ -1,3 +1,9 @@
+/*
+  Class: SearchDB
+  Description: Class for making queries in the database
+  Author: Erik Peyronson
+*/
+
 #ifndef SEARCHDB_H
 #define SEARCHDB_H
 #include <QtSql>

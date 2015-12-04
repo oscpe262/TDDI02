@@ -1,3 +1,9 @@
+/*
+  Class: EditDB
+  Description: Responsible for making changes in the database
+  Author: Erik Peyronson
+*/
+
 #include "classes/headers/EditDB.h"
 #include "classes/headers/Ingredient.h"
 #include "classes/headers/RecipeIngredient.h"
@@ -16,6 +22,8 @@ using namespace std;
 bool EditDB::addRecipe(const Recipe& recipe)
 {
   QSqlQuery tmp(db_);
+  if(recipe.getName().size() == 0)
+    return false;
   if(checkRecipe(recipe))
   {
     return updateRecipe(recipe);
@@ -53,7 +61,6 @@ bool EditDB::bindRelated(const vector<string>& related,const string& name)
   for(auto i : related)
     {
       if(!checkRecipe(i)) throw DB_Exception("Fel: " + i + " finns ej i databasen");
-      //"CREATE TABLE Related_to(recipe VARCHAR(20) related VARCHAR(20)
       query.prepare("INSERT INTO Related_to(recipe,related) VALUES(:recipe,:related)");
       query.bindValue(":recipe", name.c_str());
       query.bindValue(":related", i.c_str());
@@ -66,7 +73,7 @@ bool EditDB::bindRelated(const vector<string>& related,const string& name)
 bool EditDB::updateRecipe(const Recipe& recipe)
 {
   QSqlQuery query(db_);
-  if(checkRecipe(recipe)) return false;
+  // if(checkRecipe(recipe)) return false;
   query.prepare("INSERT INTO recipe(method,score,time,price,kcal,portions) VALUES(:method,:score,:time,:price,:kcal,:portions WHERE name= :name)");
   query.bindValue(":method", recipe.getMethod().c_str());
   query.bindValue(":score", recipe.getGrade());
@@ -87,9 +94,10 @@ bool EditDB::updateRecipe(const Recipe& recipe)
       query.finish();
     } 
   
-  // query.finish();
-  // query.prepare("DELETE FROM Related_to WHERE 
-  // bindRelated(recipe.getRelated(),recipe.getName()); 
+  query.finish();
+  query.prepare("DELETE FROM Related_to WHERE Recipe = :Recipe");
+  query.bindValue(":Recipe", recipe.getName().c_str());
+  bindRelated(recipe.getRelated(),recipe.getName()); 
     
   return true;
 }
@@ -375,9 +383,3 @@ int EditDB::calculateIngredientKcal(const RecipeIngredient ingredient)
     break; 
     }
 }
-
-
-
-
-
-

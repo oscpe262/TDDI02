@@ -1,11 +1,10 @@
-
 /*
-  Klassen DB är abstrakt basklass för EditDB och SearchDB
+  Class: DB
+  Description: Abstract base class for EditDB and SearchDB hold
+  general database functionality
+  Author: Erik Peyronson
+*/
 
-  kontouppgifter till databasen:
-  User:              Password:             Databas:
-  TDDI02_HT15_02     TDDI02_HT15_02b957
- */
 #ifndef DB_H
 #define DB_H
 #include <QtSql>

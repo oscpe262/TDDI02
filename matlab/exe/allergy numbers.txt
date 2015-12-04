@@ -1,0 +1,19 @@
+ 0 Fruit
+ 1 Garlic
+ 2 Hot peppers
+ 3 Oats
+ 4 Wheat
+ 5 Gluten
+ 6 Peanut
+ 7 Tree nut
+ 8 Shellfish
+ 9 Meat/Alpha-gal
+ 10 Egg
+ 11 Milk
+ 12 Lactose
+ 13 Soy
+
+0 Vegetarian
+1 Vegan 
+2 Halal
+3 Kosher3

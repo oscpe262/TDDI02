@@ -1,3 +1,10 @@
+/*
+  Class: DB
+  Description: Abstract base class for EditDB and SearchDB hold
+  general database functionality
+  Author: Erik Peyronson
+*/
+
 #include "classes/headers/DB.h"
 #include <iostream>
 

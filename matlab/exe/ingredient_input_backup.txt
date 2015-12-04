@@ -1,0 +1,150 @@
+ingredient: Smör
+price: 50 
+kcal: 1000
+allergenes: 10 11 
+diets: 0 2 3
+%end
+ingredient: Vetemjöl 
+price: 8 
+kcal: 400
+allergenes: 5 4
+diets: 0 1 2 3
+%end
+ingredient: Banan 
+price: 5 
+kcal: 300
+allergenes: 0
+diets: 1
+%end
+ingredient: Äpple 
+price: 20 
+kcal: 200
+allergenes: 0
+diets: 0 1 2 3
+%end
+ingredient: Hallon 
+price: 60 
+kcal: 200
+allergenes: 0
+diets: 0 1 2 3
+%end
+ingredient: Havregryn 
+price: 16 
+kcal: 350
+allergenes: 3 5
+diets: 0 1 2 3
+%end
+ingredient: Mom 
+price: 900
+kcal: 800
+allergenes: 0 1 5 6 8 9 10 11 12 13
+diets:
+%end
+ingredient: Spaghetti
+price: 20 
+kcal: 400
+allergenes: 4 5
+diets: 1
+%end
+ingredient: Kaka
+price: 50
+kcal: 800
+allergenes: 4 5 10 11 12
+diets: 0 2 3
+%end
+ingredient: Kladd 
+price: 20
+kcal: 800
+allergenes:
+diets:
+%end
+ingredient: Johan 
+price: 800 
+kcal: 183527
+allergenes:
+diets: 0 1 2 3
+%end
+ingredient: Jäst
+price: 10 
+kcal: 40
+allergenes:
+diets:
+%end
+ingredient: Köttfärs
+price: 69 
+kcal: 600
+allergenes: 9
+diets: 2 3
+%end
+ingredient: Ost 
+price: 90
+kcal: 900
+allergenes: 11
+diets: 0 2 3
+%end
+ingredient: Matteus
+price: 800
+kcal: 1000
+allergenes: 
+diets: 
+%end
+ingredient: Bröd 
+price: 49 
+kcal: 350
+allergenes: 4 5
+diets: 0 1 2 3
+%end
+ingredient: Hasch 
+price: 60000
+kcal: 0
+allergenes:
+diets: 
+%end
+ingredient: HoolaBandoolaBand
+price: 123456789 
+kcal: 0
+allergenes: 
+diets: 
+%end
+ingredient: Göran
+price: 1
+kcal: 1
+allergenes: 
+diets: 
+%end
+ingredient: Hemligt 
+price: 1
+kcal: 1
+allergenes: 
+diets: 
+%end
+ingredient: Tomatkross 
+price: 15
+kcal: 150
+allergenes: 
+diets: 0 1 2 3
+%end
+ingredient: Lök
+price: 20
+kcal: 220
+allergenes:  
+diets: 0 1 2 3
+%end
+ingredient: Morot
+price: 25
+kcal: 420
+allergenes: 
+diets: 0 1 2 3
+%end
+ingredient: Ströbröd
+price: 20
+kcal: 320
+allergenes: 4 6 
+diets: 0 1 2 3
+%end
+ingredient: Kakao
+price: 40
+kcal: 600
+allergenes: 
+diets: 1 2 3 0
+%end
