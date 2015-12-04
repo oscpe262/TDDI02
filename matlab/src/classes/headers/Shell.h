@@ -36,6 +36,7 @@ class Shell
   // EditDB-funktioner
   bool                addRecipe( const Recipe& ); // tillägg och redigering? bool?
   bool                removeRecipe( const Recipe& );
+  bool                removeRecipe( const string& );
   bool                addIngredient( const Ingredient& );
   bool                removeIngredient( const Ingredient& ); // överlagring för Ingredient? string? currentMedlemmar?
 

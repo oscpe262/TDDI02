@@ -130,10 +130,10 @@ void Shell::exportTxt( string fileName )
     }
 
   // Öppna fil
-  ifstream infile {fileName};
-  if( !infile )
+  ifstream ifs {fileName};
+  if( !ifs )
     {
-      infile.close();
+      ifs.close();
       // kasta undantag
     }
 
@@ -141,15 +141,15 @@ void Shell::exportTxt( string fileName )
   string fileContents;
 
   // Läs till sträng fileContents och Stäng fil
-  readFromStream(infile, fileContents);
-  infile.close();
+  readFromStream(ifs, fileContents);
+  ifs.close();
 
   // Rensa bort kommentarer: <!-- kommentar -->
-  while( fileContents.find("<!--") != string::npos )
+  while( fileContents.find("<!--") != string::npos && fileContents.find("-->") != string::npos )
     {
       size_t filePos { fileContents.find("<!--") };
       size_t filePosEnd { fileContents.find("-->") };
-      fileContents = fileContents.substr(0, filePos) + fileContents.substr(filePosEnd);
+      fileContents = fileContents.substr(0, filePos) + fileContents.substr(filePosEnd + 3);
     }
 
   // Namn (, portioner, tid)
@@ -167,6 +167,13 @@ void Shell::exportTxt( string fileName )
       fileSection.push_back('\n');
     }
 
+  // header
+
+  // ingredient list
+
+  // description & tail
+
+
   findName(fileSection, fileLine);
   recipe.setName(fileLine);
 
@@ -176,7 +183,7 @@ void Shell::exportTxt( string fileName )
   if( findTime(fileSection, fileLine) )
     recipe.setTime( stoi(fileLine) );
 
-  IngredientList ingList { findIngredients;
+  IngredientList ingList { findIngredients(;
 
   recipe.setIngredients(ingList);
 
@@ -240,6 +247,11 @@ bool Shell::addRecipe( const Recipe& recipe )
 bool Shell::removeRecipe( const Recipe& recipe )
 {
   return eDB_.removeRecipe(recipe); // Rätt funktion?
+}
+
+bool Shell::removeRecipe( const string& name )
+{
+  return eDB_.removeRecipe(name);
 }
 
 bool Shell::addIngredient( const Ingredient& ingredient )
