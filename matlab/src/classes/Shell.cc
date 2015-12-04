@@ -15,26 +15,25 @@ using namespace std;
 
 /* extra function declarations */
 namespace{
-string unit2str( const Unit& unitvalue )
-{
-  switch(unitvalue)
-    {
-    case gram:
-      return "g";
-    case deciliter:
-      return "dl";
-    case teaspoon:
-      return "tsk";
-    case tablespoon:
-      return "msk";
-    case pcs:
-      return "st";
-    default:
-      return "null";
-    }
+  string unit2str( const Unit& unitvalue )
+  {
+    switch(unitvalue)
+      {
+      case gram:
+	return "g";
+      case deciliter:
+	return "dl";
+      case teaspoon:
+	return "tsk";
+      case tablespoon:
+	return "msk";
+      case pcs:
+	return "st";
+      default:
+	return "null";
+      }
+  }
 }
-}
-
 bool fileExists( const string& name );
 void readFromFile( istream& is, string& str );
 
@@ -44,6 +43,9 @@ bool findTime( const string& fieldstr, string& returnstr );
 
 
 /*
+ * unit2str
+ *
+ *** [SHELL] ***
  * exportTxt
  * *importTxt
  * *exportXml
@@ -65,7 +67,6 @@ bool findTime( const string& fieldstr, string& returnstr );
  *
  *** [extra] ***
  * fileExists
- * unit2str
  * readFromFile
  *
  * findName
@@ -73,6 +74,10 @@ bool findTime( const string& fieldstr, string& returnstr );
  * findTime
  */
 
+
+/***************
+ *** [SHELL] ***
+ **************/
 
 void Shell::exportTxt( string fileName )
 {
@@ -94,7 +99,7 @@ void Shell::exportTxt( string fileName )
       recipeTxt.close();
       // kasta undantag!!!
     }
-  // lägg till kommentar med filnamn?
+  // lägg till <!-- kommentar --> med filnamn?
   recipeTxt << "# " << currentRecipe_.getName() << " (" << currentRecipe_.getPortions() << " portioner)\n"
 	    << "Tillagningstid: c:a " << currentRecipe_.getMinutesTime() << " min\n"
 	    << "============\n"; // godtyckligt antal?
@@ -125,10 +130,10 @@ void Shell::exportTxt( string fileName )
     }
 
   // Öppna fil
-  ifstream openedFile {fileName};
-  if( !openedFile )
+  ifstream infile {fileName};
+  if( !infile )
     {
-      openedFile.close();
+      infile.close();
       // kasta undantag
     }
 
@@ -136,8 +141,8 @@ void Shell::exportTxt( string fileName )
   string fileContents;
 
   // Läs till sträng fileContents och Stäng fil
-  readFromStream(openedFile, fileContents);
-  openedFile.close();
+  readFromStream(infile, fileContents);
+  infile.close();
 
   // Rensa bort kommentarer: <!-- kommentar -->
   while( fileContents.find("<!--") != string::npos )
@@ -170,6 +175,10 @@ void Shell::exportTxt( string fileName )
 
   if( findTime(fileSection, fileLine) )
     recipe.setTime( stoi(fileLine) );
+
+  IngredientList ingList { findIngredients;
+
+  recipe.setIngredients(ingList);
 
   // Ingredienser
   
@@ -204,11 +213,17 @@ vector<string> Shell::getIngredientNames()
   ingredientFullList_ = sDB_.queryIngredientNames();
   return ingredientFullList_;
 }
-
+ 
 Recipe Shell::openRecipe( const string& name )
 {
   currentRecipe_ = sDB_.fetchRecipe(name);
   return currentRecipe_;
+}
+ 
+Ingredient Shell::openIngredient( const string& name )
+{
+  currentIngredient_ = sDB_.fetchIngredient(name);
+  return currentIngredient_; 
 }
 
 
