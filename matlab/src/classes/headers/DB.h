@@ -50,6 +50,8 @@ class DB
 
   Ingredient       fetchIngredient(const string & name); //ALLERGENER OCH DIETER!!
   RecipeIngredient fetchRecipeIngredient(const string & name);
+  AllergeneArray   fetchAllergenes(const string& name);
+  DietArray        fetchDiets(const string& name);
   IngredientList   fetchIngredientList(const string & recipe);
   Recipe           fetchRecipe(const string & name);
   

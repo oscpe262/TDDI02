@@ -1,10 +1,8 @@
 /*
-  Klassen EditDB Är ansvarig ändringar i databasen
-
-  kontouppgifter till databasen:
-  User:              Password:             Databas:
-  TDDI02_HT15_02     TDDI02_HT15_02b957
- */
+  Class: EditDB
+  Description: Responsible for making changes in the database
+  Author: Erik Peyronson
+*/
 
 #ifndef EDITDB_H
 #define EDITDB_H

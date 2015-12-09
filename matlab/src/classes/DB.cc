@@ -199,18 +199,21 @@ bool DB::checkRecipe(const Recipe& recipe)
 
 Ingredient DB::fetchIngredient(const string & name)
 {
-  QSqlQuery tmp_query(db_);
-    if(!checkIngredient(name))
-      throw DB_Exception("Ingredient: " + name + " could not be found in the database");
-  tmp_query.prepare("SELECT * FROM Ingredient WHERE name = :name");
-  tmp_query.bindValue(":name",name.c_str());
-  tmp_query.exec();
-  tmp_query.next();
-  return Ingredient(tmp_query.value(0).toString().toStdString(),tmp_query.value(1).toInt(),tmp_query.value(2).toInt());
+  QSqlQuery query(db_);
+  if(!checkIngredient(name))
+    throw DB_Exception("Ingredient: " + name + " could not be found in the database");
+  query.prepare("SELECT * FROM Ingredient WHERE name = :name");
+  query.bindValue(":name",name.c_str());
+  query.exec();
+  query.next();
+  Ingredient ingredient(query.value(0).toString().toStdString(),query.value(1).toInt(),query.value(2).toInt());
+  ingredient.setAllergenes(fetchAllergenes(name));
+  ingredient.setDiets(fetchDiets(name));
+  return ingredient; 
 }
 
 /*
- fetchRecipeIngredient() fetches ingredient information from the db and
+  fetchRecipeIngredient() fetches ingredient information from the db and
  returns a RecipeIngredient object 
 */
 
@@ -222,10 +225,61 @@ RecipeIngredient DB::fetchRecipeIngredient(const string & name)
   tmp_query.bindValue(":name",name.c_str());
   tmp_query.exec();
   tmp_query.next();
-  return RecipeIngredient(tmp_query.value(0).toString().toStdString(),
+  RecipeIngredient recipe_ingredient(tmp_query.value(0).toString().toStdString(),
 		    tmp_query.value(1).toInt(),
 		    tmp_query.value(2).toInt());
+  recipe_ingredient.setAllergenes(fetchAllergenes(name));
+  recipe_ingredient.setDiets(fetchDiets(name));
+  return recipe_ingredient;
+				  
 }
+/*
+  Fetch Allergenes and diets, Creates allergene and diet arrays for ingredients
+*/
+AllergeneArray DB::fetchAllergenes(const string& name)
+{
+  QSqlQuery query;
+  AllergeneArray allergenes{{}};
+  query.prepare("SELECT allergene_name FROM Allergen_in WHERE ingredient_name = :ingredient_name");
+  query.bindValue(":ingredient_name",name.c_str());
+  query.exec();
+  while(query.next())
+    {
+      if(query.value(0) == "fruit") allergenes[fruit] = true;
+      else if(query.value(0) == "garlic") allergenes[garlic] = true;
+      else if(query.value(0) == "hot_peppers") allergenes[hot_peppers] = true;
+      else if(query.value(0) == "oats") allergenes[oats] = true;
+      else if(query.value(0) == "wheat") allergenes[wheat] = true;
+      else if(query.value(0) == "gluten") allergenes[gluten] = true;
+      else if(query.value(0) == "peanut") allergenes[peanut] = true;
+      else if(query.value(0) == "tree_nut") allergenes[tree_nut] = true;
+      else if(query.value(0) == "shellfish") allergenes[shellfish] = true;
+      else if(query.value(0) == "alpha_gal") allergenes[alpha_gal] = true;
+      else if(query.value(0) == "egg") allergenes[egg] = true;
+      else if(query.value(0) == "milk") allergenes[milk] = true;
+      else if(query.value(0) == "lactose") allergenes[lactose] = true;
+      else if(query.value(0) == "soy") allergenes[soy] = true;
+    }
+  return allergenes;
+}
+DietArray DB::fetchDiets(const string& name)
+{
+  QSqlQuery query;
+  DietArray diets;
+  query.prepare("SELECT diet_name WHERE from Diet_in WHERE ingredient_name = :ingredient_name");
+  query.bindValue(":ingredient_name",name.c_str());
+  query.exec();
+  while(query.next())
+    {
+      if(query.value(0) == "vegetarian") diets[vegetarian] = true;
+      else if(query.value(0) == "vegan") diets[vegan] = true;
+      else if(query.value(0) == "halal") diets[halal] = true;
+      else if(query.value(0) == "kosher") diets[kosher] = true;
+    }
+}
+
+
+
 /*
   Fetches IngredientList for recipe
 */

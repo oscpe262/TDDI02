@@ -63,6 +63,8 @@ class Ingredient
   void setName(string name){name_ = name;}
   void setPrice(double price) {price_ = price;}
   void setKcal(int kcal)   {kcal_ = kcal;}
+  void setAllergenes(AllergeneArray allergenes) {allergenes_ = allergenes;}
+  void setDiets(DietArray diets) {diets_ = diets;}
 
   bool addAllergene(int);
   bool removeAllergene(int);
