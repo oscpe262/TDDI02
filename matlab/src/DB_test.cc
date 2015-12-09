@@ -44,9 +44,31 @@ void term_search_test(SearchDB& db);
 
 int main(int argc, char* argv[])
 {
-  
-  // string db_name = "matlabb2";
   QCoreApplication app(argc, argv);
+
+  /*
+    här börjar nytt
+  */
+  //SearchDB search_db;
+  EditDB test_edit_db;
+  Recipe recipe = test_edit_db.fetchRecipe("Hallonkaka");
+  IngredientList ingredient_list = recipe.getIngredients();
+
+  for(int i = 0; i < 4; ++i)
+    {
+      cout << ingredient_list[i].getName() << endl;
+       AllergeneArray allergenes = ingredient_list[i].getAllergenes();
+       for(int i = 0; i < 14; ++i)
+       	{ 
+       	  cout << i << endl; if(allergenes[i]) cout << "true" << endl;
+       	}
+    }
+
+  
+      
+/*
+    här slutar nytt
+  */
   // EditDB test_editDB;
   // SearchDB test_searchDB;
   // int menu = 0;
@@ -218,18 +240,18 @@ int main(int argc, char* argv[])
 // //        << "Choice: ";
 
 // // }
-// // void print_recipe(MiniRecipe& recipe)
-// // {
-// //   cout << "Recipe: " << recipe.name_ << endl
-// //        << "Grade: " << recipe.grade_ << endl
-// //        << "Time: " << recipe.minutesTime_ << endl << endl;
-// // }
+void print_recipe(MiniRecipe& recipe)
+{
+  cout << "Recipe: " << recipe.name_ << endl
+       << "Grade: " << recipe.grade_ << endl
+       << "Time: " << recipe.minutesTime_ << endl << endl;
+}
 
-// // void print_recipe_list(RecipeList& recipe_list)
-// // {
-// //   for(auto i : recipe_list)
-// //     print_recipe(i);
-// // }
+void print_recipe_list(RecipeList& recipe_list)
+{
+  for(auto i : recipe_list)
+    print_recipe(i);
+}
 
 // // bool import_ingredients(ifstream& stream,EditDB& db)
 // // {

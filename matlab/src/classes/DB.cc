@@ -238,43 +238,46 @@ RecipeIngredient DB::fetchRecipeIngredient(const string & name)
 */
 AllergeneArray DB::fetchAllergenes(const string& name)
 {
-  QSqlQuery query;
+  QSqlQuery query(db_);
   AllergeneArray allergenes{{}};
-  query.prepare("SELECT allergene_name FROM Allergen_in WHERE ingredient_name = :ingredient_name");
+  query.prepare("SELECT allergene_name FROM Allergene_in WHERE ingredient_name = :ingredient_name");
   query.bindValue(":ingredient_name",name.c_str());
   query.exec();
   while(query.next())
     {
-      if(query.value(0) == "fruit") allergenes[fruit] = true;
-      else if(query.value(0) == "garlic") allergenes[garlic] = true;
-      else if(query.value(0) == "hot_peppers") allergenes[hot_peppers] = true;
-      else if(query.value(0) == "oats") allergenes[oats] = true;
-      else if(query.value(0) == "wheat") allergenes[wheat] = true;
-      else if(query.value(0) == "gluten") allergenes[gluten] = true;
-      else if(query.value(0) == "peanut") allergenes[peanut] = true;
-      else if(query.value(0) == "tree_nut") allergenes[tree_nut] = true;
-      else if(query.value(0) == "shellfish") allergenes[shellfish] = true;
-      else if(query.value(0) == "alpha_gal") allergenes[alpha_gal] = true;
-      else if(query.value(0) == "egg") allergenes[egg] = true;
-      else if(query.value(0) == "milk") allergenes[milk] = true;
-      else if(query.value(0) == "lactose") allergenes[lactose] = true;
-      else if(query.value(0) == "soy") allergenes[soy] = true;
+      cerr << name << ": ";
+      cerr << query.value(0).toString().toStdString() << endl;
+      if(query.value(0).toString().toStdString() == "fruit") allergenes[(int)fruit] = true;
+      else if(query.value(0).toString().toStdString() == "garlic") allergenes[(int)garlic] = true;
+      else if(query.value(0).toString().toStdString() == "hot_peppers") allergenes[(int)hot_peppers] = true;
+      else if(query.value(0).toString().toStdString() == "oats") allergenes[(int)oats] = true;
+      else if(query.value(0).toString().toStdString() == "wheat") allergenes[(int)wheat] = true;
+      else if(query.value(0).toString().toStdString() == "gluten") allergenes[(int)gluten] = true;
+      else if(query.value(0).toString().toStdString() == "peanut") allergenes[(int)peanut] = true;
+      else if(query.value(0).toString().toStdString() == "tree_nut") allergenes[(int)tree_nut] = true;
+      else if(query.value(0).toString().toStdString() == "shellfish") allergenes[(int)shellfish] = true;
+      else if(query.value(0).toString().toStdString() == "alpha_gal") allergenes[(int)alpha_gal] = true;
+      else if(query.value(0).toString().toStdString() == "egg") allergenes[egg] = true;
+      else if(query.value(0).toString().toStdString() == "milk") allergenes[milk] = true;
+      else if(query.value(0).toString().toStdString() == "lactose") allergenes[lactose] = true;
+      else if(query.value(0).toString().toStdString() == "soy") allergenes[soy] = true;
     }
+  cerr << query.lastError().text().toStdString();
   return allergenes;
 }
 DietArray DB::fetchDiets(const string& name)
 {
-  QSqlQuery query;
+  QSqlQuery query(db_);
   DietArray diets;
   query.prepare("SELECT diet_name FROM Diet_in WHERE ingredient_name = :ingredient_name");
   query.bindValue(":ingredient_name",name.c_str());
   query.exec();
   while(query.next())
     {
-      if(query.value(0) == "vegetarian") diets[vegetarian] = true;
-      else if(query.value(0) == "vegan") diets[vegan] = true;
-      else if(query.value(0) == "halal") diets[halal] = true;
-      else if(query.value(0) == "kosher") diets[kosher] = true;
+      if(query.value(0).toString().toStdString() == "vegetarian") diets[vegetarian] = true;
+      else if(query.value(0).toString().toStdString() == "vegan") diets[vegan] = true;
+      else if(query.value(0).toString().toStdString() == "halal") diets[halal] = true;
+      else if(query.value(0).toString().toStdString() == "kosher") diets[kosher] = true;
     }
 }
 /*
@@ -294,12 +297,12 @@ IngredientList DB::fetchIngredientList(const string & recipe)
 					 query.value(2).toInt(),
 					 query.value(3).toDouble(),
 					 static_cast<Unit>(query.value(4).toInt()));
-      recipe_ingredient.setAllergenes(fetchAllergenes(recipe));
-      recipe_ingredient.setDiets(fetchDiets(recipe));
+      recipe_ingredient.setAllergenes(fetchAllergenes(query.value(0).toString().toStdString()));
+      recipe_ingredient.setDiets(fetchDiets(query.value(0).toString().toStdString()));
       ingredients.push_back(recipe_ingredient);
-      
-      return ingredients;
     }
+  return ingredients;
+   
 }
 	/*
   fetchRecipe() Fetches Recipie info from db and returns recipe object
