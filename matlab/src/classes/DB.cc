@@ -266,7 +266,7 @@ DietArray DB::fetchDiets(const string& name)
 {
   QSqlQuery query;
   DietArray diets;
-  query.prepare("SELECT diet_name WHERE from Diet_in WHERE ingredient_name = :ingredient_name");
+  query.prepare("SELECT diet_name FROM Diet_in WHERE ingredient_name = :ingredient_name");
   query.bindValue(":ingredient_name",name.c_str());
   query.exec();
   while(query.next())
@@ -277,9 +277,6 @@ DietArray DB::fetchDiets(const string& name)
       else if(query.value(0) == "kosher") diets[kosher] = true;
     }
 }
-
-
-
 /*
   Fetches IngredientList for recipe
 */
@@ -292,16 +289,19 @@ IngredientList DB::fetchIngredientList(const string & recipe)
   query.exec();
   while(query.next())
     {
-      ingredients.push_back(RecipeIngredient(query.value(0).toString().toStdString(),
-					     query.value(1).toInt(),
-					     query.value(2).toInt(),
-					     query.value(3).toDouble(),
-					     static_cast<Unit>(query.value(4).toInt())));
+      RecipeIngredient recipe_ingredient(query.value(0).toString().toStdString(),
+					 query.value(1).toInt(),
+					 query.value(2).toInt(),
+					 query.value(3).toDouble(),
+					 static_cast<Unit>(query.value(4).toInt()));
+      recipe_ingredient.setAllergenes(fetchAllergenes(recipe));
+      recipe_ingredient.setDiets(fetchDiets(recipe));
+      ingredients.push_back(recipe_ingredient);
+      
+      return ingredients;
     }
-  return ingredients;
 }
-
-/*
+	/*
   fetchRecipe() Fetches Recipie info from db and returns recipe object
 */
 
