@@ -73,9 +73,7 @@ bool EditDB::bindRelated(const vector<string>& related,const string& name)
 bool EditDB::updateRecipe(const Recipe& recipe)
 {
   QSqlQuery query(db_);
-  query.prepare("DELETE FROM Recipe WHERE name = :name");
-  query.bindValue(":name", recipe.getName().c_str());
-  query.exec();
+  removeRecipe(recipe);
   return addRecipe(recipe);
   // if(checkRecipe(recipe)) return false;
   /*
