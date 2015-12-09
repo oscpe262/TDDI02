@@ -22,7 +22,7 @@ using namespace std;
 RecipeList SearchDB::queryList(bool forward)
 {
   QSqlQuery query(db_);
-  query.prepare("SELECT name, score, time FROM Recipe LIMIT 2 OFFSET :offset" );  
+  query.prepare("SELECT name, score, time, kcal FROM Recipe LIMIT 2 OFFSET :offset" );  
   if(forward)
     query.bindValue(":offset",++list_pos_*2); // this 2 should be 10
 					      // when we have more
@@ -66,7 +66,7 @@ RecipeList SearchDB::queryIngredient(const string& name)
 {
   QSqlQuery query(db_);
   RecipeList recipe_list;
-  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (select recipe_name from Used_for where ingredient_name = :ingredient_name)");
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time, Recipe.kcal FROM Recipe WHERE Recipe.name IN (select recipe_name from Used_for where ingredient_name = :ingredient_name)");
   query.bindValue(":ingredient_name",name.c_str());
   query.exec();
   recipe_list = makeRecipeList(query);
@@ -97,7 +97,7 @@ RecipeList SearchDB::queryNotIngredientList(IngredientNames ingredients)
 {
   QSqlQuery query(db_);
   RecipeList result_list;
-  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe");
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time, Recipe.kcal FROM Recipe");
   query.exec();
   result_list = makeRecipeList(query);
   for(auto i : ingredients) 
@@ -108,7 +108,7 @@ RecipeList SearchDB::queryAllergene(const Allergene& allergene)
 {
   QSqlQuery query(db_);
   RecipeList recipe_list;
-  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name IN (SELECT Allergene_in.ingredient_name FROM Allergene_in WHERE Allergene_in.allergene_name = :allergene_name))");
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time, Recipe.kcal FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name IN (SELECT Allergene_in.ingredient_name FROM Allergene_in WHERE Allergene_in.allergene_name = :allergene_name))");
   cerr << getAllergeneString(allergene);
   query.bindValue(":allergene_name",getAllergeneString(allergene).c_str());
   query.exec();
@@ -141,7 +141,7 @@ RecipeList SearchDB::queryDiet(const Diet& diet)
 {
   QSqlQuery query(db_);
   RecipeList recipe_list;
-  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name NOT IN (SELECT Diet_in.ingredient_name FROM Diet_in WHERE Diet_in.diet_name = :diet_name))");
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time, Recipe.kcal FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name NOT IN (SELECT Diet_in.ingredient_name FROM Diet_in WHERE Diet_in.diet_name = :diet_name))");
   query.bindValue(":diet_name",getDietString(diet).c_str());
   query.exec();
   cerr << query.lastError().text().toStdString();
@@ -174,7 +174,7 @@ RecipeList SearchDB::queryDietList(const DietArray& diets)
 RecipeList SearchDB::queryPrice(const Price& price)
 {
   QSqlQuery query(db_);
-  query.prepare("Select Recipe.name,Recipe.score,Recipe.time FROM Recipe WHERE (Recipe.price <= :upper AND Recipe.price >= :lower)");
+  query.prepare("Select Recipe.name,Recipe.score,Recipe.time, Recipe.kcal FROM Recipe WHERE (Recipe.price <= :upper AND Recipe.price >= :lower)");
   query.bindValue(":upper",price.upper_bound);
   query.bindValue(":lower",price.lower_bound);
   query.exec();
@@ -188,7 +188,7 @@ RecipeList SearchDB::queryPrice(const Price& price)
 RecipeList SearchDB::queryKcal(const Cal& kcal)
 {
   QSqlQuery query(db_);
-  query.prepare("Select Recipe.name,Recipe.score,Recipe.time FROM Recipe WHERE (Recipe.kcal <= :upper AND Recipe.kcal >= :lower)");
+  query.prepare("Select Recipe.name,Recipe.score,Recipe.time, Recipe.kcal FROM Recipe WHERE (Recipe.kcal <= :upper AND Recipe.kcal >= :lower)");
   query.bindValue(":upper",kcal.upper_bound);
   query.bindValue(":lower",kcal.lower_bound);
   query.exec();
@@ -198,7 +198,7 @@ RecipeList SearchDB::queryKcal(const Cal& kcal)
 RecipeList SearchDB::queryTime(const Time& time)
 {
   QSqlQuery query(db_);
-  query.prepare("Select Recipe.name,Recipe.score,Recipe.time FROM Recipe WHERE (Recipe.time <= :upper AND Recipe.time >= :lower)");
+  query.prepare("Select Recipe.name,Recipe.score,Recipe.time, Recipe.kcal FROM Recipe WHERE (Recipe.time <= :upper AND Recipe.time >= :lower)");
   query.bindValue(":upper",time.upper_bound);
   query.bindValue(":lower",time.lower_bound);
   query.exec();
@@ -274,7 +274,8 @@ RecipeList SearchDB::makeRecipeList(QSqlQuery& query)
     {
       recipe_list.push_back(MiniRecipe(query.value(0).toString().toStdString(),
 				       query.value(2).toDouble(),
-				       query.value(1).toInt()));
+				       query.value(1).toInt(),
+				       query.value(2).toInt()));
     }
   query.clear();
   return recipe_list;
