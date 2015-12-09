@@ -73,13 +73,18 @@ bool EditDB::bindRelated(const vector<string>& related,const string& name)
 bool EditDB::updateRecipe(const Recipe& recipe)
 {
   QSqlQuery query(db_);
+  query.prepare("DELETE FROM Recipe WHERE name = :name");
+  query.bindValue(":name", recipe.getName().c_str());
+  query.exec();
+  return addRecipe(recipe);
   // if(checkRecipe(recipe)) return false;
+  /*
   query.prepare("INSERT INTO recipe(method,score,time,price,kcal,portions) VALUES(:method,:score,:time,:price,:kcal,:portions WHERE name= :name)");
   query.bindValue(":method", recipe.getMethod().c_str());
   query.bindValue(":score", recipe.getGrade());
   query.bindValue(":time", recipe.getMinutesTime());
-  query.bindValue(":price",recipe.getPrice());
-  query.bindValue(":kcal", recipe.getKcal());
+  query.bindValue(":price",calculatePrice(recipe));
+  query.bindValue(":kcal", calculateKcal(recipe));
   query.bindValue(":portions",recipe.getPortions());
   
   query.finish();
@@ -98,7 +103,7 @@ bool EditDB::updateRecipe(const Recipe& recipe)
   query.prepare("DELETE FROM Related_to WHERE Recipe = :Recipe");
   query.bindValue(":Recipe", recipe.getName().c_str());
   bindRelated(recipe.getRelated(),recipe.getName()); 
-    
+  */
   return true;
 }
 
@@ -151,7 +156,7 @@ bool EditDB::addIngredient(const Ingredient& ingredient)
   	  tmp.clear();
 	}
     }
-	return true;
+  return true;
    
 }
  
