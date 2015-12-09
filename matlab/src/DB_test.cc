@@ -50,7 +50,10 @@ int main(int argc, char* argv[])
     här börjar nytt
   */
   //SearchDB search_db;
-  EditDB test_edit_db;
+  EditDB edb;
+  SearchDB db;
+  /*
+
   Recipe recipe = test_edit_db.fetchRecipe("Hallonkaka");
   IngredientList ingredient_list = recipe.getIngredients();
 
@@ -63,6 +66,25 @@ int main(int argc, char* argv[])
        	  cout << i << endl; if(allergenes[i]) cout << "true" << endl;
        	}
     }
+  */
+  SearchTerm st;
+  vector<string> ingredients{"Ägg"};
+  AllergeneArray allergenes{{}};
+  Price price(0,99999);
+  Cal cal(0,99999);
+  Time time(0,99999);
+  RecipeList search_result;
+  // allergenes[Allergene(fruit)] = true;
+  st.setIngredients(ingredients);
+  st.setAllergenes(allergenes);
+  st.setPrice(price);
+  st.setCal(cal);
+  st.setTime(time);
+  search_result = db.termSearch(st);
+  cout << "RESULT: \n";
+  print_recipe_list(search_result); 
+  
+
 
   
       
@@ -244,7 +266,8 @@ void print_recipe(MiniRecipe& recipe)
 {
   cout << "Recipe: " << recipe.name_ << endl
        << "Grade: " << recipe.grade_ << endl
-       << "Time: " << recipe.minutesTime_ << endl << endl;
+       << "Time: " << recipe.minutesTime_ << endl 
+       << "Kcal: " << recipe.kcal_ << endl;
 }
 
 void print_recipe_list(RecipeList& recipe_list)

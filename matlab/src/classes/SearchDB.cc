@@ -275,7 +275,7 @@ RecipeList SearchDB::makeRecipeList(QSqlQuery& query)
       recipe_list.push_back(MiniRecipe(query.value(0).toString().toStdString(),
 				       query.value(2).toDouble(),
 				       query.value(1).toInt(),
-				       query.value(2).toInt()));
+				       query.value(3).toInt()));
     }
   query.clear();
   return recipe_list;
