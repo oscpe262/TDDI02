@@ -46,29 +46,29 @@ void DB::createDb()
 { 
   //Creating tables for strong entitys
   
-  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(50),method VARCHAR(200), score float(10), time int(10), price int(10), kcal int(10), portions int(10), PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Recipe(name VARCHAR(255),method VARCHAR(1023), score float(10), time int(10), price int(10), kcal int(10), portions int(10), PRIMARY KEY(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(30),price INT(10),kcal INT(10),PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Ingredient(name VARCHAR(255),price INT(10),kcal INT(10),PRIMARY KEY(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Allergene(name VARCHAR(10),PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Allergene(name VARCHAR(255),PRIMARY KEY(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Diet(name VARCHAR(10),PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Diet(name VARCHAR(255),PRIMARY KEY(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Tool(name varchar(20),PRIMARY KEY(name))");
+  query_ = db_.exec("CREATE TABLE Tool(name varchar(255),PRIMARY KEY(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Comments(id int(5),recipe_name VARCHAR(20), comment VARCHAR(50), PRIMARY KEY(ID), FOREIGN KEY(recipe_name) REFERENCES Recipe(name))");
+  query_ = db_.exec("CREATE TABLE Comments(id int(5),recipe_name VARCHAR(255), comment VARCHAR(255), PRIMARY KEY(ID), FOREIGN KEY(recipe_name) REFERENCES Recipe(name))");
 
   //Creating tables for M-N relations
 
-  query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(50), ingredient_name VARCHAR(20), amount INT(10), unit INT(5), FOREIGN KEY(recipe_name) REFERENCES Recipe(name), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
+  query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(255), ingredient_name VARCHAR(255), amount INT(10), unit INT(5), FOREIGN KEY(recipe_name) REFERENCES Recipe(name), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Allergene_in(ingredient_name VARCHAR(20), allergene_name VARCHAR(20), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(allergene_name) REFERENCES Allergene(name))");
+  query_ = db_.exec("CREATE TABLE Allergene_in(ingredient_name VARCHAR(255), allergene_name VARCHAR(255), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(allergene_name) REFERENCES Allergene(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Diet_in(ingredient_name VARCHAR(20), diet_name VARCHAR(20), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(diet_name) REFERENCES Diet(name))");
+  query_ = db_.exec("CREATE TABLE Diet_in(ingredient_name VARCHAR(255), diet_name VARCHAR(255), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(diet_name) REFERENCES Diet(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Needed_for(recipe_name VARCHAR(20), tool_name VARCHAR(20),FOREIGN KEY(recipe_name) REFERENCES Recipe(name),  FOREIGN KEY(tool_name) REFERENCES Tool(name))");
+  query_ = db_.exec("CREATE TABLE Needed_for(recipe_name VARCHAR(255), tool_name VARCHAR(255),FOREIGN KEY(recipe_name) REFERENCES Recipe(name),  FOREIGN KEY(tool_name) REFERENCES Tool(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Related_to(recipe VARCHAR(20), related VARCHAR(20), FOREIGN KEY(recipe) REFERENCES Recipe(name), FOREIGN KEY(related) REFERENCES Recipe(name))");
+  query_ = db_.exec("CREATE TABLE Related_to(recipe VARCHAR(255), related VARCHAR(255), FOREIGN KEY(recipe) REFERENCES Recipe(name), FOREIGN KEY(related) REFERENCES Recipe(name))");
 
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('fruit')"); 
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('garlic')"); 
