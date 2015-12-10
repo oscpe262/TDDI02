@@ -44,7 +44,9 @@ IngredientList tagIngredient(fstream & fs) {
        getline(fs,tagIng,'>');
        if (tagIng == "/ingredient"){
 	 RecipeIngredient omnom{name, price, kcal, amount, unit};
-	 IL.push_back(omnom);
+	 if (DB::checkIngredient == name) {
+	   IL.push_back(omnom);
+	 }
 	 return IL;
        }
      }
@@ -96,6 +98,7 @@ Recipe importXml (std::string filepath) {
   string trash{};
   char peek{};
   Recipe yumyum;
+  //  bool dirtyRead{0};
  
   while (fs.peek() != EOF) {
     fs.ignore(1000,'<');

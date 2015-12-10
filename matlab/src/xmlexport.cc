@@ -3,11 +3,29 @@
 #include <algorithm>
 #include "classes/headers/Recipe.h"
 
+class XMLException : public std::exception {
+public:
+  explicit XMLException(const std::string& message):
+    msg_(message){}
+  virtual char const * what() const noexcept {return msg_.c_str();}
+
+private:
+  string msg_;
+};
+
+std::string(std::string oldFilename) {
+  return "New." + oldFilename;  
+};
+
 void exportXml (std::string filepath, Recipe recipe) {
   ofstream fs;
   std::string unit{};
-  //filecheck
 
+  /*
+  if(file exists) {
+  filepath = rename(filepath);
+  }
+  */  
   fs.open(filepath);
   fs << "<?xml version=\"1.0\"?>\n"
      << "<!-- " << filepath << " -->\n"
@@ -16,7 +34,6 @@ void exportXml (std::string filepath, Recipe recipe) {
      << "  <portionsize>" << recipe.portions_ << "</portionsize>\n";
   
   for (auto it = begin (recipe.ingredients_); it != end (recipe.ingredients_); ++it) {
-    //    printIngredient(fs, *it);
   fs << "  <ingredient>" << it->name_
      << "<amount>" << it->amount_;
   switch (it->unit_) {
