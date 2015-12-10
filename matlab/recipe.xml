@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- recipe.xml -->
+<recipe>
+  <name>Köttbullar</name>
+  <portionsize>4</portionsize>
+  <ingredient>köttfärs<amount>500<unit>g</unit></amount></ingredient>
+  <ingredient>ströbröd<amount>0,5<unit>dl</unit></amount></ingredient>
+  <ingredient>grädde<amount>1<unit>dl</unit></amount></ingredient>
+  <ingredient>lök<amount>2<unit>msk</unit></amount></ingredient>
+  <ingredient>ägg<amount>1<unit>st</unit></amount></ingredient>
+  <ingredient>salt<amount>1<unit>tsk</unit></amount></ingredient>
+  <ingredient>svartpeppar<amount>1<unit>krm</unit></amount></ingredient>
+  <ingredient>olja<amount>2<unit>msk</unit></amount></ingredient>
+  <instruction>Blanda ströbröd och grädde. Låt svälla 10 min. Lägg i färs, lök, ägg, 
+  salt och peppar. Rör till en jämn smet. Forma färsen till jämna bullar. Stek dem i
+  smör-&amp; rapsolja på medelvärme 3-5 min.</instruction>
+  <time>40</time>
+  <tool>stekpanna</tool>
+  <price>30</price>
+  <energy>375</energy>
+  <rating>3</rating>
+</recipe>
+<!-- EOF -->
