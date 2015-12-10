@@ -26,7 +26,7 @@ bool EditDB::addRecipe(const Recipe& recipe)
     return false;
   if(checkRecipe(recipe))
   {
-    removeRecipe(recipe));
+    removeRecipe(recipe);
   }
 
   tmp.finish();
