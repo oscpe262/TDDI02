@@ -26,32 +26,31 @@ bool EditDB::addRecipe(const Recipe& recipe)
     return false;
   if(checkRecipe(recipe))
   {
-    return updateRecipe(recipe);
+    if(!removeRecipe(recipe)) return false;
   }
-  else
+
+  tmp.finish();
+  tmp.prepare("INSERT INTO Recipe(name,method,score,time,price,kcal,portions) VALUES(:name,:method,:score,:time,:price,:kcal,:portions)");
+  tmp.bindValue(":name", recipe.getName().c_str());
+  tmp.bindValue(":method", recipe.getMethod().c_str());
+  tmp.bindValue(":score", recipe.getGrade());
+  tmp.bindValue(":time", recipe.getMinutesTime());
+  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
+  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
+  tmp.bindValue(":price", calculatePrice(recipe));
+  tmp.bindValue(":kcal", calculateKcal(recipe));
+  tmp.bindValue(":portions", recipe.getPortions());
+  cerr << tmp.lastError().text().toStdString();		
+  tmp.exec();
+  //tmp.finish();
+  IngredientList ingredient_list = recipe.getIngredients();
+  for(auto i : ingredient_list)
     {
+      addRecipeIngredient(i, recipe.getName());
       tmp.finish();
-      tmp.prepare("INSERT INTO Recipe(name,method,score,time,price,kcal,portions) VALUES(:name,:method,:score,:time,:price,:kcal,:portions)");
-      tmp.bindValue(":name", recipe.getName().c_str());
-      tmp.bindValue(":method", recipe.getMethod().c_str());
-      tmp.bindValue(":score", recipe.getGrade());
-      tmp.bindValue(":time", recipe.getMinutesTime());
-      cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
-      cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
-      tmp.bindValue(":price", calculatePrice(recipe));
-      tmp.bindValue(":kcal", calculateKcal(recipe));
-      tmp.bindValue(":portions", recipe.getPortions());
-      cerr << tmp.lastError().text().toStdString();		
-      tmp.exec();
-      //tmp.finish();
-      IngredientList ingredient_list = recipe.getIngredients();
-      for(auto i : ingredient_list)
-	{
-	  addRecipeIngredient(i, recipe.getName());
-	  tmp.finish();
-	}
-      bindRelated(recipe.getRelated(),recipe.getName());
     }
+  bindRelated(recipe.getRelated(),recipe.getName());
+
   return true;
 }
 

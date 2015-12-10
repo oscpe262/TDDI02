@@ -48,6 +48,8 @@ class DB
   bool checkRecipe(const string& recipe);
   bool checkRecipe(const Recipe& recipe);
 
+  bool checkRelated(const string& recipe);
+
   Ingredient       fetchIngredient(const string & name); //ALLERGENER OCH DIETER!!
   RecipeIngredient fetchRecipeIngredient(const string & name);
   AllergeneArray   fetchAllergenes(const string& name);

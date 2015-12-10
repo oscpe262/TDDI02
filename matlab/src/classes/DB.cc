@@ -192,6 +192,15 @@ bool DB::checkRecipe(const Recipe& recipe)
   return checkRecipe(recipe.getName());
 }
 
+bool DB::checkRelated(const string& recipe)
+{
+  QSqlQuery tmp_query(db_);
+  tmp_query.prepare("SELECT 1 FROM Related_to WHERE Recipe=:name");
+  tmp_query.bindValue(":name", recipe.c_str());
+  tmp_query.exec();
+  if(tmp_query.next()) return true;
+  else return false;
+}
 /*
  fetchIngredient() fetches ingredient information from the db and
  returns a Ingredient object 
@@ -337,12 +346,15 @@ Recipe DB::fetchRecipe(const string & name)
 vector<string> DB::fetchRelated(const string& name)
 {
   QSqlQuery query(db_);
-  vector<string> related_recipes;
-  query.prepare("SELECT related FROM Related_to WHERE recipe = :recipe");
-  query.bindValue(":recipe",name.c_str());
-  while(query.next())
+  vector<string> related_recipes{};
+  if(checkRelated(name))
     {
-      related_recipes.push_back(query.value(0).toString().toStdString());
+      query.prepare("SELECT related FROM Related_to WHERE recipe = :recipe");
+      query.bindValue(":recipe",name.c_str());
+      while(query.next())
+	{
+	  related_recipes.push_back(query.value(0).toString().toStdString());
+	}
     }
   return related_recipes;
     
