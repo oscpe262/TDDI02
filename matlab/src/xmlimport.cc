@@ -84,7 +84,7 @@ IngredientList tagIngredient(fstream & fs) {
 }
  
 
-Recipe XMLImport (std::string filepath) {
+Recipe importXml (std::string filepath) {
   fstream fs;
 
   //filecheck
