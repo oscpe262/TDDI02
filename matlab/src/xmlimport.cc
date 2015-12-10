@@ -87,11 +87,11 @@ IngredientList tagIngredient(fstream & fs) {
  
 
 Recipe importXml (std::string filepath) {
-  fstream fs;
+  ifstream fs;
 
   //filecheck
   
-  fs.open(filepath, std::fstream::in);
+  fs.open(filepath);
 
   string tmp{};
   string value{};

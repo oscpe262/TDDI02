@@ -25,11 +25,6 @@ void exportXml (std::string filepath, Recipe recipe) {
   ofstream fs;
   std::string unit{};
 
-  /*
-  if(file exists) {
-  filepath = rename(filepath);
-  }
-  */  
   fs.open(filepath);
   fs << "<?xml version=\"1.0\"?>\n"
      << "<!-- " << filepath << " -->\n"
