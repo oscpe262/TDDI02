@@ -352,8 +352,10 @@ vector<string> DB::fetchRelated(const string& name)
     {
       query.prepare("SELECT related FROM Related_to WHERE recipe = :recipe");
       query.bindValue(":recipe",name.c_str());
+      query.exec();
       while(query.next())
 	{
+	  cerr << "query value(0): " << query.value(0).toString().toStdString();
 	  related_recipes.push_back(query.value(0).toString().toStdString());
 	}
     }
