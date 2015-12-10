@@ -10,11 +10,15 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
+#include <algorithm>
 
 using namespace std;
 
-/* extra function declarations */
+/***************
+ *** [local] ***
+ **************/
 namespace{
+
   string unit2str( const Unit& unitvalue )
   {
     switch(unitvalue)
@@ -33,6 +37,61 @@ namespace{
 	return "null";
       }
   }
+
+
+  void clearAnnotations( string& recipeTxt )
+  {
+    while( recipeTxt.find("<!--") != string::npos && recipeTxt.find("-->") != string::npos )
+      {
+	size_t stringPos { recipeTxt.find("<!--") };
+	size_t stringPosEnd { recipeTxt.find("-->") };
+	recipeTxt = recipeTxt.substr(0, stringPos) + recipeTxt.substr(stringPosEnd + 3);
+      }
+  }
+
+
+  string extractStep1_Header( string& str )
+  {
+    size_t stringPos {};
+    string header;
+
+    while( str.find('\n', stringPos) != string::npos )
+      {
+	stringPos = str.find('\n', stringPos);
+	if( str.at(stringPos + 1) == '\n' || str.at(stringPos + 1) == '=' )
+	  {
+	    header = str.substr(0, stringPos);
+	    str = str.substr(stringPos);
+	    return header;
+	  }
+	  
+	++stringPos;
+      }
+    throw Shell_Exception{ "Shell :: importTxt :: extractStep1_Header :\nInfil har ogiltigt format" };
+  }
+
+
+  /*string extractStep2_IngList( string& str )
+  {
+    
+  }*/
+
+
+  void fileRename( string& oldFileName )
+  {
+    if( oldFileName.substr(0,3) == "New" )
+      {
+	if( oldFileName.at(3) == '.' )
+	  oldFileName.insert(3, "(1)");
+	else if( oldFileName.at(3) == '(' && oldFileName.at(4) != '9' )
+	  ++oldFileName.at(4);
+	else
+	  oldFileName.insert(0, "New.");
+      }
+    else
+      oldFileName.insert(0, "New.");
+  }
+
 }
 bool fileExists( const string& name );
 void readFromFile( istream& is, string& str );
@@ -43,14 +102,23 @@ bool findTime( const string& fieldstr, string& returnstr );
 
 
 /*
+ *** [local] ***
  * unit2str
  *
+ * clearAnnotations
+ * extractStep1_Header
+ * extractStep2_IngList
+ *
+ * fileRename
+ *
+ *
  *** [SHELL] ***
- * exportTxt
+ * exportTxt ( string & Recipe )
  * *importTxt
  * *exportXml
  * *importXml
  * *setScaling
+ *
  *
  *** [SDB] ***
  * exactMatch
@@ -59,11 +127,13 @@ bool findTime( const string& fieldstr, string& returnstr );
  * openRecipe
  * *openIngredient
  *
+ *
  *** [EDB] ***
  * addRecipe
- * removeReciope
+ * removeRecipe ( Recipe & string )
  * addIngredient
- * removeIngredient
+ * removeIngredient ( Recipe & string )
+ *
  *
  *** [extra] ***
  * fileExists
@@ -79,41 +149,50 @@ bool findTime( const string& fieldstr, string& returnstr );
  *** [SHELL] ***
  **************/
 
-void Shell::exportTxt( string fileName )
+
+void Shell::exportTxt( const string& recipeName, string fileName )
+{
+  Recipe recipe { openRecipe(recipeName) };
+  exportTxt(recipe, fileName);
+}
+
+void Shell::exportTxt( const Recipe& recipe, string fileName )
 {
   if( fileName == "null" )
-    fileName = currentRecipe_.getName();
+    fileName = recipe.getName();
 
   if( fileName.substr(fileName.length()-5, string::npos) != ".txt" )
     fileName += ".txt";
 
   if( fileExists(fileName) ) 
     {
-      // kasta undantag!!
-      // Beep boop, "Fil med samma namn existerar redan!"
+      // Observera att currentRecipe_ har ändrats enligt openRecipe om exportTxt(string, string).
+      throw Shell_Exception{ "Shell :: exportTxt :\n En fil med namnet " + fileName + " existerar redan!" };
     }
 
   ofstream recipeTxt {fileName};
   if( !recipeTxt )
     {
+      // Observera att currentRecipe_ har ändrats enligt openRecipe om exportTxt(string, string).
       recipeTxt.close();
-      // kasta undantag!!!
+      throw Shell_Exception{ "Shell :: exportTxt :\nUtfilströmmen till fil " + fileName + " kunde ej startas!" };
     }
-  // lägg till <!-- kommentar --> med filnamn?
-  recipeTxt << "# " << currentRecipe_.getName() << " (" << currentRecipe_.getPortions() << " portioner)\n"
-	    << "Tillagningstid: c:a " << currentRecipe_.getMinutesTime() << " min\n"
+
+  recipeTxt << "<!-- " << fileName << " -->\n"
+	    << "# " << recipe.getName() << " (" << recipe.getPortions() << " portioner)\n"
+	    << "Tillagningstid: c:a " << recipe.getMinutesTime() << " min\n"
 	    << "============\n"; // godtyckligt antal?
 
-    for( RecipeIngredient& ri : currentRecipe_.getIngredients() )
-      {
-    recipeTxt << ri.getName() << " " << ri.getAmount() << " " << unit2str( ri.getUnit() ) << "\n\n";
-      }
+  for( RecipeIngredient& ri : recipe.getIngredients() )
+    {
+      recipeTxt << ri.getName() << " " << ri.getAmount() << " " << unit2str( ri.getUnit() ) << "\n";
+    }
 
-  recipeTxt << currentRecipe_.getMethod() << "\n\n";
+  recipeTxt << "\n" << recipe.getMethod() << "\n\n";
 
-  recipeTxt << "Uppskattat energiinnehåll: " << currentRecipe_.getKcal() << " kcal\n"
-	    << "Uppskattat pris: " << currentRecipe_.getPrice() << " kr\n"
-	    << "Betyg: " << currentRecipe_.getGrade() << "/5\n"
+  recipeTxt << "Uppskattat energiinnehåll: " << recipe.getKcal() << " kcal\n"
+	    << "Uppskattat pris: " << recipe.getPrice() << " kr\n"
+	    << "Betyg: " << recipe.getGrade() << "/5\n"
 	    << "<!-- EOF -->";
 
   recipeTxt.close();
@@ -125,32 +204,34 @@ void Shell::exportTxt( string fileName )
 {
   if( !fileExists(fileName) )
     {
-      // kasta undantag!!
-      // Beep boop, "Filen existerar ej"
+      throw Shell_Exception{ "Shell :: importTxt :\nFilen " + fileName + " existerar ej!" };
     }
 
-  // Öppna fil
   ifstream ifs {fileName};
+
   if( !ifs )
     {
       ifs.close();
-      // kasta undantag
+      throw Shell_Exception{ "Shell :: importTxt :\nInfilströmmen från fil " + fileName + " kunde ej startas!" };
     }
 
-  Recipe recipe;
+  // Läs till string fileContents
   string fileContents;
-
-  // Läs till sträng fileContents och Stäng fil
   readFromStream(ifs, fileContents);
   ifs.close();
 
   // Rensa bort kommentarer: <!-- kommentar -->
-  while( fileContents.find("<!--") != string::npos && fileContents.find("-->") != string::npos )
-    {
-      size_t filePos { fileContents.find("<!--") };
-      size_t filePosEnd { fileContents.find("-->") };
-      fileContents = fileContents.substr(0, filePos) + fileContents.substr(filePosEnd + 3);
-    }
+  clearAnnotations(fileContents);
+
+  // Dela upp
+  string header  { extractStep1_Header(  fileContents) };
+  stirng ingList { extractStep2_IngList( fileContents) };
+  string tail    { extractStep3_Tail(    fileContents) };
+
+  
+  
+
+  Recipe recipe;
 
   // Namn (, portioner, tid)
   istringstream iss {fileContents};
@@ -195,6 +276,59 @@ void Shell::exportTxt( string fileName )
 
 
 }*/
+
+
+void Shell::exportXml( const string& recipeName, string filepath )
+{
+  Recipe recipe { openRecipe(recipeName) };
+  exportXml(recipe, filepath);
+}
+
+
+void Shell::exportXml( const Recipe& recipe, string filepath )
+{
+  if( filepath == "null" )
+    filepath = recipe.getName();
+  
+  if( filepath.substr(filepath.length()-5, string::npos) != ".xml" )
+    filepath += ".xml";
+  
+  while( fileExists(filepath) ) 
+    {
+      fileRename(filepath);
+    }
+
+  ofstream fs {filepath};
+  if( !fs )
+    {
+      // Observera att currentRecipe_ har ändrats enligt openRecipe om exportTxt(string, string).
+      fs.close();
+      throw Shell_Exception{ "Shell :: exportTxt :\nUtfilströmmen till fil " + filepath + " kunde ej startas!" };
+    }
+
+  fs << "<?xml version=\"1.0\"?>\n"
+     << "<!-- " << filepath << " -->\n"
+     << "<recipe>\n"
+     << "  <name>" << recipe.getName() << "</name>\n"
+     << "  <portionsize>" << recipe.getPortions() << "</portionsize>\n";
+  
+  for( RecipeIngredient& ri : recipe.getIngredients() )
+    {
+      fs << "  <ingredient>" << ri.getName()
+	 << "<amount>" << ri.getAmount()
+	 << "<unit>" << unit2str( ri.getUnit() )
+	 << "</unit></amount></ingredient>\n";
+    }
+  
+  fs << "  <instruction>" << recipe.getMethod() << "</instruction>\n"
+     << "  <time>" << recipe.getMinutesTime() << "</time>\n"
+     << "  <price>" << recipe.getPrice() << "</price>\n"
+     << "  <energy>" << recipe.getKcal() << "</energy>\n"
+     << "  <rating>" << recipe.getGrade() << "</rating>\n"
+     << "</recipe>" << endl;
+
+  fs.close();
+};
 
 
 
