@@ -304,7 +304,7 @@ IngredientList DB::fetchIngredientList(const string & recipe)
   return ingredients;
    
 }
-	/*
+/*
   fetchRecipe() Fetches Recipie info from db and returns recipe object
 */
 
@@ -326,14 +326,35 @@ Recipe DB::fetchRecipe(const string & name)
 		query.value(4).toInt(),
 		query.value(5).toInt(),
 		query.value(6).toInt());
+  recipe.setRelated(fetchRelated(name));
   return recipe;
 }
+/*
+  fetchRelated() Fetches Recipie related recipes and returns a vector
+*/
 
+
+vector<string> DB::fetchRelated(const string& name)
+{
+  QSqlQuery query(db_);
+  vector<string> related_recipes;
+  query.prepare("SELECT related FROM Related_to WHERE recipe = :recipe");
+  query.bindValue(":recipe",name.c_str());
+  while(query.next())
+    {
+      related_recipes.push_back(query.value(0).toString().toStdString());
+    }
+  return related_recipes;
+    
+
+}
 /*
   getAllergeneString() is a help function that accepts allergy enum
   and returns a c-string as a result to be used while adding
   ingredients in the database
 */
+
+
 string DB::getAllergeneString(Allergene allergene)
 {
   switch((int)allergene)

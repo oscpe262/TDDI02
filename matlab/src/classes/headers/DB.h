@@ -53,7 +53,8 @@ class DB
   AllergeneArray   fetchAllergenes(const string& name);
   DietArray        fetchDiets(const string& name);
   IngredientList   fetchIngredientList(const string & recipe);
-  Recipe           fetchRecipe(const string & name);
+  Recipe           fetchRecipe(const string& name);
+  vector<string>   fetchRelated(const string& name);
   
  string getAllergeneString(Allergene allergene);
  string getDietString(Diet allergene);
