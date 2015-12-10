@@ -57,6 +57,10 @@ bool EditDB::addRecipe(const Recipe& recipe)
 bool EditDB::bindRelated(const vector<string>& related,const string& name)
 {
   QSqlQuery query(db_);
+  query.prepare("DELETE FROM Related_to WHERE recipe = :recipe");
+  query.bindValue(":recipe",name.c_str());
+  query.exec();
+  query.finish();
   for(auto i : related)
     {
       if(!checkRecipe(i)) throw DB_Exception("Fel: " + i + " finns ej i databasen");
