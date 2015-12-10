@@ -335,7 +335,8 @@ Recipe DB::fetchRecipe(const string & name)
 		query.value(4).toInt(),
 		query.value(5).toInt(),
 		query.value(6).toInt());
-  recipe.setRelated(fetchRelated(name));
+  vector<string> related = fetchRelated(name);
+  recipe.setRelated(related);
   return recipe;
 }
 /*
