@@ -170,19 +170,22 @@ bool EditDB::updateIngredient(const Ingredient& ingredient)
   else
     {
       tmp.finish();
-      tmp.prepare("INSERT INTO Ingredient(price,kcal) VALUES(:price,:kcal) WHERE name=:name");
+      tmp.prepare("UPDATE Ingredient SET price=:price, kcal=:kcal WHERE name=:name");
       tmp.bindValue(":name",ingredient.getName().c_str());
       tmp.bindValue(":price",ingredient.getPrice());
       tmp.bindValue(":kcal",ingredient.getKcal());
       tmp.exec();
+      cerr << tmp.lastError().text().toStdString() << ": 1 \n";
       tmp.finish();
       tmp.prepare("DELETE FROM Allergene_in WHERE ingredient_name = :name");
       tmp.bindValue(":name",ingredient.getName().c_str());
       tmp.exec();
+      cerr << tmp.lastError().text().toStdString()<< ": 2 \n";
       tmp.finish();
       tmp.prepare("DELETE FROM Diet_in WHERE ingredient_name = :name");
       tmp.bindValue(":name",ingredient.getName().c_str());
       tmp.exec();
+      cerr << tmp.lastError().text().toStdString() << ": 3 \n";
 
       for(int i = 0; i < 14; ++i)
 	{

@@ -62,13 +62,13 @@ void DB::createDb()
 
   query_ = db_.exec("CREATE TABLE Used_for(recipe_name VARCHAR(255), ingredient_name VARCHAR(255), amount INT(10), unit INT(5), FOREIGN KEY(recipe_name) REFERENCES Recipe(name) ON DELETE CASCADE, FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Allergene_in(ingredient_name VARCHAR(255), allergene_name VARCHAR(255), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(allergene_name) REFERENCES Allergene(name))");
+  query_ = db_.exec("CREATE TABLE Allergene_in(ingredient_name VARCHAR(255), allergene_name VARCHAR(255), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name) ON DELETE CASCADE, FOREIGN KEY(allergene_name) REFERENCES Allergene(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Diet_in(ingredient_name VARCHAR(255), diet_name VARCHAR(255), FOREIGN KEY(ingredient_name) REFERENCES Ingredient(name), FOREIGN KEY(diet_name) REFERENCES Diet(name))");
   lastQuery(query_);
   query_ = db_.exec("CREATE TABLE Needed_for(recipe_name VARCHAR(255), tool_name VARCHAR(255),FOREIGN KEY(recipe_name) REFERENCES Recipe(name),  FOREIGN KEY(tool_name) REFERENCES Tool(name))");
   lastQuery(query_);
-  query_ = db_.exec("CREATE TABLE Related_to(recipe VARCHAR(255), related VARCHAR(255), FOREIGN KEY(recipe) REFERENCES Recipe(name) ON DELETE CASCADE)");
+  query_ = db_.exec("CREATE TABLE Related_to(recipe VARCHAR(255), related VARCHAR(255), FOREIGN KEY(recipe) REFERENCES Recipe(name)");
 
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('fruit')"); 
   query_ = db_.exec("INSERT INTO Allergene(name) VALUES ('garlic')"); 

@@ -45,14 +45,7 @@ void term_search_test(SearchDB& db);
 int main(int argc, char* argv[])
 {
   QCoreApplication app(argc, argv);
-  //DB db;
-  cerr << "redan innan här?\n";
-   EditDB editdb;
-   cerr << "det är alltså redan här?\n";
-   Recipe recipe = editdb.fetchRecipe("Hallonkaka");
-   cerr << "kommer vi hit?\n";
-   recipe.setMethod("Updaterad beskrivning");
-   editdb.addRecipe(recipe);
+  
    // string name;
   // cout << "Enter name: ";
   // cin >> name;
@@ -118,9 +111,15 @@ int main(int argc, char* argv[])
   SearchDB test_searchDB;
   int menu = 0;
   string name;
-  Ingredient ingredient("Korv",5,200);
-  ifstream importstream;
 
+  ifstream importstream;
+  cerr << "Before fetch\n";
+  Ingredient ingredient = test_editDB.fetchIngredient("Banan");
+  cerr << "set price:\n";
+  ingredient.setPrice(6);
+  cerr << "before add:\n";
+  test_editDB.addIngredient(ingredient);
+  cerr << "after add:\n";
   if(argc > 2)
     {
       if(!strcmp(argv[1], "-i"))
