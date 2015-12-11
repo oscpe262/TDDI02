@@ -39,7 +39,7 @@ class Shell
 
   void                exportXml( const string& recipeName, string filepath = "null" );
   void                exportXml( const Recipe& recipe, string filepath = "null" );
-  Recipe              importXml( string );
+  Recipe              importXml( const string& );
 
   //  void                setScaling( double scaling ) { scaling_ = scaling; }
  
@@ -59,6 +59,9 @@ class Shell
   bool                addIngredient( const Ingredient& );
   bool                removeIngredient( const Ingredient& );
   bool                removeIngredient( const string& );
+
+  // Hjälpfunktioner
+  void                tagIngredient(ifstream & fs, IngredientList & IL);
 
   // private:
 

@@ -14,109 +14,14 @@
 
 using namespace std;
 
-/***************
- *** [local] ***
- **************/
-namespace{
-
-  string unit2str( const Unit& unitvalue )
-  {
-    switch(unitvalue)
-      {
-      case gram:
-	return "g";
-      case deciliter:
-	return "dl";
-      case teaspoon:
-	return "tsk";
-      case tablespoon:
-	return "msk";
-      case pcs:
-	return "st";
-      default:
-	return "null";
-      }
-  }
-
-
-  void clearAnnotations( string& recipeTxt )
-  {
-    while( recipeTxt.find("<!--") != string::npos && recipeTxt.find("-->") != string::npos )
-      {
-	size_t stringPos { recipeTxt.find("<!--") };
-	size_t stringPosEnd { recipeTxt.find("-->") };
-	recipeTxt = recipeTxt.substr(0, stringPos) + recipeTxt.substr(stringPosEnd + 3);
-      }
-  }
-
-
-  string extractStep1_Header( string& str )
-  {
-    size_t stringPos {};
-    string header;
-
-    while( str.find('\n', stringPos) != string::npos )
-      {
-	stringPos = str.find('\n', stringPos);
-	if( str.at(stringPos + 1) == '\n' || str.at(stringPos + 1) == '=' )
-	  {
-	    header = str.substr(0, stringPos);
-	    str = str.substr(stringPos);
-	    return header;
-	  }
-	  
-	++stringPos;
-      }
-    throw Shell_Exception{ "Shell :: importTxt :: extractStep1_Header :\nInfil har ogiltigt format" };
-  }
-
-
-  /*string extractStep2_IngList( string& str )
-  {
-    
-  }*/
-
-
-  void fileRename( string& oldFileName )
-  {
-    if( oldFileName.substr(0,3) == "New" )
-      {
-	if( oldFileName.at(3) == '.' )
-	  oldFileName.insert(3, "(1)");
-	else if( oldFileName.at(3) == '(' && oldFileName.at(4) != '9' )
-	  ++oldFileName.at(4);
-	else
-	  oldFileName.insert(0, "New.");
-      }
-    else
-      oldFileName.insert(0, "New.");
-  }
-
-}
-bool fileExists( const string& name );
-void readFromFile( istream& is, string& str );
-
-bool findName( const string& fieldstr, string& returnstr );
-bool findPortions( const string& fieldstr, string& returnstr );
-bool findTime( const string& fieldstr, string& returnstr );
-
-
 /*
- *** [local] ***
- * unit2str
- *
- * clearAnnotations
- * extractStep1_Header
- * extractStep2_IngList
- *
- * fileRename
- *
+ *** [local_dec] ***
  *
  *** [SHELL] ***
  * exportTxt ( string & Recipe )
  * *importTxt
- * *exportXml
- * *importXml
+ * exportXml ( string & Recipe )
+ * importXml
  * *setScaling
  *
  *
@@ -125,7 +30,7 @@ bool findTime( const string& fieldstr, string& returnstr );
  * getRecipeResults
  * getIngredientList
  * openRecipe
- * *openIngredient
+ * openIngredient
  *
  *
  *** [EDB] ***
@@ -135,14 +40,57 @@ bool findTime( const string& fieldstr, string& returnstr );
  * removeIngredient ( Recipe & string )
  *
  *
- *** [extra] ***
+ *** [local] ***
+ * unit2str
+ *
+ * clearAnnotations
+ * extractStep1_Header
+ * extractStep2_IngList
+ *
+ * fileRename
  * fileExists
  * readFromFile
  *
  * findName
  * findPortions
  * findTime
+ * findIngredients
  */
+
+
+
+/*******************
+ *** [local_dec] ***
+ ******************/
+
+namespace{
+
+  string unit2str( const Unit& unitvalue );
+
+  void clearAnnotations( string& recipeTxt );
+  string extractStep1_Header( string& str );
+  string extractStep2_IngList( string& str );
+
+  void fileRename( string& oldFileName );
+  bool fileExists( const string& name );
+  void readFromFile( istream& is, string& str );
+
+  string findName( const string& fieldstr );
+  int findPortions( const string& fieldstr );
+  int findTime( const string& fieldstr );
+  IngredientList findIngredients( const string& fieldstr );
+
+  
+  
+  string tagStringCont(ifstream & fs);
+  int tagIntCont(ifstream & fs);
+  double tagDblCont(ifstream & fs);
+
+  bool replaceAll(string& str, const string& from, const string& to);
+}
+
+
+
 
 
 /***************
@@ -224,57 +172,55 @@ void Shell::exportTxt( const Recipe& recipe, string fileName )
   clearAnnotations(fileContents);
 
   // Dela upp
-  string header  { extractStep1_Header(  fileContents) };
-  stirng ingList { extractStep2_IngList( fileContents) };
-  string tail    { extractStep3_Tail(    fileContents) };
+  string header  { extractStep1_Header(fileContents) };
+  stirng ingList { extractStep2_IngList(fileContents) };
+  string tail    { fileContents };
 
-  
-  
-
+  // Försök tilldela
   Recipe recipe;
+  
+  recipe.setName(findName(header));
+  recipe.setPortions(findPortions(header));
+  recipe.setTime(findTime(header));
+
+  recipe.setIngredients(findIngredients(ingList));
+
+
 
   // Namn (, portioner, tid)
-  istringstream iss {fileContents};
-  string fileLine, fileSection;
+  /*  istringstream iss {fileContents};
+      string fileLine, fileSection;
   
-  for( int i {} ; i < 5 ; ++i )
-    {
+      for( int i {} ; i < 5 ; ++i )
+      {
       getline(iss, fileLine);
       if( fileLine.find('=') != string::npos )
-	{
-	  break;
-	}
+      {
+      break;
+      }
       fileSection += fileLine;
       fileSection.push_back('\n');
-    }
+      }*/
 
   // header
 
   // ingredient list
 
   // description & tail
+  /*
 
+    IngredientList ingList { findIngredients(;
 
-  findName(fileSection, fileLine);
-  recipe.setName(fileLine);
+    recipe.setIngredients(ingList);
 
-  if( findPortions(fileSection, fileLine) )
-    recipe.setPortions( stoi(fileLine) );
-
-  if( findTime(fileSection, fileLine) )
-    recipe.setTime( stoi(fileLine) );
-
-  IngredientList ingList { findIngredients(;
-
-  recipe.setIngredients(ingList);
-
-  // Ingredienser
+    // Ingredienser
   
-  // first << second << third
-  // first << secondthird
+    // first << second << third
+    // first << secondthird
 
 
 
+    }
 }*/
 
 
@@ -319,16 +265,91 @@ void Shell::exportXml( const Recipe& recipe, string filepath )
 	 << "<unit>" << unit2str( ri.getUnit() )
 	 << "</unit></amount></ingredient>\n";
     }
-  
-  fs << "  <instruction>" << recipe.getMethod() << "</instruction>\n"
+
+  string instruction { recipe.getMethod() };
+  replaceAll(instruction, "&", "&amp;");
+
+  fs << "  <instruction>" << instruction << "</instruction>\n"
      << "  <time>" << recipe.getMinutesTime() << "</time>\n"
      << "  <price>" << recipe.getPrice() << "</price>\n"
      << "  <energy>" << recipe.getKcal() << "</energy>\n"
      << "  <rating>" << recipe.getGrade() << "</rating>\n"
      << "</recipe>" << endl;
-
+  
   fs.close();
-};
+}
+ 
+Recipe Shell::importXml( const string& filepath )
+{
+  if( !fileExists(filepath) )
+    {
+      throw Shell_Exception{ "Shell :: importXml :\nFilen " + filepath + " existerar ej!" };
+    }
+
+  ifstream fs {filepath};
+
+  if( !fs )
+    {
+      fs.close();
+      throw Shell_Exception{ "Shell :: importXml :\nInfilströmmen från fil " + filepath + " kunde ej startas!" };
+    }
+
+
+  string tmp{};
+  string value{};
+  string trash{};
+  char peek{};
+  Recipe yumyum;
+  IngredientList IL{};
+ 
+  while (fs.peek() != EOF) {
+    fs.ignore(1000,'<');
+    peek = fs.peek();
+    
+    if (peek == '?') { // ignore xml version tag
+      fs.ignore(1000,'>');
+    }
+
+    else if (peek == '!') { // ignore comments
+      fs.ignore(1000,'>');
+    }
+
+    else if (peek == '/') { // close tag
+      fs.get(peek);
+      getline(fs,tmp,'>');
+      if (tmp ==  "recipe")
+	yumyum.setIngredients(IL);
+      return yumyum;
+    }
+
+    else { //är alla med?
+      getline(fs, tmp, '>'); // open tag
+      if (tmp != "recipe") {
+	if (tmp == "name")
+	  yumyum.setName(tagStringCont(fs));
+	else if (tmp == "instruction") {
+	  std::string instruction (tagStringCont(fs));
+	  replaceAll(instruction, "&amp;", "&");
+	  yumyum.setMethod(instruction);
+	}
+	else if (tmp == "time")
+	  yumyum.setMinutesTime(tagIntCont(fs));
+	else if (tmp == "rating")
+	  yumyum.setGrade(tagDblCont(fs));
+	else if (tmp == "price")
+	  yumyum.setPrice(tagIntCont(fs));
+	else if (tmp == "portionsize")
+	  yumyum.setPortions(tagIntCont(fs));
+	else if (tmp == "ingredient")
+	  tagIngredient(fs, IL);
+	else 
+	  tagStringCont(fs);
+      }
+    }
+  }
+  fs.close();
+  return yumyum;
+}
 
 
 
@@ -406,125 +427,366 @@ bool Shell::removeIngredient( const string& name )
 
 
 /***************
- *** [extra] ***
+ *** [local] ***
  **************/
 
-bool fileExists( const string& name )
-{
-  ifstream filetest {name};
-  if( filetest.good() )
-    {
-      filetest.close();
-      return true;
-    }
-  else
-    {
-      filetest.close();
+namespace{
+
+  string unit2str( const Unit& unitvalue )
+  {
+    switch(unitvalue)
+      {
+      case gram:
+	return "g";
+      case deciliter:
+	return "dl";
+      case teaspoon:
+	return "tsk";
+      case tablespoon:
+	return "msk";
+      case pcs:
+	return "st";
+      default:
+	return "null";
+      }
+  }
+
+
+
+
+
+  void clearAnnotations( string& recipeTxt )
+  {
+    while( recipeTxt.find("<!--") != string::npos && recipeTxt.find("-->") != string::npos )
+      {
+	size_t stringPos { recipeTxt.find("<!--") };
+	size_t stringPosEnd { recipeTxt.find("-->") };
+	recipeTxt = recipeTxt.substr(0, stringPos) + recipeTxt.substr(stringPosEnd + 3);
+      }
+  }
+
+
+  string extractStep1_Header( string& str )
+  {
+    size_t stringPos {};
+    string header;
+
+    while( str.find('\n', stringPos) != string::npos )
+      {
+	stringPos = str.find('\n', stringPos);
+	if( str.at(stringPos + 1) == '\n' || str.at(stringPos + 1) == '=' )
+	  {
+	    header = str.substr(0, stringPos);
+	    str = str.substr( str.find('\n', stringPos + 1) );
+	    return header;
+	  }
+	  
+	++stringPos;
+      }
+    throw Shell_Exception{ "Shell :: importTxt :: extractStep1_Header :\nInfil har ogiltigt format" };
+  }
+
+
+  string extractStep2_IngList( string& str )
+  {
+    size_t stringPos {};
+    size_t wordsThisLine {};
+    string ingList;
+
+    while( wordsThisLine <= 4 )
+      {
+	if( str.at(stringPos) == '\n' ) // "\n"
+	  wordsThisLine = 0;
+	else if( isblank( str.at(stringPos) ) && !isspace( str.at(stringPos + 1) ) ) // " A"
+	  ++wordsThisLine;
+	else if( str.at(stringPos - 1) == '\n' && !isspace( str.at(stringPos) ) ) // "\nA"
+	  ++wordsThisLine;
+
+	++stringPos;
+      }
+
+    stringPos = str.rfind('\n', stringPos);
+
+    ingList = str.substr(0, stringPos);
+    str = str.substr(stringPos);
+    return ingList;
+  }
+
+
+
+
+
+  void fileRename( string& oldFileName )
+  {
+    if( oldFileName.substr(0,3) == "New" )
+      {
+	if( oldFileName.at(3) == '.' )
+	  oldFileName.insert(3, "(1)");
+	else if( oldFileName.at(3) == '(' && oldFileName.at(4) != '9' )
+	  ++oldFileName.at(4);
+	else
+	  oldFileName.insert(0, "New.");
+      }
+    else
+      oldFileName.insert(0, "New.");
+  }
+
+
+  bool fileExists( const string& name )
+  {
+    ifstream filetest {name};
+    if( filetest.good() )
+      {
+	filetest.close();
+	return true;
+      }
+    else
+      {
+	filetest.close();
+	return false;
+      }
+  }
+
+
+  void readFromStream( istream& is, string& str )
+  {
+    string temp;
+    while( getline(is, temp) )
+      {
+	str += temp;
+	str.push_back('\n');
+      }
+  }
+
+
+
+
+
+  string findName( const string& fieldstr )
+  {
+    istringstream iss {fieldstr};
+    char c;
+    string returnstr;
+
+    // Discard until alphabetic character
+    while( !isalpha( iss.peek() ) )
+      {
+	iss.get(c);
+      }
+
+    // Get the line and remove junk parenthesis enclosing if it exists
+    getline(iss, returnstr);
+
+    size_t junkCheck { returnstr.find('(') };
+
+    if( junkCheck != string::npos )
+      returnstr = returnstr.substr(0, junkCheck-1);
+
+    return returnstr;
+  }
+
+
+  int findPortions( const string& fieldstr )
+  {
+    istringstream iss {fieldstr};
+    string portionCheck;
+    char c {'n'};
+    string returnstr;
+  
+    while( iss )
+      {
+	while( !isdigit(c) )
+	  {
+	    iss.get(c);
+	  }
+      
+	while( isdigit(c) )
+	  {
+	    returnstr += c;
+	    iss.get(c);
+	  }
+      
+	iss >> portionCheck;
+
+	if( !isspace(c) )
+	  portionCheck = c + portionCheck;
+      
+	if( portionCheck.find("portion") != string::npos )
+	  return stoi(returnstr);
+      }
+    return 4; // Standardvärde
+  }
+
+
+  int findTime( const string& fieldstr )
+  {
+    istringstream iss {fieldstr};
+    string minCheck;
+    char c {'n'};
+    string returnstr;
+  
+    while( iss )
+      {
+	while( !isdigit(c) )
+	  {
+	    iss.get(c);
+	  }
+      
+	while( isdigit(c) )
+	  {
+	    returnstr += c;
+	    iss.get(c);
+	  }
+
+	iss >> minCheck;
+
+	if( !isspace(c) )
+	  minCheck = c + minCheck;
+      
+	if( minCheck.find("min") != string::npos )
+	  return stoi(returnstr);
+      }
+    return -1; // "Kunde ej hitta min-värde!"
+  }
+
+
+  /* IngredientList findIngredients( const string& fieldstr )
+  {
+    istringstream iss {fieldstr};
+    string temp, ing, unitstr;
+    double amount;
+    RecipeIngredient ri;
+    IngredientList ingredients;
+
+    iss >> ws;
+
+    while( getline(iss, temp) )
+      {
+	unitstr = "st";
+	ss2.str(""); // set content of stringstream ss2
+	ss2 << temp;
+	ss2 >> ws;
+
+	if( isdigit( ss2.peek() ) )
+	  ss2 >> amount >> unitstr >> ing; // WHAT IF 3 ägg?
+	else
+	  ss2 >> ing >> amount >> unitstr;
+	
+	ss2.clear(); // clear på stringstream är "clear error state/flags"
+	
+	if( sDB_.checkIngredient(ing) )
+	  {
+	    ri = sDB_.fetchIngredient(ing);
+	    ri.setAmount(amount);
+	    if( unitstr.find
+	    ri.setUnit();
+	  }
+	  
+      }
+  }*/
+
+
+
+
+
+  string tagStringCont(ifstream & fs)
+  {
+    string value{};
+    getline(fs,value,'<');
+    return value;
+  }
+
+  int tagIntCont(ifstream & fs)
+  {
+    int value{};
+    char c{};
+    fs >> value;
+    fs.get(c);
+    return value;
+  }
+  
+  double tagDblCont(ifstream & fs)
+  {
+    double value{};
+    char c{};
+    fs >> value;
+    fs.get(c);
+    return value;
+  }
+  
+  bool replaceAll(string& str, const string& from, const string& to)
+  {
+    size_t start_pos = str.find(from);
+    if(start_pos == string::npos)
       return false;
-    }
+    str.replace(start_pos, from.length(), to);
+    return true;
+  }
 }
 
 
 
-void readFromStream( istream& is, string& str )
+void Shell::tagIngredient(ifstream & fs, IngredientList & IL)
 {
-  string temp;
-  while( getline(is, temp) )
-    {
-      str += temp;
-      str.push_back('\n');
-    }
-}
+  string tagIng{"ingredient"};
+  string name{"foo"};
+  string unitString{};
+  double price{0};
+  int kcal{0};
+  double amount{0};
+  Unit unit{gram};
+  char trash{};
 
+  getline(fs,name,'<');
 
-
-bool findName( const string& fieldstr, string& returnstr )
-{
-  istringstream iss {fieldstr};
-  char c;
-
-  while( !isalpha( iss.peek() ) )
-    {
-      iss.get(c);
-    }
-
-  getline(iss, returnstr);
-  size_t junkCheck { returnstr.find('(') };
-
-  if( junkCheck != string::npos )
-    returnstr = returnstr.substr(0, junkCheck-1);
-
-  return true;
-}
-
-
-
-bool findPortions( const string& fieldstr, string& returnstr )
-{
-  istringstream iss {fieldstr};
-  string portionCheck;
-  char c {'n'};
-  
-  returnstr.clear();
-  
-  while( iss )
-    {
-      while( !isdigit(c) )
-	{
-	  iss.get(c);
+  while (true) {
+    getline(fs,tagIng,'>');
+     
+    if (tagIng[0] == '!' || tagIng[0] == '?') {
+      fs.ignore(1000,'>');
+    }       
+    else if (tagIng[0] == '/') {
+      cout << "/tag detected: " << tagIng;
+      if (tagIng == "/ingredient") {
+	RecipeIngredient omnom{name, price, kcal, amount, unit};
+	if ( sDB_.checkIngredient(name) ) {
+	  IL.push_back(omnom);
 	}
-      
-      while( isdigit(c) )
-	{
-	  returnstr += c;
-	  iss.get(c);
-	}
-      
-      iss >> portionCheck;
-
-      if( !isspace(c) )
-	portionCheck = c + portionCheck;
-      
-      if( portionCheck.find("portion") != string::npos )
-	return true;
+	return;
+      }
+      fs.ignore(1000,'<');
+      cout << ", trashing ..." << endl;
     }
-  return false;
-}
-
-
-bool findTime( const string& fieldstr, string& returnstr )
-{
-  istringstream iss {fieldstr};
-  string minCheck;
-  char c {'n'};
-  
-  returnstr.clear();
-  
-  while( iss )
-    {
-      while( !isdigit(c) )
-	{
-	  iss.get(c);
-	}
-      
-      while( isdigit(c) )
-	{
-	  returnstr += c;
-	  iss.get(c);
-	}
-
-      iss >> minCheck;
-
-      if( !isspace(c) )
-	minCheck = c + minCheck;
-      
-      if( minCheck.find("min") != string::npos )
-	return true;
+    else {
+      if (tagIng == "ingredient") {
+	getline(fs,name,'<');
+      }
+      else if (tagIng == "amount") {
+	fs >> amount;
+	fs.get(trash);
+      }
+      else if (tagIng == "kcal") {
+	fs >> kcal;
+	fs.get(trash);
+      }
+      else if (tagIng == "price") {
+	fs >> price;
+	fs.get(trash);
+      }
+      else if (tagIng == "unit") {
+	getline(fs,unitString,'<');
+	std::transform(unitString.begin(), unitString.end(), unitString.begin(), ::tolower);
+	if ( unitString == "dl" || unitString == "deciliter")
+	  unit = deciliter;
+	else if ( unitString == "tsk" || unitString == "tesked" || unitString == "teskedar" || unitString == "teaspoon" )
+	  unit = teaspoon;
+	else if ( unitString == "msk" || unitString == "matsked" || unitString == "matskedar" || unitString == "tablespoon" )
+	  unit = tablespoon;
+	else if ( unitString == "st" || unitString == "styck" || unitString == "stycken" ||  unitString == "pcs" )
+	  unit = pcs;
+	else
+	  unit = gram;
+      } 
     }
-  return false;
-
+  }
 }
-
-
-
-
