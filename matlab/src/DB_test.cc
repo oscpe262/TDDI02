@@ -45,13 +45,35 @@ void term_search_test(SearchDB& db);
 int main(int argc, char* argv[])
 {
   QCoreApplication app(argc, argv);
+  //DB db;
+  cerr << "redan innan här?\n";
+   EditDB editdb;
+   cerr << "det är alltså redan här?\n";
+   Recipe recipe = editdb.fetchRecipe("Hallonkaka");
+   cerr << "kommer vi hit?\n";
+   recipe.setMethod("Updaterad beskrivning");
+   editdb.addRecipe(recipe);
+   // string name;
+  // cout << "Enter name: ";
+  // cin >> name;
+  // Recipe recipe = db.fetchRecipe(name);
+  // cout << "recipe name: " << recipe.getName() << endl;
+  // cout << "Related recipes: ";
+  // vector<string> related = recipe.getRelated();
+  // cout << endl << endl<< "related recipes: " << endl;
+  // for(auto i : related) 
+  //   {
+  //     cout << i << endl;
+  //   }
+  
+
 
   /*
     här börjar nytt
   */
   //SearchDB search_db;
-  EditDB edb;
-  SearchDB db;
+  // EditDB edb;
+  //SearchDB db;
   /*
 
   Recipe recipe = test_edit_db.fetchRecipe("Hallonkaka");
@@ -67,22 +89,23 @@ int main(int argc, char* argv[])
        	}
     }
   */
-  SearchTerm st;
-  vector<string> ingredients{"Ägg"};
-  AllergeneArray allergenes{{}};
-  Price price(0,99999);
-  Cal cal(0,99999);
-  Time time(0,99999);
-  RecipeList search_result;
-  // allergenes[Allergene(fruit)] = true;
-  st.setIngredients(ingredients);
-  st.setAllergenes(allergenes);
-  st.setPrice(price);
-  st.setCal(cal);
-  st.setTime(time);
-  search_result = db.termSearch(st);
-  cout << "RESULT: \n";
-  print_recipe_list(search_result); 
+
+  // SearchTerm st;
+  // vector<string> ingredients{"Ägg"};
+  // AllergeneArray allergenes{{}};
+  // Price price(0,99999);
+  // Cal cal(0,99999);
+  // Time time(0,99999);
+  // RecipeList search_result;
+  // // allergenes[Allergene(fruit)] = true;
+  // st.setIngredients(ingredients);
+  // st.setAllergenes(allergenes);
+  // st.setPrice(price);
+  // st.setCal(cal);
+  // st.setTime(time);
+  // search_result = db.termSearch(st);
+  // cout << "RESULT: \n";
+  // print_recipe_list(search_result); 
   
 
 
@@ -91,72 +114,72 @@ int main(int argc, char* argv[])
 /*
     här slutar nytt
   */
-  // EditDB test_editDB;
-  // SearchDB test_searchDB;
-  // int menu = 0;
-  // string name;
-  // Ingredient ingredient("Korv",5,200);
-  // ifstream importstream;
+  EditDB test_editDB;
+  SearchDB test_searchDB;
+  int menu = 0;
+  string name;
+  Ingredient ingredient("Korv",5,200);
+  ifstream importstream;
 
-  // if(argc > 2)
-  //   {
-  //     if(!strcmp(argv[1], "-i"))
-  // 	{
-  // 	  importstream.open(argv[2]);
-  // 	  if(importstream.fail() || !import_ingredients(importstream,test_editDB))
-  // 	    {
-  // 	      cerr << "Ingredient list could not be imported, check fileame or clear db \n";
-  // 	      return 1;
-  // 	    }
-  // 	  cout << "\nImport sucessfull!\n\n";
-  // 	}
+  if(argc > 2)
+    {
+      if(!strcmp(argv[1], "-i"))
+  	{
+  	  importstream.open(argv[2]);
+  	  if(importstream.fail() || !import_ingredients(importstream,test_editDB))
+  	    {
+  	      cerr << "Ingredient list could not be imported, check fileame or clear db \n";
+  	      return 1;
+  	    }
+  	  cout << "\nImport sucessfull!\n\n";
+  	}
       
-  //     else if(!strcmp(argv[1], "-r"))
-  // 	{
-  // 	  importstream.open(argv[2]);
-  // 	  if(importstream.fail() || !import_recipes(importstream,test_editDB))
-  // 	    {
-  // 	      cerr << "Recipe list could not be imported, check fileame or clear db \n";
-  // 	      return 1;
-  // 	    }
-  // 	  cout << "\nImport sucessfull!\n\n";
-  // 	}
+      else if(!strcmp(argv[1], "-r"))
+  	{
+  	  importstream.open(argv[2]);
+  	  if(importstream.fail() || !import_recipes(importstream,test_editDB))
+  	    {
+  	      cerr << "Recipe list could not be imported, check fileame or clear db \n";
+  	      return 1;
+  	    }
+  	  cout << "\nImport sucessfull!\n\n";
+  	}
 
-  //     else
-  // 	{
-  // 	  cerr << "usage: ./DB_test -F filename.txt \n"
-  // 	       << "Flags: \n"
-  // 	       << "-i import ingredients\n"
-  // 	       << "-r import recipies\n"
-  // 	       << "-reset \n";
-  // 	}
-  //    return 1;
-  //   }
-  // else if(argc == 2)
-  //   {
-  //     if(!strcmp(argv[1], "-reset"))
-  // 	{
-  // 	  test_editDB.clearDb();
-  // 	  test_editDB.createDb();
-  // 	  importstream.open("ingredient_input.txt");
-  // 	  import_ingredients(importstream,test_editDB);
-  // 	  importstream.close();
-  // 	  importstream.clear();
-  // 	  importstream.open("recipe_input.txt");
-  // 	  import_recipes(importstream,test_editDB);
-  // 	  importstream.close();
-  // 	  cout << "DB reset, ingredients and recipes imported \n";
-  // 	}
-  //     else
-  // 	{
-  // 	  cerr << "usage: ./DB_test -F \n"
-  // 	       << "Flags: \n"
-  // 	       << "-i import ingredients.txt\n"
-  // 	       << "-r import recipies.txt\n"
-  // 	       << "-reset \n";
-  // 	  return 1;
-  // 	}
-  //   }
+      else
+  	{
+  	  cerr << "usage: ./DB_test -F filename.txt \n"
+  	       << "Flags: \n"
+  	       << "-i import ingredients\n"
+  	       << "-r import recipies\n"
+  	       << "-reset \n";
+  	}
+     return 1;
+    }
+  else if(argc == 2)
+    {
+      if(!strcmp(argv[1], "-reset"))
+  	{
+  	  test_editDB.clearDb();
+  	  test_editDB.createDb();
+  	  importstream.open("ingredient_input.txt");
+  	  import_ingredients(importstream,test_editDB);
+  	  importstream.close();
+  	  importstream.clear();
+  	  importstream.open("recipe_input.txt");
+  	  import_recipes(importstream,test_editDB);
+  	  importstream.close();
+  	  cout << "DB reset, ingredients and recipes imported \n";
+  	}
+      else
+  	{
+  	  cerr << "usage: ./DB_test -F \n"
+  	       << "Flags: \n"
+  	       << "-i import ingredients.txt\n"
+  	       << "-r import recipies.txt\n"
+  	       << "-reset \n";
+  	  return 1;
+  	}
+    }
 		    
   // do
   // {
@@ -276,126 +299,126 @@ void print_recipe_list(RecipeList& recipe_list)
     print_recipe(i);
 }
 
-// // bool import_ingredients(ifstream& stream,EditDB& db)
-// // {
+bool import_ingredients(ifstream& stream,EditDB& db)
+{
  
-// //   istringstream isstream;
-// //   Ingredient ingredient;
-// //   string row,tmpStr;
-// //   int tmpInt;
-// //   cout << "*************************\n"
-// //        << "**INGREDIENTS IMPORTED:**\n"
-// //        << "*************************\n";
-// //   while(stream.peek() != EOF)
-// //     {
-// //       row.clear();
-// //       getline(stream,row);
-// //       istringstream isstream(row);
-// //       try{
-// // 	isstream >> tmpStr;
+  istringstream isstream;
+  Ingredient ingredient;
+  string row,tmpStr;
+  int tmpInt;
+  cout << "*************************\n"
+       << "**INGREDIENTS IMPORTED:**\n"
+       << "*************************\n";
+  while(stream.peek() != EOF)
+    {
+      row.clear();
+      getline(stream,row);
+      istringstream isstream(row);
+      try{
+	isstream >> tmpStr;
 
-// // 	if (tmpStr.compare("ingredient:") == 0)
-// // 	  {
-// // 	    isstream >> tmpStr;
-// // 	    ingredient.setName(tmpStr);
-// // 	  }	
-// // 	else if(tmpStr.compare("price:") == 0)
-// // 	  {
-// // 	    isstream >> tmpInt;
-// // 	    ingredient.setPrice(tmpInt);
-// // 	  }
-// // 	else if(tmpStr.compare("kcal:") == 0)
-// // 	  {
-// // 	    isstream >> tmpInt;
-// // 	    ingredient.setKcal(tmpInt);
-// // 	  }
-// // 	else if(tmpStr.compare("allergenes:") == 0 )
-// // 	  {
-// // 	    while(isstream >> tmpInt)
-// // 	      {
-// // 		ingredient.addAllergene(tmpInt);
-// // 	      }
-// // 	    isstream.clear();
-// // 	  }
-// // 	else if(tmpStr.compare("diets:") == 0)
-// // 	  {
-// // 	    while(isstream >> tmpInt)
-// // 	      {
-// // 		ingredient.addDiet(tmpInt);
-// // 	      }
-// // 	    isstream.clear();
-// // 	  }
-// // 	else if(tmpStr.compare("%end") == 0)
-// // 	  {
-// // 	    AllergeneArray al = ingredient.getAllergenes();
-// // 	    int alint = 0;
-// // 	    db.addIngredient(ingredient);
-// // 	    for(int i = 0; i < 14; ++i) ingredient.removeAllergene(i);
-// // 	    cout << ingredient.getName() << " contains allergies: "; 
-// // 	    for(int i = 0; i<14 ;++i)
-// // 	      {
-// // 		if (al[i])
-// // 		  cout << i << " "; 
-// // 	      } 
-// // 	    cout << ingredient.getName() <<" Was added \n";
-// // 	  }
+	if (tmpStr.compare("ingredient:") == 0)
+	  {
+	    isstream >> tmpStr;
+	    ingredient.setName(tmpStr);
+	  }	
+	else if(tmpStr.compare("price:") == 0)
+	  {
+	    isstream >> tmpInt;
+	    ingredient.setPrice(tmpInt);
+	  }
+	else if(tmpStr.compare("kcal:") == 0)
+	  {
+	    isstream >> tmpInt;
+	    ingredient.setKcal(tmpInt);
+	  }
+	else if(tmpStr.compare("allergenes:") == 0 )
+	  {
+	    while(isstream >> tmpInt)
+	      {
+		ingredient.addAllergene(tmpInt);
+	      }
+	    isstream.clear();
+	  }
+	else if(tmpStr.compare("diets:") == 0)
+	  {
+	    while(isstream >> tmpInt)
+	      {
+		ingredient.addDiet(tmpInt);
+	      }
+	    isstream.clear();
+	  }
+	else if(tmpStr.compare("%end") == 0)
+	  {
+	    AllergeneArray al = ingredient.getAllergenes();
+	    int alint = 0;
+	    db.addIngredient(ingredient);
+	    for(int i = 0; i < 14; ++i) ingredient.removeAllergene(i);
+	    cout << ingredient.getName() << " contains allergies: "; 
+	    for(int i = 0; i<14 ;++i)
+	      {
+		if (al[i])
+		  cout << i << " "; 
+	      } 
+	    cout << ingredient.getName() <<" Was added \n";
+	  }
 
-// // 	if(isstream.fail())
-// // 	  throw DB_Exception("File could not be read, check syntax \n");
-// //       }
-// //       catch(DB_Exception e)
-// // 	{
-// // 	  cerr << e.what();
-// // 	  return false;
-// // 	}
-// //     }
-// //   cout << endl;
-// //   return true;
-// // }
+	if(isstream.fail())
+	  throw DB_Exception("File could not be read, check syntax \n");
+      }
+      catch(DB_Exception e)
+	{
+	  cerr << e.what();
+	  return false;
+	}
+    }
+  cout << endl;
+  return true;
+}
  
-// // bool import_recipes(ifstream& stream, EditDB& db)
-// // {
-// //   istringstream isstream;
-// //   RecipeIngredient ingredient;
-// //   string name,method,row,ingr;
-// //   int time, amount;
-// //   Unit unit;
-// //   double grade;
-// //   IngredientList ingredients;
-// //   char c;
-// //   cout << "*************************\n"
-// //        << "****RECIPES IMPORTED:****\n"
-// //        << "*************************\n";
-// //   do 
-// //     {
-// //       getline(stream,name);
-// //       cout << name << " Was added\n";
-// //       getline(stream,method);     
-// //       stream >> time;
-// //       stream >> grade;
-// //       for(;;)
-// // 	{
-// // 	  stream >> ingr;
-// // 	  if(ingr == "%ENDRECIPE" || ingr == "%ENDLIST")
-// // 	    {
-// // 	      stream.ignore(1);
-// // 	      break;
-// // 	    }
-// // 	  stream >> amount;
-// // 	  ingredient = RecipeIngredient(db.fetchIngredient(ingr));
-// // 	  ingredient.setAmount(amount);
-// // 	  stream >> amount;
-// // 	  unit = static_cast<Unit>(amount);
-// // 	  ingredient.setUnit(unit);
-// // 	  ingredients.push_back(ingredient);
-// // 	}
-// //       db.addRecipe(Recipe(name,method,time,grade,ingredients));
-// //       ingredients.clear();
-// //       // cout << left << name << " Was added\n";
-// //     } while(ingr != "%ENDLIST");
-// //   cout << endl;
-// //   return true;
-// // }
+bool import_recipes(ifstream& stream, EditDB& db)
+{
+  istringstream isstream;
+  RecipeIngredient ingredient;
+  string name,method,row,ingr;
+  int time, amount;
+  Unit unit;
+  double grade;
+  IngredientList ingredients;
+  char c;
+  cout << "*************************\n"
+       << "****RECIPES IMPORTED:****\n"
+       << "*************************\n";
+  do 
+    {
+      getline(stream,name);
+      cout << name << " Was added\n";
+      getline(stream,method);     
+      stream >> time;
+      stream >> grade;
+      for(;;)
+	{
+	  stream >> ingr;
+	  if(ingr == "%ENDRECIPE" || ingr == "%ENDLIST")
+	    {
+	      stream.ignore(1);
+	      break;
+	    }
+	  stream >> amount;
+	  ingredient = RecipeIngredient(db.fetchIngredient(ingr));
+	  ingredient.setAmount(amount);
+	  stream >> amount;
+	  unit = static_cast<Unit>(amount);
+	  ingredient.setUnit(unit);
+	  ingredients.push_back(ingredient);
+	}
+      db.addRecipe(Recipe(name,method,time,grade,ingredients));
+      ingredients.clear();
+      // cout << left << name << " Was added\n";
+    } while(ingr != "%ENDLIST");
+  cout << endl;
+  return true;
+}
 // // bool add_ingredient(EditDB& db)
 // // {
 // //   int tmpInt;

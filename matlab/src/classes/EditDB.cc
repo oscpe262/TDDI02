@@ -21,28 +21,24 @@ using namespace std;
 
 bool EditDB::addRecipe(const Recipe& recipe)
 {
+  cerr << "men hit kommer vi?\n";
   QSqlQuery tmp(db_);
   if(recipe.getName().size() == 0)
     return false;
-  if(checkRecipe(recipe))
+   if(checkRecipe(recipe))
   {
-    removeRecipe(recipe);
+    removeRecipe(recipe.getName());
   }
-
-  tmp.finish();
   tmp.prepare("INSERT INTO Recipe(name,method,score,time,price,kcal,portions) VALUES(:name,:method,:score,:time,:price,:kcal,:portions)");
   tmp.bindValue(":name", recipe.getName().c_str());
   tmp.bindValue(":method", recipe.getMethod().c_str());
   tmp.bindValue(":score", recipe.getGrade());
   tmp.bindValue(":time", recipe.getMinutesTime());
-  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
-  cerr << endl << recipe.getName() << " kcal: " << calculateKcal(recipe);
   tmp.bindValue(":price", calculatePrice(recipe));
   tmp.bindValue(":kcal", calculateKcal(recipe));
-  tmp.bindValue(":portions", recipe.getPortions());
-  cerr << tmp.lastError().text().toStdString();		
+  tmp.bindValue(":portions", recipe.getPortions());	
   tmp.exec();
-  //tmp.finish();
+  cerr << "sista meddelandet? : " << tmp.lastError().text().toStdString();	
   IngredientList ingredient_list = recipe.getIngredients();
   for(auto i : ingredient_list)
     {
@@ -257,19 +253,29 @@ bool EditDB::updateRecipeIngredient(const RecipeIngredient& ingredient,const str
 */
 bool EditDB::removeRecipe(const string& name)
 {
-  if(checkRecipe(name))
-    {
+  cerr << "körs denhär ens?\n";
+  // if(checkRecipe(name))
+  //{
       QSqlQuery query(db_);
-      query.prepare("DELETE FROM Recipe WHERE name=:name");
-      query.bindValue(":name",name.c_str());
-      query.exec();
+     
       query.finish();
       query.prepare("DELETE FROM Used_for WHERE recipe_name=:name");
       query.bindValue(":name",name.c_str());
       query.exec();
+      cerr << "Used for:  : " << query.lastError().text().toStdString() << endl;
+      query.finish();
+      query.prepare("DELETE FROM Related_to WHERE recipe=:name");
+      query.bindValue(":name",name.c_str());
+      query.exec();
+      cerr << "Related to:  : " << query.lastError().text().toStdString() << endl;
+      query.lastError().text().toStdString();
+      query.prepare("DELETE FROM Recipe WHERE name=:name");
+      query.bindValue(":name",name.c_str());
+      query.exec();
+      cerr << "Recipe:  : " << query.lastError().text().toStdString() << endl;
       return true;
-    }
-  return false;
+      //  }
+      //return false;
   
 }
 bool EditDB::removeRecipe(const Recipe& recipe)
