@@ -9,9 +9,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1022</width>
-    <height>796</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1024</width>
+    <height>768</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1024</width>
+    <height>768</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MatLabb</string>
@@ -24,7 +36,7 @@
     <widget class="QTabWidget" name="tabs">
      <property name="minimumSize">
       <size>
-       <width>786</width>
+       <width>768</width>
        <height>0</height>
       </size>
      </property>
@@ -51,425 +63,536 @@
      </property>
      <widget class="QWidget" name="search_view">
       <attribute name="title">
-       <string>Sök</string>
+       <string>Sök Recept</string>
       </attribute>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>620</x>
-         <y>10</y>
-         <width>371</width>
-         <height>521</height>
+         <x>0</x>
+         <y>0</y>
+         <width>1001</width>
+         <height>721</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="SearchResultLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout_15">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
         <item>
-         <widget class="QListWidget" name="listWresults"/>
-        </item>
-        <item>
-         <widget class="QListWidget" name="listWresultsinfo">
-          <property name="selectionMode">
-           <enum>QAbstractItemView::NoSelection</enum>
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <property name="spacing">
+           <number>2</number>
           </property>
-         </widget>
+          <item>
+           <layout class="QVBoxLayout" name="IngredientLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_dbsearch"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_dbsearch">
+                <property name="text">
+                 <string>Titelsök</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="IngredientLayout">
+              <item>
+               <widget class="QLabel" name="Ingredienser">
+                <property name="text">
+                 <string>Ingredienser</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0">
+                <item>
+                 <widget class="QListWidget" name="ingredientlist_deselected">
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <spacer name="verticalSpacer_7">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_select">
+                    <property name="text">
+                     <string>&gt;&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_deselect">
+                    <property name="text">
+                     <string>&lt;&lt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_8">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="ingredientlist_selected">
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QPushButton" name="openIngredient">
+                <property name="text">
+                 <string>Redigera Ingrediens</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QVBoxLayout" name="AllergeneLayout">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Allergener</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QListWidget" name="allergenes_deselected">
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Chilipeppar</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Frukt</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gluten</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Havre</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Jordnötter</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Kött</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Laktos</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Mjölk</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Skaldjur</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Soja</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Trädnötter</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vitlök</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vete</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ägg</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <item>
+                   <spacer name="verticalSpacer_9">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_allergenes_select">
+                    <property name="text">
+                     <string>&gt;&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_allergenes_deselect">
+                    <property name="text">
+                     <string>&lt;&lt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_10">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="allergenes_selected">
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="DietLayouts">
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Kosthållning</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QListWidget" name="diet_deselected">
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Halal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Kosher</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vegan</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vegetarian</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_5">
+                  <item>
+                   <spacer name="verticalSpacer_12">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_diet_select">
+                    <property name="text">
+                     <string>&gt;&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_diet_deselect">
+                    <property name="text">
+                     <string>&lt;&lt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_11">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="diet_selected">
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="IntervalLayout">
+              <item>
+               <layout class="QHBoxLayout" name="EnergyLayout">
+                <item>
+                 <widget class="QLabel" name="energyLabel">
+                  <property name="text">
+                   <string>Energiintervall</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="energyMin">
+                  <property name="suffix">
+                   <string> kcal</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="energyMax">
+                  <property name="suffix">
+                   <string> kcal</string>
+                  </property>
+                  <property name="maximum">
+                   <number>99999</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="TimeLayout">
+                <item>
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>Tidsintervall</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="timeMin">
+                  <property name="suffix">
+                   <string> m</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="timeMax">
+                  <property name="suffix">
+                   <string> m</string>
+                  </property>
+                  <property name="maximum">
+                   <number>99999</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="CostLayout">
+                <item>
+                 <widget class="QLabel" name="label_14">
+                  <property name="text">
+                   <string>Kostnadsintervall</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="costMin">
+                  <property name="suffix">
+                   <string> kr</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="costMax">
+                  <property name="suffix">
+                   <string> kr</string>
+                  </property>
+                  <property name="maximum">
+                   <number>99999</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QPushButton" name="searchButton">
+                <property name="text">
+                 <string>Sök</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
           <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>408</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="OpenButton">
+           <widget class="QLabel" name="label_15">
             <property name="text">
-             <string>Öppna</string>
+             <string>Sökresultat</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="AddButton">
-            <property name="text">
-             <string>Lägg till</string>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <property name="spacing">
+             <number>2</number>
             </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>603</width>
-         <height>521</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_14">
-        <item>
-         <layout class="QVBoxLayout" name="IngredientLayout_3">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QLineEdit" name="lineEdit_dbsearch"/>
+             <widget class="QListWidget" name="listWresults">
+              <property name="minimumSize">
+               <size>
+                <width>250</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_dbsearch">
-              <property name="text">
-               <string>Titelsök</string>
+             <widget class="QListWidget" name="listWresultsinfo">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::NoSelection</enum>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="IngredientLayout">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QLabel" name="Ingredienser">
+             <widget class="QPushButton" name="OpenButton">
               <property name="text">
-               <string>Ingredienser</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0">
-              <item>
-               <widget class="QListWidget" name="ingredientlist_deselected">
-                <property name="autoFillBackground">
-                 <bool>false</bool>
-                </property>
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout">
-                <property name="spacing">
-                 <number>2</number>
-                </property>
-                <item>
-                 <widget class="QPushButton" name="pushButton_select">
-                  <property name="text">
-                   <string>&gt;&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_deselect">
-                  <property name="text">
-                   <string>&lt;&lt;</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QListWidget" name="ingredientlist_selected">
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="openIngredient">
-              <property name="text">
-               <string>Redigera Ingrediens</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <layout class="QVBoxLayout" name="AllergeneLayout">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Genetiska Tillkortakommanden</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <item>
-               <widget class="QListWidget" name="allergenes_deselected">
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Chilipeppar</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Frukt</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Gluten</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Havre</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Jordnötter</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Kött</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Laktos</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mjölk</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Skaldjur</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Soja</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Trädnötter</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Vitlök</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Vete</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Ägg</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <widget class="QPushButton" name="pushButton_allergenes_select">
-                  <property name="text">
-                   <string>&gt;&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_allergenes_deselect">
-                  <property name="text">
-                   <string>&lt;&lt;</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QListWidget" name="allergenes_selected">
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="DietLayouts">
-            <item>
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Kosthållning</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
-              <item>
-               <widget class="QListWidget" name="diet_deselected">
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Halal</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Kosher</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Vegan</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Vegetarian</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
-                <item>
-                 <widget class="QPushButton" name="pushButton_diet_select">
-                  <property name="text">
-                   <string>&gt;&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_diet_deselect">
-                  <property name="text">
-                   <string>&lt;&lt;</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QListWidget" name="diet_selected">
-                <property name="horizontalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="IntervalLayout">
-            <item>
-             <layout class="QHBoxLayout" name="EnergyLayout">
-              <item>
-               <widget class="QLabel" name="energyLabel">
-                <property name="text">
-                 <string>Energiintervall</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="energyMin">
-                <property name="suffix">
-                 <string> kcal</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="energyMax">
-                <property name="suffix">
-                 <string> kcal</string>
-                </property>
-                <property name="maximum">
-                 <number>99999</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="TimeLayout">
-              <item>
-               <widget class="QLabel" name="label_16">
-                <property name="text">
-                 <string>Tidsintervall</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="timeMin">
-                <property name="suffix">
-                 <string> m</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="timeMax">
-                <property name="suffix">
-                 <string> m</string>
-                </property>
-                <property name="maximum">
-                 <number>99999</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="CostLayout">
-              <item>
-               <widget class="QLabel" name="label_14">
-                <property name="text">
-                 <string>Kostnadsintervall</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="costMin">
-                <property name="suffix">
-                 <string> kr</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="costMax">
-                <property name="suffix">
-                 <string> kr</string>
-                </property>
-                <property name="maximum">
-                 <number>99999</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="searchButton">
-              <property name="text">
-               <string>Sök</string>
+               <string>Öppna Recept</string>
               </property>
              </widget>
             </item>
@@ -482,14 +605,14 @@
      </widget>
      <widget class="QWidget" name="recipe_view">
       <attribute name="title">
-       <string>Recept</string>
+       <string>Läs Recept</string>
       </attribute>
       <widget class="QListWidget" name="RecipeInfo">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>11</y>
-         <width>979</width>
+         <x>10</x>
+         <y>10</y>
+         <width>981</width>
          <height>59</height>
         </rect>
        </property>
@@ -506,20 +629,29 @@
         <enum>QAbstractItemView::NoSelection</enum>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>540</x>
-         <y>420</y>
-         <width>451</width>
-         <height>103</height>
+         <x>580</x>
+         <y>80</y>
+         <width>411</width>
+         <height>136</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_9">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_8">
+          <property name="spacing">
+           <number>2</number>
+          </property>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <property name="spacing">
+             <number>2</number>
+            </property>
             <item>
              <widget class="QLabel" name="label_5">
               <property name="text">
@@ -541,26 +673,29 @@
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_7">
+            <property name="spacing">
+             <number>2</number>
+            </property>
             <item>
              <widget class="QPushButton" name="editOpenRecipe">
               <property name="text">
-               <string>Redigera</string>
+               <string>Redigera Recept</string>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_9">
-              <item>
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Betyg</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="rating_spinBox"/>
-              </item>
-             </layout>
+             <widget class="QPushButton" name="exportTxt">
+              <property name="text">
+               <string>Exportera som .txt</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="exportXml">
+              <property name="text">
+               <string>Exportera som .xml</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -568,35 +703,85 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>12</x>
-         <y>77</y>
-         <width>520</width>
-         <height>451</height>
+         <x>580</x>
+         <y>220</y>
+         <width>411</width>
+         <height>301</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="rightMargin">
+         <number>2</number>
+        </property>
         <item>
-         <widget class="QTextBrowser" name="RecipeIngredients"/>
+         <widget class="QLabel" name="relatedLabel">
+          <property name="text">
+           <string>Relaterade Recept</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QTextBrowser" name="Method">
-          <property name="acceptDrops">
-           <bool>false</bool>
+         <widget class="QListWidget" name="relatedList"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="relatedOpen">
+          <property name="text">
+           <string>Öppna</string>
           </property>
-          <property name="undoRedoEnabled">
-           <bool>false</bool>
-          </property>
-          <property name="html">
-           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>561</width>
+         <height>441</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_16">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QTextBrowser" name="RecipeIngredients"/>
+          </item>
+          <item>
+           <widget class="QTextBrowser" name="Method">
+            <property name="acceptDrops">
+             <bool>false</bool>
+            </property>
+            <property name="undoRedoEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="html">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Betyg</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="rating_spinBox"/>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -605,106 +790,269 @@ p, li { white-space: pre-wrap; }
       <attribute name="title">
        <string>Lägg Till/Redigera Recept</string>
       </attribute>
-      <widget class="QWidget" name="layoutWidget_2">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>436</width>
-         <height>401</height>
+         <x>0</x>
+         <y>0</y>
+         <width>1001</width>
+         <height>721</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="IngredientLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_17">
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
         <item>
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Ingredienser</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0,1,0,0,0">
+         <layout class="QVBoxLayout" name="IngredientLayout_2">
           <item>
-           <widget class="QListWidget" name="ingredientlist_deselected_2">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
+           <layout class="QHBoxLayout" name="horizontalLayout_18">
+            <item>
+             <widget class="QLabel" name="fileLabel">
+              <property name="text">
+               <string>Filnamn:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="fileLine"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="fileButton">
+              <property name="text">
+               <string>Läs från .xml/.txt</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Ingredienser</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_10">
-            <property name="spacing">
-             <number>2</number>
-            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0,1,0,0,0">
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QListWidget" name="ingredientlist_deselected_2">
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAlwaysOff</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="RI_select">
+                <property name="text">
+                 <string>&gt;&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Enhet</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="unitBox">
+                <item>
+                 <property name="text">
+                  <string>g</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>dl</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>tsk</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>msk</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>st</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>Antal</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="amountBox">
+                <property name="maximum">
+                 <double>1000000.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="RI_edit">
+                <property name="text">
+                 <string>Ändra</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="RI_clear">
+                <property name="text">
+                 <string>Rensa</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QListWidget" name="RI_selected">
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAlwaysOff</enum>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SingleSelection</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="RIngredient_amount">
+              <property name="selectionMode">
+               <enum>QAbstractItemView::NoSelection</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="RIngredient_unit">
+              <property name="selectionMode">
+               <enum>QAbstractItemView::NoSelection</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_15">
+          <item>
+           <layout class="QHBoxLayout" name="titleLayout">
+            <item>
+             <widget class="QLabel" name="titleLabel">
               <property name="text">
-               <string>Enhet</string>
+               <string>Titel</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="unitBox">
-              <item>
-               <property name="text">
-                <string>g</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>dl</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>tsk</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>msk</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>st</string>
-               </property>
-              </item>
-             </widget>
+             <widget class="QLineEdit" name="titleEdit"/>
             </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="methodLayout">
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>Antal</string>
+               <string>Instruktioner</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QDoubleSpinBox" name="amountBox">
-              <property name="maximum">
-               <double>1000000.000000000000000</double>
+             <widget class="QPlainTextEdit" name="methodEdit">
+              <property name="minimumSize">
+               <size>
+                <width>550</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>550</width>
+                <height>16777215</height>
+               </size>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="RI_select">
-              <property name="text">
-               <string>&gt;&gt;</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <widget class="QLabel" name="relatedLabelEdit">
+                <property name="text">
+                 <string>Relaterade Recept</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="relatedLine"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="relatedButton">
+                <property name="text">
+                 <string>Lägg Till</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QPushButton" name="RI_edit">
-              <property name="text">
-               <string>Ändra</string>
-              </property>
-             </widget>
+             <widget class="QListWidget" name="relatedListEdit"/>
             </item>
             <item>
-             <widget class="QPushButton" name="RI_clear">
+             <widget class="QPushButton" name="relatedClear">
               <property name="text">
                <string>Rensa</string>
               </property>
@@ -713,144 +1061,107 @@ p, li { white-space: pre-wrap; }
            </layout>
           </item>
           <item>
-           <widget class="QListWidget" name="RI_selected">
-            <property name="horizontalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="ratingLayout">
+            <item>
+             <widget class="QLabel" name="ratingLabel">
+              <property name="text">
+               <string>Betyg</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="ratingEdit">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>5</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QListWidget" name="RIngredient_amount">
-            <property name="selectionMode">
-             <enum>QAbstractItemView::NoSelection</enum>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="timeLayout">
+            <item>
+             <widget class="QLabel" name="timeLabel">
+              <property name="text">
+               <string>Tidsåtgång</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="timeEdit">
+              <property name="maximum">
+               <number>99999</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QListWidget" name="RIngredient_unit">
-            <property name="selectionMode">
-             <enum>QAbstractItemView::NoSelection</enum>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="servingsLayout">
+            <item>
+             <widget class="QLabel" name="servingsLabel">
+              <property name="text">
+               <string>Portioner</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="servingsEdit">
+              <property name="maximum">
+               <number>99</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>530</x>
-         <y>20</y>
-         <width>260</width>
-         <height>392</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_15">
-        <item>
-         <layout class="QHBoxLayout" name="titleLayout">
           <item>
-           <widget class="QLabel" name="titleLabel">
+           <widget class="QPushButton" name="saveRecipe">
             <property name="text">
-             <string>Titel</string>
+             <string>Spara/Uppdatera Recept</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="titleEdit"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="methodLayout">
-          <item>
-           <widget class="QLabel" name="label_8">
+           <widget class="QPushButton" name="deleteRecipe">
             <property name="text">
-             <string>Instruktioner</string>
+             <string>Radera Recept</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPlainTextEdit" name="methodEdit"/>
-          </item>
          </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="ratingLayout">
-          <item>
-           <widget class="QLabel" name="ratingLabel">
-            <property name="text">
-             <string>Betyg</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="ratingEdit"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="timeLayout">
-          <item>
-           <widget class="QLabel" name="timeLabel">
-            <property name="text">
-             <string>Tidsåtgång</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="timeEdit"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="servingsLayout">
-          <item>
-           <widget class="QLabel" name="servingsLabel">
-            <property name="text">
-             <string>Portioner</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="servingsEdit"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="saveRecipe">
-          <property name="text">
-           <string>Spara/Uppdatera</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="deleteRecipe">
-          <property name="text">
-           <string>Radera</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>
      </widget>
      <widget class="QWidget" name="add_ingredient_view">
       <attribute name="title">
-       <string>Lägg till Ingrediens</string>
+       <string>Lägg till/Redigera Ingredienser</string>
       </attribute>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>321</width>
+         <x>0</x>
+         <y>0</y>
+         <width>381</width>
          <height>721</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_14">
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_13">
           <item>
@@ -872,7 +1183,7 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QLabel" name="label_10">
               <property name="text">
-               <string>Kostnad</string>
+               <string>Kostnad (kr/kg eller kr/l)</string>
               </property>
              </widget>
             </item>
@@ -880,6 +1191,9 @@ p, li { white-space: pre-wrap; }
              <widget class="QSpinBox" name="costSpinBox">
               <property name="suffix">
                <string> kr</string>
+              </property>
+              <property name="maximum">
+               <number>99999</number>
               </property>
              </widget>
             </item>
@@ -890,7 +1204,7 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>Energi</string>
+               <string>Energi (kcal/100g)</string>
               </property>
              </widget>
             </item>
@@ -898,6 +1212,9 @@ p, li { white-space: pre-wrap; }
              <widget class="QSpinBox" name="energyspinbox">
               <property name="suffix">
                <string> kcal</string>
+              </property>
+              <property name="maximum">
+               <number>99999</number>
               </property>
              </widget>
             </item>
@@ -912,7 +1229,7 @@ p, li { white-space: pre-wrap; }
             <item>
              <widget class="QLabel" name="label_12">
               <property name="text">
-               <string>Genetiska Tillkortakommanden</string>
+               <string>Allergener</string>
               </property>
              </widget>
             </item>
@@ -998,6 +1315,19 @@ p, li { white-space: pre-wrap; }
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_11">
                 <item>
+                 <spacer name="verticalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QPushButton" name="pushButton_allergenes_select_2">
                   <property name="text">
                    <string>&gt;&gt;</string>
@@ -1010,6 +1340,19 @@ p, li { white-space: pre-wrap; }
                    <string>&lt;&lt;</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </item>
@@ -1065,6 +1408,19 @@ p, li { white-space: pre-wrap; }
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_12">
                 <item>
+                 <spacer name="verticalSpacer_5">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QPushButton" name="pushButton_diet_select_2">
                   <property name="text">
                    <string>&gt;&gt;</string>
@@ -1077,6 +1433,19 @@ p, li { white-space: pre-wrap; }
                    <string>&lt;&lt;</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </item>
@@ -1096,14 +1465,14 @@ p, li { white-space: pre-wrap; }
         <item>
          <widget class="QPushButton" name="addIngredientButton">
           <property name="text">
-           <string>Lägg till</string>
+           <string>Spara/Uppdatera Ingrediens</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="removeIngredientButton">
           <property name="text">
-           <string>Radera</string>
+           <string>Radera Ingrediens</string>
           </property>
          </widget>
         </item>
