@@ -2,6 +2,7 @@
 #define SHELL_H
 #include <vector>
 #include <string>
+#include <fstream>
 #include <stdexcept>
 #include "Recipe.h"
 #include "Ingredient.h"
@@ -27,8 +28,6 @@ class Shell_Exception : public std::exception
 };
 
 
-// string unit2string( const Unit& unitvalue );
-
 class Shell
 {
  public:
@@ -46,9 +45,9 @@ class Shell
 
  
   // SearchDB-funktioner
-  vector<MiniRecipe>  exactMatch( const string& ); //
-  vector<MiniRecipe>  getRecipeResults( SearchTerm& ); // returnera konstreferens? RecipeList
-  vector<string>      getIngredientNames(); // returnera konstreferens? IngredientNames
+  vector<MiniRecipe>  exactMatch( const string& );
+  vector<MiniRecipe>  getRecipeResults( SearchTerm& ); // RecipeList
+  vector<string>      getIngredientNames(); // IngredientNames
   Recipe              openRecipe( const string& );
   Ingredient          openIngredient( const string& );
 
@@ -61,7 +60,8 @@ class Shell
   bool                removeIngredient( const string& );
 
   // Hjälpfunktioner
-  void                tagIngredient(ifstream & fs, IngredientList & IL);
+  IngredientList      findIngredients( const string& );
+  void                tagIngredient( ifstream&, IngredientList& );
 
   // private:
 
