@@ -45,6 +45,11 @@ void exportXml (std::string filepath, Recipe recipe) {
   fs << "<unit>" << unit << "</unit>"
      << "</amount></ingredient>" << endl;
   }
+  /*
+	  std::string instruction (recipe.method_);
+	  replace(instruction, "&", "&amp;");
+	  recipe.setMethod(instruction);
+  */
   
   fs << "  <instruction>" << recipe.method_ << "</instruction>\n"
      << "  <time>" << recipe.minutesTime_ << "</time>\n"

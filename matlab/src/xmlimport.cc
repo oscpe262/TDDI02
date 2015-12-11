@@ -11,17 +11,29 @@ string tagStringCont(fstream & fs) {
 
 int tagIntCont(fstream & fs) {
   int value{};
+  char c{};
   fs >> value;
+  fs.get(c);
   return value;
 };
 
 double tagDblCont(fstream & fs) {
   double value{};
+  char c{};
   fs >> value;
+  fs.get(c);
   return value;
 };
 
-IngredientList tagIngredient(fstream & fs) {
+bool replace(std::string& str, const std::string& from, const std::string& to) {
+    size_t start_pos = str.find(from);
+    if(start_pos == std::string::npos)
+      return false;
+    str.replace(start_pos, from.length(), to);
+    return true;
+};
+
+IngredientList tagIngredient(fstream & fs, IngredientList & IL) {
    string tagIng{"ingredient"};
    string name{"foo"};
    string unitString{};
@@ -31,24 +43,26 @@ IngredientList tagIngredient(fstream & fs) {
    Unit unit{gram};
    char peekIng{};
    char trash{};
-   IngredientList IL{};
 
-   peekIng = fs.peek();
+   getline(fs,name,'<');
 
-   while (tagIng != "ingredient" && peekIng != '/') {
-     if (peekIng == '!' || peekIng == '?') {
-       fs.get(peekIng);
-       fs.ignore(1000,'>');       
-     }
-     else if (peekIng == '/') {
-       getline(fs,tagIng,'>');
-       if (tagIng == "/ingredient"){
+   while (true) {
+     getline(fs,tagIng,'>');
+     
+     if (tagIng[0] == '!' || tagIng[0] == '?') {
+       fs.ignore(1000,'>');
+     }       
+     else if (tagIng[0] == '/') {
+       cout << "/tag detected: " << tagIng;
+       if (tagIng == "/ingredient") {
 	 RecipeIngredient omnom{name, price, kcal, amount, unit};
 	 if (DB::checkIngredient == name) {
-	   IL.push_back(omnom);
+	 IL.push_back(omnom);
 	 }
 	 return IL;
        }
+       fs.ignore(1000,'<');
+       cout << ", trashing ..." << endl;
      }
      else {
        if (tagIng == "ingredient") {
@@ -67,9 +81,8 @@ IngredientList tagIngredient(fstream & fs) {
 	 fs.get(trash);
        }
        else if (tagIng == "unit") {
-	 getline(fs,unitString,'<');	
+	 getline(fs,unitString,'<');
 	 std::transform(unitString.begin(), unitString.end(), unitString.begin(), ::tolower);
-	
 	 if ( unitString == "dl" || unitString == "deciliter")
 	   unit = deciliter;
 	 else if ( unitString == "tsk" || unitString == "tesked" || unitString == "teskedar" || unitString == "teaspoon" )
@@ -80,24 +93,22 @@ IngredientList tagIngredient(fstream & fs) {
 	   unit = pcs;
 	 else
 	   unit = gram;
-       }	 
-     }       
+       } 
+     }
    }
 }
- 
 
 Recipe importXml (std::string filepath) {
-  ifstream fs;
+  fstream fs;
 
-  //filecheck
-  
-  fs.open(filepath);
+  fs.open(filepath, std::fstream::in);
 
   string tmp{};
   string value{};
   string trash{};
   char peek{};
   Recipe yumyum;
+  IngredientList IL{};
   //  bool dirtyRead{0};
  
   while (fs.peek() != EOF) {
@@ -109,16 +120,15 @@ Recipe importXml (std::string filepath) {
     }
 
     else if (peek == '!') { // ignore comments
-      fs.get(peek);
       fs.ignore(1000,'>');
-      peek = {};
     }
 
     else if (peek == '/') { // close tag
       fs.get(peek);
       getline(fs,tmp,'>');
       if (tmp ==  "recipe")
-	break;
+	yumyum.setIngredients(IL);
+      return yumyum;
     }
 
     else { //är alla med?
@@ -126,8 +136,11 @@ Recipe importXml (std::string filepath) {
       if (tmp != "recipe") {
 	if (tmp == "name")
 	  yumyum.setName(tagStringCont(fs));
-	else if (tmp == "instruction")
-	  yumyum.setMethod(tagStringCont(fs));
+	else if (tmp == "instruction") {
+	  std::string instruction (tagStringCont(fs));
+	  replace(instruction, "&amp;", "&");
+	  yumyum.setMethod(instruction);
+	}
 	else if (tmp == "time")
 	  yumyum.setMinutesTime(tagIntCont(fs));
 	else if (tmp == "rating")
@@ -137,7 +150,7 @@ Recipe importXml (std::string filepath) {
 	else if (tmp == "portionsize")
 	  yumyum.setPortions(tagIntCont(fs));
 	else if (tmp == "ingredient")
-	  yumyum.setIngredients(tagIngredient(fs));
+	  tagIngredient(fs, IL);
 	else 
 	  tagStringCont(fs);
       }
