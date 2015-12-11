@@ -329,8 +329,8 @@ Recipe DB::fetchRecipe(const string & name)
   query.next();
   Recipe recipe(query.value(0).toString().toStdString(),
 		query.value(1).toString().toStdString(),
-		query.value(2).toInt(),
 		query.value(3).toDouble(),
+		query.value(2).toInt(),
 		fetchIngredientList(name),
 		query.value(4).toInt(),
 		query.value(5).toInt(),
