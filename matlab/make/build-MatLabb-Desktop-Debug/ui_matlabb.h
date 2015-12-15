@@ -715,7 +715,7 @@ public:
         add_recipe_view->setObjectName(QStringLiteral("add_recipe_view"));
         layoutWidget4 = new QWidget(add_recipe_view);
         layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(0, 0, 1001, 721));
+        layoutWidget4->setGeometry(QRect(0, 0, 991, 721));
         horizontalLayout_17 = new QHBoxLayout(layoutWidget4);
         horizontalLayout_17->setSpacing(6);
         horizontalLayout_17->setContentsMargins(11, 11, 11, 11);
@@ -1183,7 +1183,7 @@ public:
 
         retranslateUi(MatLabb);
 
-        tabs->setCurrentIndex(1);
+        tabs->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MatLabb);
