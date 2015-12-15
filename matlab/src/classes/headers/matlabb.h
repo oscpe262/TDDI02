@@ -32,8 +32,9 @@ private slots:
     void showResults(vector<MiniRecipe> vmr);
     MiniRecipe_strings MiniRecipeToQString(MiniRecipe & mr);
     void OpenRecipe(const string s);
-    QString IngredientListToQString(const IngredientList il);
+    QString IngredientListToQString(const IngredientList il, double d);
     QString AllergeneListToQString(const AllergeneArray a);
+    void OpenForEdit(Recipe r);
     //
 
     void on_pushButton_dbsearch_clicked();
@@ -112,10 +113,33 @@ private slots:
 
     void on_editOpenRecipe_clicked();
 
+    void on_RI_edit_clicked();
+
+    void on_openIngredient_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_RI_clear_clicked();
+
+    void on_exportTxt_clicked();
+
+    void on_relatedList_itemPressed(QListWidgetItem *item);
+
+    void on_relatedOpen_clicked();
+
+    void on_relatedButton_clicked();
+
+    void on_relatedClear_clicked();
+
+    void on_fileButton_clicked();
+
+    void on_exportXml_clicked();
+
 private:
     Ui::MatLabb *ui;
     Shell shell;
     Recipe recipe_;
+    Ingredient ingredient_;
 };
 
 #endif // MATLABB_H

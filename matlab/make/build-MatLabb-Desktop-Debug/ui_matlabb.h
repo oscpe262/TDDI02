@@ -13,6 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -20,7 +22,6 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
@@ -38,14 +39,7 @@ public:
     QTabWidget *tabs;
     QWidget *search_view;
     QWidget *layoutWidget;
-    QHBoxLayout *SearchResultLayout;
-    QListWidget *listWresults;
-    QListWidget *listWresultsinfo;
-    QVBoxLayout *verticalLayout_3;
-    QSpacerItem *verticalSpacer;
-    QPushButton *OpenButton;
-    QPushButton *AddButton;
-    QWidget *layoutWidget1;
+    QHBoxLayout *horizontalLayout_15;
     QHBoxLayout *horizontalLayout_14;
     QVBoxLayout *IngredientLayout_3;
     QHBoxLayout *horizontalLayout_2;
@@ -56,25 +50,32 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QListWidget *ingredientlist_deselected;
     QVBoxLayout *verticalLayout;
+    QSpacerItem *verticalSpacer_7;
     QPushButton *pushButton_select;
     QPushButton *pushButton_deselect;
+    QSpacerItem *verticalSpacer_8;
     QListWidget *ingredientlist_selected;
+    QPushButton *openIngredient;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *AllergeneLayout;
     QLabel *label;
     QHBoxLayout *horizontalLayout_5;
     QListWidget *allergenes_deselected;
     QVBoxLayout *verticalLayout_4;
+    QSpacerItem *verticalSpacer_9;
     QPushButton *pushButton_allergenes_select;
     QPushButton *pushButton_allergenes_deselect;
+    QSpacerItem *verticalSpacer_10;
     QListWidget *allergenes_selected;
     QVBoxLayout *DietLayouts;
     QLabel *label_3;
     QHBoxLayout *horizontalLayout_6;
     QListWidget *diet_deselected;
     QVBoxLayout *verticalLayout_5;
+    QSpacerItem *verticalSpacer_12;
     QPushButton *pushButton_diet_select;
     QPushButton *pushButton_diet_deselect;
+    QSpacerItem *verticalSpacer_11;
     QListWidget *diet_selected;
     QVBoxLayout *IntervalLayout;
     QHBoxLayout *EnergyLayout;
@@ -90,83 +91,132 @@ public:
     QSpinBox *costMin;
     QSpinBox *costMax;
     QPushButton *searchButton;
-    QWidget *recipe_view;
-    QWidget *widget;
-    QVBoxLayout *RecipeViewLayout;
-    QListWidget *RecipeInfo;
+    QVBoxLayout *verticalLayout_3;
+    QLabel *label_15;
     QHBoxLayout *horizontalLayout_10;
-    QHBoxLayout *horizontalLayout_8;
-    QTextBrowser *RecipeIngredients;
-    QTextBrowser *Method;
-    QVBoxLayout *verticalLayout_9;
-    QVBoxLayout *commentVerticalLayout;
-    QVBoxLayout *verticalLayout_6;
-    QLabel *Kommentar;
-    QPlainTextEdit *comment_plainTextEdit;
-    QPushButton *comment;
+    QListWidget *listWresults;
+    QListWidget *listWresultsinfo;
     QHBoxLayout *horizontalLayout_4;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_2;
+    QPushButton *OpenButton;
+    QWidget *recipe_view;
+    QListWidget *RecipeInfo;
+    QWidget *layoutWidget1;
+    QVBoxLayout *verticalLayout_9;
     QVBoxLayout *verticalLayout_8;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_5;
-    QSlider *horizontalSlider;
+    QDoubleSpinBox *ServSpinBox;
     QPushButton *pushButton;
     QVBoxLayout *verticalLayout_7;
-    QPushButton *pushButton_4;
+    QPushButton *editOpenRecipe;
+    QPushButton *exportTxt;
+    QPushButton *exportXml;
+    QWidget *layoutWidget2;
+    QVBoxLayout *verticalLayout_6;
+    QLabel *relatedLabel;
+    QListWidget *relatedList;
+    QPushButton *relatedOpen;
+    QWidget *layoutWidget3;
+    QVBoxLayout *verticalLayout_16;
+    QHBoxLayout *horizontalLayout_8;
+    QTextBrowser *RecipeIngredients;
+    QTextBrowser *Method;
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_6;
     QSpinBox *rating_spinBox;
     QWidget *add_recipe_view;
-    QWidget *layoutWidget_2;
+    QWidget *layoutWidget4;
+    QHBoxLayout *horizontalLayout_17;
     QVBoxLayout *IngredientLayout_2;
+    QHBoxLayout *horizontalLayout_18;
+    QLabel *fileLabel;
+    QLineEdit *fileLine;
+    QPushButton *fileButton;
     QLabel *label_7;
     QHBoxLayout *horizontalLayout_11;
     QListWidget *ingredientlist_deselected_2;
     QVBoxLayout *verticalLayout_10;
-    QPushButton *pushButton_select_2;
-    QPushButton *pushButton_deselect_2;
-    QListWidget *ingredientlist_selected_2;
-    QPlainTextEdit *plainTextEdit_2;
+    QSpacerItem *verticalSpacer_2;
+    QPushButton *RI_select;
+    QLabel *label_2;
+    QComboBox *unitBox;
+    QLabel *label_4;
+    QDoubleSpinBox *amountBox;
+    QPushButton *RI_edit;
+    QSpacerItem *verticalSpacer;
+    QPushButton *RI_clear;
+    QListWidget *RI_selected;
+    QListWidget *RIngredient_amount;
+    QListWidget *RIngredient_unit;
+    QVBoxLayout *verticalLayout_15;
+    QHBoxLayout *titleLayout;
+    QLabel *titleLabel;
+    QLineEdit *titleEdit;
+    QVBoxLayout *methodLayout;
     QLabel *label_8;
+    QPlainTextEdit *methodEdit;
+    QHBoxLayout *horizontalLayout_16;
+    QLabel *relatedLabelEdit;
+    QLineEdit *relatedLine;
+    QPushButton *relatedButton;
+    QListWidget *relatedListEdit;
+    QPushButton *relatedClear;
+    QHBoxLayout *ratingLayout;
+    QLabel *ratingLabel;
+    QSpinBox *ratingEdit;
+    QHBoxLayout *timeLayout;
+    QLabel *timeLabel;
+    QSpinBox *timeEdit;
+    QHBoxLayout *servingsLayout;
+    QLabel *servingsLabel;
+    QSpinBox *servingsEdit;
+    QPushButton *saveRecipe;
+    QPushButton *deleteRecipe;
     QWidget *add_ingredient_view;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget5;
     QVBoxLayout *verticalLayout_14;
     QVBoxLayout *verticalLayout_13;
     QHBoxLayout *name_horizontal;
     QLabel *label_9;
-    QLineEdit *lineEdit;
+    QLineEdit *IngredientName;
     QHBoxLayout *cost_horizontal;
     QLabel *label_10;
-    QSpinBox *spinBox;
+    QSpinBox *costSpinBox;
     QHBoxLayout *energy_horizontal;
     QLabel *label_11;
-    QSpinBox *spinBox1;
+    QSpinBox *energyspinbox;
     QVBoxLayout *BlackListVertical_2;
     QVBoxLayout *AllergenLayout_2;
     QLabel *label_12;
     QHBoxLayout *horizontalLayout_12;
     QListWidget *allergenes_deselected_2;
     QVBoxLayout *verticalLayout_11;
+    QSpacerItem *verticalSpacer_3;
     QPushButton *pushButton_allergenes_select_2;
     QPushButton *pushButton_allergenes_deselect_2;
+    QSpacerItem *verticalSpacer_4;
     QListWidget *allergenes_selected_2;
     QVBoxLayout *DietLayouts_2;
     QLabel *label_13;
     QHBoxLayout *horizontalLayout_13;
     QListWidget *diet_deselected_2;
     QVBoxLayout *verticalLayout_12;
+    QSpacerItem *verticalSpacer_5;
     QPushButton *pushButton_diet_select_2;
     QPushButton *pushButton_diet_deselect_2;
+    QSpacerItem *verticalSpacer_6;
     QListWidget *diet_selected_2;
-    QPushButton *pushButton_5;
+    QPushButton *addIngredientButton;
+    QPushButton *removeIngredientButton;
 
     void setupUi(QWidget *MatLabb)
     {
         if (MatLabb->objectName().isEmpty())
             MatLabb->setObjectName(QStringLiteral("MatLabb"));
         MatLabb->setWindowModality(Qt::NonModal);
-        MatLabb->resize(1022, 796);
+        MatLabb->resize(1024, 768);
+        MatLabb->setMinimumSize(QSize(1024, 768));
+        MatLabb->setMaximumSize(QSize(1024, 768));
         actionAyy_lmao = new QAction(MatLabb);
         actionAyy_lmao->setObjectName(QStringLiteral("actionAyy_lmao"));
         actionAyy_lmao->setCheckable(true);
@@ -176,7 +226,7 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         tabs = new QTabWidget(MatLabb);
         tabs->setObjectName(QStringLiteral("tabs"));
-        tabs->setMinimumSize(QSize(786, 0));
+        tabs->setMinimumSize(QSize(768, 0));
         tabs->setLayoutDirection(Qt::LeftToRight);
         tabs->setAutoFillBackground(false);
         tabs->setStyleSheet(QStringLiteral(""));
@@ -187,63 +237,27 @@ public:
         search_view->setObjectName(QStringLiteral("search_view"));
         layoutWidget = new QWidget(search_view);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(620, 10, 371, 521));
-        SearchResultLayout = new QHBoxLayout(layoutWidget);
-        SearchResultLayout->setSpacing(6);
-        SearchResultLayout->setContentsMargins(11, 11, 11, 11);
-        SearchResultLayout->setObjectName(QStringLiteral("SearchResultLayout"));
-        SearchResultLayout->setContentsMargins(0, 0, 0, 0);
-        listWresults = new QListWidget(layoutWidget);
-        listWresults->setObjectName(QStringLiteral("listWresults"));
-
-        SearchResultLayout->addWidget(listWresults);
-
-        listWresultsinfo = new QListWidget(layoutWidget);
-        listWresultsinfo->setObjectName(QStringLiteral("listWresultsinfo"));
-        listWresultsinfo->setSelectionMode(QAbstractItemView::NoSelection);
-
-        SearchResultLayout->addWidget(listWresultsinfo);
-
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        verticalSpacer = new QSpacerItem(20, 408, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_3->addItem(verticalSpacer);
-
-        OpenButton = new QPushButton(layoutWidget);
-        OpenButton->setObjectName(QStringLiteral("OpenButton"));
-
-        verticalLayout_3->addWidget(OpenButton);
-
-        AddButton = new QPushButton(layoutWidget);
-        AddButton->setObjectName(QStringLiteral("AddButton"));
-
-        verticalLayout_3->addWidget(AddButton);
-
-
-        SearchResultLayout->addLayout(verticalLayout_3);
-
-        layoutWidget1 = new QWidget(search_view);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 10, 603, 521));
-        horizontalLayout_14 = new QHBoxLayout(layoutWidget1);
-        horizontalLayout_14->setSpacing(6);
-        horizontalLayout_14->setContentsMargins(11, 11, 11, 11);
+        layoutWidget->setGeometry(QRect(0, 0, 1001, 721));
+        horizontalLayout_15 = new QHBoxLayout(layoutWidget);
+        horizontalLayout_15->setSpacing(2);
+        horizontalLayout_15->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_15->setObjectName(QStringLiteral("horizontalLayout_15"));
+        horizontalLayout_15->setContentsMargins(6, 6, 6, 10);
+        horizontalLayout_14 = new QHBoxLayout();
+        horizontalLayout_14->setSpacing(2);
         horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
-        horizontalLayout_14->setContentsMargins(0, 0, 0, 0);
         IngredientLayout_3 = new QVBoxLayout();
-        IngredientLayout_3->setSpacing(6);
+        IngredientLayout_3->setSpacing(0);
         IngredientLayout_3->setObjectName(QStringLiteral("IngredientLayout_3"));
         horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        lineEdit_dbsearch = new QLineEdit(layoutWidget1);
+        lineEdit_dbsearch = new QLineEdit(layoutWidget);
         lineEdit_dbsearch->setObjectName(QStringLiteral("lineEdit_dbsearch"));
 
         horizontalLayout_2->addWidget(lineEdit_dbsearch);
 
-        pushButton_dbsearch = new QPushButton(layoutWidget1);
+        pushButton_dbsearch = new QPushButton(layoutWidget);
         pushButton_dbsearch->setObjectName(QStringLiteral("pushButton_dbsearch"));
 
         horizontalLayout_2->addWidget(pushButton_dbsearch);
@@ -254,7 +268,7 @@ public:
         IngredientLayout = new QVBoxLayout();
         IngredientLayout->setSpacing(6);
         IngredientLayout->setObjectName(QStringLiteral("IngredientLayout"));
-        Ingredienser = new QLabel(layoutWidget1);
+        Ingredienser = new QLabel(layoutWidget);
         Ingredienser->setObjectName(QStringLiteral("Ingredienser"));
 
         IngredientLayout->addWidget(Ingredienser);
@@ -262,7 +276,7 @@ public:
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        ingredientlist_deselected = new QListWidget(layoutWidget1);
+        ingredientlist_deselected = new QListWidget(layoutWidget);
         ingredientlist_deselected->setObjectName(QStringLiteral("ingredientlist_deselected"));
         ingredientlist_deselected->setAutoFillBackground(false);
         ingredientlist_deselected->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -272,20 +286,28 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(2);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        pushButton_select = new QPushButton(layoutWidget1);
+        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_7);
+
+        pushButton_select = new QPushButton(layoutWidget);
         pushButton_select->setObjectName(QStringLiteral("pushButton_select"));
 
         verticalLayout->addWidget(pushButton_select);
 
-        pushButton_deselect = new QPushButton(layoutWidget1);
+        pushButton_deselect = new QPushButton(layoutWidget);
         pushButton_deselect->setObjectName(QStringLiteral("pushButton_deselect"));
 
         verticalLayout->addWidget(pushButton_deselect);
 
+        verticalSpacer_8 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_8);
+
 
         horizontalLayout_3->addLayout(verticalLayout);
 
-        ingredientlist_selected = new QListWidget(layoutWidget1);
+        ingredientlist_selected = new QListWidget(layoutWidget);
         ingredientlist_selected->setObjectName(QStringLiteral("ingredientlist_selected"));
         ingredientlist_selected->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -294,6 +316,11 @@ public:
         horizontalLayout_3->setStretch(1, 1);
 
         IngredientLayout->addLayout(horizontalLayout_3);
+
+        openIngredient = new QPushButton(layoutWidget);
+        openIngredient->setObjectName(QStringLiteral("openIngredient"));
+
+        IngredientLayout->addWidget(openIngredient);
 
 
         IngredientLayout_3->addLayout(IngredientLayout);
@@ -307,7 +334,7 @@ public:
         AllergeneLayout = new QVBoxLayout();
         AllergeneLayout->setSpacing(6);
         AllergeneLayout->setObjectName(QStringLiteral("AllergeneLayout"));
-        label = new QLabel(layoutWidget1);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         AllergeneLayout->addWidget(label);
@@ -315,7 +342,7 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        allergenes_deselected = new QListWidget(layoutWidget1);
+        allergenes_deselected = new QListWidget(layoutWidget);
         new QListWidgetItem(allergenes_deselected);
         new QListWidgetItem(allergenes_deselected);
         new QListWidgetItem(allergenes_deselected);
@@ -338,20 +365,28 @@ public:
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        pushButton_allergenes_select = new QPushButton(layoutWidget1);
+        verticalSpacer_9 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_9);
+
+        pushButton_allergenes_select = new QPushButton(layoutWidget);
         pushButton_allergenes_select->setObjectName(QStringLiteral("pushButton_allergenes_select"));
 
         verticalLayout_4->addWidget(pushButton_allergenes_select);
 
-        pushButton_allergenes_deselect = new QPushButton(layoutWidget1);
+        pushButton_allergenes_deselect = new QPushButton(layoutWidget);
         pushButton_allergenes_deselect->setObjectName(QStringLiteral("pushButton_allergenes_deselect"));
 
         verticalLayout_4->addWidget(pushButton_allergenes_deselect);
 
+        verticalSpacer_10 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_10);
+
 
         horizontalLayout_5->addLayout(verticalLayout_4);
 
-        allergenes_selected = new QListWidget(layoutWidget1);
+        allergenes_selected = new QListWidget(layoutWidget);
         allergenes_selected->setObjectName(QStringLiteral("allergenes_selected"));
         allergenes_selected->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -366,7 +401,7 @@ public:
         DietLayouts = new QVBoxLayout();
         DietLayouts->setSpacing(6);
         DietLayouts->setObjectName(QStringLiteral("DietLayouts"));
-        label_3 = new QLabel(layoutWidget1);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         DietLayouts->addWidget(label_3);
@@ -374,7 +409,7 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        diet_deselected = new QListWidget(layoutWidget1);
+        diet_deselected = new QListWidget(layoutWidget);
         new QListWidgetItem(diet_deselected);
         new QListWidgetItem(diet_deselected);
         new QListWidgetItem(diet_deselected);
@@ -387,20 +422,28 @@ public:
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        pushButton_diet_select = new QPushButton(layoutWidget1);
+        verticalSpacer_12 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_12);
+
+        pushButton_diet_select = new QPushButton(layoutWidget);
         pushButton_diet_select->setObjectName(QStringLiteral("pushButton_diet_select"));
 
         verticalLayout_5->addWidget(pushButton_diet_select);
 
-        pushButton_diet_deselect = new QPushButton(layoutWidget1);
+        pushButton_diet_deselect = new QPushButton(layoutWidget);
         pushButton_diet_deselect->setObjectName(QStringLiteral("pushButton_diet_deselect"));
 
         verticalLayout_5->addWidget(pushButton_diet_deselect);
 
+        verticalSpacer_11 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_11);
+
 
         horizontalLayout_6->addLayout(verticalLayout_5);
 
-        diet_selected = new QListWidget(layoutWidget1);
+        diet_selected = new QListWidget(layoutWidget);
         diet_selected->setObjectName(QStringLiteral("diet_selected"));
         diet_selected->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -418,17 +461,17 @@ public:
         EnergyLayout = new QHBoxLayout();
         EnergyLayout->setSpacing(6);
         EnergyLayout->setObjectName(QStringLiteral("EnergyLayout"));
-        energyLabel = new QLabel(layoutWidget1);
+        energyLabel = new QLabel(layoutWidget);
         energyLabel->setObjectName(QStringLiteral("energyLabel"));
 
         EnergyLayout->addWidget(energyLabel);
 
-        energyMin = new QSpinBox(layoutWidget1);
+        energyMin = new QSpinBox(layoutWidget);
         energyMin->setObjectName(QStringLiteral("energyMin"));
 
         EnergyLayout->addWidget(energyMin);
 
-        energyMax = new QSpinBox(layoutWidget1);
+        energyMax = new QSpinBox(layoutWidget);
         energyMax->setObjectName(QStringLiteral("energyMax"));
         energyMax->setMaximum(99999);
 
@@ -440,17 +483,17 @@ public:
         TimeLayout = new QHBoxLayout();
         TimeLayout->setSpacing(6);
         TimeLayout->setObjectName(QStringLiteral("TimeLayout"));
-        label_16 = new QLabel(layoutWidget1);
+        label_16 = new QLabel(layoutWidget);
         label_16->setObjectName(QStringLiteral("label_16"));
 
         TimeLayout->addWidget(label_16);
 
-        timeMin = new QSpinBox(layoutWidget1);
+        timeMin = new QSpinBox(layoutWidget);
         timeMin->setObjectName(QStringLiteral("timeMin"));
 
         TimeLayout->addWidget(timeMin);
 
-        timeMax = new QSpinBox(layoutWidget1);
+        timeMax = new QSpinBox(layoutWidget);
         timeMax->setObjectName(QStringLiteral("timeMax"));
         timeMax->setMaximum(99999);
 
@@ -462,17 +505,17 @@ public:
         CostLayout = new QHBoxLayout();
         CostLayout->setSpacing(6);
         CostLayout->setObjectName(QStringLiteral("CostLayout"));
-        label_14 = new QLabel(layoutWidget1);
+        label_14 = new QLabel(layoutWidget);
         label_14->setObjectName(QStringLiteral("label_14"));
 
         CostLayout->addWidget(label_14);
 
-        costMin = new QSpinBox(layoutWidget1);
+        costMin = new QSpinBox(layoutWidget);
         costMin->setObjectName(QStringLiteral("costMin"));
 
         CostLayout->addWidget(costMin);
 
-        costMax = new QSpinBox(layoutWidget1);
+        costMax = new QSpinBox(layoutWidget);
         costMax->setObjectName(QStringLiteral("costMax"));
         costMax->setMaximum(99999);
 
@@ -481,7 +524,7 @@ public:
 
         IntervalLayout->addLayout(CostLayout);
 
-        searchButton = new QPushButton(layoutWidget1);
+        searchButton = new QPushButton(layoutWidget);
         searchButton->setObjectName(QStringLiteral("searchButton"));
 
         IntervalLayout->addWidget(searchButton);
@@ -492,108 +535,85 @@ public:
 
         horizontalLayout_14->addLayout(verticalLayout_2);
 
-        tabs->addTab(search_view, QString());
-        recipe_view = new QWidget();
-        recipe_view->setObjectName(QStringLiteral("recipe_view"));
-        widget = new QWidget(recipe_view);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 981, 521));
-        RecipeViewLayout = new QVBoxLayout(widget);
-        RecipeViewLayout->setSpacing(6);
-        RecipeViewLayout->setContentsMargins(11, 11, 11, 11);
-        RecipeViewLayout->setObjectName(QStringLiteral("RecipeViewLayout"));
-        RecipeViewLayout->setContentsMargins(0, 0, 0, 0);
-        RecipeInfo = new QListWidget(widget);
-        RecipeInfo->setObjectName(QStringLiteral("RecipeInfo"));
-        RecipeInfo->setMaximumSize(QSize(16777215, 60));
 
-        RecipeViewLayout->addWidget(RecipeInfo);
+        horizontalLayout_15->addLayout(horizontalLayout_14);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(0);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setSizeConstraint(QLayout::SetFixedSize);
+        label_15 = new QLabel(layoutWidget);
+        label_15->setObjectName(QStringLiteral("label_15"));
+
+        verticalLayout_3->addWidget(label_15);
 
         horizontalLayout_10 = new QHBoxLayout();
-        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setSpacing(2);
         horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
-        horizontalLayout_8 = new QHBoxLayout();
-        horizontalLayout_8->setSpacing(6);
-        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
-        RecipeIngredients = new QTextBrowser(widget);
-        RecipeIngredients->setObjectName(QStringLiteral("RecipeIngredients"));
+        listWresults = new QListWidget(layoutWidget);
+        listWresults->setObjectName(QStringLiteral("listWresults"));
+        listWresults->setMinimumSize(QSize(250, 0));
 
-        horizontalLayout_8->addWidget(RecipeIngredients);
+        horizontalLayout_10->addWidget(listWresults);
 
-        Method = new QTextBrowser(widget);
-        Method->setObjectName(QStringLiteral("Method"));
-        Method->setAcceptDrops(false);
-        Method->setUndoRedoEnabled(false);
+        listWresultsinfo = new QListWidget(layoutWidget);
+        listWresultsinfo->setObjectName(QStringLiteral("listWresultsinfo"));
+        listWresultsinfo->setMinimumSize(QSize(160, 0));
+        listWresultsinfo->setSelectionMode(QAbstractItemView::NoSelection);
 
-        horizontalLayout_8->addWidget(Method);
+        horizontalLayout_10->addWidget(listWresultsinfo);
 
 
-        horizontalLayout_10->addLayout(horizontalLayout_8);
-
-        verticalLayout_9 = new QVBoxLayout();
-        verticalLayout_9->setSpacing(6);
-        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
-        commentVerticalLayout = new QVBoxLayout();
-        commentVerticalLayout->setSpacing(6);
-        commentVerticalLayout->setObjectName(QStringLiteral("commentVerticalLayout"));
-        verticalLayout_6 = new QVBoxLayout();
-        verticalLayout_6->setSpacing(6);
-        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
-        Kommentar = new QLabel(widget);
-        Kommentar->setObjectName(QStringLiteral("Kommentar"));
-
-        verticalLayout_6->addWidget(Kommentar);
-
-        comment_plainTextEdit = new QPlainTextEdit(widget);
-        comment_plainTextEdit->setObjectName(QStringLiteral("comment_plainTextEdit"));
-
-        verticalLayout_6->addWidget(comment_plainTextEdit);
-
-        comment = new QPushButton(widget);
-        comment->setObjectName(QStringLiteral("comment"));
-
-        verticalLayout_6->addWidget(comment);
+        verticalLayout_3->addLayout(horizontalLayout_10);
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        pushButton_3 = new QPushButton(widget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        OpenButton = new QPushButton(layoutWidget);
+        OpenButton->setObjectName(QStringLiteral("OpenButton"));
 
-        horizontalLayout_4->addWidget(pushButton_3);
-
-        pushButton_2 = new QPushButton(widget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-
-        horizontalLayout_4->addWidget(pushButton_2);
+        horizontalLayout_4->addWidget(OpenButton);
 
 
-        verticalLayout_6->addLayout(horizontalLayout_4);
+        verticalLayout_3->addLayout(horizontalLayout_4);
 
 
-        commentVerticalLayout->addLayout(verticalLayout_6);
+        horizontalLayout_15->addLayout(verticalLayout_3);
 
-
-        verticalLayout_9->addLayout(commentVerticalLayout);
-
+        tabs->addTab(search_view, QString());
+        recipe_view = new QWidget();
+        recipe_view->setObjectName(QStringLiteral("recipe_view"));
+        RecipeInfo = new QListWidget(recipe_view);
+        RecipeInfo->setObjectName(QStringLiteral("RecipeInfo"));
+        RecipeInfo->setGeometry(QRect(10, 10, 981, 59));
+        RecipeInfo->setMaximumSize(QSize(16777215, 59));
+        RecipeInfo->setAutoScroll(false);
+        RecipeInfo->setSelectionMode(QAbstractItemView::NoSelection);
+        layoutWidget1 = new QWidget(recipe_view);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(580, 80, 411, 136));
+        verticalLayout_9 = new QVBoxLayout(layoutWidget1);
+        verticalLayout_9->setSpacing(0);
+        verticalLayout_9->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
+        verticalLayout_9->setContentsMargins(0, 0, 0, 0);
         verticalLayout_8 = new QVBoxLayout();
-        verticalLayout_8->setSpacing(6);
+        verticalLayout_8->setSpacing(2);
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
         horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setSpacing(2);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget1);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         horizontalLayout_7->addWidget(label_5);
 
-        horizontalSlider = new QSlider(widget);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setOrientation(Qt::Horizontal);
+        ServSpinBox = new QDoubleSpinBox(layoutWidget1);
+        ServSpinBox->setObjectName(QStringLiteral("ServSpinBox"));
 
-        horizontalLayout_7->addWidget(horizontalSlider);
+        horizontalLayout_7->addWidget(ServSpinBox);
 
-        pushButton = new QPushButton(widget);
+        pushButton = new QPushButton(layoutWidget1);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
         horizontalLayout_7->addWidget(pushButton);
@@ -602,28 +622,22 @@ public:
         verticalLayout_8->addLayout(horizontalLayout_7);
 
         verticalLayout_7 = new QVBoxLayout();
-        verticalLayout_7->setSpacing(6);
+        verticalLayout_7->setSpacing(2);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
-        pushButton_4 = new QPushButton(widget);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        editOpenRecipe = new QPushButton(layoutWidget1);
+        editOpenRecipe->setObjectName(QStringLiteral("editOpenRecipe"));
 
-        verticalLayout_7->addWidget(pushButton_4);
+        verticalLayout_7->addWidget(editOpenRecipe);
 
-        horizontalLayout_9 = new QHBoxLayout();
-        horizontalLayout_9->setSpacing(6);
-        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
-        label_6 = new QLabel(widget);
-        label_6->setObjectName(QStringLiteral("label_6"));
+        exportTxt = new QPushButton(layoutWidget1);
+        exportTxt->setObjectName(QStringLiteral("exportTxt"));
 
-        horizontalLayout_9->addWidget(label_6);
+        verticalLayout_7->addWidget(exportTxt);
 
-        rating_spinBox = new QSpinBox(widget);
-        rating_spinBox->setObjectName(QStringLiteral("rating_spinBox"));
+        exportXml = new QPushButton(layoutWidget1);
+        exportXml->setObjectName(QStringLiteral("exportXml"));
 
-        horizontalLayout_9->addWidget(rating_spinBox);
-
-
-        verticalLayout_7->addLayout(horizontalLayout_9);
+        verticalLayout_7->addWidget(exportXml);
 
 
         verticalLayout_8->addLayout(verticalLayout_7);
@@ -631,24 +645,107 @@ public:
 
         verticalLayout_9->addLayout(verticalLayout_8);
 
+        layoutWidget2 = new QWidget(recipe_view);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(580, 220, 411, 301));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget2);
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 2, 0);
+        relatedLabel = new QLabel(layoutWidget2);
+        relatedLabel->setObjectName(QStringLiteral("relatedLabel"));
 
-        horizontalLayout_10->addLayout(verticalLayout_9);
+        verticalLayout_6->addWidget(relatedLabel);
+
+        relatedList = new QListWidget(layoutWidget2);
+        relatedList->setObjectName(QStringLiteral("relatedList"));
+
+        verticalLayout_6->addWidget(relatedList);
+
+        relatedOpen = new QPushButton(layoutWidget2);
+        relatedOpen->setObjectName(QStringLiteral("relatedOpen"));
+
+        verticalLayout_6->addWidget(relatedOpen);
+
+        layoutWidget3 = new QWidget(recipe_view);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(10, 80, 561, 441));
+        verticalLayout_16 = new QVBoxLayout(layoutWidget3);
+        verticalLayout_16->setSpacing(6);
+        verticalLayout_16->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
+        verticalLayout_16->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        RecipeIngredients = new QTextBrowser(layoutWidget3);
+        RecipeIngredients->setObjectName(QStringLiteral("RecipeIngredients"));
+
+        horizontalLayout_8->addWidget(RecipeIngredients);
+
+        Method = new QTextBrowser(layoutWidget3);
+        Method->setObjectName(QStringLiteral("Method"));
+        Method->setAcceptDrops(false);
+        Method->setUndoRedoEnabled(false);
+
+        horizontalLayout_8->addWidget(Method);
 
 
-        RecipeViewLayout->addLayout(horizontalLayout_10);
+        verticalLayout_16->addLayout(horizontalLayout_8);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        label_6 = new QLabel(layoutWidget3);
+        label_6->setObjectName(QStringLiteral("label_6"));
+
+        horizontalLayout_9->addWidget(label_6);
+
+        rating_spinBox = new QSpinBox(layoutWidget3);
+        rating_spinBox->setObjectName(QStringLiteral("rating_spinBox"));
+
+        horizontalLayout_9->addWidget(rating_spinBox);
+
+
+        verticalLayout_16->addLayout(horizontalLayout_9);
 
         tabs->addTab(recipe_view, QString());
         add_recipe_view = new QWidget();
         add_recipe_view->setObjectName(QStringLiteral("add_recipe_view"));
-        layoutWidget_2 = new QWidget(add_recipe_view);
-        layoutWidget_2->setObjectName(QStringLiteral("layoutWidget_2"));
-        layoutWidget_2->setGeometry(QRect(10, 10, 271, 401));
-        IngredientLayout_2 = new QVBoxLayout(layoutWidget_2);
+        layoutWidget4 = new QWidget(add_recipe_view);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(0, 0, 1001, 721));
+        horizontalLayout_17 = new QHBoxLayout(layoutWidget4);
+        horizontalLayout_17->setSpacing(6);
+        horizontalLayout_17->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_17->setObjectName(QStringLiteral("horizontalLayout_17"));
+        horizontalLayout_17->setContentsMargins(6, 6, 6, 10);
+        IngredientLayout_2 = new QVBoxLayout();
         IngredientLayout_2->setSpacing(6);
-        IngredientLayout_2->setContentsMargins(11, 11, 11, 11);
         IngredientLayout_2->setObjectName(QStringLiteral("IngredientLayout_2"));
-        IngredientLayout_2->setContentsMargins(0, 0, 0, 0);
-        label_7 = new QLabel(layoutWidget_2);
+        horizontalLayout_18 = new QHBoxLayout();
+        horizontalLayout_18->setSpacing(6);
+        horizontalLayout_18->setObjectName(QStringLiteral("horizontalLayout_18"));
+        fileLabel = new QLabel(layoutWidget4);
+        fileLabel->setObjectName(QStringLiteral("fileLabel"));
+
+        horizontalLayout_18->addWidget(fileLabel);
+
+        fileLine = new QLineEdit(layoutWidget4);
+        fileLine->setObjectName(QStringLiteral("fileLine"));
+
+        horizontalLayout_18->addWidget(fileLine);
+
+        fileButton = new QPushButton(layoutWidget4);
+        fileButton->setObjectName(QStringLiteral("fileButton"));
+
+        horizontalLayout_18->addWidget(fileButton);
+
+
+        IngredientLayout_2->addLayout(horizontalLayout_18);
+
+        label_7 = new QLabel(layoutWidget4);
         label_7->setObjectName(QStringLiteral("label_7"));
 
         IngredientLayout_2->addWidget(label_7);
@@ -656,7 +753,7 @@ public:
         horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setSpacing(6);
         horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
-        ingredientlist_deselected_2 = new QListWidget(layoutWidget_2);
+        ingredientlist_deselected_2 = new QListWidget(layoutWidget4);
         ingredientlist_deselected_2->setObjectName(QStringLiteral("ingredientlist_deselected_2"));
         ingredientlist_deselected_2->setAutoFillBackground(false);
         ingredientlist_deselected_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -666,61 +763,238 @@ public:
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setSpacing(2);
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
-        pushButton_select_2 = new QPushButton(layoutWidget_2);
-        pushButton_select_2->setObjectName(QStringLiteral("pushButton_select_2"));
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout_10->addWidget(pushButton_select_2);
+        verticalLayout_10->addItem(verticalSpacer_2);
 
-        pushButton_deselect_2 = new QPushButton(layoutWidget_2);
-        pushButton_deselect_2->setObjectName(QStringLiteral("pushButton_deselect_2"));
+        RI_select = new QPushButton(layoutWidget4);
+        RI_select->setObjectName(QStringLiteral("RI_select"));
 
-        verticalLayout_10->addWidget(pushButton_deselect_2);
+        verticalLayout_10->addWidget(RI_select);
+
+        label_2 = new QLabel(layoutWidget4);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        verticalLayout_10->addWidget(label_2);
+
+        unitBox = new QComboBox(layoutWidget4);
+        unitBox->setObjectName(QStringLiteral("unitBox"));
+
+        verticalLayout_10->addWidget(unitBox);
+
+        label_4 = new QLabel(layoutWidget4);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        verticalLayout_10->addWidget(label_4);
+
+        amountBox = new QDoubleSpinBox(layoutWidget4);
+        amountBox->setObjectName(QStringLiteral("amountBox"));
+        amountBox->setMaximum(1e+06);
+
+        verticalLayout_10->addWidget(amountBox);
+
+        RI_edit = new QPushButton(layoutWidget4);
+        RI_edit->setObjectName(QStringLiteral("RI_edit"));
+
+        verticalLayout_10->addWidget(RI_edit);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_10->addItem(verticalSpacer);
+
+        RI_clear = new QPushButton(layoutWidget4);
+        RI_clear->setObjectName(QStringLiteral("RI_clear"));
+
+        verticalLayout_10->addWidget(RI_clear);
 
 
         horizontalLayout_11->addLayout(verticalLayout_10);
 
-        ingredientlist_selected_2 = new QListWidget(layoutWidget_2);
-        ingredientlist_selected_2->setObjectName(QStringLiteral("ingredientlist_selected_2"));
-        ingredientlist_selected_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        RI_selected = new QListWidget(layoutWidget4);
+        RI_selected->setObjectName(QStringLiteral("RI_selected"));
+        RI_selected->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        RI_selected->setSelectionMode(QAbstractItemView::SingleSelection);
 
-        horizontalLayout_11->addWidget(ingredientlist_selected_2);
+        horizontalLayout_11->addWidget(RI_selected);
+
+        RIngredient_amount = new QListWidget(layoutWidget4);
+        RIngredient_amount->setObjectName(QStringLiteral("RIngredient_amount"));
+        RIngredient_amount->setSelectionMode(QAbstractItemView::NoSelection);
+
+        horizontalLayout_11->addWidget(RIngredient_amount);
+
+        RIngredient_unit = new QListWidget(layoutWidget4);
+        RIngredient_unit->setObjectName(QStringLiteral("RIngredient_unit"));
+        RIngredient_unit->setSelectionMode(QAbstractItemView::NoSelection);
+
+        horizontalLayout_11->addWidget(RIngredient_unit);
 
         horizontalLayout_11->setStretch(1, 1);
 
         IngredientLayout_2->addLayout(horizontalLayout_11);
 
-        plainTextEdit_2 = new QPlainTextEdit(add_recipe_view);
-        plainTextEdit_2->setObjectName(QStringLiteral("plainTextEdit_2"));
-        plainTextEdit_2->setGeometry(QRect(440, 160, 104, 78));
-        label_8 = new QLabel(add_recipe_view);
+
+        horizontalLayout_17->addLayout(IngredientLayout_2);
+
+        verticalLayout_15 = new QVBoxLayout();
+        verticalLayout_15->setSpacing(6);
+        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
+        titleLayout = new QHBoxLayout();
+        titleLayout->setSpacing(6);
+        titleLayout->setObjectName(QStringLiteral("titleLayout"));
+        titleLabel = new QLabel(layoutWidget4);
+        titleLabel->setObjectName(QStringLiteral("titleLabel"));
+
+        titleLayout->addWidget(titleLabel);
+
+        titleEdit = new QLineEdit(layoutWidget4);
+        titleEdit->setObjectName(QStringLiteral("titleEdit"));
+
+        titleLayout->addWidget(titleEdit);
+
+
+        verticalLayout_15->addLayout(titleLayout);
+
+        methodLayout = new QVBoxLayout();
+        methodLayout->setSpacing(6);
+        methodLayout->setObjectName(QStringLiteral("methodLayout"));
+        label_8 = new QLabel(layoutWidget4);
         label_8->setObjectName(QStringLiteral("label_8"));
-        label_8->setGeometry(QRect(440, 140, 269, 17));
+
+        methodLayout->addWidget(label_8);
+
+        methodEdit = new QPlainTextEdit(layoutWidget4);
+        methodEdit->setObjectName(QStringLiteral("methodEdit"));
+        methodEdit->setMinimumSize(QSize(550, 0));
+        methodEdit->setMaximumSize(QSize(550, 16777215));
+
+        methodLayout->addWidget(methodEdit);
+
+        horizontalLayout_16 = new QHBoxLayout();
+        horizontalLayout_16->setSpacing(6);
+        horizontalLayout_16->setObjectName(QStringLiteral("horizontalLayout_16"));
+        relatedLabelEdit = new QLabel(layoutWidget4);
+        relatedLabelEdit->setObjectName(QStringLiteral("relatedLabelEdit"));
+
+        horizontalLayout_16->addWidget(relatedLabelEdit);
+
+        relatedLine = new QLineEdit(layoutWidget4);
+        relatedLine->setObjectName(QStringLiteral("relatedLine"));
+
+        horizontalLayout_16->addWidget(relatedLine);
+
+        relatedButton = new QPushButton(layoutWidget4);
+        relatedButton->setObjectName(QStringLiteral("relatedButton"));
+
+        horizontalLayout_16->addWidget(relatedButton);
+
+
+        methodLayout->addLayout(horizontalLayout_16);
+
+        relatedListEdit = new QListWidget(layoutWidget4);
+        relatedListEdit->setObjectName(QStringLiteral("relatedListEdit"));
+
+        methodLayout->addWidget(relatedListEdit);
+
+        relatedClear = new QPushButton(layoutWidget4);
+        relatedClear->setObjectName(QStringLiteral("relatedClear"));
+
+        methodLayout->addWidget(relatedClear);
+
+
+        verticalLayout_15->addLayout(methodLayout);
+
+        ratingLayout = new QHBoxLayout();
+        ratingLayout->setSpacing(6);
+        ratingLayout->setObjectName(QStringLiteral("ratingLayout"));
+        ratingLabel = new QLabel(layoutWidget4);
+        ratingLabel->setObjectName(QStringLiteral("ratingLabel"));
+
+        ratingLayout->addWidget(ratingLabel);
+
+        ratingEdit = new QSpinBox(layoutWidget4);
+        ratingEdit->setObjectName(QStringLiteral("ratingEdit"));
+        ratingEdit->setMinimum(1);
+        ratingEdit->setMaximum(5);
+
+        ratingLayout->addWidget(ratingEdit);
+
+
+        verticalLayout_15->addLayout(ratingLayout);
+
+        timeLayout = new QHBoxLayout();
+        timeLayout->setSpacing(6);
+        timeLayout->setObjectName(QStringLiteral("timeLayout"));
+        timeLabel = new QLabel(layoutWidget4);
+        timeLabel->setObjectName(QStringLiteral("timeLabel"));
+
+        timeLayout->addWidget(timeLabel);
+
+        timeEdit = new QSpinBox(layoutWidget4);
+        timeEdit->setObjectName(QStringLiteral("timeEdit"));
+        timeEdit->setMaximum(99999);
+
+        timeLayout->addWidget(timeEdit);
+
+
+        verticalLayout_15->addLayout(timeLayout);
+
+        servingsLayout = new QHBoxLayout();
+        servingsLayout->setSpacing(6);
+        servingsLayout->setObjectName(QStringLiteral("servingsLayout"));
+        servingsLabel = new QLabel(layoutWidget4);
+        servingsLabel->setObjectName(QStringLiteral("servingsLabel"));
+
+        servingsLayout->addWidget(servingsLabel);
+
+        servingsEdit = new QSpinBox(layoutWidget4);
+        servingsEdit->setObjectName(QStringLiteral("servingsEdit"));
+        servingsEdit->setMaximum(99);
+
+        servingsLayout->addWidget(servingsEdit);
+
+
+        verticalLayout_15->addLayout(servingsLayout);
+
+        saveRecipe = new QPushButton(layoutWidget4);
+        saveRecipe->setObjectName(QStringLiteral("saveRecipe"));
+
+        verticalLayout_15->addWidget(saveRecipe);
+
+        deleteRecipe = new QPushButton(layoutWidget4);
+        deleteRecipe->setObjectName(QStringLiteral("deleteRecipe"));
+
+        verticalLayout_15->addWidget(deleteRecipe);
+
+
+        horizontalLayout_17->addLayout(verticalLayout_15);
+
         tabs->addTab(add_recipe_view, QString());
         add_ingredient_view = new QWidget();
         add_ingredient_view->setObjectName(QStringLiteral("add_ingredient_view"));
-        layoutWidget2 = new QWidget(add_ingredient_view);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 10, 321, 721));
-        verticalLayout_14 = new QVBoxLayout(layoutWidget2);
+        layoutWidget5 = new QWidget(add_ingredient_view);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(0, 0, 381, 721));
+        verticalLayout_14 = new QVBoxLayout(layoutWidget5);
         verticalLayout_14->setSpacing(6);
         verticalLayout_14->setContentsMargins(11, 11, 11, 11);
         verticalLayout_14->setObjectName(QStringLiteral("verticalLayout_14"));
-        verticalLayout_14->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_14->setContentsMargins(6, 6, 6, 10);
         verticalLayout_13 = new QVBoxLayout();
         verticalLayout_13->setSpacing(6);
         verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
         name_horizontal = new QHBoxLayout();
         name_horizontal->setSpacing(6);
         name_horizontal->setObjectName(QStringLiteral("name_horizontal"));
-        label_9 = new QLabel(layoutWidget2);
+        label_9 = new QLabel(layoutWidget5);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         name_horizontal->addWidget(label_9);
 
-        lineEdit = new QLineEdit(layoutWidget2);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        IngredientName = new QLineEdit(layoutWidget5);
+        IngredientName->setObjectName(QStringLiteral("IngredientName"));
 
-        name_horizontal->addWidget(lineEdit);
+        name_horizontal->addWidget(IngredientName);
 
 
         verticalLayout_13->addLayout(name_horizontal);
@@ -728,15 +1002,16 @@ public:
         cost_horizontal = new QHBoxLayout();
         cost_horizontal->setSpacing(6);
         cost_horizontal->setObjectName(QStringLiteral("cost_horizontal"));
-        label_10 = new QLabel(layoutWidget2);
+        label_10 = new QLabel(layoutWidget5);
         label_10->setObjectName(QStringLiteral("label_10"));
 
         cost_horizontal->addWidget(label_10);
 
-        spinBox = new QSpinBox(layoutWidget2);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
+        costSpinBox = new QSpinBox(layoutWidget5);
+        costSpinBox->setObjectName(QStringLiteral("costSpinBox"));
+        costSpinBox->setMaximum(99999);
 
-        cost_horizontal->addWidget(spinBox);
+        cost_horizontal->addWidget(costSpinBox);
 
 
         verticalLayout_13->addLayout(cost_horizontal);
@@ -744,15 +1019,16 @@ public:
         energy_horizontal = new QHBoxLayout();
         energy_horizontal->setSpacing(6);
         energy_horizontal->setObjectName(QStringLiteral("energy_horizontal"));
-        label_11 = new QLabel(layoutWidget2);
+        label_11 = new QLabel(layoutWidget5);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         energy_horizontal->addWidget(label_11);
 
-        spinBox1 = new QSpinBox(layoutWidget2);
-        spinBox1->setObjectName(QStringLiteral("spinBox1"));
+        energyspinbox = new QSpinBox(layoutWidget5);
+        energyspinbox->setObjectName(QStringLiteral("energyspinbox"));
+        energyspinbox->setMaximum(99999);
 
-        energy_horizontal->addWidget(spinBox1);
+        energy_horizontal->addWidget(energyspinbox);
 
 
         verticalLayout_13->addLayout(energy_horizontal);
@@ -766,7 +1042,7 @@ public:
         AllergenLayout_2 = new QVBoxLayout();
         AllergenLayout_2->setSpacing(6);
         AllergenLayout_2->setObjectName(QStringLiteral("AllergenLayout_2"));
-        label_12 = new QLabel(layoutWidget2);
+        label_12 = new QLabel(layoutWidget5);
         label_12->setObjectName(QStringLiteral("label_12"));
 
         AllergenLayout_2->addWidget(label_12);
@@ -774,7 +1050,7 @@ public:
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setSpacing(6);
         horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
-        allergenes_deselected_2 = new QListWidget(layoutWidget2);
+        allergenes_deselected_2 = new QListWidget(layoutWidget5);
         new QListWidgetItem(allergenes_deselected_2);
         new QListWidgetItem(allergenes_deselected_2);
         new QListWidgetItem(allergenes_deselected_2);
@@ -797,20 +1073,28 @@ public:
         verticalLayout_11 = new QVBoxLayout();
         verticalLayout_11->setSpacing(6);
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
-        pushButton_allergenes_select_2 = new QPushButton(layoutWidget2);
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_3);
+
+        pushButton_allergenes_select_2 = new QPushButton(layoutWidget5);
         pushButton_allergenes_select_2->setObjectName(QStringLiteral("pushButton_allergenes_select_2"));
 
         verticalLayout_11->addWidget(pushButton_allergenes_select_2);
 
-        pushButton_allergenes_deselect_2 = new QPushButton(layoutWidget2);
+        pushButton_allergenes_deselect_2 = new QPushButton(layoutWidget5);
         pushButton_allergenes_deselect_2->setObjectName(QStringLiteral("pushButton_allergenes_deselect_2"));
 
         verticalLayout_11->addWidget(pushButton_allergenes_deselect_2);
 
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_4);
+
 
         horizontalLayout_12->addLayout(verticalLayout_11);
 
-        allergenes_selected_2 = new QListWidget(layoutWidget2);
+        allergenes_selected_2 = new QListWidget(layoutWidget5);
         allergenes_selected_2->setObjectName(QStringLiteral("allergenes_selected_2"));
         allergenes_selected_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -825,7 +1109,7 @@ public:
         DietLayouts_2 = new QVBoxLayout();
         DietLayouts_2->setSpacing(6);
         DietLayouts_2->setObjectName(QStringLiteral("DietLayouts_2"));
-        label_13 = new QLabel(layoutWidget2);
+        label_13 = new QLabel(layoutWidget5);
         label_13->setObjectName(QStringLiteral("label_13"));
 
         DietLayouts_2->addWidget(label_13);
@@ -833,7 +1117,7 @@ public:
         horizontalLayout_13 = new QHBoxLayout();
         horizontalLayout_13->setSpacing(6);
         horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
-        diet_deselected_2 = new QListWidget(layoutWidget2);
+        diet_deselected_2 = new QListWidget(layoutWidget5);
         new QListWidgetItem(diet_deselected_2);
         new QListWidgetItem(diet_deselected_2);
         new QListWidgetItem(diet_deselected_2);
@@ -846,20 +1130,28 @@ public:
         verticalLayout_12 = new QVBoxLayout();
         verticalLayout_12->setSpacing(6);
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
-        pushButton_diet_select_2 = new QPushButton(layoutWidget2);
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_12->addItem(verticalSpacer_5);
+
+        pushButton_diet_select_2 = new QPushButton(layoutWidget5);
         pushButton_diet_select_2->setObjectName(QStringLiteral("pushButton_diet_select_2"));
 
         verticalLayout_12->addWidget(pushButton_diet_select_2);
 
-        pushButton_diet_deselect_2 = new QPushButton(layoutWidget2);
+        pushButton_diet_deselect_2 = new QPushButton(layoutWidget5);
         pushButton_diet_deselect_2->setObjectName(QStringLiteral("pushButton_diet_deselect_2"));
 
         verticalLayout_12->addWidget(pushButton_diet_deselect_2);
 
+        verticalSpacer_6 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_12->addItem(verticalSpacer_6);
+
 
         horizontalLayout_13->addLayout(verticalLayout_12);
 
-        diet_selected_2 = new QListWidget(layoutWidget2);
+        diet_selected_2 = new QListWidget(layoutWidget5);
         diet_selected_2->setObjectName(QStringLiteral("diet_selected_2"));
         diet_selected_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -874,10 +1166,15 @@ public:
 
         verticalLayout_14->addLayout(BlackListVertical_2);
 
-        pushButton_5 = new QPushButton(layoutWidget2);
-        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
+        addIngredientButton = new QPushButton(layoutWidget5);
+        addIngredientButton->setObjectName(QStringLiteral("addIngredientButton"));
 
-        verticalLayout_14->addWidget(pushButton_5);
+        verticalLayout_14->addWidget(addIngredientButton);
+
+        removeIngredientButton = new QPushButton(layoutWidget5);
+        removeIngredientButton->setObjectName(QStringLiteral("removeIngredientButton"));
+
+        verticalLayout_14->addWidget(removeIngredientButton);
 
         tabs->addTab(add_ingredient_view, QString());
 
@@ -886,7 +1183,7 @@ public:
 
         retranslateUi(MatLabb);
 
-        tabs->setCurrentIndex(3);
+        tabs->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MatLabb);
@@ -896,13 +1193,12 @@ public:
     {
         MatLabb->setWindowTitle(QApplication::translate("MatLabb", "MatLabb", 0));
         actionAyy_lmao->setText(QApplication::translate("MatLabb", "ayy lmao", 0));
-        OpenButton->setText(QApplication::translate("MatLabb", "\303\226ppna", 0));
-        AddButton->setText(QApplication::translate("MatLabb", "L\303\244gg till", 0));
         pushButton_dbsearch->setText(QApplication::translate("MatLabb", "Titels\303\266k", 0));
         Ingredienser->setText(QApplication::translate("MatLabb", "Ingredienser", 0));
         pushButton_select->setText(QApplication::translate("MatLabb", ">>", 0));
         pushButton_deselect->setText(QApplication::translate("MatLabb", "<<", 0));
-        label->setText(QApplication::translate("MatLabb", "Genetiska Tillkortakommanden", 0));
+        openIngredient->setText(QApplication::translate("MatLabb", "Redigera Ingrediens", 0));
+        label->setText(QApplication::translate("MatLabb", "Allergener", 0));
 
         const bool __sortingEnabled = allergenes_deselected->isSortingEnabled();
         allergenes_deselected->setSortingEnabled(false);
@@ -964,32 +1260,56 @@ public:
         costMin->setSuffix(QApplication::translate("MatLabb", " kr", 0));
         costMax->setSuffix(QApplication::translate("MatLabb", " kr", 0));
         searchButton->setText(QApplication::translate("MatLabb", "S\303\266k", 0));
-        tabs->setTabText(tabs->indexOf(search_view), QApplication::translate("MatLabb", "S\303\266k", 0));
+        label_15->setText(QApplication::translate("MatLabb", "S\303\266kresultat", 0));
+        OpenButton->setText(QApplication::translate("MatLabb", "\303\226ppna Recept", 0));
+        tabs->setTabText(tabs->indexOf(search_view), QApplication::translate("MatLabb", "S\303\266k Recept", 0));
+        label_5->setText(QApplication::translate("MatLabb", "Antal Portioner", 0));
+        pushButton->setText(QApplication::translate("MatLabb", "Ber\303\244kna", 0));
+        editOpenRecipe->setText(QApplication::translate("MatLabb", "Redigera Recept", 0));
+        exportTxt->setText(QApplication::translate("MatLabb", "Exportera som .txt", 0));
+        exportXml->setText(QApplication::translate("MatLabb", "Exportera som .xml", 0));
+        relatedLabel->setText(QApplication::translate("MatLabb", "Relaterade Recept", 0));
+        relatedOpen->setText(QApplication::translate("MatLabb", "\303\226ppna", 0));
         Method->setHtml(QApplication::translate("MatLabb", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
-        Kommentar->setText(QApplication::translate("MatLabb", "Kommentar", 0));
-        comment->setText(QApplication::translate("MatLabb", "Spara Kommentar", 0));
-        pushButton_3->setText(QApplication::translate("MatLabb", "F\303\266reg\303\245ende", 0));
-        pushButton_2->setText(QApplication::translate("MatLabb", "N\303\244sta", 0));
-        label_5->setText(QApplication::translate("MatLabb", "Portionsfaktor", 0));
-        pushButton->setText(QApplication::translate("MatLabb", "Ber\303\244kna", 0));
-        pushButton_4->setText(QApplication::translate("MatLabb", "Redigera", 0));
         label_6->setText(QApplication::translate("MatLabb", "Betyg", 0));
-        tabs->setTabText(tabs->indexOf(recipe_view), QApplication::translate("MatLabb", "Recept", 0));
+        tabs->setTabText(tabs->indexOf(recipe_view), QApplication::translate("MatLabb", "L\303\244s Recept", 0));
+        fileLabel->setText(QApplication::translate("MatLabb", "Filnamn:", 0));
+        fileButton->setText(QApplication::translate("MatLabb", "L\303\244s fr\303\245n .xml/.txt", 0));
         label_7->setText(QApplication::translate("MatLabb", "Ingredienser", 0));
-        pushButton_select_2->setText(QApplication::translate("MatLabb", ">>", 0));
-        pushButton_deselect_2->setText(QApplication::translate("MatLabb", "<<", 0));
+        RI_select->setText(QApplication::translate("MatLabb", ">>", 0));
+        label_2->setText(QApplication::translate("MatLabb", "Enhet", 0));
+        unitBox->clear();
+        unitBox->insertItems(0, QStringList()
+         << QApplication::translate("MatLabb", "g", 0)
+         << QApplication::translate("MatLabb", "dl", 0)
+         << QApplication::translate("MatLabb", "tsk", 0)
+         << QApplication::translate("MatLabb", "msk", 0)
+         << QApplication::translate("MatLabb", "st", 0)
+        );
+        label_4->setText(QApplication::translate("MatLabb", "Antal", 0));
+        RI_edit->setText(QApplication::translate("MatLabb", "\303\204ndra", 0));
+        RI_clear->setText(QApplication::translate("MatLabb", "Rensa", 0));
+        titleLabel->setText(QApplication::translate("MatLabb", "Titel", 0));
         label_8->setText(QApplication::translate("MatLabb", "Instruktioner", 0));
-        tabs->setTabText(tabs->indexOf(add_recipe_view), QApplication::translate("MatLabb", "L\303\244gg Till Recept", 0));
+        relatedLabelEdit->setText(QApplication::translate("MatLabb", "Relaterade Recept", 0));
+        relatedButton->setText(QApplication::translate("MatLabb", "L\303\244gg Till", 0));
+        relatedClear->setText(QApplication::translate("MatLabb", "Rensa", 0));
+        ratingLabel->setText(QApplication::translate("MatLabb", "Betyg", 0));
+        timeLabel->setText(QApplication::translate("MatLabb", "Tids\303\245tg\303\245ng", 0));
+        servingsLabel->setText(QApplication::translate("MatLabb", "Portioner", 0));
+        saveRecipe->setText(QApplication::translate("MatLabb", "Spara/Uppdatera Recept", 0));
+        deleteRecipe->setText(QApplication::translate("MatLabb", "Radera Recept", 0));
+        tabs->setTabText(tabs->indexOf(add_recipe_view), QApplication::translate("MatLabb", "L\303\244gg Till/Redigera Recept", 0));
         label_9->setText(QApplication::translate("MatLabb", "Namn", 0));
-        label_10->setText(QApplication::translate("MatLabb", "Kostnad", 0));
-        spinBox->setSuffix(QApplication::translate("MatLabb", " kr", 0));
-        label_11->setText(QApplication::translate("MatLabb", "Energi", 0));
-        spinBox1->setSuffix(QApplication::translate("MatLabb", " kcal", 0));
-        label_12->setText(QApplication::translate("MatLabb", "Genetiska Tillkortakommanden", 0));
+        label_10->setText(QApplication::translate("MatLabb", "Kostnad (kr/kg eller kr/l)", 0));
+        costSpinBox->setSuffix(QApplication::translate("MatLabb", " kr", 0));
+        label_11->setText(QApplication::translate("MatLabb", "Energi (kcal/100g)", 0));
+        energyspinbox->setSuffix(QApplication::translate("MatLabb", " kcal", 0));
+        label_12->setText(QApplication::translate("MatLabb", "Allergener", 0));
 
         const bool __sortingEnabled2 = allergenes_deselected_2->isSortingEnabled();
         allergenes_deselected_2->setSortingEnabled(false);
@@ -1041,8 +1361,9 @@ public:
 
         pushButton_diet_select_2->setText(QApplication::translate("MatLabb", ">>", 0));
         pushButton_diet_deselect_2->setText(QApplication::translate("MatLabb", "<<", 0));
-        pushButton_5->setText(QApplication::translate("MatLabb", "Spara", 0));
-        tabs->setTabText(tabs->indexOf(add_ingredient_view), QApplication::translate("MatLabb", "L\303\244gg till Ingrediens", 0));
+        addIngredientButton->setText(QApplication::translate("MatLabb", "Spara/Uppdatera Ingrediens", 0));
+        removeIngredientButton->setText(QApplication::translate("MatLabb", "Radera Ingrediens", 0));
+        tabs->setTabText(tabs->indexOf(add_ingredient_view), QApplication::translate("MatLabb", "L\303\244gg till/Redigera Ingredienser", 0));
     } // retranslateUi
 
 };

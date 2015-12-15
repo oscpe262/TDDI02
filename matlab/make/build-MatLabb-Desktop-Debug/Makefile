@@ -53,7 +53,8 @@ SOURCES       = ../../src/classes/main.cpp \
 		../../src/classes/SearchTerm.cc \
 		../../src/classes/SearchDB.cc \
 		../../src/classes/RecipeIngredient.cc \
-		../../src/classes/Recipe.cc moc_matlabb.cpp
+		../../src/classes/Recipe.cc \
+		../../src/classes/Ingredient.cc moc_matlabb.cpp
 OBJECTS       = main.o \
 		matlabb.o \
 		DB.o \
@@ -63,6 +64,7 @@ OBJECTS       = main.o \
 		SearchDB.o \
 		RecipeIngredient.o \
 		Recipe.o \
+		Ingredient.o \
 		moc_matlabb.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -360,7 +362,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/MatLabb1.0.0 || mkdir -p .tmp/MatLabb1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/MatLabb1.0.0/ && $(COPY_FILE) --parents ../../src/classes/headers/matlabb.h ../../src/classes/headers/EditDB.h ../../src/classes/headers/DB.h ../../src/classes/headers/Ingredient.h ../../src/classes/headers/Shell.h ../../src/classes/headers/SearchTerm.h ../../src/classes/headers/SearchDB.h ../../src/classes/headers/RecipeIngredient.h ../../src/classes/headers/Recipe.h .tmp/MatLabb1.0.0/ && $(COPY_FILE) --parents ../../src/classes/main.cpp ../../src/classes/matlabb.cpp ../../src/classes/DB.cc ../../src/classes/EditDB.cc ../../src/classes/Shell.cc ../../src/classes/SearchTerm.cc ../../src/classes/SearchDB.cc ../../src/classes/RecipeIngredient.cc ../../src/classes/Recipe.cc .tmp/MatLabb1.0.0/ && $(COPY_FILE) --parents ../MatLabb/matlabb.ui .tmp/MatLabb1.0.0/ && (cd `dirname .tmp/MatLabb1.0.0` && $(TAR) MatLabb1.0.0.tar MatLabb1.0.0 && $(COMPRESS) MatLabb1.0.0.tar) && $(MOVE) `dirname .tmp/MatLabb1.0.0`/MatLabb1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/MatLabb1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/MatLabb1.0.0/ && $(COPY_FILE) --parents ../../src/classes/headers/matlabb.h ../../src/classes/headers/EditDB.h ../../src/classes/headers/DB.h ../../src/classes/headers/Ingredient.h ../../src/classes/headers/Shell.h ../../src/classes/headers/SearchTerm.h ../../src/classes/headers/SearchDB.h ../../src/classes/headers/RecipeIngredient.h ../../src/classes/headers/Recipe.h .tmp/MatLabb1.0.0/ && $(COPY_FILE) --parents ../../src/classes/main.cpp ../../src/classes/matlabb.cpp ../../src/classes/DB.cc ../../src/classes/EditDB.cc ../../src/classes/Shell.cc ../../src/classes/SearchTerm.cc ../../src/classes/SearchDB.cc ../../src/classes/RecipeIngredient.cc ../../src/classes/Recipe.cc ../../src/classes/Ingredient.cc .tmp/MatLabb1.0.0/ && $(COPY_FILE) --parents ../MatLabb/matlabb.ui .tmp/MatLabb1.0.0/ && (cd `dirname .tmp/MatLabb1.0.0` && $(TAR) MatLabb1.0.0.tar MatLabb1.0.0 && $(COMPRESS) MatLabb1.0.0.tar) && $(MOVE) `dirname .tmp/MatLabb1.0.0`/MatLabb1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/MatLabb1.0.0
 
 
 clean:compiler_clean 
@@ -2316,6 +2318,9 @@ Recipe.o: ../../src/classes/Recipe.cc ../../src/classes/headers/Recipe.h \
 		../../src/classes/headers/Ingredient.h \
 		../../src/classes/headers/RecipeIngredient.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Recipe.o ../../src/classes/Recipe.cc
+
+Ingredient.o: ../../src/classes/Ingredient.cc ../../src/classes/headers/Ingredient.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Ingredient.o ../../src/classes/Ingredient.cc
 
 moc_matlabb.o: moc_matlabb.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_matlabb.o moc_matlabb.cpp
