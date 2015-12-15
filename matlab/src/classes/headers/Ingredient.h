@@ -37,8 +37,8 @@ using namespace std;
 typedef array<bool,14> AllergeneArray;
 typedef array<bool,4> DietArray;
 
-enum Allergene {fruit = 0, garlic = 1, hot_peppers = 2, oats = 3, wheat = 4, gluten = 5, peanut = 6, tree_nut =8,
-		 shellfish = 8, alpha_gal = 9, egg = 10, milk = 11, lactose = 12, soy =13 };
+enum Allergene {fruit = 0, garlic = 1, hot_peppers = 2, oats = 3, wheat = 4, gluten = 5, peanut = 6, tree_nut = 7,
+         shellfish = 8, alpha_gal = 9, egg = 10, milk = 11, lactose = 12, soy = 13 };
 
 enum Diet { vegetarian = 0, vegan = 1, halal = 2, kosher = 3 };
 

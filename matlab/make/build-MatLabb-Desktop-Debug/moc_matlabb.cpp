@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MatLabb_t {
-    QByteArrayData data[51];
-    char stringdata[1269];
+    QByteArrayData data[75];
+    char stringdata[1819];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,49 +44,74 @@ QT_MOC_LITERAL(11, 116, 1),
 QT_MOC_LITERAL(12, 118, 23),
 QT_MOC_LITERAL(13, 142, 14),
 QT_MOC_LITERAL(14, 157, 2),
-QT_MOC_LITERAL(15, 160, 22),
-QT_MOC_LITERAL(16, 183, 14),
-QT_MOC_LITERAL(17, 198, 1),
-QT_MOC_LITERAL(18, 200, 30),
-QT_MOC_LITERAL(19, 231, 36),
-QT_MOC_LITERAL(20, 268, 5),
-QT_MOC_LITERAL(21, 274, 28),
-QT_MOC_LITERAL(22, 303, 46),
-QT_MOC_LITERAL(23, 350, 16),
-QT_MOC_LITERAL(24, 367, 4),
-QT_MOC_LITERAL(25, 372, 40),
-QT_MOC_LITERAL(26, 413, 30),
-QT_MOC_LITERAL(27, 444, 49),
-QT_MOC_LITERAL(28, 494, 40),
-QT_MOC_LITERAL(29, 535, 38),
-QT_MOC_LITERAL(30, 574, 39),
-QT_MOC_LITERAL(31, 614, 41),
-QT_MOC_LITERAL(32, 656, 36),
-QT_MOC_LITERAL(33, 693, 34),
-QT_MOC_LITERAL(34, 728, 33),
-QT_MOC_LITERAL(35, 762, 35),
-QT_MOC_LITERAL(36, 798, 30),
-QT_MOC_LITERAL(37, 829, 28),
-QT_MOC_LITERAL(38, 858, 30),
-QT_MOC_LITERAL(39, 889, 4),
-QT_MOC_LITERAL(40, 894, 23),
-QT_MOC_LITERAL(41, 918, 27),
-QT_MOC_LITERAL(42, 946, 21),
-QT_MOC_LITERAL(43, 968, 38),
-QT_MOC_LITERAL(44, 1007, 36),
-QT_MOC_LITERAL(45, 1044, 32),
-QT_MOC_LITERAL(46, 1077, 30),
-QT_MOC_LITERAL(47, 1108, 41),
-QT_MOC_LITERAL(48, 1150, 43),
-QT_MOC_LITERAL(49, 1194, 35),
-QT_MOC_LITERAL(50, 1230, 37)
+QT_MOC_LITERAL(15, 160, 1),
+QT_MOC_LITERAL(16, 162, 22),
+QT_MOC_LITERAL(17, 185, 14),
+QT_MOC_LITERAL(18, 200, 1),
+QT_MOC_LITERAL(19, 202, 11),
+QT_MOC_LITERAL(20, 214, 6),
+QT_MOC_LITERAL(21, 221, 1),
+QT_MOC_LITERAL(22, 223, 30),
+QT_MOC_LITERAL(23, 254, 36),
+QT_MOC_LITERAL(24, 291, 5),
+QT_MOC_LITERAL(25, 297, 28),
+QT_MOC_LITERAL(26, 326, 46),
+QT_MOC_LITERAL(27, 373, 16),
+QT_MOC_LITERAL(28, 390, 4),
+QT_MOC_LITERAL(29, 395, 40),
+QT_MOC_LITERAL(30, 436, 30),
+QT_MOC_LITERAL(31, 467, 49),
+QT_MOC_LITERAL(32, 517, 40),
+QT_MOC_LITERAL(33, 558, 38),
+QT_MOC_LITERAL(34, 597, 39),
+QT_MOC_LITERAL(35, 637, 41),
+QT_MOC_LITERAL(36, 679, 36),
+QT_MOC_LITERAL(37, 716, 34),
+QT_MOC_LITERAL(38, 751, 33),
+QT_MOC_LITERAL(39, 785, 35),
+QT_MOC_LITERAL(40, 821, 30),
+QT_MOC_LITERAL(41, 852, 28),
+QT_MOC_LITERAL(42, 881, 30),
+QT_MOC_LITERAL(43, 912, 4),
+QT_MOC_LITERAL(44, 917, 23),
+QT_MOC_LITERAL(45, 941, 27),
+QT_MOC_LITERAL(46, 969, 21),
+QT_MOC_LITERAL(47, 991, 38),
+QT_MOC_LITERAL(48, 1030, 36),
+QT_MOC_LITERAL(49, 1067, 32),
+QT_MOC_LITERAL(50, 1100, 30),
+QT_MOC_LITERAL(51, 1131, 41),
+QT_MOC_LITERAL(52, 1173, 43),
+QT_MOC_LITERAL(53, 1217, 35),
+QT_MOC_LITERAL(54, 1253, 37),
+QT_MOC_LITERAL(55, 1291, 23),
+QT_MOC_LITERAL(56, 1315, 30),
+QT_MOC_LITERAL(57, 1346, 21),
+QT_MOC_LITERAL(58, 1368, 20),
+QT_MOC_LITERAL(59, 1389, 51),
+QT_MOC_LITERAL(60, 1441, 42),
+QT_MOC_LITERAL(61, 1484, 23),
+QT_MOC_LITERAL(62, 1508, 33),
+QT_MOC_LITERAL(63, 1542, 25),
+QT_MOC_LITERAL(64, 1568, 18),
+QT_MOC_LITERAL(65, 1587, 25),
+QT_MOC_LITERAL(66, 1613, 21),
+QT_MOC_LITERAL(67, 1635, 19),
+QT_MOC_LITERAL(68, 1655, 20),
+QT_MOC_LITERAL(69, 1676, 26),
+QT_MOC_LITERAL(70, 1703, 22),
+QT_MOC_LITERAL(71, 1726, 24),
+QT_MOC_LITERAL(72, 1751, 23),
+QT_MOC_LITERAL(73, 1775, 21),
+QT_MOC_LITERAL(74, 1797, 20)
     },
     "MatLabb\0showResults\0\0vector<MiniRecipe>\0"
     "vmr\0MiniRecipeToQString\0MiniRecipe_strings\0"
     "MiniRecipe&\0mr\0OpenRecipe\0string\0s\0"
     "IngredientListToQString\0IngredientList\0"
-    "il\0AllergeneListToQString\0AllergeneArray\0"
-    "a\0on_pushButton_dbsearch_clicked\0"
+    "il\0d\0AllergeneListToQString\0AllergeneArray\0"
+    "a\0OpenForEdit\0Recipe\0r\0"
+    "on_pushButton_dbsearch_clicked\0"
     "on_ingredientlist_selected_activated\0"
     "index\0on_pushButton_select_clicked\0"
     "on_ingredientlist_deselected_itemDoubleClicked\0"
@@ -116,6 +141,20 @@ QT_MOC_LITERAL(50, 1230, 37)
     "on_pushButton_allergenes_deselect_2_clicked\0"
     "on_pushButton_diet_select_2_clicked\0"
     "on_pushButton_diet_deselect_2_clicked\0"
+    "on_pushButton_5_clicked\0"
+    "on_addIngredientButton_clicked\0"
+    "on_saveRecipe_clicked\0on_RI_select_clicked\0"
+    "on_ingredientlist_deselected_2_itemSelectionChanged\0"
+    "on_ingredientlist_deselected_2_itemPressed\0"
+    "on_deleteRecipe_clicked\0"
+    "on_removeIngredientButton_clicked\0"
+    "on_editOpenRecipe_clicked\0on_RI_edit_clicked\0"
+    "on_openIngredient_clicked\0"
+    "on_pushButton_clicked\0on_RI_clear_clicked\0"
+    "on_exportTxt_clicked\0on_relatedList_itemPressed\0"
+    "on_relatedOpen_clicked\0on_relatedButton_clicked\0"
+    "on_relatedClear_clicked\0on_fileButton_clicked\0"
+    "on_exportXml_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -125,7 +164,7 @@ static const uint qt_meta_data_MatLabb[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      34,   14, // methods
+      55,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -133,72 +172,114 @@ static const uint qt_meta_data_MatLabb[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,  184,    2, 0x08,
-       5,    1,  187,    2, 0x08,
-       9,    1,  190,    2, 0x08,
-      12,    1,  193,    2, 0x08,
-      15,    1,  196,    2, 0x08,
-      18,    0,  199,    2, 0x08,
-      19,    1,  200,    2, 0x08,
-      21,    0,  203,    2, 0x08,
-      22,    1,  204,    2, 0x08,
-      25,    1,  207,    2, 0x08,
-      26,    0,  210,    2, 0x08,
-      27,    0,  211,    2, 0x08,
-      28,    1,  212,    2, 0x08,
-      29,    1,  215,    2, 0x08,
-      30,    0,  218,    2, 0x08,
-      31,    0,  219,    2, 0x08,
-      32,    1,  220,    2, 0x08,
-      33,    1,  223,    2, 0x08,
-      34,    0,  226,    2, 0x08,
-      35,    0,  227,    2, 0x08,
-      36,    1,  228,    2, 0x08,
-      37,    1,  231,    2, 0x08,
-      38,    1,  234,    2, 0x08,
-      40,    0,  237,    2, 0x08,
-      41,    1,  238,    2, 0x08,
-      42,    0,  241,    2, 0x08,
-      43,    1,  242,    2, 0x08,
-      44,    1,  245,    2, 0x08,
-      45,    1,  248,    2, 0x08,
-      46,    1,  251,    2, 0x08,
-      47,    0,  254,    2, 0x08,
-      48,    0,  255,    2, 0x08,
-      49,    0,  256,    2, 0x08,
-      50,    0,  257,    2, 0x08,
+       1,    1,  289,    2, 0x08,
+       5,    1,  292,    2, 0x08,
+       9,    1,  295,    2, 0x08,
+      12,    2,  298,    2, 0x08,
+      16,    1,  303,    2, 0x08,
+      19,    1,  306,    2, 0x08,
+      22,    0,  309,    2, 0x08,
+      23,    1,  310,    2, 0x08,
+      25,    0,  313,    2, 0x08,
+      26,    1,  314,    2, 0x08,
+      29,    1,  317,    2, 0x08,
+      30,    0,  320,    2, 0x08,
+      31,    0,  321,    2, 0x08,
+      32,    1,  322,    2, 0x08,
+      33,    1,  325,    2, 0x08,
+      34,    0,  328,    2, 0x08,
+      35,    0,  329,    2, 0x08,
+      36,    1,  330,    2, 0x08,
+      37,    1,  333,    2, 0x08,
+      38,    0,  336,    2, 0x08,
+      39,    0,  337,    2, 0x08,
+      40,    1,  338,    2, 0x08,
+      41,    1,  341,    2, 0x08,
+      42,    1,  344,    2, 0x08,
+      44,    0,  347,    2, 0x08,
+      45,    1,  348,    2, 0x08,
+      46,    0,  351,    2, 0x08,
+      47,    1,  352,    2, 0x08,
+      48,    1,  355,    2, 0x08,
+      49,    1,  358,    2, 0x08,
+      50,    1,  361,    2, 0x08,
+      51,    0,  364,    2, 0x08,
+      52,    0,  365,    2, 0x08,
+      53,    0,  366,    2, 0x08,
+      54,    0,  367,    2, 0x08,
+      55,    0,  368,    2, 0x08,
+      56,    0,  369,    2, 0x08,
+      57,    0,  370,    2, 0x08,
+      58,    0,  371,    2, 0x08,
+      59,    0,  372,    2, 0x08,
+      60,    1,  373,    2, 0x08,
+      61,    0,  376,    2, 0x08,
+      62,    0,  377,    2, 0x08,
+      63,    0,  378,    2, 0x08,
+      64,    0,  379,    2, 0x08,
+      65,    0,  380,    2, 0x08,
+      66,    0,  381,    2, 0x08,
+      67,    0,  382,    2, 0x08,
+      68,    0,  383,    2, 0x08,
+      69,    1,  384,    2, 0x08,
+      70,    0,  387,    2, 0x08,
+      71,    0,  388,    2, 0x08,
+      72,    0,  389,    2, 0x08,
+      73,    0,  390,    2, 0x08,
+      74,    0,  391,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
     0x80000000 | 6, 0x80000000 | 7,    8,
     QMetaType::Void, 0x80000000 | 10,   11,
-    QMetaType::QString, 0x80000000 | 13,   14,
-    QMetaType::QString, 0x80000000 | 16,   17,
+    QMetaType::QString, 0x80000000 | 13, QMetaType::Double,   14,   15,
+    QMetaType::QString, 0x80000000 | 17,   18,
+    QMetaType::Void, 0x80000000 | 20,   21,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QModelIndex,   20,
+    QMetaType::Void, QMetaType::QModelIndex,   24,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, 0x80000000 | 23,   24,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, 0x80000000 | 27,   28,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, 0x80000000 | 23,   24,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, 0x80000000 | 27,   28,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, QMetaType::Int,   39,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, 0x80000000 | 27,   28,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 23,   24,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, 0x80000000 | 23,   24,
-    QMetaType::Void, 0x80000000 | 23,   24,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, QMetaType::Int,   43,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -216,39 +297,60 @@ void MatLabb::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 1: { MiniRecipe_strings _r = _t->MiniRecipeToQString((*reinterpret_cast< MiniRecipe(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< MiniRecipe_strings*>(_a[0]) = _r; }  break;
         case 2: _t->OpenRecipe((*reinterpret_cast< const string(*)>(_a[1]))); break;
-        case 3: { QString _r = _t->IngredientListToQString((*reinterpret_cast< const IngredientList(*)>(_a[1])));
+        case 3: { QString _r = _t->IngredientListToQString((*reinterpret_cast< const IngredientList(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
         case 4: { QString _r = _t->AllergeneListToQString((*reinterpret_cast< const AllergeneArray(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
-        case 5: _t->on_pushButton_dbsearch_clicked(); break;
-        //   case 6: _t->on_ingredientlist_selected_activated((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
-        case 7: _t->on_pushButton_select_clicked(); break;
-        // case 8: _t->on_ingredientlist_deselected_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        //case 9: _t->on_ingredientlist_deselected_itemClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 10: _t->on_pushButton_deselect_clicked(); break;
-        //case 11: _t->on_ingredientlist_deselected_itemSelectionChanged(); break;
-        case 12: _t->on_ingredientlist_deselected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 13: _t->on_ingredientlist_selected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 14: _t->on_pushButton_allergenes_select_clicked(); break;
-        case 15: _t->on_pushButton_allergenes_deselect_clicked(); break;
-        case 16: _t->on_allergenes_deselected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 17: _t->on_allergenes_selected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 18: _t->on_pushButton_diet_select_clicked(); break;
-        case 19: _t->on_pushButton_diet_deselect_clicked(); break;
-        case 20: _t->on_diet_deselected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 21: _t->on_diet_selected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 22: _t->on_rating_spinBox_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 23: _t->on_searchButton_clicked(); break;
-        case 24: _t->on_listWresults_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 25: _t->on_OpenButton_clicked(); break;
-        case 26: _t->on_allergenes_deselected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 27: _t->on_allergenes_selected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 28: _t->on_diet_deselected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 29: _t->on_diet_selected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 30: _t->on_pushButton_allergenes_select_2_clicked(); break;
-        case 31: _t->on_pushButton_allergenes_deselect_2_clicked(); break;
-        case 32: _t->on_pushButton_diet_select_2_clicked(); break;
-        case 33: _t->on_pushButton_diet_deselect_2_clicked(); break;
+        case 5: _t->OpenForEdit((*reinterpret_cast< Recipe(*)>(_a[1]))); break;
+        case 6: _t->on_pushButton_dbsearch_clicked(); break;
+       // case 7: _t->on_ingredientlist_selected_activated((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 8: _t->on_pushButton_select_clicked(); break;
+     //   case 9: _t->on_ingredientlist_deselected_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+    //    case 10: _t->on_ingredientlist_deselected_itemClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 11: _t->on_pushButton_deselect_clicked(); break;
+     //   case 12: _t->on_ingredientlist_deselected_itemSelectionChanged(); break;
+        case 13: _t->on_ingredientlist_deselected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 14: _t->on_ingredientlist_selected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 15: _t->on_pushButton_allergenes_select_clicked(); break;
+        case 16: _t->on_pushButton_allergenes_deselect_clicked(); break;
+        case 17: _t->on_allergenes_deselected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 18: _t->on_allergenes_selected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 19: _t->on_pushButton_diet_select_clicked(); break;
+        case 20: _t->on_pushButton_diet_deselect_clicked(); break;
+        case 21: _t->on_diet_deselected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 22: _t->on_diet_selected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 23: _t->on_rating_spinBox_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 24: _t->on_searchButton_clicked(); break;
+        case 25: _t->on_listWresults_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 26: _t->on_OpenButton_clicked(); break;
+        case 27: _t->on_allergenes_deselected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 28: _t->on_allergenes_selected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 29: _t->on_diet_deselected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 30: _t->on_diet_selected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 31: _t->on_pushButton_allergenes_select_2_clicked(); break;
+        case 32: _t->on_pushButton_allergenes_deselect_2_clicked(); break;
+        case 33: _t->on_pushButton_diet_select_2_clicked(); break;
+        case 34: _t->on_pushButton_diet_deselect_2_clicked(); break;
+     //   case 35: _t->on_pushButton_5_clicked(); break;
+        case 36: _t->on_addIngredientButton_clicked(); break;
+        case 37: _t->on_saveRecipe_clicked(); break;
+        case 38: _t->on_RI_select_clicked(); break;
+     //   case 39: _t->on_ingredientlist_deselected_2_itemSelectionChanged(); break;
+        case 40: _t->on_ingredientlist_deselected_2_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 41: _t->on_deleteRecipe_clicked(); break;
+        case 42: _t->on_removeIngredientButton_clicked(); break;
+        case 43: _t->on_editOpenRecipe_clicked(); break;
+        case 44: _t->on_RI_edit_clicked(); break;
+        case 45: _t->on_openIngredient_clicked(); break;
+        case 46: _t->on_pushButton_clicked(); break;
+        case 47: _t->on_RI_clear_clicked(); break;
+        case 48: _t->on_exportTxt_clicked(); break;
+        case 49: _t->on_relatedList_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 50: _t->on_relatedOpen_clicked(); break;
+        case 51: _t->on_relatedButton_clicked(); break;
+        case 52: _t->on_relatedClear_clicked(); break;
+        case 53: _t->on_fileButton_clicked(); break;
+        case 54: _t->on_exportXml_clicked(); break;
         default: ;
         }
     }
@@ -279,13 +381,13 @@ int MatLabb::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 34)
+        if (_id < 55)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 34;
+        _id -= 55;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 34)
+        if (_id < 55)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 34;
+        _id -= 55;
     }
     return _id;
 }
