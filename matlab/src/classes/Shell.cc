@@ -54,7 +54,17 @@ using namespace std;
  * findName
  * findPortions
  * findTime
+ * findMethod
+ *
+ * tagStringCont
+ * tagIntCont
+ * tagDblCont
+ * replaceAll
+ *
+ *
+ *** [hjälp] ***
  * findIngredients
+ * tagIngredient
  */
 
 
@@ -73,19 +83,17 @@ namespace{
 
   void fileRename( string& oldFileName );
   bool fileExists( const string& name );
-  void readFromFile( istream& is, string& str );
+  void readFromStream( istream& is, string& str );
 
   string findName( const string& fieldstr );
   int findPortions( const string& fieldstr );
   int findTime( const string& fieldstr );
-  IngredientList findIngredients( const string& fieldstr );
-
-  
+  //  string findMethod( const string& fieldstr )
+    //  IngredientList findIngredients( const string& fieldstr );
   
   string tagStringCont(ifstream & fs);
   int tagIntCont(ifstream & fs);
   double tagDblCont(ifstream & fs);
-
   bool replaceAll(string& str, const string& from, const string& to);
 }
 
@@ -148,7 +156,7 @@ void Shell::exportTxt( const Recipe& recipe, string fileName )
 
 
 
-/*Recipe Shell::importTxt( string fileName )
+Recipe Shell::importTxt( string fileName )
 {
   if( !fileExists(fileName) )
     {
@@ -173,7 +181,7 @@ void Shell::exportTxt( const Recipe& recipe, string fileName )
 
   // Dela upp
   string header  { extractStep1_Header(fileContents) };
-  stirng ingList { extractStep2_IngList(fileContents) };
+  string ingList { extractStep2_IngList(fileContents) };
   string tail    { fileContents };
 
   // Försök tilldela
@@ -185,6 +193,11 @@ void Shell::exportTxt( const Recipe& recipe, string fileName )
 
   recipe.setIngredients(findIngredients(ingList));
 
+  recipe.setMethod("null");
+  recipe.setGrade(1);
+
+  return recipe;
+}
 
 
   // Namn (, portioner, tid)
@@ -220,8 +233,8 @@ void Shell::exportTxt( const Recipe& recipe, string fileName )
 
 
 
-    }
-}*/
+    }*/
+
 
 
 void Shell::exportXml( const string& recipeName, string filepath )
@@ -650,42 +663,10 @@ namespace{
   }
 
 
-  /* IngredientList findIngredients( const string& fieldstr )
+  /*  string findMethod( const string& fieldstr )
   {
-    istringstream iss {fieldstr};
-    string temp, ing, unitstr;
-    double amount;
-    RecipeIngredient ri;
-    IngredientList ingredients;
 
-    iss >> ws;
-
-    while( getline(iss, temp) )
-      {
-	unitstr = "st";
-	ss2.str(""); // set content of stringstream ss2
-	ss2 << temp;
-	ss2 >> ws;
-
-	if( isdigit( ss2.peek() ) )
-	  ss2 >> amount >> unitstr >> ing; // WHAT IF 3 ägg?
-	else
-	  ss2 >> ing >> amount >> unitstr;
-	
-	ss2.clear(); // clear på stringstream är "clear error state/flags"
-	
-	if( sDB_.checkIngredient(ing) )
-	  {
-	    ri = sDB_.fetchIngredient(ing);
-	    ri.setAmount(amount);
-	    if( unitstr.find
-	    ri.setUnit();
-	  }
-	  
-      }
   }*/
-
-
 
 
 
@@ -724,6 +705,82 @@ namespace{
   }
 }
 
+
+
+/***************
+ *** [hjälp] ***
+ **************/
+
+IngredientList Shell::findIngredients( const string& fieldstr )
+{
+  istringstream iss {fieldstr};
+  string temp, ing, unitstr;
+  double amount;
+  RecipeIngredient ri;
+  IngredientList ingredients;
+
+  iss >> ws;
+
+  while( getline(iss, temp) )
+    {
+      unitstr = "st";
+      iss.str(""); // set content of stringstream iss
+      iss >> ws;
+
+      if( isdigit( iss.peek() ) )
+	{
+	  iss >> amount >> unitstr >> ing;
+	  if( !iss )
+	    {
+	      ing = unitstr;
+	      unitstr = "st"; 
+	    }
+	}
+      else
+	{
+	  iss >> ing >> amount >> unitstr;
+	}
+
+      iss.clear(); // clear på stringstream är "clear error state/flags"
+	
+      if( sDB_.checkIngredient(ing) )
+	{
+	  ri = sDB_.fetchIngredient(ing);
+	  if( unitstr.find('g') != string::npos )
+	    {
+	      ri.setUnit(gram);
+	      if( unitstr.find('k') != string::npos )
+		{
+		  amount *= 1000;
+		}
+	    }
+	  else if( unitstr.find('l') != string::npos )
+	    {
+	      ri.setUnit(deciliter);
+	      if( unitstr.find('d') == string::npos )
+		{
+		  amount *= 10;
+		}
+	    }
+	  else if( unitstr.find('m') != string::npos )
+	    {
+	      ri.setUnit(tablespoon);
+	    }
+	  else if( unitstr.find("sk") != string::npos )
+	    {
+	      ri.setUnit(teaspoon);
+	    }
+	  else
+	    {
+	      ri.setUnit(pcs);
+	    }
+	  ri.setAmount(amount);
+	  ingredients.push_back(ri);
+	}
+	  
+    }
+  return ingredients;
+}
 
 
 void Shell::tagIngredient(ifstream & fs, IngredientList & IL)

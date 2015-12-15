@@ -6,7 +6,8 @@ En användarhandledning är ett dokument som man ska kunna läsa utan att ha pro
 
 Strukturen på manualen skulle kunna vara denna:
 
-\begin{itemize}Syftet med programvaran - vilket problem/vilken uppgift understöder den?
+\begin{itemize}
+\item Syftet med programvaran - vilket problem vilken uppgift understöder den?
 \item Allmän översikt över handhavandet, t.ex. generella principer för interaktionerna.
 \item Förteckning över kommandon eller motsvarande: mina handgrepp, systemets responser. Listan kan kanske ha två nivåer - först grundläggande saker, sen lite mer avancerade kommandon, om sådan nivåindelning kan urskiljas.
 \item Eventuellt kan man tillfoga en 'how to get started' / 'tutorial', om systemet är någorlunda omfattande. Alltså, en följd av inledande 'åtgärder' i logisk följd, och ganska detaljerat beskrivna, för att lösa ett typiskt problem.
@@ -16,4 +17,22 @@ Strukturen på manualen skulle kunna vara denna:
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{./tex/foo}
+\chapter{Introduktion: MatLabb}
+\input{./tex/Intro}
+
+\chapter{Översikt, användargränssnitt}
+\input{./tex/oversikt}
+
+\chapter{Använargränssnitt Detaljerad beskrivning}
+\input{./tex/detalj.intro}
+  \section{Sökvyn}
+  \input{./tex/detalj.sok}
+  \section{Receptvyn}
+  \input{./tex/detalj.recept}
+  \section{Lägg till receptvyn}
+  \input{./tex/detalj.lagg_till_recept}
+  \section{Lägg till ingrediensvyn}
+  \input{./tex/detalj.lagg_till_ingrediens}
+  \section{Importera och exportera recept}
+  \input{./tex/detalj.import}
+  
