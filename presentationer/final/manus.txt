@@ -26,7 +26,7 @@ Frame 2 - Vad är matlabb?
 
 - Matlab sparar och organiserar följande:
 
-- Recept med all information som krävs för att laga en maträtt
+  Recept med all information som krävs för att laga en maträtt
 
 - Råvarors pris och energiinnehåll
 
@@ -38,8 +38,8 @@ Frame 2 - Vad är matlabb?
 
 Frame 3 - Övergripande beskrivning
 **********************************
-- Matlabb består av ett grafiskt gränssnitt där du klickar dig fram
-  mellan 4 olika vyer.
+- Matlabb består av ett grafiskt gränssnitt
+- där du klickar dig fram mellan 4 olika vyer.
 
 
 Frame 4 - Sökvyn
