@@ -1,0 +1,99 @@
+Manus presentation tddi02
+- betyder nytt klick
+
+
+Frame 1 - Intro
+***************
+- Har du kylen full med matvaror men ingen aning om vad dom skall vara
+  bra till?
+
+- Har du svårt att få pengarna att räcka till slutet av månaden och
+  behöver hjälp med att dra ner kostnaderna.
+
+- Försöker du gå ner i vikt men har svårt att hitta kalorisnåla
+  alternativ?
+
+- Eller kanske är det åt andra hållet och du har svårt att hitta
+  energirika?
+
+- Räds icke matlabb är här
+
+
+Frame 2 - Vad är matlabb?
+*************************
+- Matlabb är en interaktiv receptdatbas som hjälper dig organisera
+  ditt matlagande snabbt, enkelt och effektivt. 
+
+- Matlab sparar och organiserar följande:
+
+- Recept med all information som krävs för att laga en maträtt
+
+- Råvarors pris och energiinnehåll
+
+- Information om en ingrediens kan ätas av någon med en viss allergi
+  eller kosthållning.
+
+- Och sedan kan enkel åtkomst ske via avancerade sökfilter.
+
+
+Frame 3 - Övergripande beskrivning
+**********************************
+- Matlabb består av ett grafiskt gränssnitt där du klickar dig fram
+  mellan 4 olika vyer.
+
+
+Frame 4 - Sökvyn
+****************
+- Sökvyn är den vyn där du söker efter och öppnar recept.
+
+
+Frame 5 - Receptvyn
+*******************
+- I receptvyn kan du läsa Recept, öppna redigering eller exportera
+
+
+Frame 6 - Receptredigeringsvyn
+******************************
+- I Receptredigeringsvyn kan du lägga till och redigera recept
+
+Frame 7 - Ingrediensredigeringsvyn
+**********************************
+- Och i Ingrediensvyn kan du lägga till och redigera ingredienser.
+
+Frame 8 - Funktionalitet ingredienser
+*************************************
+- För ingredienser finns följande funktionalitet
+
+* Vad ingrediensen heter
+* Hur mycket den kostar
+* Hur mycket energi den innehåller
+* Och vilka allergener den innehåller och vilka kosthållningar som får
+* äta den.
+
+Frame 9 - Funktionalitet Recept
+*******************************
+- Om recept finns följande information.
+* Namnet på receptet
+* Hur lång Tid det tar att laga
+* Hur man tillagar det
+* Samt pris och energiinnehåll som beräknas utifrån ingående
+ingredienser och updateras om receptet redigeras
+
+Frame 10 - Funktionalitet Sök
+*****************************
+- Om man redan vet vilket recept man vill öppna går det bra att söka
+ direkt på titel, annars kanske man vill filtrera.
+
+- Filtreringen sker genom att en man anger en lista över ingredienser,
+  Ett prisintervall, ett energiintervall samt klickar i vilka
+  kosthållningar eller alergier som önskas. Och endast recept som
+  uppfyller kriterierna kommer att visas.
+
+Frame 11 - Funktionalitet import/export.
+****************************************
+- Matlabb har även import/exportmöjligheter. Ifall man vill dela med
+sig av ett recept eller säkerhetskopiera kan man exportera och
+importera xml-filer.
+
+- Och ifall man vill skriva ut går det även att exportera en
+  utskriftsvänlig txt-fil.

@@ -1,0 +1,80 @@
+% Document props and library inclusions
+\documentclass[t]{beamer}
+\usetheme{%
+%Antibes%
+%Bergen%
+%Berkeley%
+%Berlin%
+Copenhagen%
+%Darmstadt%
+%Dresden%
+%Frankfurt%
+%Goettingen%
+%Hannover%
+%Ilmenau%
+%JuanLesPins%
+%Luebeck%
+%Madrid%
+%Malmoe%
+%Marburg%
+%Montpellier%
+%PaloAlto%
+%Pittsburgh%
+%Rochester%
+%Singapore%
+%Szeged%
+%Warsaw%
+%boxes%
+%default%
+%CambridgeUS%
+}
+\definecolor{ssred}{HTML}{0000F7}
+\usecolortheme[named=ssred]{%
+  %default%
+  structure%
+%%%Complete Color Themes%
+%albatross%
+%beetle%
+%crane%
+%dove%
+%fly%
+%seagull%
+%wolverine%
+%beaver%
+%%%Inner Color Themes%
+%lily%
+%orchid%
+%rose%
+%%%Outer Color Themes%
+%whale%
+%seahorse%
+%dolphin%
+}
+\usepackage[utf8]{inputenc} 
+\usepackage[swedish]{babel}
+\usepackage{mathtools,tikz,textcomp,fixltx2e,color,graphicx,afterpage,float,parskip,xfrac,gensymb,etoolbox}
+\usetikzlibrary{calc,matrix,positioning,arrows,shapes,trees,plotmarks,decorations.markings}
+
+\setcounter{secnumdepth}{0} % Levels enumerated
+\setcounter{tocdepth}{0} % ToC levels enumerated
+
+\newcommand{\divider}{\vspace{.2cm}}
+
+\graphicspath{{./fig/}} % including pictures from here
+
+\usepackage{pgfpages}
+%\pgfpagesuselayout{4 on 1}[letterpaper,border shrink=5mm,landscape]
+
+\title{Matlabb}%\hspace{.3cm}\includegraphics[height=.7cm]{logo}}
+\subtitle{Projekt, TDDI02 HT -15}
+\author{M. Laurent, J. Levinsson, O. Petersson, E. Peyronson}
+\logo{\includegraphics[height=0.8cm]{sok_recept.png}}
+
+%\beamertemplatenavigationsymbolsempty
+
+\begin{document}
+\addtocounter{framenumber}{-1}
+\frame{\titlepage}
+\input{./tex/main.tex}
+
+\end{document}
