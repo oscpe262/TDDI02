@@ -1,4 +1,4 @@
-\em Många dokument riktar sig till utvecklare, en sån som du själv. Även om det förstås är viktigt att vara klar och tydlig, fri från motsägelser, och välstrukturerad när man skriver ett sånt har man i alla fall den fördelen att rikta sig till personer med samma bakgrund, och man delar fackkunskap, erfarenheter, terminologi och rent av 'jargong'. Rent språkligt är det därför inte så problematiskt att författa mer 'tekniska' dokument.
+ \em Många dokument riktar sig till utvecklare, en sån som du själv. Även om det förstås är viktigt att vara klar och tydlig, fri från motsägelser, och välstrukturerad när man skriver ett sånt har man i alla fall den fördelen att rikta sig till personer med samma bakgrund, och man delar fackkunskap, erfarenheter, terminologi och rent av 'jargong'. Rent språkligt är det därför inte så problematiskt att författa mer 'tekniska' dokument.
 
 När det gäller en manual - användarhandledning - är situationen givetvis en helt annan. Man riktar sig nu till en 'anonym' läsekrets, om vars bakgrund och erfarenheter man inte vet något. Där kan finnas fullständiga noviser, likaväl som mycket väl insatta personer. Detta gör att det är mycket viktigt att lägga sig på 'rätt nivå' både vad gäller språkbruk och 'pedagogik'. Man får vare sig överskatta eller underskatta läsarna! Inte förutsätta att termer och handgrepp är välkända, men inte heller 'för barnsliga'. Inte använda vardagsslarvigt språk, och inte heller 'kanslispråk'. Det här är mycket kinkigt - d.v.s. både viktigt och knepigt!
 
@@ -31,6 +31,9 @@ Strukturen på manualen skulle kunna vara denna:
   \input{./tex/detalj.recept}
   \section{Vy 3: Lägg till recept}
   \input{./tex/detalj.lagg_till_recept}
-  \section{Vy 4: Lägg till ingrediens}
+  \section{Vy 4: Lägg till ingrediens}\label{adding}
   \input{./tex/detalj.lagg_till_ingrediens}
-  
+\appendix
+\newpage
+\chapter{Appendix: Import/export}\label{app:xml}
+\texttt{\input{./tex/app.tex}\newpage}
