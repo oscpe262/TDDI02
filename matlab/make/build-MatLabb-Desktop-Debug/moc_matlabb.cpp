@@ -303,12 +303,12 @@ void MatLabb::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
         case 5: _t->OpenForEdit((*reinterpret_cast< Recipe(*)>(_a[1]))); break;
         case 6: _t->on_pushButton_dbsearch_clicked(); break;
-       // case 7: _t->on_ingredientlist_selected_activated((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        //case 7: _t->on_ingredientlist_selected_activated((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
         case 8: _t->on_pushButton_select_clicked(); break;
-     //   case 9: _t->on_ingredientlist_deselected_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-    //    case 10: _t->on_ingredientlist_deselected_itemClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+   //     case 9: _t->on_ingredientlist_deselected_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+   //     case 10: _t->on_ingredientlist_deselected_itemClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 11: _t->on_pushButton_deselect_clicked(); break;
-     //   case 12: _t->on_ingredientlist_deselected_itemSelectionChanged(); break;
+    //    case 12: _t->on_ingredientlist_deselected_itemSelectionChanged(); break;
         case 13: _t->on_ingredientlist_deselected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 14: _t->on_ingredientlist_selected_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 15: _t->on_pushButton_allergenes_select_clicked(); break;

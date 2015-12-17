@@ -50,6 +50,7 @@ class SearchTerm
   vector<string> getIngredients()    const {return ingredients_;}
   vector<string> getNotIngredients() const {return ingredients_;}
   AllergeneArray getAllergenes()           const {return allergenes_;}
+  DietArray getDiets()           const {return diet_;}
   Price getPrice()                   const {return price_;}
   Cal getCal()                       const {return cal_;}
   Time getTime()                     const {return time_;}
@@ -58,6 +59,7 @@ class SearchTerm
   void setIngredients(const vector<string>& ingredients)    {ingredients_ = ingredients;}
   void setNotIngredients(const vector<string>& ingredients) {not_ingredients_ = ingredients;}
   void setAllergenes(const AllergeneArray& allergenes)      {allergenes_ = allergenes;}
+  void setDiet(const DietArray & diet) { diet_ = diet; }
   void setPrice(const Price& price)                               {price_ = price;}
   void setCal(const Cal& cal)                               {cal_ = cal;}
   void setTime(const Time& time)                            {time_ = time;}
@@ -67,6 +69,7 @@ class SearchTerm
   vector<string> ingredients_;
   vector<string> not_ingredients_;
   AllergeneArray allergenes_ { { } };
+  DietArray diet_ {{1,1,1,1}};
   Price price_;
   Cal cal_;
   Time time_;

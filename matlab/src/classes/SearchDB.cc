@@ -43,6 +43,7 @@ RecipeList SearchDB::termSearch(const SearchTerm& search_term)
   RecipeList result;
   result = queryIngredientList(search_term.getIngredients());
   result = complement(result, queryAllergeneList(search_term.getAllergenes()));
+  result = complement(result, queryDietList(search_term.getDiets()));
   result = intersect(result, queryPrice(search_term.getPrice()));
   result = intersect(result,queryKcal(search_term.getCal()));
   result = intersect(result,queryTime(search_term.getTime()));
@@ -141,7 +142,7 @@ RecipeList SearchDB::queryDiet(const Diet& diet)
 {
   QSqlQuery query(db_);
   RecipeList recipe_list;
-  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time, Recipe.kcal FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name NOT IN (SELECT Diet_in.ingredient_name FROM Diet_in WHERE Diet_in.diet_name = :diet_name))");
+  query.prepare("SELECT Recipe.name, Recipe.score, Recipe.time, Recipe.kcal FROM Recipe WHERE Recipe.name IN (SELECT Used_for.recipe_name FROM Used_for WHERE Used_for.ingredient_name IN (SELECT Diet_in.ingredient_name FROM Diet_in WHERE Diet_in.diet_name = :diet_name))");
   query.bindValue(":diet_name",getDietString(diet).c_str());
   query.exec();
   cerr << query.lastError().text().toStdString();
@@ -153,15 +154,17 @@ RecipeList SearchDB::queryDietList(const DietArray& diets)
  RecipeList recipe_list{}, result_list{};
   for(int i = 0; i < 4; ++i)
     {
-      cout << "varv: " << i << " i loopen" << endl;
-      if(diets[i]) 
-	{
-	  recipe_list = queryDiet(Diet(i));
-	  if(result_list.empty()) //first ingredients RecipeList goes straight into result
-	    result_list = recipe_list;
-	  else //other ingredients results gets unioned with old result
-	    result_list = unionize(result_list,recipe_list);
-	}
+      cout << "varv: " << i << " i loopen " << diets[i] << endl;
+
+      if(!diets[i])
+        {
+          recipe_list = queryDiet(Diet(i));
+
+          if(result_list.empty()) //first ingredients RecipeList goes straight into result
+            result_list = recipe_list;
+          else //other ingredients results gets unioned with old result
+            result_list = unionize(result_list,recipe_list);
+        }
     }
   return result_list;
 }

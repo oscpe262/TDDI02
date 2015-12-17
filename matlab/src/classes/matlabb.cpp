@@ -394,6 +394,22 @@ void MatLabb::on_searchButton_clicked()
 {
     SearchTerm st;
     AllergeneArray aa{{}};
+    DietArray da{{1,1,1,1}};
+    if(ui->diet_selected->count() != 0)
+    {
+        for (int i{}; i<ui->diet_selected->count(); ++i)
+        {
+        if(ui->diet_selected->item(i)->text() == "Halal")
+            da[halal] = false;
+        if(ui->diet_selected->item(i)->text() == "Vegan")
+            da[vegan] = false;
+        if(ui->diet_selected->item(i)->text() == "Kosher")
+            da[kosher] = false;
+        if(ui->diet_selected->item(i)->text() == "Vegetarian")
+            da[vegetarian] = false;
+        }
+    }
+
     vector<string> vs;
 
     if(ui->allergenes_selected->count() != 0)
@@ -435,6 +451,7 @@ void MatLabb::on_searchButton_clicked()
     st.setAllergenes(aa);
     st.setPrice(Price(ui->costMin->value(),ui->costMax->value()));
     st.setTime(Time(ui->timeMin->value(),ui->timeMax->value()));
+    st.setDiet(da);
     st.setCal(Cal(ui->energyMin->value(),ui->energyMax->value()));
     if(ui->ingredientlist_selected->count() != 0)
         for (int i{}; i<ui->ingredientlist_selected->count(); ++i)

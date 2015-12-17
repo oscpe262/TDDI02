@@ -214,9 +214,9 @@ public:
         if (MatLabb->objectName().isEmpty())
             MatLabb->setObjectName(QStringLiteral("MatLabb"));
         MatLabb->setWindowModality(Qt::NonModal);
-        MatLabb->resize(1024, 768);
-        MatLabb->setMinimumSize(QSize(1024, 768));
-        MatLabb->setMaximumSize(QSize(1024, 768));
+        MatLabb->resize(1024, 700);
+        MatLabb->setMinimumSize(QSize(1024, 700));
+        MatLabb->setMaximumSize(QSize(1024, 700));
         actionAyy_lmao = new QAction(MatLabb);
         actionAyy_lmao->setObjectName(QStringLiteral("actionAyy_lmao"));
         actionAyy_lmao->setCheckable(true);
@@ -237,7 +237,7 @@ public:
         search_view->setObjectName(QStringLiteral("search_view"));
         layoutWidget = new QWidget(search_view);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 0, 1001, 721));
+        layoutWidget->setGeometry(QRect(0, 0, 1001, 651));
         horizontalLayout_15 = new QHBoxLayout(layoutWidget);
         horizontalLayout_15->setSpacing(2);
         horizontalLayout_15->setContentsMargins(11, 11, 11, 11);
@@ -715,7 +715,7 @@ public:
         add_recipe_view->setObjectName(QStringLiteral("add_recipe_view"));
         layoutWidget4 = new QWidget(add_recipe_view);
         layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(0, 0, 991, 721));
+        layoutWidget4->setGeometry(QRect(0, 0, 991, 651));
         horizontalLayout_17 = new QHBoxLayout(layoutWidget4);
         horizontalLayout_17->setSpacing(6);
         horizontalLayout_17->setContentsMargins(11, 11, 11, 11);
@@ -974,7 +974,7 @@ public:
         add_ingredient_view->setObjectName(QStringLiteral("add_ingredient_view"));
         layoutWidget5 = new QWidget(add_ingredient_view);
         layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(0, 0, 381, 721));
+        layoutWidget5->setGeometry(QRect(0, 0, 381, 651));
         verticalLayout_14 = new QVBoxLayout(layoutWidget5);
         verticalLayout_14->setSpacing(6);
         verticalLayout_14->setContentsMargins(11, 11, 11, 11);
@@ -1183,7 +1183,7 @@ public:
 
         retranslateUi(MatLabb);
 
-        tabs->setCurrentIndex(2);
+        tabs->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MatLabb);
@@ -1273,8 +1273,8 @@ public:
         Method->setHtml(QApplication::translate("MatLabb", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans';\"><br /></p></body></html>", 0));
         label_6->setText(QApplication::translate("MatLabb", "Betyg", 0));
         tabs->setTabText(tabs->indexOf(recipe_view), QApplication::translate("MatLabb", "L\303\244s Recept", 0));
         fileLabel->setText(QApplication::translate("MatLabb", "Filnamn:", 0));
